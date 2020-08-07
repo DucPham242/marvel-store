@@ -1,0 +1,175 @@
+*{
+	margin: 0;
+	padding: 0;
+	font-family: Arial;
+	font-size: 15px;
+}
+/*#header{
+	height: 60px;
+}*/
+.navbar-default{
+	margin-bottom: 0px;
+}
+#header{
+	background: #fff;
+	border: none;
+}
+/*menu-nav*/
+#menu_nav li a:hover{
+	background: black;
+	color: #fff;
+}
+#menu_nav li a{
+	margin: 0 0px 0 30px;
+	color: #F12828;
+	background-color: #000;
+
+}
+/*set dropdown*/
+#check1 li a{
+	background-color: #fff;
+	color: red;
+	margin:0 auto;
+}
+#check2 li a{
+	background-color: #fff;
+	color: red;
+	margin:0 auto;
+}
+#check3 li a{
+	background-color: #fff;
+	color: red;
+	margin:0 auto;
+}
+.dropdown{
+	position: relative;
+}
+#nav-bar .dropdown-menu{
+	display: none;
+	position: absolute;
+}
+#nav-bar .dropdown:hover .dropdown-menu{
+	display: block;
+}
+/*body*/
+/*sản phẩm*/
+.thumbnail{
+	text-align: center;
+}
+.button_group{
+	margin: 0 3px 5px 3px;
+}
+.add-cart{
+	padding: 9px 30px;
+}
+.button{
+	border-radius: 10px;
+	background-color: #fff;
+}
+.button:hover{
+	background-color: #40E55B;
+	border: 0;
+}
+/*product*/
+.set{
+	position: relative;
+}
+.set .shower{
+	position: absolute;
+	top: 140px;
+	left: 70px;
+	display: none;
+}
+.set:hover .shower{
+	display: block;
+}
+.thumbnail:hover{
+	box-shadow:2px 2px 2px 2px #635B5B;
+}
+
+/*chỉnh thẻ li table cart.html*/
+.adjust{
+	text-align: center;
+	position: relative;
+}
+.adjust input[type="number"]{
+	position: absolute;
+	top: 30px;
+    left: 35px;
+}
+.shippingbox {
+    margin: 5px 20px;
+    border: 1px solid #E1E1E1;
+    padding: 30px ;
+    float: left;
+    width: 100%;
+ }
+
+ /*dropdown show-all.html*/
+/*demo1*/
+ #demo{
+ 	list-style: none;
+ 	background-color: #fff;
+ }
+ #demo a li{
+ 	padding: 10px 20px;
+ 	color: #333333;
+ }
+ #demo a{
+	text-decoration: none;
+ }
+ #demo a li:hover{
+ 	color:  #1F9EF7;
+ }
+ .nav-item a{
+ 	 color: #333333;
+ }
+ .nav-item a:hover{
+ 	color: #1F9EF7;
+ }
+ /*end*/
+ /*demo2*/
+ #demo2{
+ 	list-style: none;
+ 	background-color: #fff;
+ }
+ #demo2 a li{
+ 	padding: 10px 20px;
+ 	color: #333333;
+ }
+ #demo2 a{
+	text-decoration: none;
+ }
+ #demo2 a li:hover{
+ 	color:  #1F9EF7;
+ }
+ .nav-item a{
+ 	 color: #333333;
+ }
+ .nav-item a:hover{
+ 	color: #1F9EF7;
+ }
+ /*end*/
+ /*demo3*/
+ #demo3{
+ 	list-style: none;
+ 	background-color: #fff;
+ }
+ #demo3 a li{
+ 	padding: 10px 20px;
+ 	color: #333333;
+ }
+ #demo3 a{
+	text-decoration: none;
+ }
+ #demo3 a li:hover{
+ 	color:  #1F9EF7;
+ }
+ .nav-item a{
+ 	 color: #333333;
+ }
+ .nav-item a:hover{
+ 	color: #1F9EF7;
+ }
+ /*end*/
+
