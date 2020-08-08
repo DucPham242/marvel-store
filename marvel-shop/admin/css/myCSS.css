@@ -1,0 +1,58 @@
+*{
+	margin: 0;
+	padding: 0;
+	font-family: Arial;
+	font-size: 15px;
+	box-sizing: border-box;
+}
+.center_text{
+	text-align: center;
+}
+#header-fluid{
+	background: black;
+}
+#header{
+	background: black;
+	border: none;
+}
+#footer{
+	color: white;
+	text-align: center;
+	padding:20px 0px;
+}
+#footer-fluid{
+	background: #302D2D;
+}
+
+
+.input-admin{
+	height: 80px;
+	width: 400px;
+	margin: 0px auto;
+	font-size: 20px;
+}
+
+#input-admin-bottom{
+	margin-top:-10px;
+}
+
+
+#frm_login-admin{
+	position: relative;
+	height: 300px;
+
+}
+#frm_login-admin table{
+	margin-left: 80px;
+	margin-top: 20px;
+}
+#btn-login-admin{
+	height: 80px;
+	width: 400px;
+	font-size: 20px;
+
+
+}
+a:hover{
+	text-decoration: none;
+}
