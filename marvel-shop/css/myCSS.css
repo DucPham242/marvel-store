@@ -4,16 +4,15 @@
 	font-family: Arial;
 	font-size: 15px;
 }
-/*#header{
-	height: 60px;
-}*/
-.navbar-default{
-	margin-bottom: 0px;
+
+/*header*/
+a .icon-header{
+	color: #000;
 }
-#header{
-	background: #fff;
-	border: none;
+a .icon-header:hover{
+	color: red;
 }
+/*end*/
 /*menu-nav*/
 #menu_nav li a:hover{
 	background: black;
@@ -87,16 +86,31 @@
 	box-shadow:2px 2px 2px 2px #635B5B;
 }
 
+/*footer*/
+.fa{
+	color: #C9CCCE;
+	padding-right: 5px;
+}
+.fa:hover{
+	color: #F0F2F0;
+	
+}
+
+/*end*/
+
 /*chỉnh thẻ li table cart.html*/
-.adjust{
+.table>thead>tr>th{
 	text-align: center;
-	position: relative;
 }
-.adjust input[type="number"]{
-	position: absolute;
-	top: 30px;
-    left: 35px;
+.table>tbody>tr>td{
+	text-align: center;
+    border: 1px solid #E1E1E1;
+    vertical-align: middle;
+    padding: 10px;
+    border-left: none;
 }
+
+
 .shippingbox {
     margin: 5px 20px;
     border: 1px solid #E1E1E1;
@@ -172,4 +186,12 @@
  	color: #1F9EF7;
  }
  /*end*/
-
+/*thuong hieu*/
+@media (min-width: 992px){
+.col-md-3a{
+	float: left;
+    width: 20%;
+    padding: 20px;
+}
+}
+/*end*/
