@@ -22,15 +22,17 @@
 			<div class="col-md-3 col-sm-3 col-xs-1 col-lg-3"></div>
 			<div class="col-md-6 col-sm-6 col-xs-10 col-lg-6" >
 				<div class="row">
-					<h3 style="text-align: center;">Marvelstore.vn </h3>
-					<h4 style="text-align: center;color: gray"> Đăng nhập vào chức năng quản trị </h4>
+					<h3  id="logo_text_loginadmin">Marvelstore.vn </h3>
+					<h4 id="tittle_text_loginadmin"> Đăng nhập vào chức năng quản trị </h4>
 					<hr><br>
-					<form action="" method="POST" role="form"  id="frm_login-admin" >
+					<form action="" method="POST" role="form"  id="frm_login-admin" style="">
 
 						<table>
-							<tr><td><div class="form-group">
-								<input type="text" class="form-control input-admin" id="input-admin-top" placeholder="Email đăng nhập">
-							</div></td></tr>
+							<tr>
+								<td><div class="form-group">
+									<input type="text" class="form-control input-admin" id="input-admin-top" placeholder="Email đăng nhập">
+								</div></td>
+							</tr>
 							<tr><td><div class="form-group" >
 								<input type="password" class="form-control input-admin" id="input-admin-bottom" placeholder="Mật khẩu">
 							</div></td></tr>
@@ -40,7 +42,7 @@
 								<button type="submit" class="btn btn-primary" id="btn-login-admin">Đăng nhập</button>
 							</div></td></tr>
 
-							<tr><td><div class="form-group" style="width:400px;margin: 0 auto;">
+							<tr><td><div id="loginadmin_option" class="form-group" style="">
 								<input type="checkbox" ><label>&nbsp;Duy trì đăng nhập </label>
 								<a href=""  data-toggle="modal" data-target="#myModal">&nbsp;Bạn quên mật khẩu ?</a>
 								<a href=""><img src="images/logo.webp" alt="" width="200"  ></a>

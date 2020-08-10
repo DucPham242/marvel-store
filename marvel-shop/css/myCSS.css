@@ -55,6 +55,7 @@
 /*sản phẩm*/
 .thumbnail{
 	text-align: center;
+	overflow: hidden;
 }
 .button_group{
 	margin: 0 3px 5px 3px;
@@ -86,7 +87,12 @@
 .thumbnail:hover{
 	box-shadow:2px 2px 2px 2px #635B5B;
 }
-
+.thumbnail .set a img{
+	transition-duration: 0.3s;
+}
+.thumbnail .set a img:hover{
+	 transform: scale(1.1);
+}
 /*chỉnh thẻ li table cart.html*/
 .adjust{
 	text-align: center;
