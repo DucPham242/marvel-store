@@ -8,6 +8,18 @@
 body{
 	background: #1F1F1F;
 }
+marquee{
+	color: #DBCD02;
+}
+#main_content{
+	background: white;min-height: 1000px;
+}
+h4.center_text{
+	color: red;text-decoration:underline;
+}
+#logo_link{
+	padding-left: 60px
+}
 .center_text{
 	text-align: center;
 }
@@ -34,7 +46,12 @@ body{
 	margin: 0px auto;
 	font-size: 20px;
 }
-
+#tittle_text_loginadmin{
+	text-align: center;color: gray
+}
+#loginadmin_option{
+	width:400px;margin: 0 auto;
+}
 #input-admin-bottom{
 	margin-top:-10px;
 }
@@ -43,10 +60,11 @@ body{
 #frm_login-admin{
 	position: relative;
 	height: 300px;
+	margin-left: 10px;
 
 }
 #frm_login-admin table{
-	margin-left: 80px;
+	margin-left: 90px;
 	margin-top: 20px;
 }
 #btn-login-admin{
@@ -58,6 +76,9 @@ body{
 }
 a:hover{
 	text-decoration: none;
+}
+#menu_left{
+	min-height: 800px;background: #1F1F1F;
 }
 .list-group-item{
 	background: #1F1F1F;
@@ -107,4 +128,7 @@ a:hover{
 }
 .panel-red > a {
     color: #d9534f;
+}
+#logo_text_loginadmin{
+	text-align: center;
 }
