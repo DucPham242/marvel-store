@@ -86,14 +86,14 @@ a .icon-header:hover{
 .thumbnail:hover{
 	box-shadow:2px 2px 2px 2px #635B5B;
 }
-<<<<<<< HEAD
+
 .thumbnail .set a img{
 	transition-duration: 0.3s;
 }
 .thumbnail .set a img:hover{
 	 transform: scale(1.1);
 }
-=======
+
 
 /*footer*/
 .fa{
@@ -107,7 +107,7 @@ a .icon-header:hover{
 
 /*end*/
 
->>>>>>> master
+
 /*chỉnh thẻ li table cart.html*/
 .table>thead>tr>th{
 	text-align: center;
