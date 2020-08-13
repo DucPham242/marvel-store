@@ -6,6 +6,15 @@
 }
 
 /*header*/
+#header{
+	padding-top: 5px;
+}
+#user-cart{
+	padding-top: 5px;
+}
+#span-user{
+	padding-right: 10px;
+}
 a .icon-header{
 	color: #000;
 }
@@ -43,15 +52,33 @@ a .icon-header:hover{
 .dropdown{
 	position: relative;
 }
+#nav-bar{
+	margin: 0 auto;
+	background-color: black;
+}
 #nav-bar .dropdown-menu{
 	display: none;
 	position: absolute;
+	
 }
 #nav-bar .dropdown:hover .dropdown-menu{
 	display: block;
 }
 /*body*/
 /*sản phẩm*/
+.set-text-intro{
+	text-align: center;
+}
+.set-line-up{
+	height: 1px;
+	background-color: #000;
+	margin-top: 45px;
+}
+.set-line-down{
+	height: 1px;
+	background-color: #000;
+	margin-top: 5px;
+}
 .thumbnail{
 	text-align: center;
 	overflow: hidden;
@@ -70,6 +97,11 @@ a .icon-header:hover{
 	background-color: #40E55B;
 	border: 0;
 }
+/*intro*/
+#intro{
+	padding-top: 20px;
+}
+/*end*/
 /*product*/
 .set{
 	position: relative;
@@ -196,6 +228,31 @@ a .icon-header:hover{
  	color: #1F9EF7;
  }
  /*end*/
+/*search file*/
+#item-group{
+	background-color: #EFEFEF;
+	border:1px solid #fff;
+	color: #7A7272;
+}
+/*end*/
+/*file user*/
+.submit-user input[type='submit']{
+	text-align: center;
+	background-color: #303249;
+	color: #fff;
+}
+.submit-user input[type='submit']:hover{
+	background-color:#F12828;
+}
+.adjust-form{
+	padding:10px;
+	border: 1px solid #807878;
+	margin-bottom: 20px;
+}
+.adjust-text-form{
+	text-align: center;
+}
+/*end*/
 /*thuong hieu*/
 @media (min-width: 992px){
 .col-md-3a{
