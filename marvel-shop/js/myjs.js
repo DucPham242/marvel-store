@@ -1,16 +1,5 @@
 $(document).ready(function(){
 
-// $(document).ready(function(){
-// 	$('.dropdown').hover(function()
-// 	{
-// 		$('.dropdown-menu',this).stop(true,true).fadeIn("fast");
-// 			$(this).toggleClass('open');
-// 			$(b,this).toggleClass(caret caret-up);
-// 	}
-// 	function()
-// 	{
-
-
 	// var nav = jQuery("nav").offset().top; // đo khoảng cách từ top đến nav
 	
 	// jQuery(window).scroll(function(){ // để mỗi khi cuộn dòng trong function sẽ được kích hoạt
@@ -23,7 +12,6 @@ $(document).ready(function(){
 	// 	}
 	// })
 })
-
 
 
 $(document).ready(function(){
@@ -45,9 +33,4 @@ $(document).ready(function(){
 		});
 		
 
-
-		
 	
-		
-
-
