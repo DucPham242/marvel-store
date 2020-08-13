@@ -23,6 +23,10 @@ a .icon-header:hover{
 }
 /*end*/
 /*menu-nav*/
+/*.fixed{
+	position: fixed;
+	top: 0;
+}*/
 #menu_nav li a:hover{
 	background: black;
 	color: #fff;
@@ -31,7 +35,6 @@ a .icon-header:hover{
 	margin: 0 0px 0 30px;
 	color: #F12828;
 	background-color: #000;
-
 }
 /*set dropdown*/
 #check1 li a{
@@ -55,6 +58,8 @@ a .icon-header:hover{
 #nav-bar{
 	margin: 0 auto;
 	background-color: black;
+	/*margin-top: 20px;*/
+
 }
 #nav-bar .dropdown-menu{
 	display: none;
@@ -179,6 +184,7 @@ a .icon-header:hover{
  	 color: #333333;
  }
  .nav-item a:hover{
+ 	background-color: #fff;
  	color: #1F9EF7;
  }
  /*end*/
