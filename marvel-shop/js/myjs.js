@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+$(document).ready(function(){
+	
+=======
 // $(document).ready(function(){
 // 	$('.dropdown').hover(function()
 // 	{
@@ -33,4 +37,5 @@ $(document).ready(function(){
 		
 
 	});
+>>>>>>> c4f78230ae314b6e5dfcadc13d39a15aa7f5dad8
 })
