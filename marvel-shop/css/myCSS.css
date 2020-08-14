@@ -308,10 +308,49 @@ a .iconfa_user:hover{
 	padding: 10px 35px;
 }
 .tittle_footer{
-	color: #fff;
+	color: #ECE7E7;
 	font-weight: bold;
 }
+.price_main_product{
+	  color: #b2008d;
+    font-size: 25px;
+    font-weight: 600;
+    margin-right: 10px;
+}
+.price_discount_product{
+	color: #7d7d7d;
+	font-size: 20px;
+	text-decoration: line-through;
+}
+.btn_buynow{
+	border-radius: 5px;
+	padding-bottom: 40px;
+	height: 48px;
+    width: 200px;
+    font-size: 14px;
+    text-transform: uppercase;
+    background: #7dc558;
+}
+.cart_icon{
+	color: white;
+}
+.list_img_product{
+	margin-top: 10px;
+	width: 100%;
+	cursor: pointer;
+}
+.related_img{
+	width: 100%;
+}
+#box_show_product{
+	min-height: 700px;
+	
+}
+#like_share_product{
+	position: absolute;
+	top: 300px;
 
+}
 /*end*/
 /*thuong hieu*/
 @media (min-width: 992px){
