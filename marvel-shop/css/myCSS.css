@@ -339,6 +339,9 @@ a .iconfa_user:hover{
 	width: 100%;
 	cursor: pointer;
 }
+.list_img_product:hover{
+	transform: scale(1.1);
+}
 .related_img{
 	width: 100%;
 }
@@ -346,10 +349,36 @@ a .iconfa_user:hover{
 	min-height: 700px;
 	
 }
+#box_price{
+	min-height: 700px;
+	position: relative;
+}
 #like_share_product{
 	position: absolute;
-	top: 300px;
+	top: 500px;
 
+}
+#frm_raiting{
+	margin-top: 100px;
+}
+.star{
+	width: 30px;
+
+}
+.star:hover{
+	transform: scale(1.1);
+}
+.star_val{
+	display: none;
+}
+#visited_box{
+	margin-bottom: 20px;
+}
+.list_img_visited{
+	width: 100%;
+}
+.list_img_visited:hover{
+	transform: scale(1.1);
 }
 /*end*/
 /*thuong hieu*/
