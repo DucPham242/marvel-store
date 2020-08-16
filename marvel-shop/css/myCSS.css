@@ -157,6 +157,7 @@ a:hover{
     vertical-align: middle;
     padding: 10px;
     border-left: none;
+    border-right: none;
 }
 
 
@@ -258,6 +259,7 @@ a:hover{
  }
  .addshadow{
  	box-shadow:2px 2px 2px 2px #635B5B;
+ 	
  }
  /*end*/
 /*search file*/
@@ -335,7 +337,8 @@ a .iconfa_user:hover{
 	color: white;
 }
 .list_img_product{
-	margin-top: 10px;
+	padding-top: 10px;
+ 	padding-bottom:  10px;
 	width: 100%;
 	cursor: pointer;
 }
@@ -379,6 +382,45 @@ a .iconfa_user:hover{
 }
 .list_img_visited:hover{
 	transform: scale(1.1);
+}
+.input-group-addon~input[type="text"]{
+	height: 50px;
+}
+#bank_info{
+	text-align: center;color: gray;
+}
+#checkout_user{
+	position: relative;
+}
+#checkout_user_txt{
+	position: absolute;top: 0px;left: 70px
+}
+.checkout_cart_box{
+	position: relative;
+}
+.checkout_product_name{
+	position: absolute;
+	top:10px;
+	left: 120px;
+	font-weight: bold;
+	width: 250px;
+}
+.checkout_product_price{
+	position: absolute;
+	top:30px;
+	left: 400px;
+	color: red;
+	font-size: 18px;
+}
+.checkout_product_qty{
+	position: absolute;
+	border-radius: 100%;
+	background: #ff6517;
+	padding:0px  6px;
+	top: 2px;
+	left: 2px;
+	color: white;
+	z-index: 2
 }
 /*end*/
 /*thuong hieu*/

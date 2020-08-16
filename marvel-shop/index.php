@@ -222,7 +222,7 @@
 
 						<div class="caption">
 
-							<h4>BMB LS-01 Nitro Zeus</h4>
+							<a href="file-link/product-detail.php"><h4>BMB LS-01 Nitro Zeus</h4></a>
 						</div>
 
 					</div>
