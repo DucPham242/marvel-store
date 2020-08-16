@@ -103,10 +103,20 @@ a .icon-header:hover{
 	border: 0;
 }
 /*intro*/
-#intro{
-	padding-top: 20px;
+.intro{
+	text-align: center;
+}
+
+.intro h4{
+	color: red;
+}
+.intro i{
+	color: #5E5D5D;
 }
 /*end*/
+
+
+
 /*product*/
 .set{
 	position: relative;
