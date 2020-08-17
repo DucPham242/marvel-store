@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="">
-<?php include_once 'layout/header.php' ?>
+<?php include_once 'layout/header.php'?>
 <body>
 	<div class="wrapper" >
 									<!-- START MENU Header -->
-									<?php include_once 'layout/nav-header.php' ?>
-									<!-- END MENU Header -->
+<?php include_once 'layout/nav-header.php'?>
+<!-- END MENU Header -->
 									<!-- START MENU NAV-BAR -->
-									<?php include_once 'layout/nav-top.php' ?>
-									<!-- END NAV-BAR -->
-								
+<?php include_once 'layout/nav-top.php'?>
+<!-- END NAV-BAR -->
+
 				<!-- START BODY -->
-					<?php include_once 'views/search.php'; ?>
+<?php include_once 'views/search.php';?>
 				<!-- END BODY -->
 
 				<!-- START Footer -->
