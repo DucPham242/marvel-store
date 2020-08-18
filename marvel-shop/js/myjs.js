@@ -56,7 +56,7 @@ $(document).ready(function(){
 
 	//click on top		
 		$(window).scroll(function(){
-			if ($(this).scrollTop() > 240){
+			if ($(this).scrollTop() > 1400){
 	 			$('.back-top').fadeIn();
 			}else {
 				$('.back-top').fadeOut();
@@ -66,8 +66,17 @@ $(document).ready(function(){
 	});
 	$('.back-top').click(function(){
 		// alert(1);
-		$('html, body').animate({scrollTop : 0},600);
-	
+		$('html, body').animate({scrollTop : 0},1000);
+	});
+
+	$(document).on('click', '.shower', function() {
+		// e.preventDefault();
+		var id=$(this).val();
+
+		$.get('server/show-modal.php', {id: id}, function(data) {
+			$('.modal_content').html(data);
+		});
+
 	});
 
 })

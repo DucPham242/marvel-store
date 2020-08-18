@@ -1,12 +1,12 @@
 <?php 
 	
 	class Connect {
-		private $dns = "mysql:host=localhost;dbname=";
+		private $dns = "mysql:host=localhost;dbname=test";
 		private $user = "root";
 		private $pass = '';
 		protected $pdo = null;
 
-		function __contruct()
+		function __construct()
 		{ 
 			try{
 				$this->pdo = new PDO($this->dns, $this->user, $this->pass);
