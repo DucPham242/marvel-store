@@ -3,7 +3,7 @@
 	$ajax_flag=1;
 include_once "../controller/product_c.php";
 $show=new Product_c();
-	$id=(int)$_GET['id'];
+	$id=(int)$_POST['id'];
 	$rs=$show->getProduct_Id($id);
 	$rs=$show->add_discount($rs);
 	
@@ -35,12 +35,12 @@ $show=new Product_c();
 														
 													
 												?>
-													<p style="color: #E92020">Giá sản phẩm: <?php echo number_format($value['price']). ' đ'; ?> </p>
+													<p style="color: #E92020;font-size: 18px;font-weight: bold;">Giá sản phẩm: <?php echo number_format($value['price']). ' đ'; ?> </p>
 											<?php
 											 }else{
 											 ?>
 												<p style="text-decoration: line-through;color: gray"><?php echo number_format($value['price']). ' đ'; ?></p>
-												<p style="color: #E92020"><?php echo number_format($value['discount_price']). ' đ'; ?></p>
+												<p style="color: #E92020;font-size: 18px;font-weight: bold;">Giá sản phẩm: <?php echo number_format($value['discount_price']). ' đ'; ?></p>
 											<?php 
 												}
 											?>

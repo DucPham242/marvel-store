@@ -18,7 +18,7 @@
 															<li class="dropdown">
 																<a href="#" class="dropdown-toggle" data-toggle="dropdown">MARVEL <b class="caret"></b></a>
 																<ul class="dropdown-menu" id="check1">
-																	<li><a href="#">Mô hình</a></li>
+																	<li><a href="index.php?page=list-product&method=modeltoyMV">Mô hình</a></li>
 																	<li><a href="#">Mũ</a></li>
 																	<li><a href="#">Phụ kiện</a></li>
 																</ul>

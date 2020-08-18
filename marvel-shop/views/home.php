@@ -67,7 +67,7 @@
 				</div>
 				<div class="col-md-4 col-xs-8">
 					<h3 style="color: red">SẢN PHẨM HOT</h3>
-					<p>Đây là những sản phẩm được khách hàng yêu thích nhất</p>
+					<p class="title_note">Đây là những sản phẩm được khách hàng đánh giá và yêu thích nhất</p>
 				</div>
 				<div class="col-md-4 col-xs-2">
 					<div style="height: 1px;background-color: #000;margin-top: 45px"></div>
@@ -140,7 +140,7 @@
 					</div>
 					<div class="col-md-4 col-xs-8">
 						<h3 style="color: red">SẢN PHẨM CỦA MARVEL</h3>
-						<p>Đây là những sản phẩm của hãng MARVEL</p>
+						<p class="title_note">Đây là những sản phẩm của hãng MARVEL</p>
 					</div>
 					<div class="col-md-4 col-xs-2">
 						<div style="height: 1px;background-color: #000;margin-top: 45px"></div>
@@ -209,7 +209,7 @@
 						</div>
 						<div class="col-md-4 col-xs-8">
 							<h3 style="color: red">SẢN PHẨM CỦA DC</h3>
-							<p>Đây là những sản phẩm của hãng DC</p>
+							<p class="title_note">Đây là những sản phẩm của hãng DC</p>
 						</div>
 						<div class="col-md-4 col-xs-2">
 							<div style="height: 1px;background-color: #000;margin-top: 45px"></div>

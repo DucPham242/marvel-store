@@ -302,6 +302,10 @@ a:hover{
  }
  .detail_modal{
  	min-height: 450px;
+ 
+ }
+ #at_img{
+ 	margin-left: 120px;
  }
  .list_img_detail{
  	cursor: pointer;
@@ -323,7 +327,14 @@ a:hover{
  }
  .addshadow{
  	box-shadow:2px 2px 2px 2px #635B5B;
- 	
+ }
+
+ .title_note{
+ 	text-align: center;
+    font-style: italic;
+    font-size: 16px;
+    color: gray;
+    margin-top: 10px;	
  }
  /*end*/
 /*search file*/

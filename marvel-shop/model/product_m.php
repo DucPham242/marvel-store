@@ -11,6 +11,8 @@
 		public function __construct(){
 			parent::__construct(); // Gọi hàm __contruct bên config để luôn tồn tại $pdo để kết nối tới CSDL
 		}
+
+		//Lấy danh sách sản phẩm HOT
 		public function getProduct_Hot(){
 			$sql="SELECT * FROM tbl_product WHERE stt=1";
 			$pre=$this->pdo->prepare($sql);
@@ -18,7 +20,7 @@
 			return $pre->fetchAll(PDO::FETCH_ASSOC);
 
 		}
-
+		//Lấy danh sách sản phẩm của hãng Marvel
 		public function getProduct_MV(){
 			$sql="SELECT * FROM tbl_product WHERE id_brand=1";
 			$pre=$this->pdo->prepare($sql);
@@ -26,6 +28,8 @@
 			return $pre->fetchAll(PDO::FETCH_ASSOC);
 
 		}
+
+		//Lấy danh sách sản phẩm của hãng DC
 		public function getProduct_DC(){
 			$sql="SELECT * FROM tbl_product WHERE id_brand=2";
 			$pre=$this->pdo->prepare($sql);
@@ -33,14 +37,18 @@
 			return $pre->fetchAll(PDO::FETCH_ASSOC);
 
 		}
-		public function paradigm_MV(){
+
+		//Lấy danh sách sản phẩm mô hình của hãng Marvel
+		public function modeltoy_MV(){
 			$sql="SELECT * FROM tbl_product WHERE id_brand=1 AND id_type=1";
 			$pre=$this->pdo->prepare($sql);
 			$pre->execute();
 			return $pre->fetchAll(PDO::FETCH_ASSOC);
 
 		}
-		public function paradigm_DC(){
+
+		//Lấy danh sách sản phẩm mô hình của hãng DC
+		public function modeltoy_DC(){
 			$sql="SELECT * FROM tbl_product WHERE id_brand=2 AND id_type=1";
 			$pre=$this->pdo->prepare($sql);
 			$pre->execute();
@@ -49,17 +57,17 @@
 		}
 
 
-
+		//Thêm trường giảm giá cho mảng
 		public function add_discount($arr){
 			foreach ($arr as $key => $value) {
 					if($value['discount']>0){
-					$arr[$key]['discount_price']=($value['price']*$value['discount'])/100;
+					$arr[$key]['discount_price']=$value['price']-(($value['price']*$value['discount'])/100);
 				}
 			}
 			return $arr;
 		}
 
-		//Lay san pham dua theo ID
+		//Tìm sản phẩm dựa theo ID
 		public function getProduct_Id($id){
 			$sql="SELECT * FROM tbl_product WHERE id_product=:id";
 			$pre=$this->pdo->prepare($sql);

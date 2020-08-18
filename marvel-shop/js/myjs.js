@@ -15,6 +15,7 @@
 
 	// làm mô tả từng ảnh
 $(document).ready(function(){
+	//JS hiệu ứng list ảnh ở phần Xem trước sản phẩm
 	$(document).on('click', '.list_img_detail', function(e) {
 
 		e.preventDefault();
@@ -25,6 +26,7 @@ $(document).ready(function(){
 		$(this).parent().nextAll().removeClass('addshadow');
 		
 	});
+
 	// fix drop-down at show-all page
 	$(document).on('click', '.hidden-drop', function(){
 		var target_this = $(this).attr('data-target');
@@ -32,8 +34,8 @@ $(document).ready(function(){
 		$(this).parent().nextAll().removeClass('collapse');
 	})
 
+	//JS hiệu ứng list ảnh ở phần Xem chi tiết của sản phẩm
 	$(document).on('click', '.list_img_product', function(e) {
-
 		e.preventDefault();
 		$(this).parent().addClass('addshadow');
 		var src_this=$(this).attr('src');
@@ -44,7 +46,7 @@ $(document).ready(function(){
 	});
 
 
-	//JS cho raiting
+	//JS cho raiting(đánh giá sao) cho sản phẩm
 	$(document).on('click', '.star', function(e) {
 			id=$(this).attr('id');
 			// alert(id);
@@ -54,26 +56,23 @@ $(document).ready(function(){
 			$('.'+id).click();
 	});
 
-	//click on top		
+	//click button trở về đầu trang	
 		$(window).scroll(function(){
 			if ($(this).scrollTop() > 1400){
 	 			$('.back-top').fadeIn();
 			}else {
 				$('.back-top').fadeOut();
-			}
-		
-			
+			}		
 	});
 	$('.back-top').click(function(){
-		// alert(1);
 		$('html, body').animate({scrollTop : 0},1000);
 	});
 
-	$(document).on('click', '.shower', function() {
-		// e.preventDefault();
-		var id=$(this).val();
 
-		$.get('server/show-modal.php', {id: id}, function(data) {
+	//Click vào Xem trước sản phẩm, hiện Modal
+	$(document).on('click', '.shower', function() {
+		var id=$(this).val();
+		$.post('server/show-modal.php', {id: id}, function(data) {
 			$('.modal_content').html(data);
 		});
 

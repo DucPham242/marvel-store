@@ -20,12 +20,12 @@
 					<li class="nav-item">
 						<a href="javascript:;" class="hidden-drop" data-toggle="collapse" data-target="#demo"> Marvel <i class="fa fa-fw fa-caret-down"></i></a>
 						<ul  class="collapse " id="demo">
-							<a href="index.php?page=list-product&method=pagadigmMV">
+							<a href="index.php?page=list-product&method=modeltoyMV">
 								<li>
 									Mô hình
 								</li>
 							</a>
-							<a href="index.php?page=list-product&method=toys-mv">
+							<a href="index.php?page=list-product&method=technology">
 								<li>
 									Đồ chơi công nghệ
 								</li>
@@ -41,7 +41,7 @@
 					<li class="nav-item">
 						<a href="javascript:;" class="hidden-drop" data-toggle="collapse" data-target="#demo2"> DC <i class="fa fa-fw fa-caret-down"></i></a>
 						<ul  class="collapse " id="demo2">
-							<a href="index.php?page=list-product&method=pagadigmDC">
+							<a href="index.php?page=list-product&method=modeltoyDC">
 								<li>
 									Mô hình
 								</li>
