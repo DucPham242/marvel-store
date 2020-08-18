@@ -39,12 +39,15 @@ a:hover{
 	width: 300px;
 	list-style: none;
 	background-color: #fff;
-	border: 1px solid #FD4040;
+	border: 1px solid #919191;
 	border-radius: 15px;
 	transform-origin: 100% top;
 	animation: cart-hoverGrowth ease-in 0.3s;
 	display: none;
 	color: #000;
+}
+.cart_hover-frame ul li{
+	list-style: none;
 }
 
 @keyframes cart-hoverGrowth{
