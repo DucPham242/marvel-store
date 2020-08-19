@@ -1,7 +1,7 @@
 <?php 
 	
 	class Connect {
-		private $dns = "mysql:host=localhost;dbname=test";
+		private $dns = "mysql:host=localhost;dbname=dbtest";
 		private $user = "root";
 		private $pass = '';
 		protected $pdo = null;

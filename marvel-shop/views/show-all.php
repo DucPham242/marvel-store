@@ -220,11 +220,34 @@
 					<div class="row">
 						<div class="col-md-12 col-md-push-2">
 							<ul class="pagination">
-								<li><a href="index.php?page=list-product&method=<?php echo $method; ?>&pages=1">1</a></li>
-								<li><a href="index.php?page=list-product&method=<?php echo $method; ?>&pages=2">2</a></li>
-								<li><a href="index.php?page=list-product&method=<?php echo $method; ?>&pages=3">3</a></li>
-								<li><a href="index.php?page=list-product&method=<?php echo $method; ?>&pages=4">4</a></li>
-								<li><a href="index.php?page=list-product&method=<?php echo $method; ?>&pages=5">5</a></li>
+								<?php 
+									if (isset($_GET['pages']) && $_GET['pages'] > 1) {
+										 $back = $_GET['pages'] - 1;
+									
+								?>
+									<li><a href="index.php?page=list-product&method=<?php echo $method; ?>&pages=<?php echo $back; ?>">Back</a></li>
+								<?php 
+									}	
+								 ?>
+								<?php
+									// echo $pagination;
+									for($i = 1; $i <= $pagination; $i++){
+
+								?>
+									<li><a href="index.php?page=list-product&method=<?php echo $method; ?>&pages=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+									
+								<?php 
+									}
+								?>
+								<?php 
+									if (isset($_GET['pages']) && $_GET['pages'] < $pagination) {
+										 $next = $_GET['pages'] + 1;
+									
+								?>
+									<li><a href="index.php?page=list-product&method=<?php echo $method; ?>&pages=<?php echo $next; ?>">Next</a></li>
+								<?php 
+									}	
+								 ?>
 							</ul>
 
 						</div>

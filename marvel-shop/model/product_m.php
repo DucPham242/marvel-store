@@ -31,10 +31,10 @@
 		}
 
 		//Lấy danh sách sản phẩm của hãng MV kèm theo tên hãng,tên loại (giới hạn phân trang)
-		public function ProductMV_limit($form,$row){
+		public function ProductMV_limit($form,$row,$id){
 			
-			$sql="SELECT tbl_product.*,tbl_brand.name_brand,tbl_type.name_type From tbl_brand,tbl_product,tbl_type WHERE (tbl_product.id_brand=tbl_brand.id_brand) AND (tbl_product.id_type=tbl_type.id_type) AND tbl_product.id_brand=1 LIMIT $form,$row";
-			$pre=$this->pdo->query($sql);			
+			$sql="SELECT tbl_product.*,tbl_brand.name_brand,tbl_type.name_type From tbl_brand,tbl_product,tbl_type WHERE (tbl_product.id_brand=tbl_brand.id_brand) AND (tbl_product.id_type=tbl_type.id_type) AND tbl_product.id_brand=$id LIMIT $form,$row";
+			$pre=$this->pdo->query($sql);		
 			return $pre->fetchAll(PDO::FETCH_ASSOC);
 
 		}

@@ -79,7 +79,8 @@ class Product_c extends product_m
 			$number=count($rs);//Tổng số bản ghi
 			$pagination=ceil($number/$row);//Số phân trang	
 			$form=($pages-1)*$row;
-			$rs=$this->pro->ProductMV_limit($form,$row);
+			
+			$rs=$this->pro->ProductMV_limit($form,$row,1);
 			break;
 
 			case 'dc':
