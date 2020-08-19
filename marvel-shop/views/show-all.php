@@ -2,8 +2,26 @@
 		<div class="row"  >
 			<ol class="breadcrumb" >
 				<li>Trang chủ</li>
-				<li>Tất cả sản phẩm</li>
-				
+				<li>Danh mục sản phẩm</li>
+				<?php 
+					switch ($method) {
+						case 'marvel':
+						case 'dc':
+						case 'trans':
+							?>
+							<li><?php echo $rs[0]['name_brand']; ?></li>
+							<?php
+							break;
+							case 'modeltoyMV':
+							case 'modeltoyDC':
+							case 'modeltoyTrans':
+							?>
+							<li><?php echo $rs[0]['name_brand']; ?></li>
+							<li><?php echo $rs[0]['name_type']; ?></li>
+							<?php
+							break;	
+					}
+				 ?>				
 			</ol>
 		</div>
 		<div class="row" >
@@ -25,12 +43,12 @@
 									Mô hình
 								</li>
 							</a>
-							<a href="index.php?page=list-product&method=technology">
+							<a href="index.php?page=list-product&method=technologyMV">
 								<li>
 									Đồ chơi công nghệ
 								</li>
 							</a>
-							<a href="index.php?page=list-product&method=phukien-mv">
+							<a href="index.php?page=list-product&method=accessoriesMV">
 								<li>
 									Phụ kiện
 								</li>
@@ -202,11 +220,11 @@
 					<div class="row">
 						<div class="col-md-12 col-md-push-2">
 							<ul class="pagination">
-								<li><a href="#">1</a></li>
-								<li class="active"><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#">5</a></li>
+								<li><a href="index.php?page=list-product&method=<?php echo $method; ?>&pages=1">1</a></li>
+								<li><a href="index.php?page=list-product&method=<?php echo $method; ?>&pages=2">2</a></li>
+								<li><a href="index.php?page=list-product&method=<?php echo $method; ?>&pages=3">3</a></li>
+								<li><a href="index.php?page=list-product&method=<?php echo $method; ?>&pages=4">4</a></li>
+								<li><a href="index.php?page=list-product&method=<?php echo $method; ?>&pages=5">5</a></li>
 							</ul>
 
 						</div>

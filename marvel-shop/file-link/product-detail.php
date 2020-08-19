@@ -128,7 +128,7 @@
 				
 			</div>
 			<div class="col-md-5" >
-				<img src="../images/product/transformer/mo_hinh/BMB LS-01 Nitro Zeus/1.jpg" alt="" width="450px" id="at_img">
+				<img src="../images/product/transformer/mo_hinh/BMB LS-01 Nitro Zeus/1.jpg" alt="" width="450px" id="at_image">
 			</div>
 			<div class="col-md-5 box_price" style="">
 				<h4 style="font-weight: bold">BMB LS-01 Nitro Zeus</h4>

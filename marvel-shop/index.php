@@ -32,6 +32,8 @@
 					include_once 'controller/product_c.php';
 					$listProduct = new Product_c();
 					$listProduct->typeProduct();
+					
+					
 					break;
 				default:
 					header('Location:index.php');

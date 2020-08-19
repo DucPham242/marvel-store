@@ -1,10 +1,10 @@
 <?php 
 if(isset($ajax_flag)){
-		include_once '../model/product_m.php';
-	}else{
-		include_once 'model/product_m.php';
-	}
-	
+	include_once '../model/product_m.php';
+}else{
+	include_once 'model/product_m.php';
+}
+
 
 
 class Product_c extends product_m
@@ -15,12 +15,23 @@ class Product_c extends product_m
 	{
 		$this->pro = new Product_m();
 	}
+	//Function for Ajax
+	//Lấy hàm getProduct_Id từ file product_m.php
 	public function getProduct_Id($id){
 		return $this->pro->getProduct_Id($id);
 	}
+
+	//Lấy hàm add_discount từ file product_m.php
 	public function add_discount($rs){
 		return $this->pro->add_discount($rs);
 	}
+
+
+
+
+
+
+
 	public function Product(){
 		if(isset($_GET['method'])) {
 			$method = $_GET['method'];
@@ -56,38 +67,47 @@ class Product_c extends product_m
 		}else{
 			$method='marvel';
 		}
-
+		if(isset($_GET['pages'])){
+				$pages=$_GET['pages'];
+			}else{
+				$pages=1;
+			}
 		switch ($method) {
 			case 'marvel':
 			$rs=$this->pro->getProduct_MV();
-			$rs=$this->pro->add_discount($rs); //Thêm trường giảm giá cho mảng
-			include_once 'views/show-all.php';
+			$row=3;//Số sản phẩm, tin.. trên 1 trang
+			$number=count($rs);//Tổng số bản ghi
+			$pagination=ceil($number/$row);//Số phân trang	
+			$form=($pages-1)*$row;
+			$rs=$this->pro->ProductMV_limit($form,$row);
 			break;
 
 			case 'dc':
 			$rs=$this->pro->getProduct_DC();
-			$rs=$this->pro->add_discount($rs); //Thêm trường giảm giá cho mảng
-			include_once 'views/show-all.php';
-				break;
+			break;
+
+			case 'trans':
+			$rs=$this->pro->getProduct_Trans();
+			break;
+
 			case 'modeltoyMV':
 			$rs=$this->pro->modeltoy_MV();
-			$rs=$this->pro->add_discount($rs); //Thêm trường giảm giá cho mảng
-			include_once 'views/show-all.php';
-				break;
+			break;
+
 			case 'modeltoyDC':
 			$rs=$this->pro->modeltoy_DC();
-			$rs=$this->pro->add_discount($rs); //Thêm trường giảm giá cho mảng
-			include_once 'views/show-all.php';
-				break;
+			break;
 
-	
-
-
+			case 'modeltoyTrans':
+			$rs=$this->pro->modeltoy_Trans();
+			break;
 
 			default:
 			header("Location:index.php");
 			break;
 		}
+		$rs=$this->pro->add_discount($rs);			
+		include_once 'views/show-all.php';
 
 
 	}

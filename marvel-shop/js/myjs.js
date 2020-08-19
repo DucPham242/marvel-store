@@ -39,7 +39,7 @@ $(document).ready(function(){
 		e.preventDefault();
 		$(this).parent().addClass('addshadow');
 		var src_this=$(this).attr('src');
-		$('#at_img').attr('src',src_this);
+		$('#at_image').attr('src',src_this);
 		$(this).parent().prevAll().removeClass('addshadow');
 		$(this).parent().nextAll().removeClass('addshadow');
 		
@@ -77,6 +77,8 @@ $(document).ready(function(){
 		});
 
 	});
+
+
 
 })
 
