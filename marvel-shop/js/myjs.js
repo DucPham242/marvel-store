@@ -50,9 +50,9 @@ $(document).ready(function(){
 	$(document).on('click', '.star', function(e) {
 			id=$(this).attr('id');
 			// alert(id);
-			$(this).attr('src','../images/gold_star.png');
-			$(this).prevAll().attr('src','../images/gold_star.png');
-			$(this).nextAll().attr('src','../images/white_star2.png');
+			$(this).attr('src','images/gold_star.png');
+			$(this).prevAll().attr('src','images/gold_star.png');
+			$(this).nextAll().attr('src','images/white_star2.png');
 			$('.'+id).click();
 	});
 

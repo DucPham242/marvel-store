@@ -132,3 +132,7 @@ a:hover{
 #logo_text_loginadmin{
 	text-align: center;
 }
+
+.navbar-default .navbar-nav>li>a:hover{
+	color: #DBCD02;
+}

@@ -1,9 +1,15 @@
 <div class="container" >
-		<div class="row" id="box_show_product" >
-			<ol class="breadcrumb" >
-				<li>Trang chủ</li>
-				<li>Transformer</li>
-				<li>BMB LS-01 Nitro Zeus</li>
+	<div class="row" id="box_show_product" >
+		<ol class="breadcrumb" >
+			<li>Trang chủ</li>
+			<li>Danh mục sản phẩm</li>
+			<?php 
+			foreach ($rs as $key => $value) {
+				?>
+				<li><?php echo $value['name_brand']; ?></li>
+				<li><?php echo $value['name_type']; ?></li>
+				<li><?php echo $value['name_product']; ?></li>
+
 			</ol>
 			<div class="col-md-2" >
 				<div class="row">
@@ -22,17 +28,35 @@
 				
 			</div>
 			<div class="col-md-5" >
-				<img src="images/product/transformer/mo_hinh/BMB LS-01 Nitro Zeus/1.jpg" alt="" width="450px" id="at_image">
+				<img src="images/product/<?php echo $value['img']; ?>" alt="" width="450px" id="at_image">
 			</div>
 			<div class="col-md-5 box_price" style="">
-				<h4 style="font-weight: bold">BMB LS-01 Nitro Zeus</h4>
+				<h4 style="font-weight: bold"><?php echo $value['name_product']; ?></h4>
 				Price:<br>
-				<span class="price_main_product">
-					600,000 VNĐ
-				</span>
-				<span class="price_discount_product">
-					1,850,000 VNĐ
-				</span><br>
+				<?php 
+				if($value['discount']>0){
+					?>
+					<span class="price_discount_product">
+						<?php echo number_format($value['discount_price']).' đ'; ?>
+
+					</span>
+					<span class="price_main_product">
+						<?php echo number_format($value['price']).' đ'; ?>
+					</span><br>
+
+
+					<?php
+				}else{
+					?>
+					<span class="price_discount_product">
+						<?php echo number_format($value['price']).' đ'; ?>
+					</span><br>
+					<?php
+				}
+
+
+				?>
+				
 
 
 				<button type="button" class="btn btn-success btn_buynow"><i class="fa fa-shopping-cart fa-2x cart_icon" aria-hidden="true"></i>Thêm vào giỏ</button><br>
@@ -46,11 +70,11 @@
 					<input type="radio" name="star_val" value="5" class="5_star star_val" checked="">
 					<br>
 					<div>
-						<img src="../images/gold_star.png" alt="" class="star" id="1_star">
-						<img src="../images/gold_star.png" alt="" class="star" id="2_star">
-						<img src="../images/gold_star.png" alt="" class="star" id="3_star">
-						<img src="../images/gold_star.png" alt="" class="star" id="4_star">
-						<img src="../images/gold_star.png" alt="" class="star" id="5_star">
+						<img src="images/gold_star.png" alt="" class="star" id="1_star">
+						<img src="images/gold_star.png" alt="" class="star" id="2_star">
+						<img src="images/gold_star.png" alt="" class="star" id="3_star">
+						<img src="images/gold_star.png" alt="" class="star" id="4_star">
+						<img src="images/gold_star.png" alt="" class="star" id="5_star">
 					</div><br>
 					<button type="submit" class="btn btn-default">Đánh giá</button>
 				</form>
@@ -64,92 +88,94 @@
 				<div class="panel panel-success">
 					<div class="panel-heading"><b>MÔ TẢ SẢN PHẨM</b></div>
 					<div class="panel-body">
-						Chiều cao 16cm<br>
-						Chất liệu nhựa <br>
-						Phụ kiện như hình<br>
-						Lắp ráp thành máy bay rất đẹp <br>
+						<?php 
+							echo $value['description'];
+						 ?>
 					</div>
 				</div>
-				<div class="fb-comments" data-href="http://localhost/PHP0320E2/test_cmtFB/index3.php" data-numposts="5" data-width="" order_by="reverse_time"></div>
-				
-			</div>
-			<div class="col-md-4" >
-				<div class="panel panel-default	">
-					<div class="panel-heading"><b>CÁC SẢN PHẨM LIÊN QUAN</b></div>
-					<div class="panel-body" style="">
-						<a href=""><div class="row" style="">
-							<div class="col-md-4" style="">
-								<div class="row">
-									<img class="related_img" src="images/product/transformer/mo_hinh/Bumblebee Comicave kim loại/1.jpg" alt="">
-								</div>
-							</div>
-							<div class="col-md-8" style="">
-								<h4>Bumblebee Comicave 80% kim loại</h4><br>
-								<span class="price_main_product">
-									600,000 VNĐ
-								</span>
-								<span class="price_discount_product">
-									1,850,000 VNĐ
-								</span><br>
+				<?php
+			}
+			?>
+			<div class="fb-comments" data-href="http://localhost/PHP0320E2/test_cmtFB/index3.php" data-numposts="5" data-width="" order_by="reverse_time"></div>
 
+		</div>
+		<div class="col-md-4" >
+			<div class="panel panel-default	">
+				<div class="panel-heading"><b>CÁC SẢN PHẨM LIÊN QUAN</b></div>
+				<div class="panel-body" style="">
+					<a href=""><div class="row" style="">
+						<div class="col-md-4" style="">
+							<div class="row">
+								<img class="related_img" src="images/product/transformer/mo_hinh/Bumblebee Comicave kim loại/1.jpg" alt="">
 							</div>
-						</div></a>
-						<br>
-						<a href=""><div class="row" style="">
-							<div class="col-md-4" style="">
-								<div class="row">
-									<img class="related_img" src="images/product/transformer/mo_hinh/3AThreeZero Optimus Prime DLX Scale/1.jpg" alt="">
-								</div>
-							</div>
-							<div class="col-md-8" style="">
-								<h4>Bumblebee Comicave 80% kim loại</h4><br>
-								<span class="price_main_product">
-									600,000 VNĐ
-								</span>
-								<span class="price_discount_product">
-									1,850,000 VNĐ
-								</span><br>
+						</div>
+						<div class="col-md-8" style="">
+							<h4>Bumblebee Comicave 80% kim loại</h4><br>
+							<span class="price_main_product">
+								600,000 VNĐ
+							</span>
+							<span class="price_discount_product">
+								1,850,000 VNĐ
+							</span><br>
 
+						</div>
+					</div></a>
+					<br>
+					<a href=""><div class="row" style="">
+						<div class="col-md-4" style="">
+							<div class="row">
+								<img class="related_img" src="images/product/transformer/mo_hinh/3AThreeZero Optimus Prime DLX Scale/1.jpg" alt="">
 							</div>
-						</div></a>
-						<br>
-						<a href=""><div class="row" style="">
-							<div class="col-md-4" style="">
-								<div class="row">
-									<img class="related_img" src="images/product/transformer/mo_hinh/COMBO LS-14 + LS-15/1.jpg" alt="">
-								</div>
-							</div>
-							<div class="col-md-8" style="">
-								<h4>Bumblebee Comicave 80% kim loại</h4><br>
-								<span class="price_main_product">
-									600,000 VNĐ
-								</span>
-								<span class="price_discount_product">
-									1,850,000 VNĐ
-								</span><br>
+						</div>
+						<div class="col-md-8" style="">
+							<h4>Bumblebee Comicave 80% kim loại</h4><br>
+							<span class="price_main_product">
+								600,000 VNĐ
+							</span>
+							<span class="price_discount_product">
+								1,850,000 VNĐ
+							</span><br>
 
+						</div>
+					</div></a>
+					<br>
+					<a href=""><div class="row" style="">
+						<div class="col-md-4" style="">
+							<div class="row">
+								<img class="related_img" src="images/product/transformer/mo_hinh/COMBO LS-14 + LS-15/1.jpg" alt="">
 							</div>
-						</div></a>
-					</div>
+						</div>
+						<div class="col-md-8" style="">
+							<h4>Bumblebee Comicave 80% kim loại</h4><br>
+							<span class="price_main_product">
+								600,000 VNĐ
+							</span>
+							<span class="price_discount_product">
+								1,850,000 VNĐ
+							</span><br>
+
+						</div>
+					</div></a>
 				</div>
-
-
 			</div>
 
-		</div>
-		<div class="row" id="visited_box">
-			<div class="col-md-3" style="">Sản phẩm bạn vừa xem:</div>
-			<div class="col-md-1" style=""><a href=""><img class="list_img_visited" src="images/product/transformer/mo_hinh/COMBO LS-14 + LS-15/1.jpg" alt=""></a></div>
-			<div class="col-md-1" style=""><a href=""><img class="list_img_visited" src="images/product/transformer/mo_hinh/COMBO LS-14 + LS-15/1.jpg" alt=""></a></div>
-			<div class="col-md-1" style=""><a href=""><img class="list_img_visited" src="images/product/transformer/mo_hinh/COMBO LS-14 + LS-15/1.jpg" alt=""></a></div>
-			<div class="col-md-1" style=""><a href=""><img class="list_img_visited" src="images/product/transformer/mo_hinh/Bumblebee Comicave kim loại/1.jpg" alt=""></a></div>
-			<div class="col-md-1" style=""><a href=""><img class="list_img_visited" src="images/product/transformer/mo_hinh/Bumblebee Comicave kim loại/1.jpg" alt=""></a></div>
-			<div class="col-md-1" style=""><a href=""><img class="list_img_visited" src="images/product/transformer/mo_hinh/Bumblebee Comicave kim loại/1.jpg" alt=""></a></div>
-			<div class="col-md-1" style=""><a href=""><img class="list_img_visited" src="images/product/transformer/mo_hinh/Bumblebee Comicave kim loại/1.jpg" alt=""></a></div>
-			<div class="col-md-1" style=""><a href=""><img class="list_img_visited" src="images/product/transformer/mo_hinh/Bumblebee Comicave kim loại/1.jpg" alt=""></a></div>
-			<div class="col-md-1" style=""><a href=""><img class="list_img_visited" src="images/product/transformer/mo_hinh/Bumblebee Comicave kim loại/1.jpg" alt=""></a></div>
-		</div>
 
-
+		</div>
 
 	</div>
+	<div class="row" id="visited_box">
+		<div class="col-md-3" style="">Sản phẩm bạn vừa xem:</div>
+		<div class="col-md-1" style=""><a href=""><img class="list_img_visited" src="images/product/transformer/mo_hinh/COMBO LS-14 + LS-15/1.jpg" alt=""></a></div>
+		<div class="col-md-1" style=""><a href=""><img class="list_img_visited" src="images/product/transformer/mo_hinh/COMBO LS-14 + LS-15/1.jpg" alt=""></a></div>
+		<div class="col-md-1" style=""><a href=""><img class="list_img_visited" src="images/product/transformer/mo_hinh/COMBO LS-14 + LS-15/1.jpg" alt=""></a></div>
+		<div class="col-md-1" style=""><a href=""><img class="list_img_visited" src="images/product/transformer/mo_hinh/Bumblebee Comicave kim loại/1.jpg" alt=""></a></div>
+		<div class="col-md-1" style=""><a href=""><img class="list_img_visited" src="images/product/transformer/mo_hinh/Bumblebee Comicave kim loại/1.jpg" alt=""></a></div>
+		<div class="col-md-1" style=""><a href=""><img class="list_img_visited" src="images/product/transformer/mo_hinh/Bumblebee Comicave kim loại/1.jpg" alt=""></a></div>
+		<div class="col-md-1" style=""><a href=""><img class="list_img_visited" src="images/product/transformer/mo_hinh/Bumblebee Comicave kim loại/1.jpg" alt=""></a></div>
+		<div class="col-md-1" style=""><a href=""><img class="list_img_visited" src="images/product/transformer/mo_hinh/Bumblebee Comicave kim loại/1.jpg" alt=""></a></div>
+		<div class="col-md-1" style=""><a href=""><img class="list_img_visited" src="images/product/transformer/mo_hinh/Bumblebee Comicave kim loại/1.jpg" alt=""></a></div>
+	</div>
+
+
+
+</div>

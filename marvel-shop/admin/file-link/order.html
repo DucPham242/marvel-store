@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="">
+	<title>Marvel Shop</title>
+
+	<link rel="stylesheet" href="../css/bootstrap.min.css" />
+	<link rel="stylesheet" href="../css/myCSS.css" />
+	<link rel="stylesheet" href="../fonts/glyphicons-halflings-regular.ttf" />
+	<link rel="stylesheet" href="../font-awesome-4.7.0/css/font-awesome.min.css" />
+
+
+</head>
+
+<body>
+	<!-- START MENU Header -->
+	<div class="container-fluid" id="header-fluid" style="">
+		
+		<div class="container">
+
+			<div class="row">
+
+				<nav class="navbar navbar-default" role="navigation" id="header" style="">
+
+					<div class="navbar-header col-md-3" >
+
+						<a style="padding-left: 60px" class="navbar-brand " href="#"><img src="images/logo.webp" alt="Marvel" width="190px"></a>
+
+					</div>
+					<div class="col-md-9" >
+						<div class="navbar-right">
+
+							<ul class="nav navbar-nav">
+								<li class="">
+									<a href="#">Xin chào Administrator</a>
+								</li>
+								<li class="">
+									<a href="#">Trang chủ</a>
+								</li>
+								<li>
+									<a href="profile.html">Profile</a>
+								</li>
+								<li>
+									<a href="login.html">Đăng Xuất</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+				</nav>
+
+			</div>
+
+
+		</div>
+
+		<marquee style="color: #DBCD02;">Khách hàng: Hoàng Lâm vừa đặt đơn hàng 2 giờ trước <a href="">(Xem chi tiết)</a></marquee>
+	</div>
+	<!-- END MENU Header -->
+	<!-- START Main -->
+	<div class="container-fluid" >
+		
+		<div class="row">
+			<div class="col-md-2">
+				<div class="row">
+					<ul class="list-group " style="min-height: 800px;background: #1F1F1F;">
+						<li class="list-group-item"><a href="statistics.html" class="active">Báo cáo, thống kê</a></li>
+						<li class="list-group-item" ><a href="" class="">Bảng điều khiển</a></li>
+						<li class="list-group-item"><a href="product.html">Quản lý sản phẩm</a></li>
+						<li class="list-group-item"><a href="order.html">Quản lý đơn hàng</a></li>
+						<li class="list-group-item"><a href="user.html">Quản lý khách hàng</a></li>
+						<li class="list-group-item"><a href="">Quản lý thành viên</a></li>
+						<li class="list-group-item"><a href="">Quản lý hãng sản phẩm</a></li>
+						<li class="list-group-item"><a href="">Quản lý loại sản phẩm</a></li>
+						<li class="list-group-item"><a href="">Reviews khách hàng</a></li>
+
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-10" style="background: white;min-height: 1000px;">
+				<div class="row">
+					<!-- START Main-Content -->
+					
+					<!-- Tìm kiếm -->
+					<form action="" method="POST" role="form" >
+						
+						<div class="form-group" >
+							<input type="text" class="form-control col-md-11" id="" placeholder="Tim kiếm đơn hàng"><button type="submit" class="btn btn-default col-md-1">Tìm kiếm</button><br><br><br>
+
+
+						</div>
+					</form>
+					<!-- END Tìm kiếm -->
+
+
+					<!-- Button trigger modal -->
+					
+
+				
+
+					<!-- Product View Table -->
+					<h4 class="center_text">Danh Sách Đơn Hàng </h4>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>STT</th>
+								<th>ID Order</th>
+								<th>ID User</th>
+								<th>Họ tên</th>
+								<th>Tổng tiền</th>
+								<th>Tình trạng</th>
+								<th>Ngày đặt</th>
+								<th>Action</th>
+								<th>Chi tiết</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>11111111</td>
+								<td>2135</td>
+								<td>11276</td>
+								<td>Hoàng Văn Lâm</td>
+								<td>12.000.000 đ</td>
+								<td>Đang chờ xử lý</td>
+								<td>2020-07-18 16:46:20</td>
+								<td>
+									<button type="button" class="btn btn-primary"
+									data-toggle="modal" data-target="#exampleModal-1" data-backdrop="static" data-keyboard="false">Sửa</button>
+									<button type="button" class="btn btn-danger" >Xóa</button>
+
+								</td>
+								<td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal-2" data-backdrop="static" data-keyboard="false">Chi tiết đơn</button><br></td>
+							</tr>
+						</tbody>
+					</table>
+					<!-- END Product View Table -->
+
+					<!-- Modal 1 -->
+						<div class="modal fade" id="exampleModal-1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+							<div class="modal-dialog" role="document" style="background: red;width: 70%;">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Đơn hàng</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<form action="" method="POST" role="form">
+											<legend>Đơn hàng</legend>
+										
+											<div class="form-group">
+												<label for="">ID Order</label>
+												<input type="text" class="form-control" id="" placeholder="Input field" value="232145">
+											</div>
+											<div class="form-group">
+												<label for="">ID User</label>
+												<input type="text" class="form-control" id="" placeholder="Input field" value="232145">
+											</div>
+											<div class="form-group">
+												<label for="">Phương thức thanh toán</label>
+												<select name="" id="" class="form-control">
+													<option value="1">Ship Cod</option>
+													<option value="2">Chuyển khoản</option>
+												</select>
+											</div>
+											<div class="form-group">
+												<label for="">Tổng tiền</label>
+												<input type="text" class="form-control" id="" placeholder="Input field" value="10,000,000 đ">
+											</div>
+											<div class="form-group">
+												<label for="">Ghi chú</label>
+												<textarea class="form-control" name="" id="" cols="30" rows="10"></textarea>
+											</div>
+											<div class="form-group">
+												<label for="">Tình trạng</label>
+												<select name="" id="" class="form-control">
+													<option value="1">Đang xử lý</option>
+													<option value="2">Đã đóng gói, chuẩn bị giao hàng</option>
+													<option value="3">Hoàn tất</option>
+													<option value="4">Thất bại</option>
+												</select>
+											</div>
+											
+										
+											
+										
+											<button type="submit" class="btn btn-primary">Sửa</button>
+										</form>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- END Modal -->
+
+						<!-- Modal 2 -->
+						<div class="modal fade" id="exampleModal-2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+							<div class="modal-dialog" role="document" style="width: 90%;">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Chi tiết đơn hàng</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<form action="" method="POST" role="form">
+											<legend>Chi tiết đơn hàng</legend>
+										
+											<div class="form-group">
+												<label for="">Tên sản phẩm</label>
+												<input type="text" class="form-control" id="" placeholder="Input field" value="Iron man MK5" >
+											</div>
+											<div class="form-group">
+												<label for="">Số lượng mua</label>
+												<input type="text" class="form-control" id="" placeholder="Input field" value="5" >
+											</div>
+											<div class="form-group">
+												<label for="">Giá bán sản phẩm</label>
+												<input type="text" class="form-control" id="" placeholder="Input field" value="12,000,000 đ" >
+											</div>
+											<div class="form-group">
+												<label for="">Tổng giá đơn hàng</label>
+												<input type="text" class="form-control" id="" placeholder="Input field" value="120,000,000 đ" >
+											</div>
+											<div class="form-group">
+												<label for="">Tình trạng</label>
+												<input type="text" class="form-control" id="" placeholder="Input field" value="1" >
+											</div>
+										
+											
+										
+											<button type="submit" class="btn btn-primary">Sửa</button>
+										</form>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- END Modal -->
+
+
+
+
+
+
+
+
+
+
+					<!-- END Main-Content -->
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+	<!-- END Main -->
+	<!-- START Footer -->
+	<div class="container-fluid" id="footer-fluid">
+		<div class="container" id="footer" >
+			Hệ thống quản trị viên MarvelStore<br>
+			Copyright © 2020 All Rights Reserved. Phát triển bởi DC/Marvel
+
+		</div>
+	</div>
+
+
+
+	<script src="../js/jquery-3.4.1.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
