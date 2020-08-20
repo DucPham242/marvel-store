@@ -11,6 +11,9 @@
 				<li><?php echo $value['name_product']; ?></li>
 
 			</ol>
+			<?php  echo "<pre>";
+		 	print_r($_SESSION['cart']);
+		 	echo "</pre>"; ?>
 			<div class="col-md-2" >
 				<div class="row">
 					<div class="col-md-6"><img class="list_img_product" src="images/product/transformer/mo_hinh/BMB LS-01 Nitro Zeus/1.jpg" alt="" width=""></div>
@@ -59,7 +62,7 @@
 				
 
 
-				<button type="button" class="btn btn-success btn_buynow"><i class="fa fa-shopping-cart fa-2x cart_icon" aria-hidden="true"></i>Thêm vào giỏ</button><br>
+				<button type="button" value="<?php echo $value['id_product']; ?>" class="btn add-alert btn-success btn_buynow"><i class="fa fa-shopping-cart fa-2x cart_icon" aria-hidden="true"></i>Thêm vào giỏ</button><br>
 
 				<form action="" id="frm_raiting" method="POST" style="">
 					<span>Đánh giá sản phẩm:</span>

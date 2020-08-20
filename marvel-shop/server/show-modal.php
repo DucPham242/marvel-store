@@ -3,6 +3,7 @@
 	$ajax_flag=1;
 include_once "../controller/product_c.php";
 $show=new Product_c();
+if(isset($_POST['id'])){
 	$id=(int)$_POST['id'];
 	$rs=$show->getProduct_Id($id);
 	$rs=$show->add_discount($rs);
@@ -44,7 +45,7 @@ $show=new Product_c();
 											<?php 
 												}
 											?>
-												<button class="button add-cart" id="add-alert" type="button">Add To Cart</button>
+												<button class="button add-cart add-alert" value="<?php echo $value['id_product']; ?>" type="button">Add To Cart</button>
 											</div>
 
 										</div>
@@ -54,6 +55,7 @@ $show=new Product_c();
 							</div>
 						
 <?php
+}
 }
 
 

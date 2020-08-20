@@ -77,17 +77,27 @@ $(document).ready(function(){
 		});
 
 	});
-	$(document).on('click', '#add-alert', function(){
+	$(document).on('click', '.add-alert', function(){
 		// swal("Chúc mừng", "Bạn đã đặt hàng thành công!", "success");
 		swal({
 			  title: "Chúc mừng",
-			  text: "Bạn đã đặt hàng thành công!",
+			  text: "Đã thêm hàng vào giỏ thành công!",
 			  icon: "success",
 			  buttons: [false],
 			  timer: 1500
 			});
 	
 	})
+
+	//Click add to card
+	$(document).on('click', '.add-alert', function(e) {
+		e.preventDefault();
+		var id=$(this).val();
+
+		$.get('server/add-cart.php', {id: id}, function(data) {
+			$('#test').html(data);
+		});
+	});
 
 
 
