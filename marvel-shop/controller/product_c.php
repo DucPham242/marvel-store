@@ -22,10 +22,19 @@ class Product_c extends product_m
 	}
 
 	//Lấy hàm add_discount từ file product_m.php
-	public function add_discount($rs){
-		return $this->pro->add_discount($rs);
+	public function add_discount($arr){
+		return $this->pro->add_discount($arr);
 	}
 
+	//Lấy hàm getProduct_Id từ file product_m.php- dành cho SS
+	public function getProduct_Id_SS($id){
+		return $this->pro->getProduct_Id_SS($id);
+	}
+
+	//Lấy hàm add_discount từ file product_m.php - dành cho SS
+	public function add_discount_SS($arr){
+		return $this->pro->add_discount_SS($arr);
+	}
 
 
 

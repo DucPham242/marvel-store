@@ -31,6 +31,17 @@
 
 		}
 
+		//Lấy ra tất cả sản phẩm của 1 hãng -dành cho SS
+		public function getProduct_SS($id_brand){
+			
+			$sql="SELECT * FROM tbl_product WHERE id_brand=:id_brand";
+			$pre=$this->pdo->prepare($sql);
+			$pre->bindParam(':id_brand',$id_brand);
+			$pre->execute();
+			return $pre->fetch(PDO::FETCH_ASSOC);
+
+		}
+
 		//Lấy danh sách sản phẩm của 1 hãng kèm theo tên hãng,tên loại (giới hạn phân trang)
 		public function Product_limit($form,$row,$id_brand){
 			
@@ -70,6 +81,16 @@
 			return $arr;
 		}
 
+		//Thêm trường giảm giá cho mảng - dành cho SESSION['cart']
+		public function add_discount_SS($arr){
+			foreach ($arr as $value) {
+				if($arr['discount']>0){
+					$arr['discount_price']=$arr['price']-(($arr['price']*$arr['discount'])/100);
+				}
+			}
+			return $arr;
+		}
+
 		//Lấy 1 sản phẩm dựa theo ID
 		public function getProduct_Id($id){
 			$sql="SELECT tbl_product.*,tbl_brand.name_brand,tbl_type.name_type From tbl_brand,tbl_product,tbl_type WHERE (tbl_product.id_brand=tbl_brand.id_brand) AND (tbl_product.id_type=tbl_type.id_type) AND id_product=:id";
@@ -77,6 +98,16 @@
 			$pre->bindParam(':id',$id);
 			$pre->execute();
 			return $rs=$pre->fetchAll(PDO::FETCH_ASSOC);
+
+		}
+
+		//Lấy 1 sản phẩm dựa theo ID dành cho SESSION['cart']
+		public function getProduct_Id_SS($id){
+			$sql="SELECT tbl_product.*,tbl_brand.name_brand,tbl_type.name_type From tbl_brand,tbl_product,tbl_type WHERE (tbl_product.id_brand=tbl_brand.id_brand) AND (tbl_product.id_type=tbl_type.id_type) AND id_product=:id";
+			$pre=$this->pdo->prepare($sql);
+			$pre->bindParam(':id',$id);
+			$pre->execute();
+			return $rs=$pre->fetch(PDO::FETCH_ASSOC);
 
 		}
 		

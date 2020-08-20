@@ -93,8 +93,7 @@ $(document).ready(function(){
 	$(document).on('click', '.add-alert', function(e) {
 		e.preventDefault();
 		var id=$(this).val();
-
-		$.get('server/add-cart.php', {id: id}, function(data) {
+		$.get('server/add-card.php',{id: id}, function(data) {
 			$('#test').html(data);
 		});
 	});
