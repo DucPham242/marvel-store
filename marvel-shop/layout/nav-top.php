@@ -13,7 +13,7 @@
 				<div class="collapse navbar-collapse navbar-ex2-collapse">
 					<ul class="nav navbar-nav" id="menu_nav">
 						<li class=" nav-item" >
-							<a class="nav-link" href="#">TRANG CHỦ</a>
+							<a class="nav-link" href="index.php">TRANG CHỦ</a>
 						</li>
 						<li class="dropdown">
 							<a href="index.php?page=list-product&method=marvel" class="dropdown-toggle">MARVEL <b class="caret"></b></a>
@@ -32,9 +32,9 @@
 							</ul>
 						</li>
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" >TRANSFORMER<b class="caret"></b></a>
+							<a href="" class="dropdown-toggle" class="dropdown-toggle" >TRANSFORMER<b class="caret"></b></a>
 							<ul class="dropdown-menu check" id="check3">
-								<li><a href="#">Mô hình</a></li>
+								<li><a href="index.php?page=list-product&method=trans">Mô hình</a></li>
 							</ul>
 						</li>
 						<li class="nav-item">

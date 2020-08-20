@@ -44,16 +44,28 @@ class Product_c extends product_m
 			$rs_hot=$this->pro->add_discount($rs_hot); //Thêm trường giảm giá cho mảng
 			
 
-			$rs_mv=$this->pro->getProduct_MV();
+			$rs_mv=$this->pro->getProduct(1);
 			$rs_mv=$this->pro->add_discount($rs_mv); //Thêm trường giảm giá cho mảng
-			$rs_dc=$this->pro->getProduct_DC();
+			$rs_dc=$this->pro->getProduct(2);
 			$rs_dc=$this->pro->add_discount($rs_dc); //Thêm trường giảm giá cho mảng
 			// echo "<pre>";
 			// print_r($rs_hot);
 			// echo "</pre>";
-			
-
 			include_once 'views/home.php';
+			break;
+
+			case 'product-detail':
+			if(isset($_GET['id']) && $_GET['id']>0) {
+				$id =(int)$_GET['id'];
+			}else{
+				header("Location:index.php");
+			}
+			$rs=$this->pro->getProduct_Id($id);
+			$rs=$this->pro->add_discount($rs);
+			// echo "<pre>";
+			// print_r($rs);
+			// echo "</pre>";
+			include_once "views/product-detail.php";
 			break;
 
 			default:
@@ -67,40 +79,102 @@ class Product_c extends product_m
 		}else{
 			$method='marvel';
 		}
-		if(isset($_GET['pages'])){
-				$pages=$_GET['pages'];
-			}else{
-				$pages=1;
-			}
+		
+		
+		
 		switch ($method) {
 			case 'marvel':
-			$rs=$this->pro->getProduct_MV();
+			$rs=$this->pro->getProduct(1);
 			$row=3;//Số sản phẩm, tin.. trên 1 trang
-			$number=count($rs);//Tổng số bản ghi
+			$number=count($rs);//Tổng số sản phẩm,bản ghi,...
 			$pagination=ceil($number/$row);//Số phân trang	
+			if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
+				$pages=(int)$_GET['pages'];
+			}else{
+				$pages=1;
+				$_GET['pages']=1;
+			}
 			$form=($pages-1)*$row;
 			
-			$rs=$this->pro->ProductMV_limit($form,$row,1);
+			$rs=$this->pro->Product_limit($form,$row,1);
 			break;
 
 			case 'dc':
-			$rs=$this->pro->getProduct_DC();
+			$rs=$this->pro->getProduct(2);
+			$row=3;//Số sản phẩm, tin.. trên 1 trang
+			$number=count($rs);//Tổng số bản ghi
+			$pagination=ceil($number/$row);//Số phân trang	
+
+			if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>0){
+				$pages=(int)$_GET['pages'];
+			}else{
+				$pages=1;
+				$_GET['pages']=1;
+			}
+			$form=($pages-1)*$row;
+			
+			$rs=$this->pro->Product_limit($form,$row,2);
 			break;
 
 			case 'trans':
-			$rs=$this->pro->getProduct_Trans();
+			$rs=$this->pro->getProduct(3);
+			$row=3;//Số sản phẩm, tin.. trên 1 trang
+			$number=count($rs);//Tổng số bản ghi
+			$pagination=ceil($number/$row);//Số phân trang
+			if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
+				$pages=(int)$_GET['pages'];
+			}else{
+				$pages=1;
+				$_GET['pages']=1;
+			}
+			$form=($pages-1)*$row;
+			
+			$rs=$this->pro->Product_limit($form,$row,3);
 			break;
 
 			case 'modeltoyMV':
-			$rs=$this->pro->modeltoy_MV();
+			$rs=$this->pro->modeltoy(1);
+			$row=3;
+			$number=count($rs);//Tổng số bản ghi
+			$pagination=ceil($number/$row);//Số phân trang
+			if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
+				$pages=(int)$_GET['pages'];
+			}else{
+				$pages=1;
+				$_GET['pages']=1;
+			}
+			$form=($pages-1)*$row;
+			$rs=$this->pro->modeltoy_limit($form,$row,1);
 			break;
 
 			case 'modeltoyDC':
-			$rs=$this->pro->modeltoy_DC();
+			$rs=$this->pro->modeltoy(2);
+			$row=3;
+			$number=count($rs);//Tổng số bản ghi
+			$pagination=ceil($number/$row);//Số phân trang
+			if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
+				$pages=(int)$_GET['pages'];
+			}else{
+				$pages=1;
+				$_GET['pages']=1;
+			}
+			$form=($pages-1)*$row;
+			$rs=$this->pro->modeltoy_limit($form,$row,2);
 			break;
 
 			case 'modeltoyTrans':
-			$rs=$this->pro->modeltoy_Trans();
+			$rs=$this->pro->modeltoy(3);
+			$row=3;
+			$number=count($rs);//Tổng số bản ghi
+			$pagination=ceil($number/$row);//Số phân trang
+			if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
+				$pages=(int)$_GET['pages'];
+			}else{
+				$pages=1;
+				$_GET['pages']=1;
+			}
+			$form=($pages-1)*$row;
+			$rs=$this->pro->modeltoy_limit($form,$row,3);
 			break;
 
 			default:
@@ -108,7 +182,7 @@ class Product_c extends product_m
 			break;
 		}
 		$rs=$this->pro->add_discount($rs);			
-		include_once 'views/show-all.php';
+		include_once 'views/list-product.php';
 
 
 	}

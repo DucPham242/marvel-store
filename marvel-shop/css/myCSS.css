@@ -388,13 +388,13 @@ a .iconfa_user:hover{
 	color: #ECE7E7;
 	font-weight: bold;
 }
-.price_main_product{
+.price_discount_product{
 	  color: #b2008d;
     font-size: 25px;
     font-weight: 600;
     margin-right: 10px;
 }
-.price_discount_product{
+.price_main_product{
 	color: #7d7d7d;
 	font-size: 20px;
 	text-decoration: line-through;
