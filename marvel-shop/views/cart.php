@@ -15,6 +15,7 @@
 				<div class="row">
 					<h2>Giỏ hàng</h2>
 					<div class="row">
+						
 						<table class="table table-hover" style=" border: 1px solid #E1E1E1;" border="1px">
 							<thead>
 								<tr>
@@ -26,11 +27,37 @@
 									<th></th>
 								</tr>
 							</thead>
+							<?php 
+							if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
+								
+							
+						?>
+						 <h4 style="color: red">Giỏ hàng hiện tại đang trống</h4>
+						<?php 
+							}else{
+
+								foreach ($_SESSION['cart'] as $key => $cart) {
+									
+						 ?>
 							<tbody>
 								<tr>
-									<td><img src="../images/product/transformer/mo_hinh/BMB LS-01 Nitro Zeus/1.jpg" alt="Ảnh sản phẩm" width="60px"></td>
-									<td>Đông hồ Citizen </td>
-									<td>10,000,000đ</td>
+									<td><img src="images/product/<?php echo $cart['img']; ?>" alt="Ảnh sản phẩm" width="60px"></td>
+									<td><?php echo $cart['name_product']; ?></td>
+									<?php 
+									if ($cart['discount'] <= 0) {
+										
+									?>
+										<td><?php echo $price = $cart['price']; ?></td>
+									<?php
+									$_SESSION['total']+=$price;
+										}else{	
+									 ?>
+									 	<td><?php echo $price = $cart['discount_price']; ?></td>
+									 <?php 
+									 $_SESSION['total']+=$price;
+									 	}
+									 ?>
+									
 									<form action="" method="POST" role="form">
 										<td style="padding-left: 50px;">
 											<input type="number" class="form-control" min="1" max="10" id="" style="width: 70px">
@@ -42,7 +69,12 @@
 									</td>
 								</tr>
 							</tbody>
+							<?php
+						}
+					 }
+					 ?>
 						</table>
+					
 					</div>
 				</div>
 			</div>
@@ -51,7 +83,7 @@
 			<div class="col-md-4">
 				<h3>Đơn hàng</h3>
 				<div class="shippingbox">
-					<h3>Tổng tiền: 10,000,000</h3>
+					<h3>Tổng tiền: <?php echo $_SESSION['total']; ?></h3>
 					<button type="button" class="btn btn-danger">Thanh Toán</button>
 				</div>
 			</div>

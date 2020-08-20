@@ -1,6 +1,6 @@
-<div class="container" >
+<div class="container">
 
-	<div class="row" style="padding: 20px;position: relative;min-height: 80px;">
+	<div class="row" style="padding: 20px;position: relative;min-height: 80px;" >
 		<div class="col-md-3 col-xs-12" style="">
 			<a href="index.php"><img src="images/logo.webp" alt="Ảnh logo"></a>
 		</div>
@@ -14,13 +14,13 @@
 				</div><!-- /input-group -->
 			</form>
 		</div>
-		<div class="col-md-3 col-md-push-2 col-xs-4" style="padding-top: 5px">
+		<div class="col-md-3 col-md-push-2 col-xs-4" style="padding-top: 5px" >
 			<span style="padding-right: 10px"><a href="file-link/user-login.html"><i class="fa fa-user-circle-o fa-2x icon-header" aria-hidden="true"></i>
 				<span class="show-cart">
-					<a href="file-link/cart.html" id="show-cart">
+					<a href="index.php?page=home&method=cart" id="show-cart"  >
 						<i class="fa fa-cart-arrow-down fa-2x icon-header" id="icon-show" aria-hidden="true" ></i>
 
-						<div class="cart_hover-frame" style="width: 400px">
+						<div class="cart_hover-frame" style="width: 400px" >
 							<ul>
 								<li>
 									<table class="table"  style="background-color: #fff; border-radius: 15px;border: 0px solid #FD4040;">

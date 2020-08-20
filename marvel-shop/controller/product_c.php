@@ -76,6 +76,9 @@ class Product_c extends product_m
 			// echo "</pre>";
 			include_once "views/product-detail.php";
 			break;
+			case 'cart':
+				include_once "views/cart.php";
+				break;
 
 			default:
 			header("Location:index.php");
@@ -185,7 +188,10 @@ class Product_c extends product_m
 			$form=($pages-1)*$row;
 			$rs=$this->pro->modeltoy_limit($form,$row,3);
 			break;
-
+			case 'cart':
+				$rs = $this->pro->getProduct_Id_SS($id);
+				$rs = $this->pro->add_discount_SS($arr);
+				break;
 			default:
 			header("Location:index.php");
 			break;

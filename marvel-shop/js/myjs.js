@@ -94,7 +94,11 @@ $(document).ready(function(){
 		e.preventDefault();
 		var id = $(this).val();
 		$.get('server/add-card.php',{id: id}, function(data) {
+<<<<<<< HEAD
 		
+=======
+			$("#reload-cart").load(" .show-cart");
+>>>>>>> 42fb0437b301d64daa1beb30757ca87d7a885725
 		});
 	});
 
