@@ -26,63 +26,83 @@
 									<table class="table"  style="background-color: #fff; border-radius: 15px;border: 0px solid #FD4040;">
 										<tbody>
 											<?php 
-												if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
-											?>
+											if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
+												?>
 												<h4 style="color: red;margin: 20px 20px;">Giỏ hàng của bạn hiện đang trống!</h4>
-											<?php
+												<?php
 											}else{
 												$_SESSION['total']=0;
 												$_SESSION['cart_qty']=0;
 												foreach ($_SESSION['cart'] as $key => $value) {
 													
-										
-											 ?>
-											<tr>
-												<td><img src="images/product/<?php echo $value['img']; ?>" alt="" width="50px"></td>
-												<td> <p class="name" style="color: #085FD6;font-weight: bold;"><?php echo $value['name_product']; ?></p>
-													<p>Thể loại: <span class="light-red"><?php echo $value['name_type']; ?></span><br>Số lượng: <span class="light-red"><?php echo $value['qty'];
-													$_SESSION['cart_qty']+=$value['qty'];
-													 ?></span></p></td>
 
-													<td>
-														<?php if ($value['discount'] <= 0)
-														{ 
-														?>
-															<p class="price"><?php echo number_format($price=$value['price']*$value['qty']).' đ'; ?></p>
-														<?php
-														$_SESSION['total']+=$price;
-														}else{
-															?>
-															<p class="price"><?php echo number_format($price=$value['discount_price']*$value['qty']).' đ'; ?></p>
-														<?php
-														$_SESSION['total']+=$price;
-														}
-														?>
-														
-														<a href="#" class="remove"><i style="color: red" class="fa fa-trash-o fa-1x" aria-hidden="true"></i></a></td>
+													?>
+													<tr>
+														<td><img src="images/product/<?php echo $value['img']; ?>" alt="" width="50px"></td>
+														<td> <p class="name" style="color: #085FD6;font-weight: bold;"><?php echo $value['name_product']; ?></p>
+															<p>Thể loại: <span class="light-red"><?php echo $value['name_type']; ?></span><br>Số lượng: <span class="light-red"><?php echo $value['qty'];
+															$_SESSION['cart_qty']+=$value['qty'];
+															?></span></p></td>
 
-													</tr>
-													<?php 
+															<td>
+																<?php if ($value['discount'] <= 0)
+																{ 
+																	?>
+																	<p class="price"><?php echo number_format($price=$value['price']*$value['qty']).' đ'; ?></p>
+																	<?php
+																	$_SESSION['total']+=$price;
+																}else{
+																	?>
+																	<p class="price"><?php echo number_format($price=$value['discount_price']*$value['qty']).' đ'; ?></p>
+																	<?php
+																	$_SESSION['total']+=$price;
+																}
+																?>
+
+																<a href="#" class="remove"><i style="color: red" class="fa fa-trash-o fa-1x" aria-hidden="true"></i></a></td>
+
+															</tr>
+															<?php 
 														}
 													}
 													?>
 
-																</tbody>
-															</table>
+												</tbody>
+											</table>
 
 
+											<?php 
+											if(isset($_SESSION['cart'])){
+												?>
 
-															<li style="list-style: none">
-																<span class="total">Total: <strong><?php
-																 echo number_format($_SESSION['total']).' đ'; ?></strong></span><button class="checkout" onClick="location.href='checkout.html'">CheckOut</button>
-															</li>
+												<li style="list-style: none">
+													<span class="total">Total: <strong><?php
+													echo number_format($_SESSION['total']).' đ'; ?></strong></span><button class="checkout" onClick="location.href='checkout.html'">CheckOut</button>
+												</li>
 
-														</ul>
-													</div>
-												</a>
-											</span>			
-											<span id="cart_nums"><?php echo $_SESSION['cart_qty']; ?></span>
+												<?php
+											}
 
-										</div>
-									</div>	
-								</div>
+											?>
+											
+
+										</ul>
+									</div>
+								</a>
+							</span>
+							<?php 
+								if(isset($_SESSION['cart'])){
+									?>
+									<span id="cart_nums"><?php echo $_SESSION['cart_qty']; ?></span>
+									<?php
+								}else{
+									?>
+									<span id="cart_nums">0</span>
+									<?php
+								}
+							 ?>			
+							
+
+						</div>
+					</div>	
+				</div>
