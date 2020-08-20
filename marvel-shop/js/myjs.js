@@ -92,7 +92,7 @@ $(document).ready(function(){
 	//Click add to card
 	$(document).on('click', '.add-alert', function(e) {
 		e.preventDefault();
-		var id=$(this).val();
+		var id = $(this).val();
 
 		$.get('server/add-cart.php', {id: id}, function(data) {
 			$('#test').html(data);
