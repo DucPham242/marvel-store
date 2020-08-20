@@ -92,15 +92,9 @@ $(document).ready(function(){
 	//Click add to card
 	$(document).on('click', '.add-alert', function(e) {
 		e.preventDefault();
-<<<<<<< HEAD
 		var id = $(this).val();
-
-		$.get('server/add-cart.php', {id: id}, function(data) {
-=======
-		var id=$(this).val();
 		$.get('server/add-card.php',{id: id}, function(data) {
->>>>>>> 03a85d573207299057dbe86c3c70a1007bef1435
-			$('#test').html(data);
+		
 		});
 	});
 
