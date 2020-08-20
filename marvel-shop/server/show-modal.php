@@ -44,7 +44,7 @@ $show=new Product_c();
 											<?php 
 												}
 											?>
-												<button class="button add-cart" type="button">Add To Cart</button>
+												<button class="button add-cart" id="add-alert" type="button">Add To Cart</button>
 											</div>
 
 										</div>

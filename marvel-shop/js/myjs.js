@@ -77,6 +77,17 @@ $(document).ready(function(){
 		});
 
 	});
+	$(document).on('click', '#add-alert', function(){
+		// swal("Chúc mừng", "Bạn đã đặt hàng thành công!", "success");
+		swal({
+			  title: "Chúc mừng",
+			  text: "Bạn đã đặt hàng thành công!",
+			  icon: "success",
+			  buttons: [false],
+			  timer: 1500
+			});
+	
+	})
 
 
 
