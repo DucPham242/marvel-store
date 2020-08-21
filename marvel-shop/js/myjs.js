@@ -94,7 +94,7 @@ $(document).ready(function(){
 		e.preventDefault();
 		var id = $(this).val();
 		$.get('server/add-card.php',{id: id}, function(data) {
-			$("#reload-cart").load(" .show-cart");
+			$("#cartbox").load(" #reload_cartbox");
 		});
 	});
 

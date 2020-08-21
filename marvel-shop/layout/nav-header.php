@@ -14,10 +14,11 @@
 				</div><!-- /input-group -->
 			</form>
 		</div>
-		<div class="col-md-3 col-md-push-2 col-xs-4" style="padding-top: 5px" >
-			<span style="padding-right: 10px"><a href="file-link/user-login.html"><i class="fa fa-user-circle-o fa-2x icon-header" aria-hidden="true"></i>
+		<div id="cartbox">
+		<div class="col-md-3 col-md-push-2 col-xs-4" style="padding-top: 5px" id="reload_cartbox" >
+			<a href="file-link/user-login.html"><i class="fa fa-user-circle-o fa-2x icon-header" aria-hidden="true"></i></a>
 				<span class="show-cart">
-					<a href="index.php?page=home&method=cart" id="show-cart"  >
+					<a href="index.php?page=home&method=cart" id="show-cart" >
 						<i class="fa fa-cart-arrow-down fa-2x icon-header" id="icon-show" aria-hidden="true" ></i>
 
 						<div class="cart_hover-frame" style="width: 400px" >
@@ -91,18 +92,19 @@
 								</a>
 							</span>
 							<?php 
-								if(isset($_SESSION['cart'])){
-									?>
-									<span id="cart_nums"><?php echo $_SESSION['cart_qty']; ?></span>
-									<?php
-								}else{
-									?>
-									<span id="cart_nums">0</span>
-									<?php
-								}
-							 ?>			
+							if(isset($_SESSION['cart'])){
+								?>
+								<span id="cart_nums"><?php echo $_SESSION['cart_qty']; ?></span>
+								<?php
+							}else{
+								?>
+								<span id="cart_nums">0</span>
+								<?php
+							}
+							?>			
 							
 
+						</div>
 						</div>
 					</div>	
 				</div>
