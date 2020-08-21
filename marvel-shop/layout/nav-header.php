@@ -21,7 +21,7 @@
 					<a href="index.php?page=home&method=cart" id="show-cart" >
 						<i class="fa fa-cart-arrow-down fa-2x icon-header" id="icon-show" aria-hidden="true" ></i>
 
-						<div class="cart_hover-frame" style="width: 400px" >
+						<div class="cart_hover-frame"  >
 							<ul>
 								<li>
 									<table class="table"  style="background-color: #fff; border-radius: 15px;border: 0px solid #FD4040;">
@@ -60,7 +60,7 @@
 																}
 																?>
 
-																<a href="#" class="remove"><i style="color: red" class="fa fa-trash-o fa-1x" aria-hidden="true"></i></a></td>
+																<button class="btn_remove cart-hover-del" value="<?php echo $value['id_product']; ?>"><i style="color: red" class="fa fa-trash-o fa-1x" aria-hidden="true"></i></button></td>
 
 															</tr>
 															<?php 
@@ -73,12 +73,12 @@
 
 
 											<?php 
-											if(isset($_SESSION['cart'])){
+											if(isset($_SESSION['cart']) && !empty($_SESSION['cart'])){
 												?>
 
 												<li style="list-style: none">
 													<span class="total">Total: <strong><?php
-													echo number_format($_SESSION['total']).' đ'; ?></strong></span><button class="checkout" onClick="location.href='checkout.html'">CheckOut</button>
+													echo number_format($_SESSION['total']).' đ'; ?></strong></span><button class="checkout" onClick="location.href='index.php?page=home&method=cart'">CheckOut</button>
 												</li>
 
 												<?php
@@ -92,7 +92,7 @@
 								</a>
 							</span>
 							<?php 
-							if(isset($_SESSION['cart'])){
+							if(isset($_SESSION['cart']) && !empty($_SESSION['cart'])){
 								?>
 								<span id="cart_nums"><?php echo $_SESSION['cart_qty']; ?></span>
 								<?php

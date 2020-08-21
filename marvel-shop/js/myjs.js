@@ -46,7 +46,7 @@
 	});
 
 
-	//JS cho raiting(đánh giá sao) cho sản phẩm
+	//JS hiển thị phần raiting(đánh giá sao) cho sản phẩm
 	$(document).on('click', '.star', function(e) {
 		id=$(this).attr('id');
 			// alert(id);
@@ -78,6 +78,7 @@
 
 	});
 	
+	//Click add cart hiện popup thông báo
 	$(document).on('click', '.add-alert', function(){
 		// swal("Chúc mừng", "Bạn đã đặt hàng thành công!", "success");
 		swal({
@@ -95,11 +96,13 @@
 		e.preventDefault();
 		var id = $(this).val();
 		$.get('server/add-card.php',{id: id}, function(data) {
-			$("#reload-cart").load(" .show-cart");
+			$("#cartbox").load(" #reload_cartbox");
 		});
 	});
 
-	$(document).on('click', '#alert-del', function(e){
+
+//Click xóa sản phẩm trong trang Cart
+	$(document).on('click', '.alert-del', function(e){
 		
 		e.preventDefault();
 		var id = $(this).val();
@@ -120,12 +123,28 @@
 //   } else {
 //     swal("Your imaginary file is safe!");
 //   }
-  	$.get('server/del-pro.php', {id: id}, function(data){
+	var check=confirm("Bạn có muốn xóa sản phẩm này khỏi giỏ hàng không ?");
+	if(check){
+		$.post('server/del-pro.php', {id: id}, function(data){
   		$('#table-box-cart').load(' #cart-table');
+  		$("#cartbox").load(" #reload_cartbox");
+	 	});
+	}	
+	});
+
+//Click xóa sản phẩm trên cart hover
+	$(document).on('click', '.cart-hover-del', function(e){
+		
+		e.preventDefault();
+		var id = $(this).val();
+		$.post('server/del-pro.php', {id: id}, function(data){
+  		$('#table-box-cart').load(' #cart-table');
+  		$("#cartbox").load(" #reload_cartbox");
 	 	});
 	});
 
-	
+
+
 	// $(document).on('click', '.glyphicon', function(){
 	// 	var id = (this).val();
 	// 	$.post('server/show-modal.php', {id: id}, function(data){

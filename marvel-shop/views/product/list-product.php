@@ -20,7 +20,11 @@
 				<li><?php echo $rs[0]['name_brand']; ?></li>
 				<li><?php echo $rs[0]['name_type']; ?></li>
 				<?php
-				break;	
+				break;
+				case 'hot':
+				?>
+				<li><?php echo 'Sản phẩm HOT-SALE'; ?></li>
+				<?php
 			}
 			?>				
 		</ol>
@@ -33,7 +37,7 @@
 				<li><h4>Danh mục nhóm</h4></li>
 				<hr>
 				<li class="nav-item">
-					<a class="nav-link" href="../index.html">Trang chủ</a>
+					<a class="nav-link" href="index.php">Trang chủ</a>
 				</li>
 
 				<li class="nav-item">
@@ -89,13 +93,13 @@
 					</ul>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">Hot sale</a>
+					<a class="nav-link" href="index.php?page=list-product&method=hot">Hot sale</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">Chỉ dẫn mua hàng</a>
+					<a class="nav-link" href="index.php?page=info&method=tutorial">Chỉ dẫn mua hàng</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link disabled" href="#">Liên hệ</a>
+					<a class="nav-link disabled" href="index.php?page=info&method=contact">Liên hệ</a>
 				</li>
 			</ul>
 		</div>
@@ -108,8 +112,8 @@
 						<div class="container-fluid">
 
 							<div class="collapse navbar-collapse navbar-ex1-collapse">
-								<ul class="nav navbar-nav">
-									<li><a href="">Marvel</a></li>
+								<ul class="nav navbar-nav" style="line-height:50px;">
+									<li >Danh sách sản phẩm:</li>
 								</ul>
 								<ul class="nav navbar-nav navbar-right">
 									<li style="margin-top: 10px">
@@ -147,13 +151,16 @@
 					</div>
 					<div class="row">
 						<?php 
+						if(count($rs)==0){
+							echo "<p style='color:red;margin-left:100px;'>Mặt hàng này hiện không còn sản phẩm, bạn vui lòng quay lại sau.</p>";
+						}
 						foreach ($rs as $key => $value) {
 							?>
 							<div class="col-md-4 col-xs-6 product_box" style="margin-top: 20px;">
 								<div class="thumbnail">
 									<div class="set">
 										<div href="#" style=""><img style="" src="images/product/<?php echo $value['img']; ?>" width="100%" alt="...">
-											<button class="btn btn-danger shower"  data-toggle="modal" value="<?php echo $value['id_product']; ?>" data-target=".bs-example-modal-lg">Xem chi tiết</button>
+											<button class="btn btn-danger shower"  data-toggle="modal" value="<?php echo $value['id_product']; ?>" data-target=".bs-example-modal-lg">Xem nhanh</button>
 										</div>
 
 									</div>
@@ -162,7 +169,7 @@
 
 									<div class="caption" style="">
 
-										<a href="file-link/product-detail.php" style="color: #333333;"><h5><?php echo $value['name_product']; ?></h5></a>
+										<a href="index.php?page=home&method=product-detail&id=<?php echo $value['id_product']; ?>" style="color: #333333;"><h5><?php echo $value['name_product']; ?></h5></a>
 										<hr>
 										<?php 
 										if ($value['discount'] <= 0) {

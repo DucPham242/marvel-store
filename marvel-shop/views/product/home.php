@@ -61,8 +61,8 @@
 		<!-- <div class="col-md-12 col-sm-12" > -->
 			<div style="text-align: center;">
 				<div class="col-md-4 col-xs-2" >
-					<div style="height: 1px;background-color: #000;margin-top: 45px"></div>
-					<div style="height: 1px;background-color: #000;margin-top: 5px"></div>
+					<div class="hr_top" style=""></div>
+					<div class="hr_bot" style=""></div>
 
 				</div>
 				<div class="col-md-4 col-xs-8">
@@ -70,8 +70,8 @@
 					<p class="title_note">Đây là những sản phẩm được khách hàng đánh giá và yêu thích nhất</p>
 				</div>
 				<div class="col-md-4 col-xs-2">
-					<div style="height: 1px;background-color: #000;margin-top: 45px"></div>
-					<div style="height: 1px;background-color: #000;margin-top: 5px"></div>
+					<div class="hr_top"></div>
+					<div class="hr_bot"></div>
 				</div>
 			</div>
 		</div>
@@ -126,7 +126,7 @@
 
 		<div class="row">
 			<div class="col-md-6 col-md-push-5 col-xs-6 col-xs-push-3">
-				<a href="file-link/show-all.html"><button type="button" class="btn btn-success btn_viewall">Xem tất cả</button></a>
+				<a href="index.php?page=list-product&method=hot"><button type="button" class="btn btn-success btn_viewall">Xem tất cả</button></a>
 			</div>
 		</div>
 
@@ -134,8 +134,8 @@
 			<!-- <div class="col-md-12 col-sm-12" > -->
 				<div style="text-align: center;">
 					<div class="col-md-4 col-xs-2" >
-						<div style="height: 1px;background-color: #000;margin-top: 45px"></div>
-						<div style="height: 1px;background-color: #000;margin-top: 5px"></div>
+						<div class="hr_top"></div>
+						<div class="hr_bot"></div>
 
 					</div>
 					<div class="col-md-4 col-xs-8">
@@ -143,8 +143,8 @@
 						<p class="title_note">Đây là những sản phẩm của hãng MARVEL</p>
 					</div>
 					<div class="col-md-4 col-xs-2">
-						<div style="height: 1px;background-color: #000;margin-top: 45px"></div>
-						<div style="height: 1px;background-color: #000;margin-top: 5px"></div>
+						<div class="hr_top"></div>
+						<div class="hr_bot"></div>
 					</div>
 				</div>
 			</div>
@@ -172,7 +172,7 @@
 
 							<div class="caption" style="">
 
-							<a href="file-link/product-detail.php" style="color: #333333;"><h5><?php echo $mv['name_product']; ?></h5></a>
+							<a href="index.php?page=home&method=product-detail&id=<?php echo $mv['id_product']; ?>" style="color: #333333;"><h5><?php echo $mv['name_product']; ?></h5></a>
 							<hr>
 							<?php 
 								if ($mv['discount'] <= 0) {
@@ -203,8 +203,8 @@
 				<!-- <div class="col-md-12 col-sm-12" > -->
 					<div style="text-align: center;">
 						<div class="col-md-4 col-xs-2" >
-							<div style="height: 1px;background-color: #000;margin-top: 45px"></div>
-							<div style="height: 1px;background-color: #000;margin-top: 5px"></div>
+							<div class="hr_top"></div>
+							<div class="hr_bot"></div>
 
 						</div>
 						<div class="col-md-4 col-xs-8">
@@ -237,7 +237,7 @@
 
 							<div class="caption" style="">
 
-							<a href="file-link/product-detail.php" style="color: #333333;"><h5><?php echo $dc['name_product']; ?></h5></a>
+							<a href="index.php?page=home&method=product-detail&id=<?php echo $dc['id_product']; ?>" style="color: #333333;"><h5><?php echo $dc['name_product']; ?></h5></a>
 							<hr>
 							<?php 
 								if ($dc['discount'] <= 0) {
@@ -271,8 +271,8 @@
 					<!-- <div class="col-md-12 col-sm-12" > -->
 						<div style="text-align: center;">
 							<div class="col-md-4 col-xs-2" >
-								<div style="height: 1px;background-color: #000;margin-top: 45px"></div>
-								<div style="height: 1px;background-color: #000;margin-top: 5px"></div>
+								<div class="hr_top"></div>
+								<div class="hr_bot"></div>
 
 							</div>
 							<div class="col-md-4 col-xs-8">
@@ -280,8 +280,8 @@
 
 							</div>
 							<div class="col-md-4 col-xs-2">
-								<div style="height: 1px;background-color: #000;margin-top: 45px"></div>
-								<div style="height: 1px;background-color: #000;margin-top: 5px"></div>
+								<div class="hr_top"></div>
+								<div class="hr_bot"></div>
 							</div>
 						</div>
 					</div>

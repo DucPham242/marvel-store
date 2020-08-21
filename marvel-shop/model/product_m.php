@@ -12,18 +12,27 @@
 			parent::__construct(); // Gọi hàm __contruct bên config để luôn tồn tại $pdo để kết nối tới CSDL
 		}
 
-		//Lấy danh sách sản phẩm HOT
+		//Lấy danh sách tất cả sản phẩm HOT
 		public function getProduct_Hot(){
-			$sql="SELECT * FROM tbl_product WHERE stt=1";
+			$sql="SELECT * FROM tbl_product WHERE stt=1 ORDER BY id_product DESC";
 			$pre=$this->pdo->prepare($sql);
 			$pre->execute();
 			return $pre->fetchAll(PDO::FETCH_ASSOC);
 
 		}
+		//Lấy ra danh sách sản phẩm HOT kèm phân trang
+		public function getProduct_Hot_limit($form,$row){
+			$sql="SELECT * FROM tbl_product WHERE stt=1 ORDER BY id_product DESC LIMIT $form,$row";
+			$pre=$this->pdo->query($sql);
+			return $pre->fetchAll(PDO::FETCH_ASSOC);
+
+		}
+
+
 		//Lấy ra tất cả sản phẩm của 1 hãng
 		public function getProduct($id_brand){
 			
-			$sql="SELECT * FROM tbl_product WHERE id_brand=:id_brand";
+			$sql="SELECT * FROM tbl_product WHERE id_brand=:id_brand ORDER BY id_product DESC";
 			$pre=$this->pdo->prepare($sql);
 			$pre->bindParam(':id_brand',$id_brand);
 			$pre->execute();
@@ -34,7 +43,7 @@
 		//Lấy ra tất cả sản phẩm của 1 hãng -dành cho SS
 		public function getProduct_SS($id_brand){
 			
-			$sql="SELECT * FROM tbl_product WHERE id_brand=:id_brand";
+			$sql="SELECT * FROM tbl_product WHERE id_brand=:id_brand ORDER BY id_product DESC";
 			$pre=$this->pdo->prepare($sql);
 			$pre->bindParam(':id_brand',$id_brand);
 			$pre->execute();
@@ -45,31 +54,38 @@
 		//Lấy danh sách sản phẩm của 1 hãng kèm theo tên hãng,tên loại (giới hạn phân trang)
 		public function Product_limit($form,$row,$id_brand){
 			
-			$sql="SELECT tbl_product.*,tbl_brand.name_brand,tbl_type.name_type From tbl_brand,tbl_product,tbl_type WHERE (tbl_product.id_brand=tbl_brand.id_brand) AND (tbl_product.id_type=tbl_type.id_type) AND tbl_product.id_brand=$id_brand LIMIT $form,$row";
+			$sql="SELECT tbl_product.*,tbl_brand.name_brand,tbl_type.name_type From tbl_brand,tbl_product,tbl_type WHERE (tbl_product.id_brand=tbl_brand.id_brand) AND (tbl_product.id_type=tbl_type.id_type) AND tbl_product.id_brand=$id_brand ORDER BY id_product DESC LIMIT $form,$row";
 			$pre=$this->pdo->query($sql);		
 			return $pre->fetchAll(PDO::FETCH_ASSOC);
 
 		}
 
-		//Lấy danh sách sản phẩm "Mô Hình" của 1 hãng 
-		public function modeltoy($id_brand){
+		//Lấy danh sách tất cả sản phẩm tùy chọn theo ID Hãng và ID Type. 
+		public function ProductOption($id_brand,$id_type){
 
-			$sql="SELECT * From tbl_product WHERE id_brand=:id_brand";
+			$sql="SELECT * From tbl_product WHERE id_brand=:id_brand AND id_type=:id_type ORDER BY id_product DESC";
 			$pre=$this->pdo->prepare($sql);	
 			$pre->bindParam(':id_brand',$id_brand);
+			$pre->bindParam(':id_type',$id_type);
 			$pre->execute();	
 			return $pre->fetchAll(PDO::FETCH_ASSOC);
 		}	
 
 
 
-		//Lấy danh sách sản phẩm "Mô Hình" của 1 hãng  kèm theo tên hãng,tên loại (giới hạn phân trang)
-		public function modeltoy_limit($form,$row,$id_brand){
+		//Lấy danh sách sản phẩm tùy chọn theo tùy chọn theo ID Hãng và ID Type.. Kèm theo tên hãng,tên loại (giới hạn phân trang)
+		public function ProductOption_limit($form,$row,$id_brand,$id_type){
 
-			$sql="SELECT tbl_product.*,tbl_brand.name_brand,tbl_type.name_type From tbl_brand,tbl_product,tbl_type WHERE (tbl_product.id_brand=tbl_brand.id_brand) AND (tbl_product.id_type=tbl_type.id_type) AND tbl_product.id_brand=$id_brand AND tbl_product.id_type=1 LIMIT $form,$row";
+			$sql="SELECT tbl_product.*,tbl_brand.name_brand,tbl_type.name_type From tbl_brand,tbl_product,tbl_type WHERE (tbl_product.id_brand=tbl_brand.id_brand) AND (tbl_product.id_type=tbl_type.id_type) AND tbl_product.id_brand=$id_brand AND tbl_product.id_type=$id_type ORDER BY id_product DESC LIMIT $form,$row";
 			$pre=$this->pdo->query($sql);		
 			return $pre->fetchAll(PDO::FETCH_ASSOC);
 		}	
+
+
+
+
+
+
 
 		//Thêm trường giảm giá cho mảng
 		public function add_discount($arr){
@@ -99,6 +115,12 @@
 			$pre->execute();
 			return $rs=$pre->fetchAll(PDO::FETCH_ASSOC);
 
+		}
+		//Lấy ra 3 sản phẩm liên quan,cùng hãng hoặc cùng type,nhưng khác ID
+		public function getProduct_related($id_product,$id_brand){
+			$sql="SELECT * FROM tbl_product WHERE id_product!=$id_product AND id_brand=$id_brand ORDER BY RAND() LIMIT 3";
+			$pre=$this->pdo->query($sql);
+			return $pre->fetchAll(PDO::FETCH_ASSOC);
 		}
 
 		//Lấy 1 sản phẩm dựa theo ID dành cho SESSION['cart']

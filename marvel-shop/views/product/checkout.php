@@ -83,7 +83,8 @@
 							STK : 188421652 <br>
 							Ngân hàng : VP Bank <br>
 							Chi nhánh : sở giao dịch <br>
-							Chủ tài khoản : Hoang Van Lam
+							Chủ tài khoản : Hoang Van Lam <br>
+							Nội dung chuyển khoản: Điền thông tin, số điện thoại của bạn
 						</div>
 					</div>
 					<div  class="submit-user">
@@ -92,7 +93,7 @@
 					
 
 				</form><br>
-				<a href=""> Trở về giỏ hàng</a>
+				<a href="index.php?page=home&method=cart"> Trở về giỏ hàng</a>
 
 				</div>
 				<div class="col-md-6" style=" min-height: 700px;">

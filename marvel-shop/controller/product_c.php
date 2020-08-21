@@ -50,18 +50,18 @@ class Product_c extends product_m
 		}
 		switch ($method) {
 			case 'home':
-			$rs_hot=$this->pro->getProduct_Hot();
+			$rs_hot=$this->pro->getProduct_Hot_limit(0,8);
 			$rs_hot=$this->pro->add_discount($rs_hot); //Thêm trường giảm giá cho mảng
 			
 
-			$rs_mv=$this->pro->getProduct(1);
+			$rs_mv=$this->pro->Product_limit(0,8,1);
 			$rs_mv=$this->pro->add_discount($rs_mv); //Thêm trường giảm giá cho mảng
-			$rs_dc=$this->pro->getProduct(2);
+			$rs_dc=$this->pro->Product_limit(0,8,2);
 			$rs_dc=$this->pro->add_discount($rs_dc); //Thêm trường giảm giá cho mảng
 			// echo "<pre>";
 			// print_r($rs_hot);
 			// echo "</pre>";
-			include_once 'views/home.php';
+			include_once 'views/product/home.php';
 			break;
 
 			case 'product-detail':
@@ -72,14 +72,28 @@ class Product_c extends product_m
 			}
 			$rs=$this->pro->getProduct_Id($id);
 			$rs=$this->pro->add_discount($rs);
+
+			//Lấy ra 3 sản phẩm liên quan
+			foreach ($rs as $key => $value) {
+				$rs_related=$this->pro->getProduct_related($value['id_product'],$value['id_brand']);
+				$rs_related=$this->pro->add_discount($rs_related);
+			}
+			
 			// echo "<pre>";
-			// print_r($rs);
+			// print_r($rs_related);
 			// echo "</pre>";
-			include_once "views/product-detail.php";
+			include_once "views/product/product-detail.php";
 			break;
+
 			case 'cart':
-				include_once "views/cart.php";
-				break;
+			include_once "views/product/cart.php";
+			break;
+
+			case 'checkout':
+
+			
+			include_once "views/product/checkout.php";
+			break;
 
 			default:
 			header("Location:index.php");
@@ -145,8 +159,24 @@ class Product_c extends product_m
 			$rs=$this->pro->Product_limit($form,$row,3);
 			break;
 
+			case 'hot':
+			$rs=$this->pro->getProduct_Hot();
+			$row=3;//Số sản phẩm, tin.. trên 1 trang
+			$number=count($rs);//Tổng số bản ghi
+			$pagination=ceil($number/$row);//Số phân trang
+			if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
+				$pages=(int)$_GET['pages'];
+			}else{
+				$pages=1;
+				$_GET['pages']=1;
+			}
+			$form=($pages-1)*$row;
+			
+			$rs=$this->pro->getProduct_Hot_limit($form,$row);
+			break;
+
 			case 'modeltoyMV':
-			$rs=$this->pro->modeltoy(1);
+			$rs=$this->pro->ProductOption(1,1);
 			$row=3;
 			$number=count($rs);//Tổng số bản ghi
 			$pagination=ceil($number/$row);//Số phân trang
@@ -157,11 +187,11 @@ class Product_c extends product_m
 				$_GET['pages']=1;
 			}
 			$form=($pages-1)*$row;
-			$rs=$this->pro->modeltoy_limit($form,$row,1);
+			$rs=$this->pro->ProductOption_limit($form,$row,1,1);
 			break;
 
 			case 'modeltoyDC':
-			$rs=$this->pro->modeltoy(2);
+			$rs=$this->pro->ProductOption(2,1);
 			$row=3;
 			$number=count($rs);//Tổng số bản ghi
 			$pagination=ceil($number/$row);//Số phân trang
@@ -172,11 +202,11 @@ class Product_c extends product_m
 				$_GET['pages']=1;
 			}
 			$form=($pages-1)*$row;
-			$rs=$this->pro->modeltoy_limit($form,$row,2);
+			$rs=$this->pro->ProductOption_limit($form,$row,2,1);
 			break;
 
 			case 'modeltoyTrans':
-			$rs=$this->pro->modeltoy(3);
+			$rs=$this->pro->ProductOption(3,1);
 			$row=3;
 			$number=count($rs);//Tổng số bản ghi
 			$pagination=ceil($number/$row);//Số phân trang
@@ -187,25 +217,87 @@ class Product_c extends product_m
 				$_GET['pages']=1;
 			}
 			$form=($pages-1)*$row;
-			$rs=$this->pro->modeltoy_limit($form,$row,3);
+			$rs=$this->pro->ProductOption_limit($form,$row,3,1);
 			break;
-			case 'cart':
-				$rs = $this->pro->getProduct_Id_SS($id);
-				$rs = $this->pro->add_discount_SS($arr);
-				break;
+
+			case 'techMV':
+			$rs=$this->pro->ProductOption(1,2);
+			$row=3;
+			$number=count($rs);//Tổng số bản ghi
+			$pagination=ceil($number/$row);//Số phân trang
+			if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
+				$pages=(int)$_GET['pages'];
+			}else{
+				$pages=1;
+				$_GET['pages']=1;
+			}
+			$form=($pages-1)*$row;
+			$rs=$this->pro->ProductOption_limit($form,$row,1,2);
+			break;
+
+			case 'techDC':
+			$rs=$this->pro->ProductOption(2,2);
+			$row=3;
+			$number=count($rs);//Tổng số bản ghi
+			$pagination=ceil($number/$row);//Số phân trang
+			if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
+				$pages=(int)$_GET['pages'];
+			}else{
+				$pages=1;
+				$_GET['pages']=1;
+			}
+			$form=($pages-1)*$row;
+			$rs=$this->pro->ProductOption_limit($form,$row,2,2);
+			break;
+
+			case 'itemsMV':
+			$rs=$this->pro->ProductOption(1,3);
+			$row=3;
+			$number=count($rs);//Tổng số bản ghi
+			$pagination=ceil($number/$row);//Số phân trang
+			if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
+				$pages=(int)$_GET['pages'];
+			}else{
+				$pages=1;
+				$_GET['pages']=1;
+			}
+			$form=($pages-1)*$row;
+			$rs=$this->pro->ProductOption_limit($form,$row,1,3);
+			break;
+
+			case 'itemsDC':
+			$rs=$this->pro->ProductOption(2,3);
+			$row=3;
+			$number=count($rs);//Tổng số bản ghi
+			$pagination=ceil($number/$row);//Số phân trang
+			if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
+				$pages=(int)$_GET['pages'];
+			}else{
+				$pages=1;
+				$_GET['pages']=1;
+			}
+			$form=($pages-1)*$row;
+			$rs=$this->pro->ProductOption_limit($form,$row,2,3);
+			break;
+
+
+
 			default:
 			header("Location:index.php");
 			break;
 		}
 		$rs=$this->pro->add_discount($rs);			
-		include_once 'views/list-product.php';
+		include_once 'views/product/list-product.php';
 
 
 	}
 
+
+
 	
 
 }
+
 
 
 

@@ -4,8 +4,8 @@
 	font-family: Arial;
 	font-size: 15px;
 }
-.wrapper{
-	position: relative;
+button,input[type="button"]{
+	outline: none;
 }
 /*header*/
 #header{
@@ -33,10 +33,10 @@ a:hover{
 }
 .cart_hover-frame{
 	position: absolute;
-	z-index: 1;
-	top: 40px;
+	z-index: 2;
+	top: 30px;
 	right: 200px;
-	width: 300px;
+	width: 400px;
 	list-style: none;
 	background-color: #fff;
 	border: 1px solid #919191;
@@ -78,6 +78,24 @@ a:hover{
 	border-radius: 10px;
 	color: #fff;
 
+}
+.btn_remove{
+	border: none;
+	padding-left: 5px;
+}
+.btn_remove_incart{
+	padding-right: 1px;
+	border: none;
+}
+
+
+
+.hr_top{
+	height: 1px;background-color: #000;margin-top: 45px;
+}
+.hr_bot{
+	height: 1px;background-color: #000;margin-top: 5px;
+	border: solid 2px gray;
 }
 /*end*/
 
@@ -152,6 +170,7 @@ a:hover{
 }
 .add-cart{
 	padding: 9px 30px;
+
 }
 .button{
 	border-radius: 10px;
@@ -436,6 +455,9 @@ a .iconfa_user:hover{
 	top: 500px;
 
 }
+#link_back_cart{
+	margin-top: 50px;display: block;text-decoration: underline;
+}
 #frm_raiting{
 	margin-top: 100px;
 }
@@ -486,6 +508,9 @@ a .iconfa_user:hover{
 	left: 400px;
 	color: red;
 	font-size: 18px;
+}
+.price{
+	width: 120px;
 }
 .checkout_product_qty{
 	position: absolute;

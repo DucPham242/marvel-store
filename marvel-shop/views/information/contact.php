@@ -8,7 +8,7 @@
 		<div class="row">
 			<!-- google map -->
 			<div class="col-md-12 col-xm-12>">
-				<h3>Liên hệ ---</h3>
+				<h3>Liên hệ <hr></h3>
 				<div >
 					<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29786.18674209143!2d105.84489204812472!3d21.061742201503247!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135aa2e4261c55b%3A0x8de2243c2dffb31a!2zTmfhu41jIFRo4buleSwgTG9uZyBCacOqbiwgSMOgIE7hu5lpLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1596659002029!5m2!1svi!2s" width="1100" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
 				</div>

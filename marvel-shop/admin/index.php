@@ -20,7 +20,35 @@
 			<div class="col-md-10" id="main_content">
 				<div class="row">
 					<!-- START Main-Content -->
+				<?php 
+
+					if(isset($_GET['page'])){
+						$page=$_GET['page'];
+					}else{
+						$page='home';
+					}
+
+					switch ($page) {
+						case 'baocao':
+							# code...
+							break;
+						case 'control':
+							# code...
+							break;
+						case 'product':
+							# code...
+							break;
+							case 'user':
+							# code...
+							break;
 						
+						default:
+							# code...
+							break;
+					}
+
+
+				 ?>
 					
 
 

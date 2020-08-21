@@ -3,7 +3,7 @@
 	$ajax_flag=1;
 include_once "../controller/product_c.php";
 $show=new Product_c();
-if(isset($_POST['id'])){
+if(isset($_POST['id']) && $_POST['id']>0){
 	$id=(int)$_POST['id'];
 	$rs=$show->getProduct_Id($id);
 	$rs=$show->add_discount($rs);

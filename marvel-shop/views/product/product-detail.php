@@ -12,7 +12,7 @@
 
 			</ol>
 			<?php 
-		 	  ?>
+			?>
 			<div class="col-md-2" >
 				<div class="row">
 					<div class="col-md-6"><img class="list_img_product" src="images/product/transformer/mo_hinh/BMB LS-01 Nitro Zeus/1.jpg" alt="" width=""></div>
@@ -50,7 +50,7 @@
 					<?php
 				}else{
 					?>
-					<span class="price_discount_product">
+					<span class="price_main_product">
 						<?php echo number_format($value['price']).' đ'; ?>
 					</span><br>
 					<?php
@@ -92,8 +92,8 @@
 					<div class="panel-heading"><b>MÔ TẢ SẢN PHẨM</b></div>
 					<div class="panel-body">
 						<?php 
-							echo $value['description'];
-						 ?>
+						echo $value['description'];
+						?>
 					</div>
 				</div>
 				<?php
@@ -106,59 +106,45 @@
 			<div class="panel panel-default	">
 				<div class="panel-heading"><b>CÁC SẢN PHẨM LIÊN QUAN</b></div>
 				<div class="panel-body" style="">
-					<a href=""><div class="row" style="">
-						<div class="col-md-4" style="">
-							<div class="row">
-								<img class="related_img" src="images/product/transformer/mo_hinh/Bumblebee Comicave kim loại/1.jpg" alt="">
+					<?php 
+					foreach ($rs_related as $key => $value) {
+						?>
+						<a href=""><div class="row" style="">
+							<div class="col-md-4" style="">
+								<div class="row">
+									<img class="related_img" src="images/product/<?php echo $value['img']; ?>" alt="">
+								</div>
 							</div>
-						</div>
-						<div class="col-md-8" style="">
-							<h4>Bumblebee Comicave 80% kim loại</h4><br>
-							<span class="price_main_product">
-								600,000 VNĐ
-							</span>
-							<span class="price_discount_product">
-								1,850,000 VNĐ
-							</span><br>
+							<div class="col-md-8" style="">
+								<h4><?php echo $value['name_product']; ?></h4><br>
+								<?php
+								if($value['discount']>0){
+									?>
+									<span class="price_main_product">
+										<?php echo number_format($value['price']).' VNĐ'; ?>
+									</span>
+									<span class="price_discount_product">
+										<?php echo number_format($value['discount_price']).' VNĐ'; ?>
+									</span><br>
+									<?php
+								}else{
+									?>
+									<span class="price_discount_product">
+										<?php echo number_format($value['price']).' VNĐ'; ?>
+									</span><br>
+									<?php
+								}
+								?>
 
-						</div>
-					</div></a>
-					<br>
-					<a href=""><div class="row" style="">
-						<div class="col-md-4" style="">
-							<div class="row">
-								<img class="related_img" src="images/product/transformer/mo_hinh/3AThreeZero Optimus Prime DLX Scale/1.jpg" alt="">
 							</div>
-						</div>
-						<div class="col-md-8" style="">
-							<h4>Bumblebee Comicave 80% kim loại</h4><br>
-							<span class="price_main_product">
-								600,000 VNĐ
-							</span>
-							<span class="price_discount_product">
-								1,850,000 VNĐ
-							</span><br>
+						</div></a>
+						<br>
+						<?php
+					}
+					?>
+					
 
-						</div>
-					</div></a>
-					<br>
-					<a href=""><div class="row" style="">
-						<div class="col-md-4" style="">
-							<div class="row">
-								<img class="related_img" src="images/product/transformer/mo_hinh/COMBO LS-14 + LS-15/1.jpg" alt="">
-							</div>
-						</div>
-						<div class="col-md-8" style="">
-							<h4>Bumblebee Comicave 80% kim loại</h4><br>
-							<span class="price_main_product">
-								600,000 VNĐ
-							</span>
-							<span class="price_discount_product">
-								1,850,000 VNĐ
-							</span><br>
 
-						</div>
-					</div></a>
 				</div>
 			</div>
 

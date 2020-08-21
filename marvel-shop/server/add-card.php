@@ -3,7 +3,7 @@ session_start();
 $ajax_flag=1;
 include_once "../controller/product_c.php";
 $add=new Product_c();
-if(isset($_GET['id'])){
+if(isset($_GET['id']) && $_GET['id']>0){
 	$id=(int)$_GET['id'];
 	$product=$add->getProduct_Id_SS($id);
 	$product=$add->add_discount_SS($product);

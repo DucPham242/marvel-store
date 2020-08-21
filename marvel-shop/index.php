@@ -35,13 +35,22 @@
 					$product = new Product_c();
 					$product->Product();
 					break;
+
 				case 'list-product':
 					include_once 'controller/product_c.php';
 					$listProduct = new Product_c();
 					$listProduct->typeProduct();
-					
-					
 					break;
+
+				case 'info':
+					include_once 'controller/info_c.php';
+					$information= new Info_c();
+					$information->Manual();					
+					break;
+
+
+
+
 				default:
 					header('Location:index.php');
 					break;

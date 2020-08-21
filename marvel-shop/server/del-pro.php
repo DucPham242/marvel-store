@@ -3,14 +3,16 @@
 	$ajax_flag=1;
 	
 
-	if (isset($_GET['id'])) {
-		$id = (int)$_GET['id'];
+	if (isset($_POST['id']) && $_POST['id']>0) {
+		$id = (int)$_POST['id'];
 		if (isset($_SESSION['cart'][$id])) {
 			unset($_SESSION['cart'][$id]);
 		}else {
-			echo 'Lỗi';
+			echo 'Sản phẩm này không có trong giỏ hàng';
 		}
 
+	}else{
+		echo "id sản phẩm không hợp lệ";
 	}
 	
 ?>
