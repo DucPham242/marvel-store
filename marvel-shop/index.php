@@ -18,6 +18,10 @@
 
 		<!-- START BODY -->
 		<?php 
+			// echo "<pre>";
+		 // 	print_r($_SESSION['cart']);
+		 // 	echo "</pre>";
+
 
 			if(isset($_GET['page'])){
 				$page=$_GET['page'];
