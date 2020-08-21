@@ -35,6 +35,7 @@ class Product_c extends product_m
 	public function add_discount_SS($arr){
 		return $this->pro->add_discount_SS($arr);
 	}
+	
 
 
 

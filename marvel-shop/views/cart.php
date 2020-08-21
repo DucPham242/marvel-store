@@ -1,3 +1,4 @@
+
 <div class="container" >
 		<div class="row">
 			<ol class="breadcrumb" >
@@ -6,9 +7,21 @@
 			</ol>
 		</div>
 	</div>
+	<div id="table-box-cart" style="min-height: 300px">
+		<div id="cart-table">
 	<!-- end link cart -->
 	<!-- show product -->
-	<div class="container" >
+	<?php 
+							if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
+								
+							
+						?>
+							<h4 style="color: red; margin: 20px 10px 200px 150px;">Hiện tại chưa có sản phẩm nào!</h4>
+						<?php 
+						}else
+						{
+						 ?>
+	<div class="container"  id="">
 		<div class="row">
 			<!-- show product guest picked -->
 			<div class="col-md-8">
@@ -16,7 +29,9 @@
 					<h2>Giỏ hàng</h2>
 					<div class="row">
 						
-						<table class="table table-hover" style=" border: 1px solid #E1E1E1;" border="1px">
+						
+						<div id="table-box-cart">
+						<table class="table table-hover" style=" border: 1px solid #E1E1E1;" border="1px" >
 							<thead>
 								<tr>
 									<th></th>
@@ -27,19 +42,16 @@
 									<th></th>
 								</tr>
 							</thead>
-							<?php 
-							if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
-								
+							<tbody>
 							
-						?>
-						 <h4 style="color: red">Giỏ hàng hiện tại đang trống</h4>
+						 
 						<?php 
-							}else{
+							
 
 								foreach ($_SESSION['cart'] as $key => $cart) {
 									
 						 ?>
-							<tbody>
+							
 								<tr>
 									<td><img src="images/product/<?php echo $cart['img']; ?>" alt="Ảnh sản phẩm" width="60px"></td>
 									<td><?php echo $cart['name_product']; ?></td>
@@ -47,14 +59,13 @@
 									if ($cart['discount'] <= 0) {
 										
 									?>
-										<td><?php echo $price = $cart['price']; ?></td>
+										<td><?php echo number_format($price = $cart['price']).' đ';  ?></td>
 									<?php
 									$_SESSION['total']+=$price;
 										}else{	
 									 ?>
-									 	<td><?php echo $price = $cart['discount_price']; ?></td>
+									 	<td><?php echo number_format($price = $cart['discount_price']). ' đ'; ?></td>
 									 <?php 
-									 $_SESSION['total']+=$price;
 									 	}
 									 ?>
 									
@@ -62,19 +73,34 @@
 										<td style="padding-left: 50px;">
 											<input type="number" class="form-control" min="1" max="10" id="" style="width: 70px">
 										</td></form>
-										<td>10,000,000đ</td>
-										<td><a href="#">
-											<i width="30px"class="glyphicon glyphicon-trash"></i> 
-										</a>
+										<?php 
+									if ($cart['discount'] <= 0) {
+										
+									?>
+										<td><?php echo number_format($total = $price * $cart['qty']).' đ';  ?></td>
+									<?php
+									$_SESSION['total']+=$price;
+										}else{	
+									 ?>
+									 	<td><?php echo number_format($total = $price * $cart['qty']). ' đ'; ?></td>
+									 <?php 
+									 	}
+									 ?>
+										<td>
+											<button value="<?php echo $cart['id_product']; ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm không?');" id="alert-del" >
+											<i width="30px"class="glyphicon glyphicon-trash" ></i> 
+										
+										</button>
 									</td>
 								</tr>
-							</tbody>
+							
 							<?php
 						}
-					 }
+					 
 					 ?>
+					 </tbody>
 						</table>
-					
+					</div>
 					</div>
 				</div>
 			</div>
@@ -87,14 +113,19 @@
 					<button type="button" class="btn btn-danger">Thanh Toán</button>
 				</div>
 			</div>
+		
 			<!-- end -->
 		</div>
 	</div>
-	<div class="container">
+	<div class="container" >
 		<div class="row">
 			<div class="col-md-4">
 				<a href="#"><button type="button" class="btn btn-danger">Mua tiếp</button></a>
 				<button type="button" class="btn btn-danger">Cập nhật giỏ hàng</button>
 			</div>
 		</div>
-	</div>
+	</div >
+</div>
+</div>
+
+	<?php } ?>

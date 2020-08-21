@@ -14,7 +14,7 @@
 // })
 
 	// làm mô tả từng ảnh
-$(document).ready(function(){
+	$(document).ready(function(){
 	//JS hiệu ứng list ảnh ở phần Xem trước sản phẩm
 	$(document).on('click', '.list_img_detail', function(e) {
 
@@ -48,21 +48,21 @@ $(document).ready(function(){
 
 	//JS cho raiting(đánh giá sao) cho sản phẩm
 	$(document).on('click', '.star', function(e) {
-			id=$(this).attr('id');
+		id=$(this).attr('id');
 			// alert(id);
 			$(this).attr('src','images/gold_star.png');
 			$(this).prevAll().attr('src','images/gold_star.png');
 			$(this).nextAll().attr('src','images/white_star2.png');
 			$('.'+id).click();
-	});
+		});
 
 	//click button trở về đầu trang	
-		$(window).scroll(function(){
-			if ($(this).scrollTop() > 1400){
-	 			$('.back-top').fadeIn();
-			}else {
-				$('.back-top').fadeOut();
-			}		
+	$(window).scroll(function(){
+		if ($(this).scrollTop() > 1400){
+			$('.back-top').fadeIn();
+		}else {
+			$('.back-top').fadeOut();
+		}		
 	});
 	$('.back-top').click(function(){
 		$('html, body').animate({scrollTop : 0},1000);
@@ -77,16 +77,17 @@ $(document).ready(function(){
 		});
 
 	});
+	
 	$(document).on('click', '.add-alert', function(){
 		// swal("Chúc mừng", "Bạn đã đặt hàng thành công!", "success");
 		swal({
-			  title: "Chúc mừng",
-			  text: "Đã thêm hàng vào giỏ thành công!",
-			  icon: "success",
-			  buttons: [false],
-			  timer: 1500
-			});
-	
+			title: "Chúc mừng",
+			text: "Đã thêm hàng vào giỏ thành công!",
+			icon: "success",
+			buttons: [false],
+			timer: 1500
+		});
+
 	})
 
 	//Click add to card
@@ -94,15 +95,42 @@ $(document).ready(function(){
 		e.preventDefault();
 		var id = $(this).val();
 		$.get('server/add-card.php',{id: id}, function(data) {
-<<<<<<< HEAD
-		
-=======
 			$("#reload-cart").load(" .show-cart");
->>>>>>> 42fb0437b301d64daa1beb30757ca87d7a885725
 		});
 	});
 
+	$(document).on('click', '#alert-del', function(e){
+		
+		e.preventDefault();
+		var id = $(this).val();
+		
 
+// 		swal({
+//   title: "Bạn có chắc chắn muốn xóa sản phẩm không?",
+//   text: "Once deleted, you will not be able to recover this imaginary file!",
+//   icon: "warning",
+//   buttons: true,
+//   dangerMode: true,
+// })
+// .then((willDelete) => {
+//   if (willDelete) {
+//     swal("Poof! Your imaginary file has been deleted!", {
+//       icon: "success",
+//     });
+//   } else {
+//     swal("Your imaginary file is safe!");
+//   }
+  	$.get('server/del-pro.php', {id: id}, function(data){
+  		$('#table-box-cart').load(' #cart-table');
+	 	});
+	});
+
+	
+	// $(document).on('click', '.glyphicon', function(){
+	// 	var id = (this).val();
+	// 	$.post('server/show-modal.php', {id: id}, function(data){
+	// 	});
+	// })
 
 })
 
