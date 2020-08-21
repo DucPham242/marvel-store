@@ -95,7 +95,7 @@
 		e.preventDefault();
 		var id = $(this).val();
 		$.get('server/add-card.php',{id: id}, function(data) {
-			$("#cartbox").load(" #reload_cartbox");
+			$("#reload-cart").load(" .show-cart");
 		});
 	});
 
@@ -133,6 +133,4 @@
 	// })
 
 })
-
-
 
