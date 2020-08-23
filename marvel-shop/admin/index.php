@@ -1,3 +1,7 @@
+<?php 
+	ob_start();
+	session_start();
+ ?>
 <!DOCTYPE html>
 <html lang="">
 <?php 
@@ -29,22 +33,12 @@
 					}
 
 					switch ($page) {
-						case 'baocao':
-							# code...
-							break;
-						case 'control':
-							# code...
-							break;
-						case 'product':
-							# code...
-							break;
-							case 'user':
-							# code...
+						case 'home':
+							include_once"controller/admin_c.php";
+							$create=new admin_c();
+							$create->create_page();
 							break;
 						
-						default:
-							# code...
-							break;
 					}
 
 

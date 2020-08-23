@@ -11,6 +11,9 @@ body{
 marquee{
 	color: #DBCD02;
 }
+.table>tbody>tr>td,.table>thead>tr>th{
+	text-align: center;
+}
 #main_content{
 	background: white;min-height: 1000px;
 }

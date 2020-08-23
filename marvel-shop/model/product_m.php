@@ -51,7 +51,7 @@
 
 		}
 
-		//Lấy danh sách sản phẩm của 1 hãng kèm theo tên hãng,tên loại (giới hạn phân trang)
+		//Lấy danh sách sản phẩm của 1 hãng kèm theo tên hãng(giới hạn phân trang)
 		public function Product_limit($form,$row,$id_brand){
 			
 			$sql="SELECT tbl_product.*,tbl_brand.name_brand,tbl_type.name_type From tbl_brand,tbl_product,tbl_type WHERE (tbl_product.id_brand=tbl_brand.id_brand) AND (tbl_product.id_type=tbl_type.id_type) AND tbl_product.id_brand=$id_brand ORDER BY id_product DESC LIMIT $form,$row";
@@ -116,7 +116,7 @@
 			return $rs=$pre->fetchAll(PDO::FETCH_ASSOC);
 
 		}
-		//Lấy ra 3 sản phẩm liên quan,cùng hãng hoặc cùng type,nhưng khác ID
+		//Lấy ra 3 sản phẩm liên quan,cùng hãng nhưng khác ID
 		public function getProduct_related($id_product,$id_brand){
 			$sql="SELECT * FROM tbl_product WHERE id_product!=$id_product AND id_brand=$id_brand ORDER BY RAND() LIMIT 3";
 			$pre=$this->pdo->query($sql);

@@ -8,7 +8,7 @@
 
 					<div class="navbar-header col-md-3" >
 
-						<a class="navbar-brand " href="#" id="logo_link"><img src="images/logo.webp" alt="Marvel" width="190px"></a>
+						<a class="navbar-brand " href="index.php" id="logo_link"><img src="images/logo.webp" alt="Marvel" width="190px"></a>
 
 					</div>
 					<div class="col-md-9" >

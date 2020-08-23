@@ -70,7 +70,7 @@
 									
 									
 										<td>
-											<input type="number" value="<?php echo $cart['qty'] ?>" class="form-control" min="1" max="10" id="">
+											<input type="number" value="<?php echo $cart['qty'] ?>" class="form-control" min="1" max="10" id="<?php echo $cart['id_product'] ?>" onchange="updatecart(<?php echo $cart['id_product']; ?>);" >
 										</td>
 										<?php 
 									if ($cart['discount'] <= 0) {
@@ -116,6 +116,7 @@
 			<!-- end -->
 		</div>
 	</div>
+
 	<div class="container" >
 		<div class="row">
 			<div class="col-md-4">
@@ -123,7 +124,8 @@
 			</div>
 		</div>
 	</div >
+	<?php } ?>
 </div>
 </div>
 
-	<?php } ?>
+	

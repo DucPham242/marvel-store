@@ -36,6 +36,7 @@
 				<h4 style="font-weight: bold"><?php echo $value['name_product']; ?></h4>
 				Price:<br>
 				<?php 
+				
 				if($value['discount']>0){
 					?>
 					<span class="price_discount_product">

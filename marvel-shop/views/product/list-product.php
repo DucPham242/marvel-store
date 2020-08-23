@@ -151,7 +151,7 @@
 					</div>
 					<div class="row">
 						<?php 
-						if(count($rs)==0){
+						if(count($rs)<1){
 							echo "<p style='color:red;margin-left:100px;'>Mặt hàng này hiện không còn sản phẩm, bạn vui lòng quay lại sau.</p>";
 						}
 						foreach ($rs as $key => $value) {

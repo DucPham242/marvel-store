@@ -12,6 +12,15 @@
 	// 	}
 	// })
 // })
+	function updatecart(id){
+		var qty=$('#'+id).val();
+		$.get('server/update-cart.php',{id:id,qty:qty}, function(data) {
+			// $('#table-box-cart').load(' #cart-table');
+  			$("#cartbox").load(" #reload_cartbox");
+		});
+	}
+
+
 
 	// làm mô tả từng ảnh
 	$(document).ready(function(){
@@ -106,23 +115,6 @@
 		
 		e.preventDefault();
 		var id = $(this).val();
-		
-
-// 		swal({
-//   title: "Bạn có chắc chắn muốn xóa sản phẩm không?",
-//   text: "Once deleted, you will not be able to recover this imaginary file!",
-//   icon: "warning",
-//   buttons: true,
-//   dangerMode: true,
-// })
-// .then((willDelete) => {
-//   if (willDelete) {
-//     swal("Poof! Your imaginary file has been deleted!", {
-//       icon: "success",
-//     });
-//   } else {
-//     swal("Your imaginary file is safe!");
-//   }
 	var check=confirm("Bạn có muốn xóa sản phẩm này khỏi giỏ hàng không ?");
 	if(check){
 		$.post('server/del-pro.php', {id: id}, function(data){
