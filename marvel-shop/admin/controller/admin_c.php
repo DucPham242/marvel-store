@@ -73,21 +73,50 @@ class Admin_c extends Admin_m
 
 			$rs_brand=$this->ad->getBrand();
 			$rs_type=$this->ad->getType();
-			// if(isset($_POST['add_product'])){
-			// 	$list_img=$_FILES['list_img'];
-			// 	echo "<pre>";
-			// 	print_r($list_img);
-			// 	echo "</pre>";
-			// 	$files=array();
-			// 	foreach ($list_img as $key => $values) {
-			// 		foreach ($values as $index => $value) {
-			// 			$files[$index][$key]=$value;
-			// 		}
-			// 	}
-			// 	echo "<hr><pre>";
-			// 	print_r($files);
-			// 	echo "</pre>";
-			// }
+			if(isset($_POST['add_product'])){
+				$list_img=$_FILES['list_img'];
+				$name_product=$_POST['name_product'];
+				$id_brand=$_POST['brand'];
+				$id_type=$_POST['type'];
+				$price=$_POST['price'];
+				$discount=$_POST['discount'];
+				$quantity=$_POST['quantity'];
+				$description=$_POST['description'];
+
+				// echo "<pre>";
+				// print_r($list_img);
+				// echo "</pre>";
+				$files=array();
+				foreach ($list_img as $key => $values) {
+					foreach ($values as $index => $value) {
+						$files[$index][$key]=$value;
+					}
+				}
+				echo "<hr><pre>";
+				print_r($files);
+				echo "</pre>";
+				$add_pro=$this->ad->addProduct($name_product,$id_brand,$id_type,$price,$discount,$quantity,$description);
+				$id_last=$this->ad->lastInsertId();
+				if($add_pro){
+					echo "Thanh cong";
+				}else{
+					echo "Loi!";
+				}
+				 $uploadPath = "../images/product/".$name_product.'_'.time();
+				 if (!is_dir($uploadPath)) {
+        			mkdir($uploadPath, 0777, true);
+    			}
+    			echo $uploadPath."<br>";
+    			$uploadPath_real=substr($uploadPath,3);
+    			echo $uploadPath_real."<br>";
+    		
+    			foreach ($files as $key => $value) {
+    				move_uploaded_file($value['tmp_name'],$uploadPath.'/'.time().'_'.$value['name']);
+    				$add_list=$this->ad->add_List_img($id_last,$uploadPath_real.'/'.time().'_'.$value['name']);
+
+    			}
+    			
+			}
 
 			
 

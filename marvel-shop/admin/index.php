@@ -65,6 +65,12 @@
 	<script src="js/jquery-3.4.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 
+  	<script type="text/javascript" src="mdbootstrap/js/mdb.min.js"></script>
+  	<script type="" src="mdbootstrap/js/addons/datatables.min.js"></script>
+  	<script type="text/javascript" src="js/MyJava.js"></script>
+
+ 
+
 </body>
 
 </html>

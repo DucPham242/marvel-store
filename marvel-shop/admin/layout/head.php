@@ -6,10 +6,15 @@
 	<title>ADMIN MARVELSTORE</title>
 	<link rel="shortcut icon" href="images/icon-marvel.png">
 	<link rel="stylesheet" href="css/bootstrap.min.css" />
-	<link rel="stylesheet" href="css/myCSS.css" />
+	
 	<link rel="stylesheet" href="../fonts/glyphicons-halflings-regular.ttf" />
 	<link rel="stylesheet" href="../font-awesome-4.7.0/css/font-awesome.min.css" />
 	<script src="ckeditor/ckeditor.js"></script>
+	<!-- <link rel="stylesheet" href="mdbootstrap/css/mdb.min.css"> -->
+	<link rel="stylesheet" type="text/css" href="mdbootstrap/css/addons/datatables.min.css">
+	<link rel="stylesheet" href="css/myCSS.css" />
+
+
 
 
 </head>

@@ -61,7 +61,7 @@
 					</div>
 					<div class="form-group">
 						<label for="">Giá (Số liền, không dấu. VD:1000000)</label>
-						<input type="text" class="form-control" id="" placeholder="100000">
+						<input type="text" class="form-control" name="price" id="" placeholder="100000">
 					</div>
 					<div class="form-group">
 						<label for="">List ảnh</label>
@@ -74,10 +74,6 @@
 					<div class="form-group">
 						<label for="">Số lượng</label>
 						<input type="text"  name="quantity" class="form-control" id="" placeholder="100">
-					</div>
-					<div class="form-group">
-						<label for="">Tình trạng</label>
-						<input type="text"  name="stt" class="form-control" id="" placeholder="1">
 					</div>
 					<div class="form-group">
 						<label for="">Mô tả sản phẩm</label>
