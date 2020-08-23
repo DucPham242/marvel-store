@@ -36,44 +36,18 @@ class Admin_c extends Admin_m
 			break;
 
 			case 'product':
-			if(isset($_POST['search_product'])){
-				$_SESSION['key_product']='%'.$_POST['key_product'].'%';
-			}
+		
 
-			if(!isset($_SESSION['key_product'])){
-				$rs=$this->ad->get_Product(false);
-				$row=5;
-				$number=count($rs);
-				$pagination=ceil($number/$row);
-				if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
-					$pages=(int)$_GET['pages'];
-				}else{
-					$pages=1;
-					$_GET['pages']=1;
-				}
-				$form=($pages-1)*$row;
-				$rs=$this->ad->get_Product_limit($form,$row,false);
-				$rs=$this->ad->add_discount($rs);
-			}
-			else{
-				$rs=$this->ad->get_Product($_SESSION['key_product']);
-				$row=5;
-				$number=count($rs);	
-				$pagination=ceil($number/$row);
-				if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
-					$pages=(int)$_GET['pages'];
-				}else{
-					$pages=1;
-					$_GET['pages']=1;
-				}
-				$form=($pages-1)*$row;
-				$rs=$this->ad->get_Product_limit($form,$row,$_SESSION['key_product']);
-				$rs=$this->ad->add_discount($rs);
-			}
+			$rs=$this->ad->getProduct();
+			$rs=$this->ad->add_discount($rs);
+			// echo "<pre>";
+			// print_r($rs);
+			// echo "</pre>";
 
 			$rs_brand=$this->ad->getBrand();
 			$rs_type=$this->ad->getType();
 			if(isset($_POST['add_product'])){
+				$img=$_FILES['img'];
 				$list_img=$_FILES['list_img'];
 				$name_product=$_POST['name_product'];
 				$id_brand=$_POST['brand'];
@@ -82,39 +56,43 @@ class Admin_c extends Admin_m
 				$discount=$_POST['discount'];
 				$quantity=$_POST['quantity'];
 				$description=$_POST['description'];
+				echo "<hr><pre>";
+				print_r($img);
+				echo "</pre>";
 
-				// echo "<pre>";
-				// print_r($list_img);
-				// echo "</pre>";
 				$files=array();
-				foreach ($list_img as $key => $values) {
-					foreach ($values as $index => $value) {
-						$files[$index][$key]=$value;
-					}
-				}
+				$files=$this->ad->ChangeArrayFile($list_img,$files);
 				echo "<hr><pre>";
 				print_r($files);
 				echo "</pre>";
-				$add_pro=$this->ad->addProduct($name_product,$id_brand,$id_type,$price,$discount,$quantity,$description);
+				$uploadPath = "../images/product/".$name_product;
+				echo $uploadPath."<br>";
+				 if (!is_dir($uploadPath)) {
+        			mkdir($uploadPath, 0777, true);
+    			}	
+    			move_uploaded_file($img['tmp_name'],$memmory_path=$uploadPath.'/'.time().'_avatar_'.$img['name']);
+    			$uploadPath_real=substr($memmory_path,3);//Đường dẫn thực để insert vào trường img bảng tbl_product
+    			echo $uploadPath_real;
+
+				$add_pro=$this->ad->addProduct($name_product,$id_brand,$id_type,$price,$uploadPath_real,$discount,$quantity,$description);
 				$id_last=$this->ad->lastInsertId();
+				echo $id_last."<br>";
 				if($add_pro){
 					echo "Thanh cong";
 				}else{
 					echo "Loi!";
 				}
-				 $uploadPath = "../images/product/".$name_product.'_'.time();
-				 if (!is_dir($uploadPath)) {
-        			mkdir($uploadPath, 0777, true);
-    			}
-    			echo $uploadPath."<br>";
-    			$uploadPath_real=substr($uploadPath,3);
-    			echo $uploadPath_real."<br>";
+				//  $uploadPath = "../images/product/".$name_product.'_'.time();
+				//  if (!is_dir($uploadPath)) {
+    //     			mkdir($uploadPath, 0777, true);
+    // 			}
+    // 			$uploadPath_real=substr($uploadPath,3);
     		
-    			foreach ($files as $key => $value) {
-    				move_uploaded_file($value['tmp_name'],$uploadPath.'/'.time().'_'.$value['name']);
-    				$add_list=$this->ad->add_List_img($id_last,$uploadPath_real.'/'.time().'_'.$value['name']);
+    // 			foreach ($files as $key => $value) {
+    // 				move_uploaded_file($value['tmp_name'],$uploadPath.'/'.time().'_'.$value['name']);
+    // 				$add_list=$this->ad->add_List_img($id_last,$uploadPath_real.'/'.time().'_'.$value['name']);
 
-    			}
+    // 			}
     			
 			}
 

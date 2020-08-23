@@ -11,30 +11,13 @@ class Admin_m extends Connect
 	public function __construct(){
 				parent::__construct();//Gọi hàm __contruct bên config để luôn tồn tại $pdo để kết nối tới CSDL
 			}
-//Lấy ra danh sách sản phẩm - dành cho trang quản lý sản phẩm
-	public function get_Product($ss_search){
-		if($ss_search==false){
-			$sql="SELECT * FROM tbl_product ORDER BY id_product DESC";
-			$pre=$this->pdo->prepare($sql);
-		}else{
-			$sql="SELECT * FROM tbl_product,tbl_brand,tbl_type WHERE (tbl_product.id_brand=tbl_brand.id_brand) AND (tbl_product.id_type=tbl_type.id_type) AND (tbl_product.name_product LIKE '$ss_search' OR tbl_brand.name_brand LIKE '$ss_search' OR tbl_type.name_type LIKE '$ss_search') ORDER BY tbl_product.id_product DESC";
-			$pre=$this->pdo->prepare($sql);
-			$pre->bindParam(':ss_search',$ss_search);
-		}
+
+//Lấy ra tất cả sản phẩm trong bảng tbl_product
+	public function getProduct(){
+		$sql="SELECT tbl_product.*,tbl_brand.name_brand,tbl_type.name_type FROM tbl_product,tbl_type,tbl_brand WHERE (tbl_product.id_brand=tbl_brand.id_brand) AND (tbl_product.id_type=tbl_type.id_type) ORDER BY id_product DESC";
+		$pre=$this->pdo->prepare($sql);
 		$pre->execute();
 		return $pre->fetchAll(PDO::FETCH_ASSOC);
-	}
-
-//Lấy ra danh sách sản phẩm,có phân trang - dành cho trang quản lý sản phẩm
-	public function get_Product_limit($form,$row,$ss_search){
-		if($ss_search==false){
-			$sql="SELECT * FROM tbl_product ORDER BY id_product DESC LIMIT $form,$row";
-		}else{
-			$sql="SELECT * FROM tbl_product,tbl_brand,tbl_type WHERE (tbl_product.id_brand=tbl_brand.id_brand) AND (tbl_product.id_type=tbl_type.id_type) AND (tbl_product.name_product LIKE '$ss_search' OR tbl_brand.name_brand LIKE '$ss_search' OR tbl_type.name_type LIKE '$ss_search') ORDER BY tbl_product.id_product DESC LIMIT $form,$row";
-		}
-		
-		$pre=$this->pdo->query($sql);
-		return $pre->fetchAll(PDO::FETCH_ASSOC);	
 	}
 
 //Thêm trường giảm giá cho mảng
@@ -61,10 +44,29 @@ class Admin_m extends Connect
 			return $pre->fetchAll(PDO::FETCH_ASSOC);
 		}
 
+//Hàm xử lý dành cho mảng $_FILES có nhiều ảnh (Tham số $file truyền vào là 1 mảng rỗng)
+		public function ChangeArrayFile($arr,$files){
+			foreach ($arr as $key => $values) {
+					foreach ($values as $index => $value) {
+						$files[$index][$key]=$value;
+					}
+				}
+				return $files;
+		}
+
 //Thêm sản phẩm
-		public function addProduct($name_product,$id_brand,$id_type,$price,$discount,$quantity,$description){
-			$sql="INSERT INTO tbl_product(name_product,id_brand,id_type,price,discount,quantity,description) VALUES ('$name_product','$id_brand','$id_type','$price','$discount','$quantity','$description')";
-			$pre=$this->pdo->query($sql);
+		public function addProduct($name_product,$id_brand,$id_type,$price,$img,$discount,$quantity,$description){
+			$sql="INSERT INTO tbl_product(name_product,id_brand,id_type,price,img,discount,quantity,description) VALUES (:name_product,:id_brand,:id_type,:price,:img,:discount,:quantity,:description)";
+			$pre=$this->pdo->prepare($sql);
+			$pre->bindParam(':name_product',$name_product);
+			$pre->bindParam(':id_brand',$id_brand);
+			$pre->bindParam(':id_type',$id_type);
+			$pre->bindParam(':price',$price);
+			$pre->bindParam(':img',$img);
+			$pre->bindParam(':discount',$discount);
+			$pre->bindParam(':quantity',$quantity);
+			$pre->bindParam(':description',$description);
+			$pre->execute();
 			return $pre;
 		}
 
