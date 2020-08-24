@@ -7,7 +7,7 @@
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-backdrop="static" data-keyboard="false">
 	Thêm mới sản phẩm
 </button>
-
+<a href="" id="test"> HHHH</a>
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
 	<div class="modal-dialog" role="document" style="width: 1000px;">
@@ -24,11 +24,11 @@
 				
 					<div class="form-group">
 						<label for="">Tên sản phẩm</label>
-						<input type="text" name="name_product" class="form-control" id="" placeholder="">
+						<input type="text" name="name_product" class="form-control"  placeholder="">
 					</div>
 					<div class="form-group">
 						<label for="">Hãng</label>
-						<select name="brand" id="" class="form-control">
+						<select name="brand"  class="form-control">
 							<?php 
 								foreach ($rs_brand as $key => $brand) {
 									?>
@@ -40,7 +40,7 @@
 					</div>
 					<div class="form-group">
 						<label for="">Thể loại</label>
-						<select name="type" id="" class="form-control">
+						<select name="type"  class="form-control">
 							<?php 
 								foreach ($rs_type as $key => $type) {
 									?>
@@ -52,27 +52,27 @@
 					</div>
 					<div class="form-group">
 						<label for="">Giá (Số liền, không dấu. VD:1000000)</label>
-						<input type="text" class="form-control" name="price" id="" placeholder="100000">
+						<input type="text" class="form-control" name="price"  placeholder="100000">
 					</div>
 					<div class="form-group">
 						<label for="">Ảnh đại diện</label>
-						<input type="file"  name="img" class="form-control" id="" placeholder="">
+						<input type="file"  name="img" class="form-control"  placeholder="">
 					</div>
 					<div class="form-group">
 						<label for="">List ảnh</label>
-						<input type="file" multiple="" name="list_img[]" class="form-control" id="" placeholder="">
+						<input type="file" multiple="" name="list_img[]" class="form-control"  placeholder="">
 					</div>
 				<div class="form-group">
 						<label for="">% Giảm giá</label>
-						<input type="text"  name="discount" class="form-control" id="" placeholder="50">
+						<input type="text"  name="discount" class="form-control"  placeholder="50">
 					</div>
 					<div class="form-group">
 						<label for="">Số lượng</label>
-						<input type="text"  name="quantity" class="form-control" id="" placeholder="">
+						<input type="text"  name="quantity" class="form-control"  placeholder="">
 					</div>
 					<div class="form-group">
 						<label for="">Mô tả sản phẩm</label>
-						<textarea name="description" id="" cols="30" rows="10" class="ckeditor form-control"></textarea>
+						<textarea name="description"  cols="30" rows="10" class="ckeditor form-control"></textarea>
 					</div>
 				
 					
@@ -100,6 +100,8 @@
  ?>
 
 <!-- Product View Table -->
+<div id="table_product_box">
+<div id="product_box">
 <h4 class="center_text" >Danh Sách Sản Phẩm </h4>
 
 <?php 
@@ -110,6 +112,7 @@ if(count($rs)<1){
 
 
 	?>
+	
 	<table id="dtBasicExample" class="table table-striped table-bordered table-sm mytable" cellspacing="0" width="100%">
 		<thead>
 			<tr>
@@ -145,7 +148,7 @@ if(count($rs)<1){
 					<td><?php echo $value['quantity']; ?></td>
 					<td>
 						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-1" data-backdrop="static" data-keyboard="false">Sửa</button>
-						<button type="button" class="btn btn-danger">Xóa</button>
+						<button type="button" value="<?php echo $value['id_product']; ?>" class="btn btn-danger btn_del_product">Xóa</button>
 					</td>
 				</tr>
 				<?php
@@ -154,9 +157,12 @@ if(count($rs)<1){
 
 		</tbody>
 	</table>
+
 	<?php 
 }
 ?>
+</div>
+</div>
 <!-- END Product View Table -->
 
 <!-- Modal 1 -->

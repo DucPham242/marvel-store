@@ -67,6 +67,7 @@
 
   	<script type="text/javascript" src="mdbootstrap/js/mdb.min.js"></script>
   	<script type="" src="mdbootstrap/js/addons/datatables.min.js"></script>
+  	<script type="" src="js/jquery.dataTables.min.js"></script>
   	<script type="text/javascript" src="js/MyJava.js"></script>
 
  
