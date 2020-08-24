@@ -21,6 +21,18 @@ class Admin_c extends Admin_m
 	public function del_Product($id){
 		return $this->ad->del_Product($id);
 	}
+//Lấy hàm get_listImg() cho Ajax
+	public function get_listImg($id){
+		return $this->ad->get_listImg($id);
+	}
+
+//Lấy hàm getProduct_ID($id) cho Ajax
+	public function getProduct_ID($id){
+		return $this->ad->getProduct_ID($id);
+	}
+
+
+
 
 	public function create_page(){
 		if(isset($_GET['views'])){
@@ -42,9 +54,40 @@ class Admin_c extends Admin_m
 
 			case 'product':
 		
+			if(isset($_POST['search_product'])){
+				$_SESSION['key_product']='%'.$_POST['key_product'].'%';
+			}
 
-			$rs=$this->ad->getProduct();
-			$rs=$this->ad->add_discount($rs);
+			if(!isset($_SESSION['key_product'])){
+				$rs=$this->ad->get_Product(false);
+				$row=5;
+				$number=count($rs);
+				$pagination=ceil($number/$row);
+				if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
+					$pages=(int)$_GET['pages'];
+				}else{
+					$pages=1;
+					$_GET['pages']=1;
+				}
+				$form=($pages-1)*$row;
+				$rs=$this->ad->get_Product_limit($form,$row,false);
+				$rs=$this->ad->add_discount($rs);
+			}
+			else{
+				$rs=$this->ad->get_Product($_SESSION['key_product']);
+				$row=5;
+				$number=count($rs);	
+				$pagination=ceil($number/$row);
+				if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
+					$pages=(int)$_GET['pages'];
+				}else{
+					$pages=1;
+					$_GET['pages']=1;
+				}
+				$form=($pages-1)*$row;
+				$rs=$this->ad->get_Product_limit($form,$row,$_SESSION['key_product']);
+				$rs=$this->ad->add_discount($rs);
+			}
 			// echo "<pre>";
 			// print_r($rs);
 			// echo "</pre>";
@@ -82,10 +125,10 @@ class Admin_c extends Admin_m
     				$uploadPath_real=substr($memmory_path,3);
     				$add_list=$this->ad->add_List_img($id_last,$uploadPath_real);
     				}
-    				echo "Thêm thành công";
+    				$_SESSION['noti_addPro']=1;
     				
 				}else{
-					echo "Thêm thất bại";
+					$_SESSION['noti_addPro']=2;
 				}
 
     			
