@@ -133,7 +133,21 @@
 
 		}
 
-		
+		// Hàm tìm kiếm sản phẩm
+		public function search($key){
+			$sql = "SELECT * FROM tbl_product, tbl_brand WHERE tbl_product.id_brand = tbl_brand.id_brand AND tbl_product.name_product LIKE :key";
+			$pre = $this->pdo->prepare($sql);
+			$pre->bindParam(':key', $key);
+			$pre->execute();
+
+			return $pre->fetchAll(PDO::FETCH_ASSOC);
+		}
+		//Tìm kiếm sản phẩm với pagination
+		public function search_limit($from, $row,$key){
+			$sql = "SELECT * FROM tbl_product, tbl_brand WHERE tbl_product.id_brand = tbl_brand.id_brand AND tbl_product.name_product LIKE '$key' LIMIT $from,$row";
+			$pre = $this->pdo->query($sql);
+			return $pre->fetchAll(PDO::FETCH_ASSOC);
+		}
 	}
 	
 

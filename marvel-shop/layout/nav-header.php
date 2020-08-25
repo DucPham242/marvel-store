@@ -5,11 +5,11 @@
 			<a href="index.php"><img src="images/logo.webp" alt="Ảnh logo"></a>
 		</div>
 		<div class="col-md-5 col-md-push-1 col-xs-8" style="padding-top: 5px" >
-			<form>
+			<form action="index.php?page=home&method=search" method="POST">
 				<div class="input-group">
-					<input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm">
+					<input type="text" name="search" class="form-control" placeholder="Tìm kiếm sản phẩm">
 					<span class="input-group-btn">
-						<button class="btn btn-default" type="button">Tìm kiếm</button>
+						<button type="submit" name="submit-search" class="btn btn-default">Tìm kiếm</button>
 					</span>
 				</div><!-- /input-group -->
 			</form>
@@ -60,7 +60,7 @@
 																}
 																?>
 
-																<button class="btn_remove cart-hover-del" value="<?php echo $value['id_product']; ?>"><i style="color: red" class="fa fa-trash-o fa-1x" aria-hidden="true"></i></button></td>
+																<button  class="btn_remove cart-hover-del" value="<?php echo $value['id_product']; ?>"><i style="color: red" class="fa fa-trash-o fa-1x" aria-hidden="true"></i></button></td>
 
 															</tr>
 															<?php 

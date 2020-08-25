@@ -115,7 +115,7 @@
 		
 		e.preventDefault();
 		var id = $(this).val();
-	var check=confirm("Bạn có muốn xóa sản phẩm này khỏi giỏ hàng không ?");
+	 var check = confirm("Bạn có chắc chắn muốn xóa không?");
 	if(check){
 		$.post('server/del-pro.php', {id: id}, function(data){
   		$('#table-box-cart').load(' #cart-table');
@@ -129,19 +129,17 @@
 		
 		e.preventDefault();
 		var id = $(this).val();
+		var checkCartHover = confirm("Bạn có chắc chắn muốn xóa không?")
+		if (checkCartHover) {
 		$.post('server/del-pro.php', {id: id}, function(data){
   		$('#table-box-cart').load(' #cart-table');
   		$("#cartbox").load(" #reload_cartbox");
 	 	});
+	}
 	});
 
 
 
-	// $(document).on('click', '.glyphicon', function(){
-	// 	var id = (this).val();
-	// 	$.post('server/show-modal.php', {id: id}, function(data){
-	// 	});
-	// })
 
 })
 

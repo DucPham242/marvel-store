@@ -154,15 +154,27 @@
 	</div>
 	<div class="row" id="visited_box">
 		<div class="col-md-3" style="">Sản phẩm bạn vừa xem:</div>
-		<div class="col-md-1" style=""><a href=""><img class="list_img_visited" src="images/product/transformer/mo_hinh/COMBO LS-14 + LS-15/1.jpg" alt=""></a></div>
-		<div class="col-md-1" style=""><a href=""><img class="list_img_visited" src="images/product/transformer/mo_hinh/COMBO LS-14 + LS-15/1.jpg" alt=""></a></div>
-		<div class="col-md-1" style=""><a href=""><img class="list_img_visited" src="images/product/transformer/mo_hinh/COMBO LS-14 + LS-15/1.jpg" alt=""></a></div>
-		<div class="col-md-1" style=""><a href=""><img class="list_img_visited" src="images/product/transformer/mo_hinh/Bumblebee Comicave kim loại/1.jpg" alt=""></a></div>
-		<div class="col-md-1" style=""><a href=""><img class="list_img_visited" src="images/product/transformer/mo_hinh/Bumblebee Comicave kim loại/1.jpg" alt=""></a></div>
-		<div class="col-md-1" style=""><a href=""><img class="list_img_visited" src="images/product/transformer/mo_hinh/Bumblebee Comicave kim loại/1.jpg" alt=""></a></div>
-		<div class="col-md-1" style=""><a href=""><img class="list_img_visited" src="images/product/transformer/mo_hinh/Bumblebee Comicave kim loại/1.jpg" alt=""></a></div>
-		<div class="col-md-1" style=""><a href=""><img class="list_img_visited" src="images/product/transformer/mo_hinh/Bumblebee Comicave kim loại/1.jpg" alt=""></a></div>
-		<div class="col-md-1" style=""><a href=""><img class="list_img_visited" src="images/product/transformer/mo_hinh/Bumblebee Comicave kim loại/1.jpg" alt=""></a></div>
+		<?php  
+			// echo '<pre>';
+			// print_r($_SESSION['seen']);
+
+			$count = count($_SESSION['seen']);
+			if ($count > 5) {
+				array_shift($_SESSION['seen']);
+				// $count - 1;
+			}
+			foreach ($_SESSION['seen'] as $key => $value) {
+			foreach ($value as $key => $info) {
+				$count = count($_SESSION['seen']);		
+			
+		?>		
+
+		<div class="col-md-1" style=""><a href="index.php?page=home&method=product-detail&id=<?php echo $info['id_product'] ?>"><img class="list_img_visited" src="images/product/<?php echo $info['img']; ?>" alt=""></a></div>
+
+		<?php 
+		}
+		}
+		 ?>
 	</div>
 
 

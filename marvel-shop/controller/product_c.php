@@ -15,7 +15,7 @@ class Product_c extends product_m
 	{
 		$this->pro = new Product_m();
 	}
-	//Function for Ajax
+	//Function xử lý với Ajax
 	//Lấy hàm getProduct_Id từ file product_m.php
 	public function getProduct_Id($id){
 		return $this->pro->getProduct_Id($id);
@@ -72,46 +72,90 @@ class Product_c extends product_m
 			}
 			$rs=$this->pro->getProduct_Id($id);
 			$rs=$this->pro->add_discount($rs);
+			// if (!isset($_SESSION['seen'])) {
+			// 	$_SESSION['seen'][$id] = $rs;
+			// }
+
+			if (!isset($_SESSION['seen']) || empty($_SESSION['seen'])){
+				$_SESSION['seen'][$id]=$rs;
+			}else{
+				if (!array_key_exists($id, $_SESSION['seen'])) {
+					$_SESSION['seen'][$id]=$rs;
+				}else{
+					unset($_SESSION['seen'][$id]);
+					$_SESSION['seen'][$id]=$rs;
+
+				}
+			}
+
+
 
 			//Lấy ra 3 sản phẩm liên quan
-			foreach ($rs as $key => $value) {
-				$rs_related=$this->pro->getProduct_related($value['id_product'],$value['id_brand']);
-				$rs_related=$this->pro->add_discount($rs_related);
+				foreach ($rs as $key => $value) {
+					$rs_related=$this->pro->getProduct_related($value['id_product'],$value['id_brand']);
+					$rs_related=$this->pro->add_discount($rs_related);
+				// echo "<pre>";
+				// print_r($rs_related); 
+				}
+
+				include_once "views/product/product-detail.php";
+				break;
+
+			// SEARCH
+				case 'search':
+				if (isset($_POST['submit-search'])) {
+					$_SESSION['key'] = '%'.$_POST['search'].'%';
+				}
+
+
+				$key=$_SESSION['key'];
+				$rs_search = $this->pro->search($key);
+				$rs_search = $this->pro->add_discount($rs_search);
+				$row = 6;
+				$count = count($rs_search);
+				$pagination = ceil($count / $row);
+				if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>0){
+					$pages=(int)$_GET['pages'];
+				}else{
+					$pages=1;
+					$_GET['pages']=1;
+				}
+				$from=($pages-1)*$row;
+				$rs_search = $this->pro->search_limit($from,$row,$key);
+				$rs_search = $this->pro->add_discount($rs_search);
+
+
+				include_once "views/product/search.php";
+				
+				break;
+
+				case 'cart':
+				include_once "views/product/cart.php";
+				break;
+
+				case 'checkout':
+
+
+				include_once "views/product/checkout.php";
+				break;
+
+				default:
+				header("Location:index.php");
+				break;
 			}
-			
-			// echo "<pre>";
-			// print_r($rs_related);
-			// echo "</pre>";
-			include_once "views/product/product-detail.php";
-			break;
-
-			case 'cart':
-			include_once "views/product/cart.php";
-			break;
-
-			case 'checkout':
-
-			
-			include_once "views/product/checkout.php";
-			break;
-
-			default:
-			header("Location:index.php");
-			break;
 		}
-	}
-	public function typeProduct(){
-		if(isset($_GET['method'])) {
-			$method = $_GET['method'];
-		}else{
-			$method='marvel';
-		}
-		
-		
-		
-		switch ($method) {
-			case 'marvel':
-			$rs=$this->pro->getProduct(1);
+		public function typeProduct(){
+			if(isset($_GET['method'])) {
+				$method = $_GET['method'];
+			}else{
+				$method='marvel';
+			}
+
+
+
+			switch ($method) {
+				case 'marvel':
+				$rs=$this->pro->getProduct(1);
 			$row=3;//Số sản phẩm, tin.. trên 1 trang
 			$number=count($rs);//Tổng số sản phẩm,bản ghi,...
 			$pagination=ceil($number/$row);//Số phân trang	
@@ -283,7 +327,7 @@ class Product_c extends product_m
 
 
 			default:
-			header("Location:index.php");
+			header("Location:index.php"); 
 			break;
 		}
 		$rs=$this->pro->add_discount($rs);			
