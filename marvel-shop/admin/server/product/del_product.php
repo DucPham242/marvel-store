@@ -16,15 +16,22 @@ if(isset($_GET['id']) && $_GET['id']>0){
 	foreach ($rs as $key => $value) {
 		$Filelink_real="../../../".$value['img'];
 		// echo $Filelink_real."<br>";
-		unlink($Filelink_real);
+		if(file_exists($Filelink_real)){
+			unlink($Filelink_real);
+		}
+		
 	}
 	foreach ($rs_listimg as $key => $value) {
 		$Filelink_real="../../../".$value['path'];
 		// echo $Filelink_real."<br>";
-		unlink($Filelink_real);
+		if(file_exists($Filelink_real)){
+			unlink($Filelink_real);
+		}
 		
 	}
-	rmdir("../../../images/product/".$id);
+	if(is_dir("../../../images/product/").$id){
+		rmdir("../../../images/product/".$id);
+	}
 	
 	$del=$admin->del_Product($id);
 	if($del){

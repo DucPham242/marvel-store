@@ -62,7 +62,7 @@ class Admin_m extends Connect
 			return $pre->fetchAll(PDO::FETCH_ASSOC);
 		}
 
-//Hàm xử lý dành cho mảng $_FILES có nhiều ảnh (Tham số $file truyền vào là 1 mảng rỗng)
+//Hàm xử lý dành cho mảng $_FILES có nhiều ảnh (Tham số $files truyền vào là 1 mảng rỗng)
 		public function ChangeArrayFile($arr,$files){
 			foreach ($arr as $key => $values) {
 					foreach ($values as $index => $value) {
@@ -87,7 +87,25 @@ class Admin_m extends Connect
 			return $pre;
 		}
 
-//Thêm trường img cho product
+//Update lại thông tin của 1 sản phẩm( chưa update trường img)
+		public function Update_Product($id_product,$name_product,$id_brand,$id_type,$price,$discount,$quantity,$description){
+			$sql="UPDATE tbl_product SET name_product=:name_product,id_brand=:id_brand,id_type=:id_type,price=:price,discount=:discount,quantity=:quantity,description=:description WHERE id_product=:id_product";
+			$pre=$this->pdo->prepare($sql);
+			$pre->bindParam(':id_product',$id_product);
+			$pre->bindParam(':name_product',$name_product);
+			$pre->bindParam(':id_brand',$id_brand);
+			$pre->bindParam(':id_type',$id_type);
+			$pre->bindParam(':price',$price);
+			$pre->bindParam(':discount',$discount);
+			$pre->bindParam(':quantity',$quantity);
+			$pre->bindParam(':description',$description);
+			$pre->execute();
+			return $pre;
+
+		}
+
+
+//Update trường img cho sản phẩm
 		public function addImg_Product($img,$id_product){
 			$sql="UPDATE tbl_product SET img=:img WHERE id_product=:id_product";
 			$pre=$this->pdo->prepare($sql);
@@ -119,7 +137,7 @@ class Admin_m extends Connect
 			return $pre;
 		}
 
-//Hàm lấy ra tất cả thông tin 1 sản phẩm bảng tbl_detail_image 
+//Hàm lấy ra tất cả thông tin 1 sản phẩm trong bảng tbl_detail_image 
 		public function get_listImg($id){
 			$sql="SELECT * FROM tbl_detail_image WHERE id_product=:id";
 			$pre=$this->pdo->prepare($sql);
@@ -135,6 +153,24 @@ class Admin_m extends Connect
 			$pre->bindParam(':id',$id);
 			$pre->execute();
 			return $pre->fetchAll(PDO::FETCH_ASSOC);
+		}
+
+//Lấy ra ID lớn nhất trong bảng tbl_product
+		public function getMaxId_Product(){
+			$sql="SELECT MAX(id_product) FROM tbl_product";
+			$pre=$this->pdo->query($sql);
+			return $pre->fetch(PDO::FETCH_ASSOC);
+		}
+
+//Xóa 1 ảnh trong bảng tbl_detail_image
+		public function del_Img_inList($id,$src){
+			$sql="DELETE FROM tbl_detail_image WHERE id_product=:id AND path=:src";
+			$pre=$this->pdo->prepare($sql);
+			$pre->bindParam(':id',$id);
+			$pre->bindParam(':src',$src);
+			$pre->execute();
+			return $pre;
+			
 		}
 }
 		?>

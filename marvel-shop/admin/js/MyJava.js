@@ -80,6 +80,8 @@ function validate_file(){
 		if(file_size>500000) {
 			file_error.innerHTML=' Mỗi ảnh phải có kích thước nhỏ hơn 500kb ';
 			return false;
+		}else if(file_size<=0){
+			file_error.innerHTML=' Bạn chưa up load ảnh,vui lòng upload ít nhất 1 ảnh ';
 		}else{
 			file_error.innerHTML='';
 		}
@@ -121,7 +123,7 @@ function validate_files(){
 		file_error.innerHTML=" Tổng kích thước tất cả ảnh phải nhỏ hơn 10Mb";
 		return false;
 	}else{
-		file_error.innerHTML='*';
+		file_error.innerHTML='';
 	}
 
 	return true;
@@ -138,6 +140,12 @@ function Validate_addPro(){
 	}
 	
 }
+//END
+
+//Phần này xử lý validate cho Form sửa sản phẩm
+// START
+
+
 
 
 $(document).ready(function () {
@@ -149,7 +157,7 @@ $(document).ready(function () {
 // $('.dataTables_length').addClass('bs-select');
 
 
-
+//Click xóa sản phẩm
 $(document).on('click', '.btn_del_product', function(e) {
 	e.preventDefault();
 	var id=$(this).val();
@@ -163,12 +171,39 @@ $(document).on('click', '.btn_del_product', function(e) {
 	}
 });
 
+// Mỗi khi alert hiện xog,load lại bảng product
 $(".alert").fadeOut(3000,function() {
 	$("#tbl_pro_boxout").load(" #tbl_pro_boxin");
 });
 
+//Click xoá 1 ảnh trong list ảnh - Phẩn sửa Sản phẩm
+$(document).on('click', '.btn_del_listimg', function(e) {
+	e.preventDefault();
+	var id=$(this).val();
+	var src=$(this).attr('memory_src_img');
+	var check=confirm('Bạn có muốn xóa ảnh này không');
+	if(check){
+		$.get('server/product/del_img_inList.php',{id:id,src:src}, function(data) {
+			$("#noti_add_list").html(data);
+			$("#load_list").load(" #box_listimgR");
+		});
+	}
+});
 
-
+//Cập nhật dòng Giá đã chiết khấu, ở bảng sửa sản phẩm
+$("#discount").change(function(e) {
+	var price=parseFloat($("#price_product").val());
+	var discount=parseFloat($("#discount").val());
+	$("#discount_price").val(price-((price*discount)/100));
+	
+});
+$("#price_product").change(function(e) {
+	var price=parseFloat($("#price_product").val());
+	var discount=parseFloat($("#discount").val());
+	$("#discount_price").val(price-((price*discount)/100));
+	
+});
+// END
 
 
 });

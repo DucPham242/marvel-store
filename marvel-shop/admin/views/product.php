@@ -19,9 +19,9 @@
 <?php if(isset($_SESSION['noti_addPro'])&&$_SESSION['noti_addPro']==1){
 	?>
 	<div class="alert alert-success" style="display: inline;">
-	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-	<strong>Thêm thành công!</strong> 
-</div>
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		<strong>Thêm thành công!</strong> 
+	</div>
 	<?php
 	
 } else if(isset($_SESSION['noti_addPro'])&&$_SESSION['noti_addPro']==2){
@@ -81,25 +81,24 @@ unset($_SESSION['noti_addPro']);
 					</div>
 					<div class="form-group">
 						<label for="">Giá (Số liền, không dấu. VD:1000000)</label><span id="spanprice" class="spanerror"></span>
-						<input type="text" class="form-control" name="price"  placeholder="100000" id="price_product" onblur="Blurprice()">
+						<input type="number" class="form-control" name="price"  placeholder="100000" id="price_product" onblur="Blurprice()">
 					</div>
 					<div class="form-group">
 						<label for="">Ảnh đại diện</label><span id="spanimg" class="spanerror"></span>
-						<input type="file"  name="img" class="form-control"  placeholder="" onchange="validate_file()" id="img">
+						<input type="file"  name="img" class="form-control"  placeholder="" onchange="validate_file()" id="img" required="">
 					</div>
 					<div class="form-group">
 						<label for="">List ảnh</label><span id="spanlistimg" class="spanerror"></span>
-						<input type="file" multiple="" name="list_img[]" class="form-control"  placeholder="" id="list_img" onchange="validate_files()">
+						<input type="file" multiple="" name="list_img[]" class="form-control"  placeholder="" id="list_img" onchange="validate_files()" required="">
 					</div>
 					<div class="form-group"></span>
 						<label for="">% Giảm giá</label><span id="spandiscount" class="spanerror"></span>
-							<!-- <input type="text"  name="discount" class="form-control" id="" placeholder="50"> -->
-							<input type="text" name="discount"  class="form-control" onblur="Blurdiscount()" id="discount">
+						<input type="number" name="discount"  class="form-control" onblur="Blurdiscount()" id="discount">
 						
 					</div>
 					<div class="form-group">
 						<label for="">Số lượng</label><span id="spanquantity" class="spanerror"></span>
-						<input type="text"  name="quantity" class="form-control"  placeholder="" onblur="Blurquantity()" id="quantity" >
+						<input type="number"  name="quantity" class="form-control"  placeholder="" onblur="Blurquantity()" id="quantity" >
 					</div>
 					<div class="form-group">
 						<label for="">Mô tả sản phẩm</label>
@@ -133,120 +132,100 @@ unset($_SESSION['noti_addPro']);
 <!-- Product View Table -->
 <h4 class="center_text" >Danh Sách Sản Phẩm </h4>
 <div id="tbl_pro_boxout">
-<div id="tbl_pro_boxin">
-	<p style="color: red;">Có <?php echo $number; ?> kết quả</p>
-<?php 
+	<div id="tbl_pro_boxin">
+		<p style="color: red;">Có <?php echo $number; ?> kết quả</p>
+		<?php 
 	// echo "<pre>";
 	// print_r($rs);
 	// echo "</pre>";
-if(count($rs)<1){
-	echo "<span style='color:red;'>Không có sản phầm nào !</span>";
-}else{
+		if(count($rs)<1){
+			echo "<span style='color:red;'>Không có sản phầm nào !</span>";
+		}else{
 
 
-
-	?>
-	<table class="table table-hover">
-		<thead>
-			<tr>
-				<th>STT</th>
-				<th>Tên sản phẩm</th>
-				<th>Giá</th>
-				<th>% giảm giá</th>
-				<th>Số lượng</th>
-				<th>Tình trạng</th>
-				<th>Action</th>
-			</tr>
-		</thead>
-		<tbody>
-			<?php 
-			$stt=$row*($pages-1);
-			foreach ($rs as $key => $value) {
-
-				?>
-				<tr>
-					<td ><?php echo $stt+=1; ?></td>
-					<td><?php echo $value['name_product']; ?></td>
-					<td><?php
-						if($value['discount']>0){
-							echo number_format($value['discount_price']).' đ';
-						}else{
-							echo number_format($value['price']).' đ';
-						}
-					 ?></td>
-					<td><?php echo $value['discount']; ?></td>
-					<td><?php echo $value['quantity']; ?></td>
-					<td><?php echo $value['stt']; ?></td>
-					<td>
-						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-1" data-backdrop="static" data-keyboard="false">Sửa</button>
-						<button type="button" value="<?php echo $value['id_product']; ?>" class="btn_del_product btn btn-danger">Xóa</button>
-					</td>
-				</tr>
-				<?php
-			}
-			?>
-
-		</tbody>
-	</table>
-	<?php 
-}
-?>
-<!-- END Product View Table -->
-<!-- 	Phân trang -->
-<div class="col-md-12 col-md-push-3">
-	<ul class="pagination">
-		<?php 
-		if (isset($_GET['pages']) && $_GET['pages'] > 1) {
-			$back = $_GET['pages'] - 1;
 
 			?>
-			<li><a href="index.php?page=home&views=<?php echo $views; ?>&pages=<?php echo $back; ?>">Back</a></li>
-			<?php 
-		}	
-		?>
-		<?php
-									// echo $pagination;
-		for($i = 1; $i <= $pagination; $i++){
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>STT</th>
+						<th>ID</th>
+						<th>Tên sản phẩm</th>
+						<th>Giá</th>
+						<th>% giảm giá</th>
+						<th>Số lượng</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php 
+					$stt=$row*($pages-1);
+					foreach ($rs as $key => $value) {
 
-			?>
-			<li <?php if($i==$_GET['pages']){echo 'class="active"';} ?> ><a href="index.php?page=home&views=<?php echo $views; ?>&pages=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+						?>
+						<tr>
+							<td ><?php echo $stt+=1; ?></td>
+							<td><?php echo $value['id_product']; ?></td>
+							<td><?php echo $value['name_product']; ?></td>
+							<td><?php
+							if($value['discount']>0){
+								echo number_format($value['discount_price']).' đ';
+							}else{
+								echo number_format($value['price']).' đ';
+							}
+							?></td>
+							<td><?php echo $value['discount']; ?></td>
+							<td><?php echo $value['quantity']; ?></td>
+							<td>
+								<a href="index.php?page=home&views=edit-product&id=<?php echo $value['id_product']; ?>"><button type="button" class="btn_edit_product btn btn-primary" value="<?php echo $value['id_product']; ?>"  >Sửa</button></a>
+								<button type="button" value="<?php echo $value['id_product']; ?>" class="btn_del_product btn btn-danger">Xóa</button>
+							</td>
+						</tr>
+						<?php
+					}
+					?>
+
+				</tbody>
+			</table>
 			<?php 
 		}
 		?>
-		<?php 
-		if (isset($_GET['pages']) && $_GET['pages'] < $pagination) {
-			$next = $_GET['pages'] + 1;	
-			?>
-			<li><a href="index.php?page=home&views=<?php echo $views; ?>&pages=<?php echo $next; ?>">Next</a></li>
-			<?php 
-		}	
-		?>
-	</ul>
+		<!-- END Product View Table -->
+		<!-- 	Phân trang -->
+		<div class="col-md-12 col-md-push-3">
+			<ul class="pagination">
+				<?php 
+				if (isset($_GET['pages']) && $_GET['pages'] > 1) {
+					$back = $_GET['pages'] - 1;
 
-</div>
-						<!-- END Phân trang -->
-</div>
-</div>
+					?>
+					<li><a href="index.php?page=home&views=<?php echo $views; ?>&pages=<?php echo $back; ?>">Back</a></li>
+					<?php 
+				}	
+				?>
+				<?php
+									// echo $pagination;
+				for($i = 1; $i <= $pagination; $i++){
 
+					?>
+					<li <?php if($i==$_GET['pages']){echo 'class="active"';} ?> ><a href="index.php?page=home&views=<?php echo $views; ?>&pages=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+					<?php 
+				}
+				?>
+				<?php 
+				if (isset($_GET['pages']) && $_GET['pages'] < $pagination) {
+					$next = $_GET['pages'] + 1;	
+					?>
+					<li><a href="index.php?page=home&views=<?php echo $views; ?>&pages=<?php echo $next; ?>">Next</a></li>
+					<?php 
+				}	
+				?>
+			</ul>
 
-<!-- Modal 1 -->
-<div class="modal fade" id="exampleModal-1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-	<div class="modal-dialog" role="document" style="width: 70%;">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Chi tiết sản phẩm</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-
-
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-			</div>
 		</div>
+		<!-- END Phân trang -->
 	</div>
 </div>
-<!-- END Modal -->
+
+
+

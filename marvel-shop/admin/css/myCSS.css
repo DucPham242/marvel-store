@@ -142,32 +142,9 @@ a:hover{
 .navbar-default .navbar-nav>li>a:hover{
 	color: #DBCD02;
 }
-table.dataTable thead .sorting:after,
-table.dataTable thead .sorting:before,
-table.dataTable thead .sorting_asc:after,
-table.dataTable thead .sorting_asc:before,
-table.dataTable thead .sorting_asc_disabled:after,
-table.dataTable thead .sorting_asc_disabled:before,
-table.dataTable thead .sorting_desc:after,
-table.dataTable thead .sorting_desc:before,
-table.dataTable thead .sorting_desc_disabled:after,
-table.dataTable thead .sorting_desc_disabled:before {
-	bottom: .5em;
-	/*display: none;*/
+#box_listimgR{
+	border: solid 1px gray;border-radius: 5px; min-height: 100px;
 }
-
-table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:after, table.dataTable thead .sorting_asc_disabled:after, table.dataTable thead .sorting_desc_disabled:after {
-    right: 10px;
-    font-family: Arial;
-    font-size: 20px;
-    font-weight: bold;
-    content: "↓";
-}
-
-table.dataTable thead .sorting:before, table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_desc:before, table.dataTable thead .sorting_asc_disabled:before, table.dataTable thead .sorting_desc_disabled:before {
-    right: 25px;
-    font-family: "Font Awesome\ 5 Free", sans-serif;
-    font-size: 20px;
-    font-weight: bold;
-    content: "↑";
+.list_imgR{
+	width: 100%;
 }
