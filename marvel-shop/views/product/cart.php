@@ -109,7 +109,7 @@
 				<h3>Đơn hàng</h3>
 				<div class="shippingbox">
 					<h3 >Tổng tiền: <?php echo number_format($_SESSION['total']).' đ'; ?></h3>
-					<a href="index.php?page=home&method=checkout"><button type="button" class="btn btn-danger">Thanh Toán</button></a>
+					<a href="index.php?page=info&method=checkout"><button type="button" class="btn btn-danger">Thanh Toán</button></a>
 				</div>
 			</div>
 		

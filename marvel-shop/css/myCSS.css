@@ -79,6 +79,9 @@ a:hover{
 	color: #fff;
 
 }
+.span_price{
+	color: red;
+}
 .btn_remove{
 	border: none;
 	padding-left: 5px;
@@ -553,6 +556,9 @@ a .iconfa_user:hover{
 	font-size: 14px;
 	text-decoration: line-through;
 	margin-left:60px;
+}
+.hide_or_show{
+	display: none;
 }
 /*end*/
 /*thuong hieu*/

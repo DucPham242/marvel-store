@@ -138,8 +138,53 @@
 	}
 	});
 
+//tắt thông báo alert
+$(".alert").delay(4000).slideUp();
+
+//Click xem chi tiết,hiển thị chi tiết đơn hàng. Phần Thông tin tài khoản
+$(document).on('click', '.check_detail_order', function(e) {
+	e.preventDefault();
+	var id=$(this).val();
+	$.get('server/show-detailOrder.php',{id:id},function(data) {
+		$("#exampleModal").html(data);
+
+	});
+});
 
 
+//Khu vực xử lý chức năng sửa địa chỉ khách hàng--------START
+//Nhấn vào sửa địa chỉ,hiện textarea
+$(document).on('click', '#edit_address', function(e) {
+	e.preventDefault();
+	$.post('server/edit-address.php',function(data) {
+		$("#address").html(data);
+	});
+});
+//click nút sửa,sửa lại địa chỉ.load lại box address
+$(document).on('click', '#submit_editaddress', function(e) {
+	e.preventDefault();
+	var content=$("#txtaddress").val();
+	var id=$("#submit_editaddress").val();
+	$.get('server/btn-editaddress.php', {content:content,id:id}, function(data) {
+		$("#address_box").load(" #address");
+	});
+});
+//Click hủy, load lại box address
+$(document).on('click', '#cancel_edit', function(e) {
+	e.preventDefault();
+	$("#address_box").load(" #address");
+});
+// -------Sửa địa chỉ----END----
+
+
+
+//Ẩn hiện content Bank
+$("#payment_bank").click(function(e) {
+	$("#bank_info").removeClass('hide_or_show');
+});
+$("#payment_ship").click(function(e) {
+	$("#bank_info").addClass('hide_or_show');
+});
 
 })
 

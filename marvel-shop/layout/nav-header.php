@@ -16,7 +16,7 @@
 		</div>
 		<div id="cartbox">
 		<div class="col-md-3 col-md-push-2 col-xs-4" style="padding-top: 5px" id="reload_cartbox" >
-			<a href="file-link/user-login.html"><i class="fa fa-user-circle-o fa-2x icon-header" aria-hidden="true"></i></a>
+			<a href="index.php?page=info&method=info-user"><i class="fa fa-user-circle-o fa-2x icon-header" aria-hidden="true"></i></a>
 				<span class="show-cart">
 					<a href="index.php?page=home&method=cart" id="show-cart" >
 						<i class="fa fa-cart-arrow-down fa-2x icon-header" id="icon-show" aria-hidden="true" ></i>
