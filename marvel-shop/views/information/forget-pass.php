@@ -21,7 +21,7 @@
 					<div  class="submit-user">
 						 <input type="submit" value="Lấy lại" class="form-control">
 					</div>
-					<a href="user-login.html" style="text-decoration: none;color: red">Hủy</a>
+					<a href="index.php?page=info&method=login" style="text-decoration: none;color: red">Hủy</a>
 
 				</form>
 			</div>

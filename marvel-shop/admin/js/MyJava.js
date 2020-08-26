@@ -172,7 +172,7 @@ $(document).on('click', '.btn_del_product', function(e) {
 });
 
 // Mỗi khi alert hiện xog,load lại bảng product
-$(".alert").fadeOut(3000,function() {
+$(".alert").fadeOut(5000,function() {
 	$("#tbl_pro_boxout").load(" #tbl_pro_boxin");
 });
 

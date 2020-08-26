@@ -105,7 +105,7 @@ class Admin_m extends Connect
 		}
 
 
-//Update trường img cho sản phẩm
+//Update trường img cho sản phẩm tại bảng Product
 		public function addImg_Product($img,$id_product){
 			$sql="UPDATE tbl_product SET img=:img WHERE id_product=:id_product";
 			$pre=$this->pdo->prepare($sql);
@@ -123,9 +123,11 @@ class Admin_m extends Connect
 
 //Hàm thêm list ảnh vào tbl_detail_image
 		public function add_List_img($id_product,$path){
-			$sql="INSERT INTO tbl_detail_image(id_product,path) VALUES ('$id_product','$path')";
-			$pre=$this->pdo->query($sql);
-			return $pre;
+			$sql="INSERT INTO tbl_detail_image(id_product,path) VALUES (:id_product,:path)";
+			$pre=$this->pdo->prepare($sql);
+			$pre->bindParam(':id_product',$id_product);
+			$pre->bindParam(':path',$path);
+			return $pre->execute();
 		}
 
 //Hàm xóa sản phẩm

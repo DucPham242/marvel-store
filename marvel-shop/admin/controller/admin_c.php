@@ -67,7 +67,7 @@ class Admin_c extends Admin_m
 			include_once "views/control.php";
 			break;
 
-			case 'product':
+			case'product' :
 			
 			if(isset($_POST['search_product'])){
 				$_SESSION['key_product']='%'.$_POST['key_product'].'%';
@@ -121,8 +121,20 @@ class Admin_c extends Admin_m
 				$quantity=$_POST['quantity'];
 				$description=$_POST['description'];
 
+			// 	echo "<pre>";
+			// print_r($img);
+			// echo "</pre><hr>";
+
+			// echo "<pre>";
+			// print_r($list_img);
+			// echo "</pre><hr>";
+
 				$files=array();
 				$files=$this->ad->ChangeArrayFile($list_img,$files);
+
+			// 	echo "<pre>";
+			// print_r($files);
+			// echo "</pre><hr>";
 
 				$add_pro=$this->ad->addProduct($name_product,$id_brand,$id_type,$price,$discount,$quantity,$description);
 				if($add_pro){
@@ -133,6 +145,7 @@ class Admin_c extends Admin_m
 					}
     				//Thêm ảnh avatar
 					move_uploaded_file($img['tmp_name'],$memmory_path=$uploadPath.'/'.time().'_avatar_'.$img['name']);
+
     				$uploadPath_real=substr($memmory_path,3);//Đường dẫn thực để insert vào trường img bảng tbl_product
     				$add_img=$this->ad->addImg_Product($uploadPath_real,$id_last);
     				//Thêm list ảnh
@@ -160,7 +173,7 @@ class Admin_c extends Admin_m
     		case 'edit-product':
     		$id_max=$this->ad->getMaxId_Product();
 			// 		echo "<pre>";
-			// print_r($rs);
+			// print_r($id_max);
 			// echo "</pre><hr>";
 			// $id_max['MAX(id_product)']; là giá trị ID lớn nhất trong bảng product
     		if(isset($_GET['id']) && $_GET['id']>0 && $_GET['id'] <= $id_max['MAX(id_product)']){

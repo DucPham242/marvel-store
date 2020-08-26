@@ -111,7 +111,7 @@ class Product_c extends product_m
 				$key=$_SESSION['key'];
 				$rs_search = $this->pro->search($key);
 				$rs_search = $this->pro->add_discount($rs_search);
-				$row = 6;
+				$row = 8;
 				$count = count($rs_search);
 				$pagination = ceil($count / $row);
 				if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>0){
