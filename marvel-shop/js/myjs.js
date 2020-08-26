@@ -15,7 +15,7 @@
 	function updatecart(id){
 		var qty=$('#'+id).val();
 		$.get('server/update-cart.php',{id:id,qty:qty}, function(data) {
-			// $('#table-box-cart').load(' #cart-table');
+			$('#table-box-cart').load(' #cart-table');
   			$("#cartbox").load(" #reload_cartbox");
 		});
 	}
