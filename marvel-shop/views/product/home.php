@@ -228,7 +228,7 @@
 						<div class="thumbnail" style="">
 							<div class="set">
 								<div href="#" style=""><img style="" src="images/product/<?php echo $dc['img']; ?>" width="100%" alt="...">
-									<button class="btn btn-danger shower" value="<?php echo $dc['id_product']; ?>"  data-toggle="modal" data-target=".bs-example-modal-lg">Xem chi tiết</button>
+									<button class="btn btn-danger shower" value="<?php echo $dc['id_product']; ?>"  data-toggle="modal" data-target=".bs-example-modal-lg">Xem nhanh</button>
 								</div>
 
 							</div>

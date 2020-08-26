@@ -69,22 +69,24 @@
 						</div>
 					</div>
 					<div class="radio">
-						<label>
-							<input type="radio" name="payment" id="input" value="" checked="checked">
+						<label id="payment_ship">
+							<input type="radio" name="payment"  value="" checked="checked">
 							Thanh toán khi giao hàng (COD)
 						</label>
 					</div>
 					<div class="radio">
-						<label>
-							<input type="radio" name="payment" id="input" value="">
+						<label id="payment_bank">
+							<input type="radio" name="payment"  value="">
 								Chuyển khoản qua ngân hàng
 						</label>
-						<div style="" id="bank_info">Chuyển khoản qua tài khoản VP Bank <br>
+						<div id="box_bank">
+						<div class="hide_or_show" id="bank_info">Chuyển khoản qua tài khoản VP Bank <br>
 							STK : 188421652 <br>
 							Ngân hàng : VP Bank <br>
 							Chi nhánh : sở giao dịch <br>
 							Chủ tài khoản : Hoang Van Lam <br>
 							Nội dung chuyển khoản: Điền thông tin, số điện thoại của bạn
+						</div>
 						</div>
 					</div>
 					<div  class="submit-user">

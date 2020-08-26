@@ -133,11 +133,6 @@ class Product_c extends product_m
 				include_once "views/product/cart.php";
 				break;
 
-				case 'checkout':
-
-
-				include_once "views/product/checkout.php";
-				break;
 
 				default:
 				header("Location:index.php");

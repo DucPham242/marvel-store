@@ -15,6 +15,16 @@ class Info_c extends Info_m
 		$this->info = new Info_m();
 	}
 
+//Hàm cho Ajax
+//Lấy hàm getDetailOrder_Id($id_order) cho Ajax
+	public function getDetailOrder_Id($id_order){
+		return $this->info->getDetailOrder_Id($id_order);
+	}
+//Lấy hàm edit_address($address,$id_user) cho Ajax
+	public function edit_address($address,$id_user){
+		return $this->info->edit_address($address,$id_user);
+	}
+
 
 	public function Manual(){
 		if(isset($_GET['method'])) {
@@ -30,8 +40,13 @@ class Info_c extends Info_m
 				}
 				$info_user=$this->info->getInfo_user($_COOKIE['id_user']);
 				// echo "<pre>";
-				// 		print_r($info_user);
-				// 		echo "</pre>";
+				// print_r($info_user);
+				// echo "</pre>";
+
+				$info_order=$this->info->getOrder_Id($_COOKIE['id_user']);
+				// echo "<pre>";
+				// print_r($info_order);
+				// echo "</pre>";
 
 				include_once "views/information/infor-user.php";
 				break;
@@ -113,7 +128,10 @@ class Info_c extends Info_m
 
 			include_once "views/information/user-register.php";
 			break;	
-
+			case 'checkout':
+			include_once "views/information/checkout.php";
+			break;
+			
 			case 'forget':
 			include_once "views/information/forget-pass.php";
 			break;

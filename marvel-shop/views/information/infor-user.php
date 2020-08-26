@@ -20,19 +20,20 @@
 						<p>Họ tên: <?php echo $info['name_user']; ?></p>	
 						<p>Email: <?php echo $info['email']; ?></p>
 						<p>Điện thoại: <?php echo $info['phone']; ?></p>
-						<p >Địa chỉ: <?php echo $info['address']; ?></p>
-						<a href="#" class="" style="position: absolute;right:10px;bottom:20px;"><i class="fa fa-share fa-1x iconfa_user" aria-hidden="true"  > Sửa địa chỉ</i></a>
+						<div id="address_box"><p id="address">Địa chỉ: <?php echo "<span style='color: gray;font-style: italic;'>".$info['address']."</span>"; ?></p></div>
+						<a href="#" id="edit_address" class="" style="position: absolute;right:10px;bottom:20px;"><i class="fa fa-share fa-1x iconfa_user" aria-hidden="true"  > Sửa địa chỉ</i></a>
 						<?php 
 							}
 						?>
 					</div>
 			</div>
 			<div class="col-md-8 col-xs-12">
-				<h4>Tài khoản của bạn</h4>
+				<h4>Tài khoản của bạn:</h4>
 				<div class="userbox">
 					<table class="table table-striped table-hover" id="tbl_ordered" style="" >
 						<thead>
 							<tr>
+								<th>STT</th>
 								<th>Mã đơn hàng</th>
 								<th>Ngày đặt</th>
 								<th>Trạng thái</th>
@@ -41,22 +42,32 @@
 							</tr>
 						</thead>
 						<tbody>
+						<?php 
+							$stt=0;
+							foreach ($info_order as $key => $value) {
+								?>
 							<tr>
-								<td>11230</td>
-								<td>2020-07-18 16:46:20</td>
-								<td>Đã đóng gói, chuẩn bị giao hàng</td>
-								<td>900,000 VNĐ</td>
-								<td><a href="">Chi tiết</a></td>
+								<td><?php echo $stt+=1; ?></td>
+								<td><?php echo $value['id_order']; ?></td>
+								<td><?php echo $value['date_order']; ?></td>
+								<td><?php echo $value['name_stt']; ?></td>
+								<td class="span_price"><?php echo number_format($value['total']).' đ'; ?></td>
+								<td><button type="button" class="check_detail_order btn btn-default" data-toggle="modal" data-target="#exampleModal" value="<?php echo $value['id_order']; ?>">Xem chi tiết</button></td>
 							</tr>
-							<tr>
-								<td>11230</td>
-								<td>2020-07-18 16:46:20</td>
-								<td>Đã đóng gói, chuẩn bị giao hàng</td>
-								<td>900,000 VNĐ</td>
-								<td><a href="">Chi tiết</a></td>
-							</tr>
+								<?php
+							}
+						 ?>
+
+
 						</tbody>
 					</table>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ 
+</div>
+<!-- END Modal -->
 				</div>
 		</div>
 			</div>
