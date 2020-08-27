@@ -30,7 +30,7 @@
 				
 			</div>
 			<div class="col-md-5" >
-				<img src="images/product/<?php echo $value['img']; ?>" alt="" width="450px" id="at_image">
+				<img src="<?php echo $value['img']; ?>" alt="" width="450px" id="at_image">
 			</div>
 			<div class="col-md-5 box_price" style="">
 				<h4 style="font-weight: bold"><?php echo $value['name_product']; ?></h4>
@@ -109,10 +109,10 @@
 					<?php 
 					foreach ($rs_related as $key => $value) {
 						?>
-						<a href=""><div class="row" style="">
+						<a href="index.php?page=home&method=product-detail&id=<?php echo $value['id_product']; ?>"><div class="row" style="">
 							<div class="col-md-4" style="">
 								<div class="row">
-									<img class="related_img" src="images/product/<?php echo $value['img']; ?>" alt="">
+									<img class="related_img" src="<?php echo $value['img']; ?>" alt="">
 								</div>
 							</div>
 							<div class="col-md-8" style="">
@@ -157,19 +157,20 @@
 		<?php  
 			// echo '<pre>';
 			// print_r($_SESSION['seen']);
-
 			$count = count($_SESSION['seen']);
 			if ($count > 5) {
 				array_shift($_SESSION['seen']);
 				// $count - 1;
 			}
+
+			
 			foreach ($_SESSION['seen'] as $key => $value) {
 			foreach ($value as $key => $info) {
 				$count = count($_SESSION['seen']);		
 			
 		?>		
 
-		<div class="col-md-1" style=""><a href="index.php?page=home&method=product-detail&id=<?php echo $info['id_product'] ?>"><img class="list_img_visited" src="images/product/<?php echo $info['img']; ?>" alt=""></a></div>
+		<div class="col-md-1" style=""><a href="index.php?page=home&method=product-detail&id=<?php echo $info['id_product'] ?>"><img class="list_img_visited" src="<?php echo $info['img']; ?>" alt=""></a></div>
 
 		<?php 
 		}

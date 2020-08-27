@@ -77,8 +77,8 @@ function validate_file(){
 	for (var i = 0; i <count; i++) {
 		var file_size = inputfile.files[i].size;
 		memory +=file_size;
-		if(file_size>500000) {
-			file_error.innerHTML=' Mỗi ảnh phải có kích thước nhỏ hơn 500kb ';
+		if(file_size>1500000) {
+			file_error.innerHTML=' Mỗi ảnh phải có kích thước nhỏ hơn 1,5MB ';
 			return false;
 		}else if(file_size<=0){
 			file_error.innerHTML=' Bạn chưa up load ảnh,vui lòng upload ít nhất 1 ảnh ';
@@ -86,8 +86,8 @@ function validate_file(){
 			file_error.innerHTML='';
 		}
 	}
-	if(memory>10000000){
-		file_error.innerHTML=" Tổng kích thước tất cả ảnh phải nhỏ hơn 10Mb";
+	if(memory>20000000){
+		file_error.innerHTML=" Tổng kích thước tất cả ảnh phải nhỏ hơn 20Mb";
 		return false;
 	}else{
 		file_error.innerHTML='';
@@ -112,15 +112,15 @@ function validate_files(){
 	for (var i = 0; i <count; i++) {
 		var file_size = inputfile.files[i].size;
 		memory +=file_size;
-		if(file_size>500000) {
-			file_error.innerHTML=' Mỗi ảnh phải có kích thước nhỏ hơn 500kb ';
+		if(file_size>1500000) {
+			file_error.innerHTML=' Mỗi ảnh phải có kích thước nhỏ hơn 1,5Mb ';
 			return false;
 		}else{
 			file_error.innerHTML='';
 		}
 	}
-	if(memory>10000000){
-		file_error.innerHTML=" Tổng kích thước tất cả ảnh phải nhỏ hơn 10Mb";
+	if(memory>20000000){
+		file_error.innerHTML=" Tổng kích thước tất cả ảnh phải nhỏ hơn 20Mb";
 		return false;
 	}else{
 		file_error.innerHTML='';

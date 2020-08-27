@@ -89,7 +89,7 @@
 				<div class="col-md-3 col-xs-6 product_box">
 					<div class="thumbnail" style="">
 						<div class="set">
-							<div href="#"><img src="images/product/<?php echo $hot['img']; ?>" alt="..." width="100%">
+							<div href="#"><img src="<?php echo $hot['img']; ?>" alt="..." width="100%">
 								<button class="btn btn-danger shower" value="<?php echo $hot['id_product']; ?>" data-toggle="modal" data-target=".bs-example-modal-lg">Xem nhanh</button>
 							</div>
 						</div>
@@ -162,7 +162,7 @@
 					<div class="col-md-3 col-xs-6 product_box" style="">
 						<div class="thumbnail">
 							<div class="set">
-								<div href="#" style=""><img style="" src="images/product/<?php echo $mv['img']; ?>" width="100%" alt="...">
+								<div href="#" style=""><img style="" src="<?php echo $mv['img']; ?>" width="100%" alt="...">
 									<button class="btn btn-danger shower"  data-toggle="modal" value="<?php echo $mv['id_product']; ?>" data-target=".bs-example-modal-lg">Xem chi tiết</button>
 								</div>
 
@@ -227,7 +227,7 @@
 					<div class="col-md-3 col-xs-6 product_box">
 						<div class="thumbnail" style="">
 							<div class="set">
-								<div href="#" style=""><img style="" src="images/product/<?php echo $dc['img']; ?>" width="100%" alt="...">
+								<div href="#" style=""><img style="" src="<?php echo $dc['img']; ?>" width="100%" alt="...">
 									<button class="btn btn-danger shower" value="<?php echo $dc['id_product']; ?>"  data-toggle="modal" data-target=".bs-example-modal-lg">Xem nhanh</button>
 								</div>
 

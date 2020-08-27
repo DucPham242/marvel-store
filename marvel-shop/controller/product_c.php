@@ -124,6 +124,7 @@ class Product_c extends product_m
 				$rs_search = $this->pro->search_limit($from,$row,$key);
 				$rs_search = $this->pro->add_discount($rs_search);
 
+			
 
 				include_once "views/product/search.php";
 				
