@@ -132,6 +132,8 @@
 					<?php 
 						}
 					?>
+				</div>	
+				<div>
 					<form action="" method="POST" class="form-inline" role="form">
 					
 						<div class="form-group">
@@ -143,6 +145,7 @@
 					
 						<button type="submit" class="btn btn-default" style="background: #DFDDDD">Sử dụng</button>
 					</form>
+				</div>
 					<hr>
 					<div class="row">
 					<table class="table table-hover">
