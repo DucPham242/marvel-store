@@ -188,3 +188,88 @@ $("#payment_ship").click(function(e) {
 
 })
 
+ // làm phân kiểm tra thông tin đăng kí
+
+ function blur_name(){
+ 	var name = document.getElementById('name').value;
+ 	var check = document.getElementById('check');
+ 	var regexName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
+ 		if (name == null || name == '') {
+ 			check.innerHTML = "Bạn không đươc để trông bất kì trường nào";
+ 		}else if(!regexName.test(name)) {
+ 			check.innerHTML = "Trường họ tên không được chứa kí tự là số";
+ 		}else {
+ 			check.innerHTML = "";
+ 			return name;
+ 		}
+ }
+ function blur_phone() {
+ 	var phone = document.getElementById('phone').value;
+ 	var check = document.getElementById('check');
+ 	var regexPhone = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+ 	if (phone == null || phone == '') {
+ 			check.innerHTML = "Bạn không đươc để trông bất kì trường nào";
+ 		}else if(!regexPhone.test(phone)) {
+ 			check.innerHTML = "Số điện thoại phải đủ 10 chữ số";
+ 		}else {
+ 			check.innerHTML = "";
+ 			return phone;
+ 		}
+  }
+ function blur_addr(){
+ 	var address = document.getElementById('address').value;
+ 	var check = document.getElementById('check');
+ 		if (address == null || address == '') {
+ 			check.innerHTML = "Bạn không đươc để trông bất kì trường nào";
+ 		}else {
+ 			check.innerHTML = "";
+ 			return address;
+ 		}
+ }
+ function blur_email(){
+ 	var email = document.getElementById('email').value;
+ 	var check = document.getElementById('check');
+ 	var regexEmail = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+ 		if (email == null || email == '') {
+ 			check.innerHTML = "Bạn không đươc để trông bất kì trường nào";
+ 		}else if(!regexEmail.test(email)) {
+ 			check.innerHTML = "Email của bạn phải chưa kí tự @";
+ 		}else {
+ 			check.innerHTML = "";
+ 			return email;
+ 		}
+ }
+ function blur_pass(){
+ 	var pass = document.getElementById('pass').value;
+ 	var check = document.getElementById('check');
+ 		if (pass == null || pass == '') {
+ 			check.innerHTML = "Bạn không đươc để trông bất kì trường nào";
+ 		}else {
+ 			check.innerHTML = "";
+ 			return address;
+ 		}
+ }
+ function blur_repass(){
+ 	var pass = document.getElementById('pass').value;
+ 	var repass = document.getElementById('repass').value;
+ 	var check = document.getElementById('check');
+ 		if (repass == null || repass == '') {
+ 			check.innerHTML = "Bạn không đươc để trông bất kì trường nào";
+ 		}else if(repass !== pass){
+ 			check.innerHTML = "Mật khẩu không trùng nhau";
+ 		}else {
+ 			check.innerHTML = "";
+ 			return address;
+ 		}
+ }
+  function Validate_addUser(){
+  	if(blur_name() && blur_phone() && blur_addr() && blur_email() && blur_pass() && blur_repass()){
+	
+		return true;
+	}
+	else{
+		alert('Dữ liệu nhập vào chưa đúng, yêu cầu kiểm tra lại !');
+		return false;
+
+	}
+  }

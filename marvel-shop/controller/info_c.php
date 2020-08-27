@@ -85,6 +85,13 @@ class Info_c extends Info_m
 				header("Location:index.php?page=info&method=login");
 
 				break;
+				//logout checkout
+				case 'logout1':
+				setcookie('id_user','',(time()-999999999999999999999999999));
+				setcookie('name_user','',(time()-999999999999999999999999999));
+				header("Location:index.php?page=home&method=cart");
+
+				break;
 			case 'register':
 			if(isset($_POST['submit_register'])){
 				$name=$_POST['name'];
@@ -129,6 +136,10 @@ class Info_c extends Info_m
 			include_once "views/information/user-register.php";
 			break;	
 			case 'checkout':
+			if(isset($_COOKIE['id_user']) && isset($_COOKIE['name_user'])){
+
+			$rs_checkout = $this->info->getInfo_user($_COOKIE['id_user']);
+			}
 			include_once "views/information/checkout.php";
 			break;
 			

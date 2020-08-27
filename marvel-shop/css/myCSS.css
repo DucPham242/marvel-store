@@ -526,6 +526,23 @@ a .iconfa_user:hover{
 	z-index: 2
 }
 /*end*/
+/*cart-icon*/
+.cart-icon{
+	position: fixed;
+	bottom: 350px;
+	right: 20px;
+	font-size: 25px;
+	width: 40px;
+	height: 40px;
+	padding-left: 3px;
+	background: #EB3232;
+	color: #fff;
+	border: 0px solid #fff;
+	border-radius: 10px;
+	box-sizing: border-box;
+	
+}
+/*end cart-icon*/
 /*back-to top arrow*/
 .back-top{
 	position: fixed;

@@ -9,27 +9,27 @@
 					<h3>Marvelstore</h3><br>
 					<h4 style="color: #338dbc">Thông tin giao hàng</h4>
 					<div style="" id="checkout_user">
-						<?php 
-							if(!isset($_COOKIE['id_user'])&& empty($_COOKIE['id_user'])) {
-								
-						?>
-							<h4>Bạn đã có tài khoản? <a href="index.php?page=info&method=login">Đăng nhập</a></h4>
-						<?php 
+<?php
+if (!isset($_COOKIE['id_user']) && empty($_COOKIE['id_user'])) {
 
-							}else{
-								foreach ($rs_checkout as $key => $value) {
-									
+	?>
+	<h4>Bạn đã có tài khoản? <a href="index.php?page=info&method=login">Đăng nhập</a></h4>
+	<?php
 
-						?>
-							<i class="fa fa-user-circle-o fa-3x" style="color: gray;" aria-hidden="true"></i>
-							<span id="checkout_user_txt" style=""><?php echo $value['name_user']; ?> (<?php echo $value['email'];  ?>)<br>
-							<a href="index.php?page=info&method=logout1">Đăng xuất</a></span>
-						<?php 
-							}
-							}	
-						?>
+} else {
+	foreach ($rs_checkout as $key => $value) {
+
+		?>
+									<i class="fa fa-user-circle-o fa-3x" style="color: gray;" aria-hidden="true"></i>
+									<span id="checkout_user_txt" style=""><?php echo $value['name_user'];
+		?> (<?php echo $value['email'];?>)<br>
+									<a href="index.php?page=info&method=logout1">Đăng xuất</a></span>
+		<?php
+	}
+}
+?>
 					</div><br>
-					<form action="" method="POST"> 
+					<form action="" method="POST">
 
 					<div class="form-group">
 						<div class="input-group">
@@ -38,7 +38,7 @@
 								 <span class="glyphicon glyphicon-user"></span>
 							</span>
 
-							<input type="text" class="form-control" value="<?php if(isset($rs_checkout)){ echo $value['name_user'];} ?>" placeholder="Họ và tên">
+							<input type="text" class="form-control" value="<?php if (isset($rs_checkout)) {echo $value['name_user'];}?>" placeholder="Họ và tên">
 
 						</div>
 					</div>
@@ -49,7 +49,7 @@
 								 <span class="glyphicon glyphicon-envelope"></span>
 							</span>
 
-							<input type="text" class="form-control" value="<?php if(isset($rs_checkout)){echo $value['email'];}?>" placeholder="Email">
+							<input type="text" class="form-control" value="<?php if (isset($rs_checkout)) {echo $value['email'];}?>" placeholder="Email">
 
 						</div>
 					</div>
@@ -61,7 +61,7 @@
 								<span class="glyphicon glyphicon-phone"></span>
 							</span>
 
-							<input type="text" class="form-control" value="<?php if(isset($rs_checkout)){echo $value['phone'];} ?>" placeholder="Số điện thoại">
+							<input type="text" class="form-control" value="<?php if (isset($rs_checkout)) {echo $value['phone'];}?>" placeholder="Số điện thoại">
 
 						</div>
 					</div>
@@ -72,7 +72,7 @@
 								<span class="glyphicon glyphicon-home"></span>
 							</span>
 
-							<input type="text" class="form-control" value="<?php if(isset($rs_checkout)){echo $value['address'];} ?>" placeholder="Địa chỉ nhận hàng">
+							<input type="text" class="form-control" value="<?php if (isset($rs_checkout)) {echo $value['address'];}?>" placeholder="Địa chỉ nhận hàng">
 
 						</div>
 					</div>
@@ -108,39 +108,39 @@
 					<div  class="submit-user">
 						 <input type="submit" value="Hoàn tất đơn hàng" class="form-control">
 					</div>
-					
+
 
 				</form><br>
 				<a href="index.php?page=home&method=cart"> Trở về giỏ hàng</a>
 
 				</div>
-				<?php 
-				// echo '<pre>';
-				// print_r($_SESSION['cart']);
-				foreach ($_SESSION['cart'] as $key => $cart) {
-					
-				 ?>
+<?php
+// echo '<pre>';
+// print_r($_SESSION['cart']);
+foreach ($_SESSION['cart'] as $key => $cart) {
 
-				<div class="col-md-6" style=" min-height: 700px;">
-					<div class="checkout_cart_box" style="height: 150px;">
-						<img src="images/product/<?php echo $cart['img'] ?>" alt="" width="80px;">
-						<span class="checkout_product_qty"><?php echo $cart['qty']; ?></span>
-						<span class="checkout_product_name" ><?php echo $cart['name_product']; ?></span>
-						<span class="checkout_product_price" ><?php echo number_format($cart['price']) . ' vnđ'; ?></span>
-						<hr>
-					</div>
-					<?php 
-						}
-					?>
+	?>
+
+					<div class="col-md-6" style=" min-height: 700px;">
+						<div class="checkout_cart_box" style="height: 150px;">
+							<img src="images/product/<?php echo $cart['img']?>" alt="" width="80px;">
+							<span class="checkout_product_qty"><?php echo $cart['qty'];?></span>
+							<span class="checkout_product_name" ><?php echo $cart['name_product'];?></span>
+							<span class="checkout_product_price" ><?php echo number_format($cart['price']).' vnđ';?></span>
+							<hr>
+						</div>
+	<?php
+}
+?>
 					<form action="" method="POST" class="form-inline" role="form">
-					
+
 						<div class="form-group">
 							<label class="sr-only" for="">label</label>
 							<input type="email" class="form-control" id="" placeholder="Nhập mã giảm giá">
 						</div>
-					
-						
-					
+
+
+
 						<button type="submit" class="btn btn-default" style="background: #DFDDDD">Sử dụng</button>
 					</form>
 					<hr>
