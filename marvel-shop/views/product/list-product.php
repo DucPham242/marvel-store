@@ -159,7 +159,7 @@
 							<div class="col-md-4 col-xs-6 product_box" style="margin-top: 20px;">
 								<div class="thumbnail">
 									<div class="set">
-										<div href="#" style=""><img style="" src="images/product/<?php echo $value['img']; ?>" width="100%" alt="...">
+										<div href="#" style=""><img style="" src="<?php echo $value['img']; ?>" width="100%" alt="...">
 											<button class="btn btn-danger shower"  data-toggle="modal" value="<?php echo $value['id_product']; ?>" data-target=".bs-example-modal-lg">Xem nhanh</button>
 										</div>
 

@@ -148,6 +148,17 @@
 			$pre = $this->pdo->query($sql);
 			return $pre->fetchAll(PDO::FETCH_ASSOC);
 		}
+
+		//Lấy ra list ảnh của 1 sản phẩm
+		public function get_Listimg($id){
+			$sql = "SELECT * FROM tbl_detail_image WHERE id_product=:id";
+			$pre = $this->pdo->prepare($sql);
+			$pre->bindParam(':id', $id);
+			$pre->execute();
+
+			return $pre->fetchAll(PDO::FETCH_ASSOC);
+		}
+
 	}
 	
 
