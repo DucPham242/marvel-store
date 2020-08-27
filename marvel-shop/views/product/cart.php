@@ -52,7 +52,7 @@
 												?>
 
 												<tr>
-													<td><img src="images/product/<?php echo $cart['img']; ?>" alt="Ảnh sản phẩm" width="60px"></td>
+													<td><img src="<?php echo $cart['img']; ?>" alt="Ảnh sản phẩm" width="60px"></td>
 													<td style="font-weight: bold;"><?php echo $cart['name_product']; ?></td>
 													<?php 
 													if ($cart['discount'] <= 0) {

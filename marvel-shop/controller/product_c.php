@@ -35,6 +35,11 @@ class Product_c extends product_m
 	public function add_discount_SS($arr){
 		return $this->pro->add_discount_SS($arr);
 	}
+	//Lấy hàm get_Listimg($id) từ file product_m.php
+	public function get_Listimg($id){
+		return $this->pro->get_Listimg($id);
+	}
+
 	
 
 
@@ -72,6 +77,7 @@ class Product_c extends product_m
 			}
 			$rs=$this->pro->getProduct_Id($id);
 			$rs=$this->pro->add_discount($rs);
+			$rs_listimg=$this->pro->get_Listimg($id);
 			// if (!isset($_SESSION['seen'])) {
 			// 	$_SESSION['seen'][$id] = $rs;
 			// }

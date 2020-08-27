@@ -39,7 +39,7 @@
 
 													?>
 													<tr>
-														<td><img src="images/product/<?php echo $value['img']; ?>" alt="" width="50px"></td>
+														<td><img src="<?php echo $value['img']; ?>" alt="" width="50px"></td>
 														<td> <p class="name" style="color: #085FD6;font-weight: bold;"><?php echo $value['name_product']; ?></p>
 															<p>Thể loại: <span class="light-red"><?php echo $value['name_type']; ?></span><br>Số lượng: <span class="light-red"><?php echo $value['qty'];
 															$_SESSION['cart_qty']+=$value['qty'];

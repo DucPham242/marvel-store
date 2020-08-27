@@ -4,7 +4,7 @@
 				<li>Trang chủ</li>
 				<li>Giỏ hàng</li>
 				<li>Thanh toán</li>
-			</ol>
+				</ol>
 				<div class="col-md-6" style="border-right: solid 2px #E6E6E6; min-height: 700px;">
 					<h3>Marvelstore</h3><br>
 					<h4 style="color: #338dbc">Thông tin giao hàng</h4>
@@ -114,16 +114,17 @@
 				<a href="index.php?page=home&method=cart"> Trở về giỏ hàng</a>
 
 				</div>
-				<?php 
+				
+
+				<div class="col-md-6" style=" min-height: 700px;">
+					<?php 
 				// echo '<pre>';
 				// print_r($_SESSION['cart']);
 				foreach ($_SESSION['cart'] as $key => $cart) {
 					
 				 ?>
-
-				<div class="col-md-6" style=" min-height: 700px;">
 					<div class="checkout_cart_box" style="height: 150px;">
-						<img src="images/product/<?php echo $cart['img'] ?>" alt="" width="80px;">
+						<img src="<?php echo $cart['img'] ?>" alt="" width="80px;">
 						<span class="checkout_product_qty"><?php echo $cart['qty']; ?></span>
 						<span class="checkout_product_name" ><?php echo $cart['name_product']; ?></span>
 						<span class="checkout_product_price" ><?php echo number_format($cart['price']) . ' vnđ'; ?></span>
