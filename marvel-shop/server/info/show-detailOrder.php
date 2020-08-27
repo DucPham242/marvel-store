@@ -1,6 +1,6 @@
 <?php 
 $ajax_flag=1;
-include_once "../controller/info_c.php";
+include_once "../../controller/info_c.php";
 $show = new Info_c();
 if(isset($_GET['id']) && $_GET['id']>0){
 	$id_order=(int)$_GET['id'];

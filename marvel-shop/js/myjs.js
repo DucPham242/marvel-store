@@ -14,7 +14,7 @@
 // })
 	function updatecart(id){
 		var qty=$('#'+id).val();
-		$.get('server/update-cart.php',{id:id,qty:qty}, function(data) {
+		$.get('server/product/update-cart.php',{id:id,qty:qty}, function(data) {
 			$('#table-box-cart').load(' #cart-table');
   			$("#cartbox").load(" #reload_cartbox");
 		});
@@ -81,7 +81,7 @@
 	//Click vào Xem trước sản phẩm, hiện Modal
 	$(document).on('click', '.shower', function() {
 		var id=$(this).val();
-		$.post('server/show-modal.php', {id: id}, function(data) {
+		$.post('server/product/show-modal.php', {id: id}, function(data) {
 			$('.modal_content').html(data);
 		});
 
@@ -104,7 +104,7 @@
 	$(document).on('click', '.add-alert', function(e) {
 		e.preventDefault();
 		var id = $(this).val();
-		$.get('server/add-card.php',{id: id}, function(data) {
+		$.get('server/product/add-card.php',{id: id}, function(data) {
 			$("#cartbox").load(" #reload_cartbox");
 		});
 	});
@@ -117,7 +117,7 @@
 		var id = $(this).val();
 	 var check = confirm("Bạn có chắc chắn muốn xóa không?");
 	if(check){
-		$.post('server/del-pro.php', {id: id}, function(data){
+		$.post('server/product/del-pro.php', {id: id}, function(data){
   		$('#table-box-cart').load(' #cart-table');
   		$("#cartbox").load(" #reload_cartbox");
 	 	});
@@ -131,7 +131,7 @@
 		var id = $(this).val();
 		var checkCartHover = confirm("Bạn có chắc chắn muốn xóa không?")
 		if (checkCartHover) {
-		$.post('server/del-pro.php', {id: id}, function(data){
+		$.post('server/product/del-pro.php', {id: id}, function(data){
   		$('#table-box-cart').load(' #cart-table');
   		$("#cartbox").load(" #reload_cartbox");
 	 	});
@@ -145,7 +145,7 @@ $(".alert").delay(4000).slideUp();
 $(document).on('click', '.check_detail_order', function(e) {
 	e.preventDefault();
 	var id=$(this).val();
-	$.get('server/show-detailOrder.php',{id:id},function(data) {
+	$.get('server/info/show-detailOrder.php',{id:id},function(data) {
 		$("#exampleModal").html(data);
 
 	});
@@ -156,7 +156,7 @@ $(document).on('click', '.check_detail_order', function(e) {
 //Nhấn vào sửa địa chỉ,hiện textarea
 $(document).on('click', '#edit_address', function(e) {
 	e.preventDefault();
-	$.post('server/edit-address.php',function(data) {
+	$.post('server/btn_edit_address/edit-address.php',function(data) {
 		$("#address").html(data);
 	});
 });
@@ -165,7 +165,7 @@ $(document).on('click', '#submit_editaddress', function(e) {
 	e.preventDefault();
 	var content=$("#txtaddress").val();
 	var id=$("#submit_editaddress").val();
-	$.get('server/btn-editaddress.php', {content:content,id:id}, function(data) {
+	$.get('server/btn_edit_address/btn-editaddress.php', {content:content,id:id}, function(data) {
 		$("#address_box").load(" #address");
 	});
 });
@@ -178,17 +178,46 @@ $(document).on('click', '#cancel_edit', function(e) {
 
 
 
-//Ẩn hiện content Bank
-$("#payment_bank").click(function(e) {
-	$("#bank_info").removeClass('hide_or_show');
-});
+//Ẩn hiện content Bank, và load lại SS ship price
 $("#payment_ship").click(function(e) {
 	$("#bank_info").addClass('hide_or_show');
+	$.post('server/info/changeSS-35k.php', function(data) {
+		/*optional stuff to do after success */
+	});
+	$("#price_table_box").load(" #content_price_table");
+});
+$("#payment_bank").click(function(e) {
+	$("#bank_info").removeClass('hide_or_show');
+	$.post('server/info/changeSS-0.php', function(data) {
+		/*optional stuff to do after success */
+	});
+	$("#price_table_box").load(" #content_price_table");
+});
+if($("#ship").attr("checked")=='checked'){
+	$.post('server/info/changeSS-35k.php', function(data) {
+		/*optional stuff to do after success */
+	});
+	$.post('server/info/voucherDefault.php', function(data) {
+		/*optional stuff to do after success */
+	});
+	$("#price_table_box").load(" #content_price_table");
+}
+})
+ // END
+
+//Phần xử lý mã giảm giá voucher
+$(document).on('click', '#submit_voucher', function(e) {
+	e.preventDefault();
+	var code=$("#code_voucher").val();
+	$.get('server/info/check_voucher.php',{code:code}, function(data) {
+		$("#noti_voucher").html(data);
+		$("#price_table_box").load(" #content_price_table");
+	});
 });
 
-})
 
- // làm phân kiểm tra thông tin đăng kí
+
+ // làm phần Validate kiểm tra thông tin đăng kí
 
  function blur_name(){
  	var name = document.getElementById('name').value;

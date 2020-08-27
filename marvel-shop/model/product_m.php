@@ -1,6 +1,6 @@
 <?php 
 	if(isset($ajax_flag)){
-		include_once '../config/config.php';
+		include_once '../../config/config.php';
 	}else{
 		include_once 'config/config.php';
 	}

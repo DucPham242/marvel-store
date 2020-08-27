@@ -82,6 +82,8 @@
 												</li>
 
 												<?php
+											}else{
+												unset($_SESSION['total']);
 											}
 
 											?>

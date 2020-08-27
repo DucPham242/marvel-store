@@ -16,6 +16,13 @@ class Admin_c extends Admin_m
 	{
 		$this->ad=new Admin_m();
 	}
+
+//Gọi hàm getAdmin_email($email)
+	public function getAdmin_email($email,$pass){
+		return $this->ad->getAdmin_email($email,$pass);
+	}
+
+
 //Các hàm cho Ajax
 //Lấy hàm xóa sản phẩm dùng cho Ajax
 	public function del_Product($id){

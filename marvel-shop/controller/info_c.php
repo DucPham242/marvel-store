@@ -1,6 +1,6 @@
 <?php 
 if(isset($ajax_flag)){
-	include_once '../model/info_m.php';
+	include_once '../../model/info_m.php';
 }else{
 	include_once 'model/info_m.php';
 }
@@ -23,6 +23,10 @@ class Info_c extends Info_m
 //Lấy hàm edit_address($address,$id_user) cho Ajax
 	public function edit_address($address,$id_user){
 		return $this->info->edit_address($address,$id_user);
+	}
+//Lấy hàm check_voucher($code) cho AJax
+	public function check_voucher($code){
+		return $this->info->check_voucher($code);
 	}
 
 
@@ -136,6 +140,9 @@ class Info_c extends Info_m
 			include_once "views/information/user-register.php";
 			break;	
 			case 'checkout':
+			if(!isset($_SESSION['cart']) || empty($_SESSION['cart'])){
+				header("Location:index.php");
+			}
 			if(isset($_COOKIE['id_user']) && isset($_COOKIE['name_user'])){
 
 			$rs_checkout = $this->info->getInfo_user($_COOKIE['id_user']);

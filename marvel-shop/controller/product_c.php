@@ -1,6 +1,6 @@
 <?php 
 if(isset($ajax_flag)){
-	include_once '../model/product_m.php';
+	include_once '../../model/product_m.php';
 }else{
 	include_once 'model/product_m.php';
 }

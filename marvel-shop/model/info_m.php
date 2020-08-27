@@ -1,6 +1,6 @@
 <?php 
 	if(isset($ajax_flag)){
-		include_once '../config/config.php';
+		include_once '../../config/config.php';
 	}else{
 		include_once 'config/config.php';
 	}
@@ -88,7 +88,14 @@
 		$pre->bindParam(':id_user',$id_user);
 		return $pre->execute();
 	}
-
+//Hàm lấy thông tin ra 1 code voucher,dựa vào biến code truyền vào
+	public function check_voucher($code){
+		$sql="SELECT * FROM tbl_voucher_order WHERE code_voucher=:code";
+		$pre=$this->pdo->prepare($sql);
+		$pre->bindParam(':code',$code);
+		$pre->execute();
+		return $pre->fetchAll(PDO::FETCH_ASSOC);
+	}
 
 
 

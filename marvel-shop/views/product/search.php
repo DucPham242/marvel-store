@@ -24,7 +24,7 @@
 			<div class="col-md-3 col-xs-6 product_box">
 						<div class="thumbnail" style="">
 							<div class="set">
-								<div href="#" style=""><img style="" src="images/product/<?php echo $search['img']; ?>" width="100%" alt="...">
+								<div href="#" style=""><img style="" src="<?php echo $search['img']; ?>" width="100%" alt="...">
 									<button class="btn btn-danger shower"  data-toggle="modal" value="<?php echo $search['id_product']; ?>" data-target=".bs-example-modal-lg">Xem nhanh</button>
 								</div>
 

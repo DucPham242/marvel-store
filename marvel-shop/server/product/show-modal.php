@@ -1,7 +1,7 @@
 <?php 
 session_start();
 $ajax_flag=1;
-include_once "../controller/product_c.php";
+include_once "../../controller/product_c.php";
 $show = new Product_c();
 if(isset($_POST['id']) && $_POST['id']>0){
 	$id=(int)$_POST['id'];

@@ -46,40 +46,17 @@ h4.center_text{
 	color: red;
 	font-size: 14px;
 }
-.input-admin{
-	height: 80px;
-	width: 400px;
-	margin: 0px auto;
-	font-size: 25px;
-}
+
 #tittle_text_loginadmin{
 	text-align: center;color: gray
 }
-#loginadmin_option{
-	width:400px;margin: 0 auto;
-}
-#input-admin-bottom{
-	margin-top:-10px;
-}
 
 
-#frm_login-admin{
-	position: relative;
-	height: 300px;
-	margin-left: 10px;
-
-}
 #frm_login-admin table{
 	margin-left: 90px;
 	margin-top: 20px;
 }
-#btn-login-admin{
-	height: 80px;
-	width: 400px;
-	font-size: 20px;
 
-
-}
 a:hover{
 	text-decoration: none;
 }
@@ -147,4 +124,13 @@ a:hover{
 }
 .list_imgR{
 	width: 100%;
+}
+
+.submit-user input[type='submit'] {
+    text-align: center;
+    background-color: #303249;
+    color: #fff;
+}
+.submit-user input[type='submit']:hover{
+	background-color:#F12828;
 }
