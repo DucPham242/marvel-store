@@ -25,7 +25,7 @@
 									<a href="profile.html">Profile</a>
 								</li>
 								<li>
-									<a href="login.html">Đăng Xuất</a>
+									<a href="index.php?page=home&views=logout">Đăng Xuất</a>
 								</li>
 							</ul>
 						</div>

@@ -1,3 +1,7 @@
+<?php 
+ob_start();
+session_start();
+ ?>
 <!DOCTYPE html>
 <html lang="">
 <head>
@@ -18,6 +22,9 @@
 	<?php 
 	include_once"controller/admin_c.php";
 	$create=new admin_c();
+	if(isset($_SESSION['id_admin']) && !empty($_SESSION['id_admin'])){
+			header("Location:index.php");
+		}
 	if(isset($_POST['submit_login'])){
 		$email=$_POST['email'];
 		$pass=$_POST['pass'];
@@ -37,7 +44,7 @@
 				$_SESSION['stt_admin']=$value['stt_admin'];
 			}
 			echo "ok";
-			// header("Location:index.php");
+			header("Location:index.php");
 		}
 	}
 	?>

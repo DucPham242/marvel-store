@@ -1,6 +1,11 @@
 <?php 
+session_start();
 $ajax_flag=1;
 include_once"../../controller/admin_c.php";
+if(!isset($_SESSION['stt_admin']) || $_SESSION['stt_admin']!=1){
+ header("Location:../../index.php");
+ exit();
+}
 $admin=new Admin_c();
 if(isset($_GET['id']) && $_GET['id']>0){
 	$id=$_GET['id'];
@@ -13,7 +18,11 @@ if(isset($_GET['id']) && $_GET['id']>0){
 	// echo "<pre>";
 	// print_r($rs_listimg);
 	// echo "</pre>";
-	foreach ($rs as $key => $value) {
+
+	
+	$del=$admin->del_Product($id);
+	if($del){
+			foreach ($rs as $key => $value) {
 		$Filelink_real="../../../".$value['img'];
 		// echo $Filelink_real."<br>";
 		if(file_exists($Filelink_real)){
@@ -32,12 +41,10 @@ if(isset($_GET['id']) && $_GET['id']>0){
 	if(is_dir("../../../images/product/").$id){
 		rmdir("../../../images/product/".$id);
 	}
-	
-	$del=$admin->del_Product($id);
-	if($del){
 		echo "Xoá thành công";
+		
 	}else{
-		echo "Xóa thất bại";
+		echo "Xóa thất bại!";
 	}
 
 }

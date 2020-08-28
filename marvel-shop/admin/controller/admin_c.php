@@ -57,6 +57,9 @@ class Admin_c extends Admin_m
 
 
 	public function create_page(){
+		if(!isset($_SESSION['id_admin']) && empty($_SESSION['id_admin'])){
+			header("Location:login.php");
+		}
 		if(isset($_GET['views'])){
 			$views=$_GET['views'];
 		}else{
@@ -263,6 +266,12 @@ class Admin_c extends Admin_m
 
     		include_once "views/user.php";
     		break;
+    		case 'logout':
+    			unset($_SESSION['id_admin']);
+    			unset($_SESSION['name_admin']);
+    			unset($_SESSION['stt_admin']);
+    			header("Location:login.php");
+    			break;
 
     		default:
     		header("Location:index.php");

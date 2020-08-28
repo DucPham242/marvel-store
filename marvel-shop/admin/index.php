@@ -20,8 +20,6 @@
 		<div class="row">
 			<?php 
 				include_once "layout/nav-left.php";
-				$_SESSION['AA']=22222222222;
-				echo $_SESSION['AA'];
 			 ?>
 			<div class="col-md-10" id="main_content">
 				<div class="row">
