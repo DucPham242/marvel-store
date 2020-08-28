@@ -38,6 +38,31 @@ class Admin_m extends Connect
 		return $pre->fetchAll(PDO::FETCH_ASSOC);
 		}	
 
+//Lấy ra danh sách đơn hàng- dành cho trang quản lý đơn hàng
+		public function get_Order($ss_search){
+		if($ss_search==false){
+			$sql="SELECT tbl_order.*,tbl_detail_stt_order.name_stt FROM tbl_order,tbl_detail_stt_order WHERE (tbl_order.stt=tbl_detail_stt_order.id_stt) ORDER BY id_order DESC";
+			$pre=$this->pdo->prepare($sql);
+		}else{
+			$sql="SELECT tbl_order.*,tbl_detail_stt_order.name_stt FROM tbl_order,tbl_detail_stt_order WHERE (tbl_order.stt=tbl_detail_stt_order.id_stt) AND (tbl_order.name LIKE '$ss_search' OR tbl_order.phone LIKE '$ss_search' OR tbl_order.address LIKE '$ss_search' OR tbl_order.total LIKE '$ss_search' OR tbl_detail_stt_order.name_stt LIKE '$ss_search' OR tbl_order.date_order LIKE '$ss_search') ORDER BY tbl_order.id_order DESC";
+			$pre=$this->pdo->prepare($sql);
+			$pre->bindParam(':ss_search',$ss_search);
+		}
+		$pre->execute();
+		return $pre->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+//Lấy ra danh sách đơn hàng,có phân trang- dành cho trang quản lý đơn hàng
+		public function get_Order_limit($form,$row,$ss_search){
+		if($ss_search==false){
+			$sql="SELECT tbl_order.*,tbl_detail_stt_order.name_stt FROM tbl_order,tbl_detail_stt_order WHERE (tbl_order.stt=tbl_detail_stt_order.id_stt) ORDER BY id_order DESC LIMIT $form,$row";
+		}else{
+			$sql="SELECT tbl_order.*,tbl_detail_stt_order.name_stt FROM tbl_order,tbl_detail_stt_order WHERE(tbl_order.stt=tbl_detail_stt_order.id_stt) AND (tbl_order.name LIKE '$ss_search' OR tbl_order.phone LIKE '$ss_search' OR tbl_order.address LIKE '$ss_search' OR tbl_order.total LIKE '$ss_search' OR tbl_detail_stt_order.name_stt LIKE '$ss_search' OR tbl_order.date_order LIKE '$ss_search') ORDER BY tbl_order.id_order DESC LIMIT $form,$row";
+		}
+		$pre=$this->pdo->query($sql);
+		return $pre->fetchAll(PDO::FETCH_ASSOC);
+	}
+
 //Thêm trường giảm giá cho mảng
 		public function add_discount($arr){
 			foreach ($arr as $key => $value) {
@@ -163,6 +188,70 @@ class Admin_m extends Connect
 			$pre=$this->pdo->query($sql);
 			return $pre->fetch(PDO::FETCH_ASSOC);
 		}
+//Lấy ra ID lớn nhất trong bảo tbl_order
+		public function getMaxId_Order(){
+			$sql="SELECT MAX(id_order) FROM tbl_order";
+			$pre=$this->pdo->query($sql);
+			return $pre->fetch(PDO::FETCH_ASSOC);
+		}	
+
+//Lấy ra thông tin đơn hàng dựa theo ID
+		public function getOrder_ID($id){
+			$sql="SELECT tbl_order.* FROM tbl_order WHERE id_order=:id";
+			$pre=$this->pdo->prepare($sql);
+			$pre->bindParam(':id',$id);
+			$pre->execute();
+			return $pre->fetchAll(PDO::FETCH_ASSOC);
+		}
+//Hàm lấy ra thông tin bảng tbl_payment
+		public function getPayment(){
+			$sql="SELECT * FROM tbl_payment";
+			$pre=$this->pdo->query($sql);			
+			return $pre->fetchAll(PDO::FETCH_ASSOC);
+		}
+
+//Hàm lấy ra thông tin bảng tbl_detail_stt_order
+		public function getSttOrder(){
+			$sql="SELECT * FROM tbl_detail_stt_order";
+			$pre=$this->pdo->query($sql);			
+			return $pre->fetchAll(PDO::FETCH_ASSOC);
+		}
+
+//Hàm cập nhật lại thông tin 1 đơn hàng tại bảng tbl_order
+		public function Update_Order($name,$id_payment,$total,$phone,$email,$address,$note,$stt,$id_order){
+			$sql="UPDATE tbl_order SET name=:name,id_payment=:id_payment,total=:total,phone=:phone,email=:email,address=:address,note=:note,stt=:stt WHERE id_order=:id_order";
+			$pre=$this->pdo->prepare($sql);
+			$pre->bindParam(':name',$name);
+			$pre->bindParam(':id_payment',$id_payment);
+			$pre->bindParam(':total',$total);
+			$pre->bindParam(':phone',$phone);
+			$pre->bindParam(':email',$email);
+			$pre->bindParam(':address',$address);
+			$pre->bindParam(':note',$note);
+			$pre->bindParam(':stt',$stt);
+			$pre->bindParam(':id_order',$id_order);
+			$pre->execute();
+			return $pre;
+			
+		}
+// Hàm cập nhật lại trạng thái đơn hàng bảng tbl_order
+		public function Update_STT_Order($id_order,$stt){
+			$sql="UPDATE tbl_order SET stt=:stt WHERE id_order=:id_order";
+			$pre=$this->pdo->prepare($sql);
+			$pre->bindParam(':stt',$stt);
+			$pre->bindParam(':id_order',$id_order);
+			$pre->execute();
+			return $pre;			
+		}
+
+//Xoá 1 đơn hàng
+		public function Del_Order($id_order){
+			$sql="DELETE FROM tbl_order WHERE id_order=:id_order";
+			$pre=$this->pdo->prepare($sql);
+			$pre->bindParam(':id_order',$id_order);
+			$pre->execute();
+			return $pre;			
+		}
 
 //Xóa 1 ảnh trong bảng tbl_detail_image
 		public function del_Img_inList($id,$src){
@@ -183,5 +272,16 @@ class Admin_m extends Connect
 			$pre->execute();
 			return $pre->fetchAll(PDO::FETCH_ASSOC);
 		}
+
+//Lấy chi tiết đơn hàng dựa theo id_order,kèm theo tên sản phẩm -bảng tbl_detail_order
+		public function getDetail_Order_Name($id_order){
+			$sql="SELECT tbl_detail_order.*,tbl_product.name_product FROM tbl_detail_order,tbl_product WHERE (tbl_detail_order.id_product=tbl_product.id_product) AND id_order=:id_order";
+			$pre=$this->pdo->prepare($sql);
+			$pre->bindParam(':id_order',$id_order);
+			$pre->execute();
+			return $pre->fetchAll(PDO::FETCH_ASSOC);
+		}
+
 }
+
 		?>

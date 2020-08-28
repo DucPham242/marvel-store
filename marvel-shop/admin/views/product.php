@@ -198,7 +198,7 @@ unset($_SESSION['noti_addPro']);
 		?>
 		<!-- END Product View Table -->
 		<!-- 	Phân trang -->
-		<div class="col-md-12 col-md-push-3">
+		<div class="col-md-6 col-md-push-3">
 			<ul class="pagination">
 				<?php 
 				if (isset($_GET['pages']) && $_GET['pages'] > 1) {

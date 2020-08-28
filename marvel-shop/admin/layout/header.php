@@ -1,4 +1,4 @@
-	<div class="container-fluid" id="header-fluid" style="">
+	<div class="container-fluid" id="header-fluid" >
 		
 		<div class="container">
 

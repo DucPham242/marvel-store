@@ -1,3 +1,13 @@
+//Sự kiện thay đổi select option trạng thái đơn hàng trên bảng danh sách đơn hàng
+function updateSTT_Order(id){
+	var stt=$('#'+id).val();
+	var check=confirm("Bạn có muốn thay đổi trạng thái đơn hàng này không ?");
+	if(check){
+		$.get('server/order/update_stt_order.php',{id:id,stt:stt},function(data) {
+			alert(data);
+		});
+	}
+}
 
 //Phần này validate cho form thêm sản phẩm
 // START
@@ -205,6 +215,29 @@ $("#price_product").change(function(e) {
 });
 // END
 
+//Click xóa đơn hàng
+$(document).on('click', '.btn_del_order', function(e) {
+	e.preventDefault();
+	var id=$(this).val();
+	var check=confirm("Bạn có muốn xóa đơn hàng này không ?");
+	if(check){
+		$.get('server/order/del_order.php',{id:id}, function(data) {
+			alert(data);
+			$("#table_order_box").load(" #table_order");
+			$("#pagi_box").load(" #pagi");
+		});
+	}
+});
 
+
+});
+
+//Click xem chi tiết đơn hàng,show modal
+$(document).on('click', '.btn_detail_order', function(e) {
+	e.preventDefault();
+	var id=$(this).val();
+	$.get('server/order/show_detail_order.php',{id:id},function(data) {
+		$("#exampleModal-2").html(data);
+	});
 });
 

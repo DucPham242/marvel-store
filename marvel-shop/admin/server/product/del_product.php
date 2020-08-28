@@ -3,7 +3,7 @@ session_start();
 $ajax_flag=1;
 include_once"../../controller/admin_c.php";
 if(!isset($_SESSION['stt_admin']) || $_SESSION['stt_admin']!=1){
- header("Location:../../index.php");
+ header("Location:../../login.php");
  exit();
 }
 $admin=new Admin_c();

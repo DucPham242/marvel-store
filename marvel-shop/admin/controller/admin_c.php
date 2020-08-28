@@ -17,9 +17,17 @@ class Admin_c extends Admin_m
 		$this->ad=new Admin_m();
 	}
 
-//Gọi hàm getAdmin_email($email)
+//Gọi hàm getAdmin_email($email) cho trang login 
 	public function getAdmin_email($email,$pass){
 		return $this->ad->getAdmin_email($email,$pass);
+	}
+// Gọi hàm getOrder_ID($id) cho trang print
+	public function getOrder_ID($id){
+		return $this->ad->getOrder_ID($id);
+	}
+//Gọi hàm getDetail_Order_Name($id_order) cho trang print
+	public function getDetail_Order_Name($id_order){
+		return $this->ad->getDetail_Order_Name($id_order);
 	}
 
 
@@ -52,7 +60,14 @@ class Admin_c extends Admin_m
 	public function del_Img_inList($id,$src){
 		return $this->ad->del_Img_inList($id,$src);
 	}
-
+//Lấy hàm Update_STT_Order($id_order,$stt) cho ajax
+	public function Update_STT_Order($id_order,$stt){
+		return $this->ad->Update_STT_Order($id_order,$stt);
+	}
+//Lấy hàm Del_Order($id_order) cho ajax
+	public function Del_Order($id_order){
+		return $this->ad->Del_Order($id_order);
+	}
 
 
 
@@ -77,7 +92,7 @@ class Admin_c extends Admin_m
 			include_once "views/control.php";
 			break;
 
-			case'product' :
+			case'product' : // Danh sách sản phẩm
 			
 			if(isset($_POST['search_product'])){
 				$_SESSION['key_product']='%'.$_POST['key_product'].'%';
@@ -113,9 +128,6 @@ class Admin_c extends Admin_m
 				$rs=$this->ad->get_Product_limit($form,$row,$_SESSION['key_product']);
 				$rs=$this->ad->add_discount($rs);
 			}
-			// echo "<pre>";
-			// print_r($rs);
-			// echo "</pre>";
 
 //Thêm mới sản phẩm
 			$rs_brand=$this->ad->getBrand();
@@ -131,20 +143,8 @@ class Admin_c extends Admin_m
 				$quantity=$_POST['quantity'];
 				$description=$_POST['description'];
 
-			// 	echo "<pre>";
-			// print_r($img);
-			// echo "</pre><hr>";
-
-			// echo "<pre>";
-			// print_r($list_img);
-			// echo "</pre><hr>";
-
 				$files=array();
 				$files=$this->ad->ChangeArrayFile($list_img,$files);
-
-			// 	echo "<pre>";
-			// print_r($files);
-			// echo "</pre><hr>";
 
 				$add_pro=$this->ad->addProduct($name_product,$id_brand,$id_type,$price,$discount,$quantity,$description);
 				if($add_pro){
@@ -180,7 +180,7 @@ class Admin_c extends Admin_m
     		include_once "views/product.php";
     		break;
 
-    		case 'edit-product':
+    		case 'edit-product':// Sửa sản phẩm
     		$id_max=$this->ad->getMaxId_Product();
 			// 		echo "<pre>";
 			// print_r($id_max);
@@ -235,43 +235,117 @@ class Admin_c extends Admin_m
     				}
     				if(!empty($files[0]['name']) && !empty($files[0]['type']) && !empty($files[0]['size'])){
     					foreach ($files as $key => $value) {
-    					$create_path="images/product/".$id."/".time().'_'.$value['name'];
+    						$create_path="images/product/".$id."/".time().'_'.$value['name'];
     						move_uploaded_file($value['tmp_name'],"../".$create_path);
     						$add_list=$this->ad->add_List_img($id,$create_path);
     					}
     				}
     				// header("Location:index.php?page=home&views=edit-product&id=".$id);
-    			echo "<script>alert(' Sửa thành công !');
-    			window.location.href = 'index.php?page=home&views=edit-product&id=".$id."';</script>";
+    				echo "<script>alert(' Sửa thành công !');
+    				window.location.href = 'index.php?page=home&views=edit-product&id=".$id."';</script>";
 
     			}else{
-    			echo "<script>alert(' Có lỗi trong quá trình sửa!');</script>";	
+    				echo "<script>alert(' Có lỗi trong quá trình sửa!');</script>";	
     			}	
     		}
 
     		include_once "views/edit-product.php";
     		break;
 
-    		case 'order':
 
+    		case 'order': //Danh sách đơn hàng
+    		if(isset($_POST['search_order'])){
+    			$_SESSION['key_order']='%'.$_POST['key_order'].'%';
+    		}
+    		if(!isset($_SESSION['key_order'])){
+				$rs=$this->ad->get_Order(false);
+				$row=5;
+				$number=count($rs);
+				$pagination=ceil($number/$row);
+				if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
+					$pages=(int)$_GET['pages'];
+				}else{
+					$pages=1;
+					$_GET['pages']=1;
+				}
+				$form=($pages-1)*$row;
+				$rs=$this->ad->get_Order_limit($form,$row,false);
+			}
+			else{
+				$rs=$this->ad->get_Order($_SESSION['key_order']);
+				$row=5;
+				$number=count($rs);	
+				$pagination=ceil($number/$row);
+				if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
+					$pages=(int)$_GET['pages'];
+				}else{
+					$pages=1;
+					$_GET['pages']=1;
+				}
+				$form=($pages-1)*$row;
+				$rs=$this->ad->get_Order_limit($form,$row,$_SESSION['key_order']);
+			}
+			$rs_stt=$this->ad->getSttOrder();
     		include_once "views/order.php";
     		break;
 
-    		case 'customer':
+    		case 'edit-order';//Sửa đơn hàng
+    		$id_max=$this->ad->getMaxId_Order();
+  			 // echo "<pre>";
+			// print_r($id_max);
+			// echo "</pre><hr>";
 
-    		include_once "views/customer.php";
+    		if(isset($_GET['id']) && $_GET['id']>0 && $_GET['id']<=$id_max['MAX(id_order)']){
+    			$id=(int)$_GET['id'];
+    		}else{
+    			header("Location:index.php?page=home&views=order");
+    		}
+    		$rs=$this->ad->getOrder_ID($id);
+    		$rs_payment=$this->ad->getPayment();
+    		$rs_stt=$this->ad->getSttOrder();
+   //  		echo "<pre>";
+			// print_r($rs);
+			// echo "</pre><hr>";
+
+			if(isset($_POST['edit_order'])){
+				$name=$_POST['name'];
+				$id_payment=$_POST['payment'];
+				$total=$_POST['total'];
+				$phone=$_POST['phone'];
+				$email=$_POST['email'];
+				$address=$_POST['address'];
+				$note=$_POST['note'];
+				$stt=$_POST['stt'];
+
+			$edit=$this->ad->Update_Order($name,$id_payment,$total,$phone,$email,$address,$note,$stt,$id);
+			if($edit){
+				echo "<script>alert('Sửa thành công');
+				window.location.href='index.php?page=home&views=edit-order&id=".$id."';</script>";
+			}else{
+				echo "<script>alert('Thất bại! Có lỗi trong quá trình sửa !');</script>";
+			}
+			}		
+    		include_once "views/edit-order.php";
     		break;
 
-    		case 'user':
+    		case 'print':
+    		$id_max=$this->ad->getMaxId_Order();
+    		if(isset($_GET['id']) && $_GET['id']>0 && $_GET['id']<=$id_max['MAX(id_order)']){
+    			$_SESSION['id_print']=(int)$_GET['id'];
 
-    		include_once "views/user.php";
+    		}else{
+    			header("Location:index.php?page=home&views=order");
+    		}
+
+    		header("Location:print_order.php");
     		break;
-    		case 'logout':
-    			unset($_SESSION['id_admin']);
-    			unset($_SESSION['name_admin']);
-    			unset($_SESSION['stt_admin']);
-    			header("Location:login.php");
-    			break;
+    		
+    		case 'logout'://Đăng xuất
+    		unset($_SESSION['id_admin']);
+    		unset($_SESSION['name_admin']);
+    		unset($_SESSION['stt_admin']);
+    		header("Location:login.php");
+    		break;
 
     		default:
     		header("Location:index.php");

@@ -3,7 +3,7 @@ $ajax_flag=1;
 include_once"../../controller/admin_c.php";
 $admin=new Admin_c();
 if(isset($_GET['id']) && isset($_GET['src']) && $_GET['id']>0){
-	$id=$_GET['id'];
+	$id=(int)$_GET['id'];
 	$src=$_GET['src'];
 	$del=$admin->del_Img_inList($id,$src);
 	if($del){

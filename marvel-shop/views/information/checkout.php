@@ -138,7 +138,7 @@
 					<?php 
 						}
 					?>
-				</div>	
+					
 				<div>
 					<form action="" method="POST" class="form-inline" role="form">
 					
@@ -151,11 +151,9 @@
 					
 						<button type="submit" id="submit_voucher" class="btn btn-default" style="background: #DFDDDD">Sử dụng</button>
 					</form>
-<<<<<<< HEAD
 					<span id="noti_voucher"></span>
-=======
 				</div>
->>>>>>> c089912f5c82d843c8b709b2f7c895650ce4f0c2
+
 					<hr>
 					<div class="row" id="price_table_box">
 					<div id="content_price_table">
@@ -182,6 +180,7 @@
 						$_SESSION['TOTAL_ORDER']=$_SESSION['total']-(($_SESSION['total']*$_SESSION['discount_voucher'])/100)+$_SESSION['ship_price'];
 						echo number_format($_SESSION['TOTAL_ORDER'])." VNĐ";
 					 ?></span></h4>
+					</div>
 					</div>
 					</div>
 

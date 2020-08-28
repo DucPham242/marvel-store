@@ -17,7 +17,6 @@
 						<tr>
 							<td>Email:</td>
 							<td>lam*****98@gmail.com</td>
-							<td><a href="">Thay đổi</a></td>
 						</tr>
 						<tr>
 							<td><a href="">Đổi mật khẩu</a></td>
