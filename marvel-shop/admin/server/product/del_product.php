@@ -8,7 +8,7 @@ if(!isset($_SESSION['stt_admin']) || $_SESSION['stt_admin']!=1){
 }
 $admin=new Admin_c();
 if(isset($_GET['id']) && $_GET['id']>0){
-	$id=$_GET['id'];
+	$id=(int)$_GET['id'];
 
 	$rs=$admin->getProduct_ID($id);
 	$rs_listimg=$admin->get_listImg($id);

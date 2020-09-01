@@ -29,10 +29,9 @@ session_start();
 		$email=$_POST['email'];
 		$pass=$_POST['pass'];
 		$acc=$create->getAdmin_email($email,$pass);
-			echo "<pre>";
-			print_r($acc);
-			echo "</pre>";
-			echo $_SESSION['AA'];
+			// echo "<pre>";
+			// print_r($acc);
+			// echo "</pre>";
 
 		if(count($acc)!=1){
 			$_SESSION['noti_login']=1;
@@ -41,6 +40,7 @@ session_start();
 			foreach ($acc as $key => $value) {
 				$_SESSION['id_admin']=$value['id_admin']."<br>";
 				$_SESSION['name_admin']=$value['name_admin'];
+				$_SESSION['email_admin']=$value['email'];
 				$_SESSION['stt_admin']=$value['stt_admin'];
 			}
 			echo "ok";
@@ -90,42 +90,15 @@ session_start();
 									<span class="glyphicon glyphicon-lock"></span>
 								</span>
 
-								<input type="password" name="pass" class="form-control" placeholder="Nhập password...">
+								<input type="password" name="pass" class="form-control" placeholder="Nhập password..." onkeypress="return RulesPass();">
 
 							</div>
 						</div>
 						<div  class="submit-user">
 							<input type="submit" name="submit_login" value="Đăng nhập" class="form-control">
 						</div>
-						<a href="#" style="text-decoration: none;color: red">Quên mật khẩu?</a>
-
-
 					</form><br>
-					<div>
-						<form action="" method="POST" style="width: 400px;margin: 0px auto;"> 
-							<h3 class="adjust-text-form" style="text-align: center;">Quên mật khẩu</h3>
-
-							<div class="form-group">
-								<div class="input-group">
-
-									<span class="input-group-addon">
-										<span class="glyphicon glyphicon-envelope"></span>
-									</span>
-
-									<input type="email" name="email" class="form-control" placeholder="Nhập email của bạn...">
-
-								</div>
-							</div>
-
-							<div  class="submit-user">
-								<input type="submit" name="submit_forget" value="Gửi mail" class="form-control">
-							</div>
-
-						</form>
-
-					</div>
-
-
+			
 
 
 
@@ -139,6 +112,7 @@ session_start();
 	</div>
 	<script src="js/jquery-3.4.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
+	<script src="js/MyJava.js"></script>
 
 
 </body>

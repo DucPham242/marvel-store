@@ -2,17 +2,85 @@
 function updateSTT_Order(id){
 	var stt=$('#'+id).val();
 	var check=confirm("Bạn có muốn thay đổi trạng thái đơn hàng này không ?");
+	var reason='';
 	if(check){
-		$.get('server/order/update_stt_order.php',{id:id,stt:stt},function(data) {
+		if(stt==5){
+			var reason=prompt("Lý do đơn hàng này thất bại ?");
+		}
+		$.get('server/order/update_stt_order.php',{id:id,stt:stt,reason:reason},function(data) {
 			alert(data);
+			$("#table_order_boxout").load(" #table_order_boxin");
 		});
 	}
+		$("#table_order_boxout").load(" #table_order_boxin");
 }
 
-//Phần này validate cho form thêm sản phẩm
+//Trường input chỉ cho nhập số
+function onlyNum(){
+	return event.charCode>=48 && event.charCode<=57;
+}
+function RulesPass(){
+	return (event.charCode>=48 && event.charCode<=57) || (event.charCode>=97 && event.charCode<=122) || (event.charCode>=65 && event.charCode<=90);
+}
+//Phần này validate cho form
 // START
+function blur_phone(){
+ 	var phone = (document.getElementById('phone').value).trim();
+ 	var check = document.getElementById('spanphone');
+ 	var regexPhone = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+ 	if (phone == null || phone == '') {
+ 			check.innerHTML = "Bạn không đươc để trống";
+ 		}else if(!regexPhone.test(phone)) {
+ 			check.innerHTML = " Số điện thoại sai định dạng";
+ 		}else {
+ 			check.innerHTML = "";
+ 			return phone;
+ 		}
+  }
+
+function blur_address(){
+	var address =(document.getElementById('address').value).trim();
+
+ 	var check = document.getElementById('spanaddress');
+
+ 	if (address == null || address == '') {
+ 			check.innerHTML = " Bạn không được để trống";
+ 		}else {
+ 			check.innerHTML = "";
+ 			return address;
+ 		}
+}
+
+function blur_email(){
+ 	var email = (document.getElementById('email').value).trim();
+ 	var check = document.getElementById('spanemail');
+ 	var regexEmail = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+ 		if (email == null || email == '') {
+ 			check.innerHTML = " Bạn không được để trống";
+ 		}else if(!regexEmail.test(email)) {
+ 			check.innerHTML = " Email không hợp lệ";
+ 		}else {
+ 			check.innerHTML = "";
+ 			return email;
+ 		}
+ }
+
+ function blur_name(){
+ 	var name = (document.getElementById('name').value).trim();
+ 	var check = document.getElementById('spanname');
+ 	var regexName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
+ 		if (name == null || name == '') {
+ 			check.innerHTML = " Bạn không được để trống";
+ 		}else if(!regexName.test(name)) {
+ 			check.innerHTML = "Trường họ tên không được chứa kí tự là số";
+ 		}else {
+ 			check.innerHTML = "";
+ 			return name;
+ 		}
+ }
+
 function Blurname_product(){
-	var name=document.getElementById('name_product').value;
+	var name=(document.getElementById('name_product').value).trim();
 	var spanname=document.getElementById('spanname');
 	if(name==''||name==null){
 		spanname.innerHTML=" Tên sản phẩm không được để trống";
@@ -23,7 +91,7 @@ function Blurname_product(){
 	}
 }
 function Blurprice(){
-	var price=document.getElementById('price_product').value;
+	var price=(document.getElementById('price_product').value).trim();
 	var spanprice=document.getElementById('spanprice');
 	var regexPhone=/^\d+$/;
 	if(price==''||price==null){
@@ -39,7 +107,7 @@ function Blurprice(){
 
 }
 function Blurdiscount(){
-	var price=document.getElementById('discount').value;
+	var price=(document.getElementById('discount').value).trim();
 	var spanprice=document.getElementById('spandiscount');
 	var regexPhone=/^\d+$/;
 	if(price==''||price==null){
@@ -55,7 +123,7 @@ function Blurdiscount(){
 
 }
 function Blurquantity(){
-	var price=document.getElementById('quantity').value;
+	var price=(document.getElementById('quantity').value).trim();
 	var spanprice=document.getElementById('spanquantity');
 	var regexPhone=/^\d+$/;
 	if(price==''||price==null){
@@ -70,6 +138,32 @@ function Blurquantity(){
 	}
 
 }
+
+function blur_pass(){
+ 	var pass = (document.getElementById('pass').value).trim();
+ 	var check = document.getElementById('spanpass');
+ 		if (pass == null || pass == '') {
+ 			check.innerHTML = "Bạn không đươc để trống";
+ 		}else {
+ 			check.innerHTML = "";
+ 			return pass;
+ 		}
+ }
+
+ function blur_repass(){
+ 	var pass = (document.getElementById('pass').value).trim();
+ 	var repass = document.getElementById('repass').value;
+ 	var check = document.getElementById('spanrepass');
+ 		if (repass == null || repass == '') {
+ 			check.innerHTML = "Bạn không đươc để trống";
+ 		}else if(repass !== pass){
+ 			check.innerHTML = "Mật khẩu nhập lại không chính xác";
+ 		}else {
+ 			check.innerHTML = "";
+ 			return repass;
+ 		}
+ }
+
 function validate_file(){
 	var inputfile=document.getElementById("img");
 	var file_error=document.getElementById("spanimg");
@@ -77,7 +171,7 @@ function validate_file(){
 	var memory=0;
 	for (var i = 0; i <count; i++) {
 		var file_type =inputfile.files[i].type;
-		if(file_type=='image/jpeg' || file_type=='image/webp' || file_type=='image/png'){
+		if(file_type=='image/jpeg' || file_type=='image/jpg' || file_type=='image/webp' || file_type=='image/png'){
 			file_error.innerHTML='';
 		}else{
 			file_error.innerHTML=' Lỗi! Định dạng ảnh phải là đuôi JPG, PNG, hoặc WEBP';
@@ -112,7 +206,7 @@ function validate_files(){
 	var memory=0;
 	for (var i = 0; i <count; i++) {
 		var file_type =inputfile.files[i].type;
-		if(file_type=='image/jpeg' || file_type=='image/webp' || file_type=='image/png'){
+		if(file_type=='image/jpeg' || file_type=='image/jpg' ||file_type=='image/webp' || file_type=='image/png'){
 			file_error.innerHTML='*';
 		}else{
 			file_error.innerHTML=' Lỗi! Định dạng ảnh phải là đuôi JPG, PNG, hoặc WEBP';
@@ -138,9 +232,9 @@ function validate_files(){
 
 	return true;
 }
-function Validate_addPro(){		
+function Validate_addPro(){		//Kiểm tra kết quả bảng nhập phần sản phẩm
 	if(Blurname_product() && Blurprice()&&Blurdiscount()&&Blurquantity()&&validate_file()&&validate_files()){
-	
+
 		return true;
 	}
 	else{
@@ -149,6 +243,41 @@ function Validate_addPro(){
 
 	}
 	
+}
+
+function Validate_editOrder(){ //Kiểm tra kết quả bảng nhập phần sản phẩm
+	if(blur_name() && blur_phone() && blur_email() && blur_address()){
+		return true;
+	}else{
+		alert('Dữ liệu nhập vào chưa đúng, yêu cầu kiểm tra lại !');
+		return false;
+	}
+}
+
+function Validate_addUser(){ //Kiểm tra kết quả bảng nhập phần sản phẩm
+	if(blur_name() && blur_phone() && blur_email() && blur_address() && blur_pass() && blur_address()){
+		return true;
+	}else{
+		alert('Dữ liệu nhập vào chưa đúng, yêu cầu kiểm tra lại !');
+		return false;
+	}
+}
+function Validate_editUser(){ //Kiểm tra kết quả bảng nhập phần sản phẩm
+	if(blur_name() && blur_phone() && blur_email() && blur_address()){
+		return true;
+	}else{
+		alert('Dữ liệu nhập vào chưa đúng, yêu cầu kiểm tra lại !');
+		return false;
+	}
+}
+
+function Validate_forgetPass(){ //Kiểm tra kết quả bảng nhập phần sản phẩm
+	if(blur_pass() && blur_repass()){
+		return true;
+	}else{
+		alert('Dữ liệu nhập vào chưa đúng, yêu cầu kiểm tra lại !');
+		return false;
+	}
 }
 //END
 
@@ -181,10 +310,19 @@ $(document).on('click', '.btn_del_product', function(e) {
 	}
 });
 
-// Mỗi khi alert hiện xog,load lại bảng product
-$(".alert").fadeOut(5000,function() {
+// Mỗi khi alert hiện xog,load lại bảng danh sách
+$(".alert").fadeOut(4000,function() {
 	$("#tbl_pro_boxout").load(" #tbl_pro_boxin");
+	$("#tbl_user_boxout").load(" #tbl_user_boxin");
+	$("#tbl_voucher_boxout").load(" #tbl_voucher_boxin");
+	$("#tbl_admin_boxout").load(" #tbl_admin_boxin");
+
+
+
 });
+
+// ẩn thông báo noti_changepass
+$("#noti_changepass").fadeOut(4000);
 
 //Click xoá 1 ảnh trong list ảnh - Phẩn sửa Sản phẩm
 $(document).on('click', '.btn_del_listimg', function(e) {
@@ -223,14 +361,13 @@ $(document).on('click', '.btn_del_order', function(e) {
 	if(check){
 		$.get('server/order/del_order.php',{id:id}, function(data) {
 			alert(data);
-			$("#table_order_box").load(" #table_order");
-			$("#pagi_box").load(" #pagi");
+			$("#table_order_boxout").load(" #table_order_boxin");
 		});
 	}
 });
 
 
-});
+
 
 //Click xem chi tiết đơn hàng,show modal
 $(document).on('click', '.btn_detail_order', function(e) {
@@ -241,3 +378,51 @@ $(document).on('click', '.btn_detail_order', function(e) {
 	});
 });
 
+//Click xoa User
+$(document).on('click', '.btn_del_user', function(e) {
+	e.preventDefault();
+	var id=$(this).val();
+	var check=confirm("Lưu ý: Sau khi xóa, các dữ liệu liên quan đến khách hàng này cũng sẽ mất.Quản trị viên hãy cân nhắc xử lý trước khi xóa. Bạn có muốn xóa khách hàng này ? ");
+	$.get('server/user/del-user.php',{id:id}, function(data) {
+		alert(data);
+		$("#tbl_user_boxount").load(" #tbl_user_boxin");
+	});
+});
+
+//Click đổi mật khẩu trong profile
+$(document).on('click', '#changepass', function(e) {
+	e.preventDefault();
+	$.get('server/profile/click-changepass.php', function(data) {
+		$("#box_changepass").html(data);
+	});
+});
+
+//Click xoá voucher
+$(document).on('click', '.btn_del_voucher', function(e) {
+	e.preventDefault();
+	var id=$(this).val();
+	var check=confirm("Bạn có muốn xóa voucher này không ?");
+	if(check){
+		$.get('server/voucher/del-voucher.php',{id:id},function(data) {
+			alert(data);
+			$("#tbl_voucher_boxout").load(" #tbl_voucher_boxin");
+		});
+	}
+});
+
+//click xóa admin
+$(document).on('click', '.btn_del_admin', function(e) {
+	e.preventDefault();
+	var id=$(this).val();
+	var check=confirm("Bạn có muốn xóa thành viên này không ?");
+	if(check){
+		$.get('server/admin/del-admin.php',{id:id}, function(data) {
+			alert(data);
+		});
+	}
+	$("#tbl_admin_boxout").load(" #tbl_admin_boxin");
+});
+
+
+
+});

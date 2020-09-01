@@ -5,6 +5,8 @@ $admin=new Admin_c();
 if(isset($_GET['id']) && $_GET['id']>0){
 	$id=(int)$_GET['id'];
 	$rs=$admin->getDetail_Order_Name($id);
+	$rs_order=$admin->getOrder_ID($id);
+	$rs_noti=$admin->get_noti_STT_order($id);
 	?>
 	<div class="modal-dialog" role="document" style="width: 800px;">
 		<div class="modal-content">
@@ -39,10 +41,53 @@ if(isset($_GET['id']) && $_GET['id']>0){
 						?>
 						
 					</tbody>
+
 				</table>
-				<a href="index.php?page=home&views=print&id=<?php echo $id; ?>" target="_blank"><button type="button" class="btn btn-default">In hoá đơn</button></a>
+				<br>
+				<hr>
+				<table class="table table-hover">
+					<tbody>
+						<?php foreach ($rs_order as $key => $order) {
+							?>
+							<tr>
+							<td><label for="">Tên khách hàng</label></td>
+							<td><?php echo $order['name']; ?></td>
+							</tr>
+							<tr>
+								<td><label for="">Số điện thoại</label></td>
+								<td><?php echo $order['phone']; ?></td>
+							</tr>
+							<tr>
+								<td><label for="">Địa chỉ</label></td>
+								<td><?php echo $order['address']; ?></td>
+							</tr>
+							<tr>
+								<td><label for="">Email liên hệ</label></td>
+								<td><?php echo $order['email']; ?></td>
+							</tr>
+							<tr>
+								<td><label for="">Tổng tiền</label></td>
+								<td><?php echo number_format($order['total']).' VNĐ'; ?></td>
+							</tr>
+							<?php
+						} ?>
+					</tbody>
+				</table>
+		
+					<div style="overflow: scroll; width: 100%;height: 200px;" >
+			<?php 
+			$stt=0;
+			foreach($rs_noti as $key => $noti) {
+				?>
+				<label for="" style="color: red;"><?php  echo $stt+=1.;echo "."; ?></label><p><?php echo $noti['content_noti']; ?></p><hr>
+				<?php
+			}
+			 ?>
+		</div>
+
 
 				<div class="modal-footer">
+					<a id="btn_print" href="index.php?page=home&views=print&id=<?php echo $id; ?>" target="_blank"><button type="button" class="btn btn-default">In hoá đơn</button></a>
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
 				</div>
 			</div>

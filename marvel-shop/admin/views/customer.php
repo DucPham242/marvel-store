@@ -1,38 +1,102 @@
 
 <!-- START Main-Content -->
-
 <!-- Tìm kiếm -->
-<!-- <form action="" method="POST" role="form" >
+<form action="" method="POST" role="form" >
 
 	<div class="form-group" >
-		<input type="text" class="form-control col-md-11" id="" placeholder="Tim kiếm sản phẩm"><button type="submit" class="btn btn-default col-md-1">Tìm kiếm</button><br><br><br>
-
-
+		<input type="text" name="key_user" class="form-control col-md-11" id="" placeholder="Tìm kiếm khách hàng" value="<?php if(isset($_SESSION['key_user'])){ echo str_replace('%', '', $_SESSION['key_user']);} ?>"><button type="submit" name="search_user" class="btn btn-default col-md-1">Tìm kiếm</button><br><br><br>
 	</div>
-</form> -->
+</form>
 <!-- END Tìm kiếm -->
-
+<?php 
+// echo "<pre>";
+// print_r($rs);
+// echo "</pre>";
+?>
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
-	Thêm mới User
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-backdrop="static" data-keyboard="false">
+	Thêm mới khách hàng
 </button>
+<?php if(isset($_SESSION['noti_addUser'])&&$_SESSION['noti_addUser']==1){
+	?>
+	<div class="alert alert-danger alert_user" style="">
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		<strong>Lỗi! Email đã tồn tại</strong> 
+	</div>
+	<?php
+	
+} else if(isset($_SESSION['noti_addUser'])&&$_SESSION['noti_addUser']==2){
+	?>
+	<div class="alert alert-danger alert_user">
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		<strong>Lỗi! Số điện thoại đã tồn tại</strong>
+	</div>
+	<?php
+} else if(isset($_SESSION['noti_addUser'])&&$_SESSION['noti_addUser']==3){
+	?>
+	<div class="alert alert-success alert_user">
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		<strong>Thêm thành công !</strong>
+	</div>
+<?php
+}else if(isset($_SESSION['noti_addUser'])&&$_SESSION['noti_addUser']==4){
+	?>
+	<div class="alert alert-danger alert_user">
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		<strong>Thất bại! Có lỗi trong quá trình thêm</strong>
+	</div>
+	<?php
+}
+unset($_SESSION['noti_addUser']);
+?>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog" role="document" style="width: 1000px;">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Điền thông tin User cần thêm</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Thêm mới user</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-body">
-				...
+				<form action="" method="POST" role="form" onsubmit="return Validate_addUser();">
+					<legend>Điền thông tin user</legend>
+				
+					<div class="form-group">
+						<label for="">Họ tên khách hàng</label><span id="spanname" class="spanerror"></span>
+						<input type="text" name="name_user" class="form-control" id="name" onblur="blur_name();">
+					</div>
+					<div class="form-group">
+						<label for="">Số Điện Thoại</label><span id="spanphone" class="spanerror"></span>
+						<input type="phone" name="phone" onkeypress="return onlyNum();" class="form-control" id="phone" onblur="blur_phone();">
+					</div>
+					<div class="form-group">
+						<label for="">Email</label><span id="spanemail" class="spanerror"></span>
+						<input type="email" name="email"  class="form-control" id="email" onblur="blur_email()" >
+					</div>
+					<div class="form-group">
+						<label for="">Mật khẩu</label><span id="spanpass" class="spanerror"></span>
+						<input type="password" name="pass" onkeypress="return RulesPass();"  class="form-control" id="pass" onblur="blur_pass();">
+					</div>
+					<div class="form-group">
+						<label for="">Nhập lại mật khẩu</label><span id="spanrepass" class="spanerror"></span>
+						<input type="password" name="repass"  class="form-control" id="repass" onkeypress="return RulesPass();" onblur="blur_repass()">
+					</div>
+
+					<div class="form-group">
+						<label for="">Địa chỉ</label><span id="spanaddress" class="spanerror"></span>
+						<input type="text" name="address"  class="form-control" id="address" onblur="blur_address();">
+					</div>
+
+					
+				
+					<button type="submit" name="add_user" class="btn btn-primary">Thêm</button>
+				</form>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-				<button type="button" class="btn btn-primary">Thêm</button>
 			</div>
 		</div>
 	</div>
@@ -40,237 +104,92 @@
 <!-- END Modal -->
 
 <!-- Product View Table -->
+<div id="tbl_user_boxout">
+<div id="tbl_user_boxin">
 <h4 class="center_text" style="">Danh Sách Khách Hàng </h4>
-						<!-- <table class="table table-hover">
-							<thead>
-								<tr>
-									<td>STT</td>
-									<th >ID</th>
-									<th >Họ tên</th>
-									<th >SĐT</th>
-									<th >Email</th>
-									<th >Address</th>
-									<th >Action</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>1</td>
-									<td>11923</td>
-									<td>Hoàng Văn Lâm</td>
-									<td>0398762441</td>
-									<td>lamtiensink98@gmail.com</td>
-									<td>Thượng Thanh, Long Biên, Hà Nội</td>
-									<td>
-										<button type="button" class="btn btn-primary">Sửa</button>
-										<button type="button" class="btn btn-danger">Xóa</button>
-									</td>
-								</tr>
-								<tr>
-									<td>2</td>
-									<td>11923</td>
-									<td>Hoàng Văn Lâm</td>
-									<td>0398762441</td>
-									<td>lamtiensink98@gmail.com</td>
-									<td>Thượng Thanh, Long Biên, Hà Nội</td>
-									<td>
-										<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Sửa</button>
-										<button type="button" class="btn btn-danger">Xóa</button>
-									</td>
-								</tr>
-								<tr>
-									<td>3</td>
-									<td>11923</td>
-									<td>Hoàng Văn Lâm</td>
-									<td>0398762441</td>
-									<td>lamtiensink98@gmail.com</td>
-									<td>Thượng Thanh, Long Biên, Hà Nội</td>
-									<td>
-										<button type="button" class="btn btn-primary">Sửa</button>
-										<button type="button" class="btn btn-danger">Xóa</button>
-									</td>
-								</tr>
-							</tbody>
-						</table> -->
+<p style="color: red;">Có <?php echo $number; ?> kết quả</p>
+<?php 
+	if(count($rs)<1){
+			echo "<span style='color:red;'>Không có sản phầm nào !</span>";
+		}else{
+ ?>
+<table  class="table table-hover" cellspacing="0" width="100%">
+	<thead>
+		<tr>
+			<th style="width: 80px;">STT</th>
+			<th style="width: 250px;">Họ tên</th>
+			<th style="width: 80px;">SĐT</th>
+			<th style="width: 250px;">Email</th>
+			<th>Địa chỉ</th>
+			<th style="width: 150px;">Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php 
+		$stt=$row*($pages-1);
+		foreach ($rs as $key => $value) {
+			?>
+			<tr>
+				<td><?php echo $stt+=1; ?></td>
+				<td><?php echo $value['name_user']; ?></td>
+				<td><?php echo $value['phone']; ?></td>
+				<td><?php echo $value['email']; ?></td>
+				<td><?php echo $value['address']; ?></td>
+				<td>
+					<a href="index.php?page=home&views=edit-customer&id=<?php echo $value['id_user']; ?>"><button type="button" class="btn btn-primary" >Sửa</button></a>
+					<?php if(isset($_SESSION['id_admin']) && $_SESSION['stt_admin']==1){
+						?>
+						<button type="button" class="btn_del_user btn btn-danger" value="<?php echo $value['id_user']; ?>">Xóa</button>
+						<?php
+					} 
+					?>
+				</td>
+			</tr>
+			<?php
+		}
+		?>
 
 
+	</tbody>
+</table>
+</div>
+</div>
+<?php 
+}
+ ?>
 
-						<table id="dtBasicExample" class="table table-striped table-bordered table-sm mytable" cellspacing="0" width="100%">
-							<thead>
-								<tr>
-									<th class="th-sm">STT
-									</th>
-									<th class="th-sm">ID
-									</th>
-									<th class="th-sm">Họ tên
-									</th>
-									<th class="th-sm">SĐT
-									</th>
-									<th class="th-sm">Email
-									</th>
-									<th class="th-sm">Địa chỉ
-									</th>
-									<th class="th-sm">Action
-									</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>1</td>
-									<td>213213</td>
-									<td>Hoang Lam</td>
-									<td>0398732223</td>
-									<td>hiimlamxung@gmail.com</td>
-									<td>HN</td>
-									<td>
-										<button type="button" class="btn btn-primary">Sửa</button>
-										<button type="button" class="btn btn-danger">Xóa</button>
-									</td>
+<!-- END Product View Table -->
+		<!-- 	Phân trang -->
+		<div class="col-md-6 col-md-push-3">
+			<ul class="pagination">
+				<?php 
+				if (isset($_GET['pages']) && $_GET['pages'] > 1) {
+					$back = $_GET['pages'] - 1;
 
-								</tr><tr>
-									<td>2</td>
-									<td>213213</td>
-									<td>Hoang Lam</td>
-									<td>0398732223</td>
-									<td>hiimlamxung@gmail.com</td>
-									<td>HN</td>
-									<td>
-										<button type="button" class="btn btn-primary">Sửa</button>
-										<button type="button" class="btn btn-danger">Xóa</button>
-									</td>
-									
-								</tr><tr>
-									<td>3</td>
-									<td>213213</td>
-									<td>Hoang Lam</td>
-									<td>0398732223</td>
-									<td>hiimlamxung@gmail.com</td>
-									<td>HN</td>
-									<td>
-										<button type="button" class="btn btn-primary">Sửa</button>
-										<button type="button" class="btn btn-danger">Xóa</button>
-									</td>
-									
-								</tr><tr>
-									<td>4</td>
-									<td>213213</td>
-									<td>Hoang Lam</td>
-									<td>0398732223</td>
-									<td>hiimlamxung@gmail.com</td>
-									<td>HN</td>
-									<td>
-										<button type="button" class="btn btn-primary">Sửa</button>
-										<button type="button" class="btn btn-danger">Xóa</button>
-									</td>
-									
-								</tr><tr>
-									<td>5</td>
-									<td>213213</td>
-									<td>Hoang Lam</td>
-									<td>0398732223</td>
-									<td>hiimlamxung@gmail.com</td>
-									<td>HN</td>
-									<td>
-										<button type="button" class="btn btn-primary">Sửa</button>
-										<button type="button" class="btn btn-danger">Xóa</button>
-									</td>
-									
-								</tr><tr>
-									<td>6</td>
-									<td>213213</td>
-									<td>Hoang Lam</td>
-									<td>0398732223</td>
-									<td>hiimlamxung@gmail.com</td>
-									<td>HN</td>
-									<td>
-										<button type="button" class="btn btn-primary">Sửa</button>
-										<button type="button" class="btn btn-danger">Xóa</button>
-									</td>
-									
-								</tr><tr>
-									<td>7</td>
-									<td>213213</td>
-									<td>Hoang Lam</td>
-									<td>0398732223</td>
-									<td>hiimlamxung@gmail.com</td>
-									<td>HN</td>
-									<td>
-										<button type="button" class="btn btn-primary">Sửa</button>
-										<button type="button" class="btn btn-danger">Xóa</button>
-									</td>
-									
-								</tr><tr>
-									<td>8</td>
-									<td>213213</td>
-									<td>Hoang Lam</td>
-									<td>0398732223</td>
-									<td>hiimlamxung@gmail.com</td>
-									<td>HN</td>
-									<td>
-										<button type="button" class="btn btn-primary">Sửa</button>
-										<button type="button" class="btn btn-danger">Xóa</button>
-									</td>
-									
-								</tr><tr>
-									<td>9</td>
-									<td>213213</td>
-									<td>Hoang Lam</td>
-									<td>0398732223</td>
-									<td>hiimlamxung@gmail.com</td>
-									<td>HN</td>
-									<td>
-										<button type="button" class="btn btn-primary">Sửa</button>
-										<button type="button" class="btn btn-danger">Xóa</button>
-									</td>
-									
-								</tr><tr>
-									<td>1</td>
-									<td>213213</td>
-									<td>Hoang Lam</td>
-									<td>0398732223</td>
-									<td>hiimlamxung@gmail.com</td>
-									<td>HN</td>
-									<td>
-										<button type="button" class="btn btn-primary">Sửa</button>
-										<button type="button" class="btn btn-danger">Xóa</button>
-									</td>
-									
-								</tr><tr>
-									<td>1</td>
-									<td>213213</td>
-									<td>Hoang Lam</td>
-									<td>0398732223</td>
-									<td>hiimlamxung@gmail.com</td>
-									<td>HN</td>
-									<td>
-										<button type="button" class="btn btn-primary">Sửa</button>
-										<button type="button" class="btn btn-danger">Xóa</button>
-									</td>
-									
-								</tr>
-							</tbody>
-						</table>
-	
-						<!-- END Product View Table -->
+					?>
+					<li><a href="index.php?page=home&views=<?php echo $views; ?>&pages=<?php echo $back; ?>">Back</a></li>
+					<?php 
+				}	
+				?>
+				<?php
+									// echo $pagination;
+				for($i = 1; $i <= $pagination; $i++){
 
-						<!-- Modal -->
-						<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-							<div class="modal-dialog" role="document">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalLabel">Thông tin khách hàng</h5>
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-											<span aria-hidden="true">&times;</span>
-										</button>
-									</div>
-									<div class="modal-body">
-										...
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-										<button type="button" class="btn btn-primary">Thêm</button>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- END Modal -->
+					?>
+					<li <?php if($i==$_GET['pages']){echo 'class="active"';} ?> ><a href="index.php?page=home&views=<?php echo $views; ?>&pages=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+					<?php 
+				}
+				?>
+				<?php 
+				if (isset($_GET['pages']) && $_GET['pages'] < $pagination) {
+					$next = $_GET['pages'] + 1;	
+					?>
+					<li><a href="index.php?page=home&views=<?php echo $views; ?>&pages=<?php echo $next; ?>">Next</a></li>
+					<?php 
+				}	
+				?>
+			</ul>
+
+		</div>
+		<!-- END Phân trang -->
+

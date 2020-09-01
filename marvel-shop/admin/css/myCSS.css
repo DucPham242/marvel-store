@@ -154,3 +154,9 @@ a:hover{
 .hr_print{
 	border: solid 1px black;
 }
+.alert_user{
+	display: inline;
+}
+#btn_print{
+	margin-right: 500px;
+}

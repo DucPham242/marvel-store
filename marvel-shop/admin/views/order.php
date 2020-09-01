@@ -11,24 +11,70 @@
 	</div>
 </form>
 <!-- END Tìm kiếm -->
-<?php 
-// echo "<pre>";
-// print_r($rs);
-// echo "</pre>";
-// echo "<pre>";
-// print_r($rs_stt);
-// echo "</pre>";
-?> 
+
+<!-- MODAL History -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-backdrop="static" data-keyboard="false">
+	Xem lịch sử hoạt động
+</button>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+	<div class="modal-dialog" role="document" style="width: 1000px;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title" id="exampleModalLabel" style="color: blue;">Lịch sử hoạt động</h3>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<table class="table table-hover" style="">
+					<tbody>
+						
+						<?php 
+						$stt_noti=0;
+						foreach ($rs_noti as $key => $noti) {
+							?>
+							<tr>
+							<td style="text-align: left;line-height: 40px; "><?php echo $stt_noti +=1; ?></td>
+							<td style="text-align: left;color:gray;line-height: 40px; "><?php echo $noti['content_noti']; ?></td>
+							</tr>
+							<?php
+						}
+						 ?>
+					
+					</tbody>
+				</table>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- END MODAL History -->
+
 <!-- Product View Table -->
+
 <h4 class="center_text">Danh Sách Đơn Hàng </h4>
-<div id="table_order_box">
-<table class="table table-hover" id="table_order">
+<div id="table_order_boxout">
+	<div id="table_order_boxin">
+	<p style="color: red;">Có <?php echo $number; ?> kết quả</p>
+	<?php 
+
+		if(count($rs)<1){
+			echo "<span style='color:red;'>Không có sản phầm nào !</span>";
+		}else{
+	 ?>
+<table class="table table-hover" id="">
 	<thead>
 		<tr>
 			<th>STT</th>
+			<th>ID</th>
 			<th>Tên người nhận</th>
 			<th>SĐT Liên hệ</th>
-			<th>Địa chỉ nhận hàng</th>
 			<th>Tổng tiền</th>
 			<th>Tình trạng</th>
 			<th>Ngày đặt</th>
@@ -43,12 +89,12 @@
 			?>
 			<tr>
 				<td><?php echo $sx+=1; ?></td>
+				<td><?php echo $value['id_order']; ?></td>
 				<td><?php echo $value['name']; ?></td>
 				<td><?php echo $value['phone']; ?></td>
-				<td style="width: 250px;"><?php echo $value['address']; ?></td>
 				<td style="color: red;"><?php echo number_format($value['total'])." đ"; ?></td>
-				<td>
-					<select name="" id="<?php echo $value['id_order']; ?>" onchange="updateSTT_Order(<?php echo $value['id_order']; ?>);">
+				<td style="width: 80px;">
+					<select name="" id="<?php echo $value['id_order']; ?>"  onchange="updateSTT_Order(<?php echo $value['id_order']; ?>);">
 						<?php 
 							foreach ($rs_stt as $key => $stt) {
 								?>
@@ -72,7 +118,7 @@
 					
 
 				</td>
-				<td><button type="button" class="btn_detail_order btn btn-info" data-toggle="modal" data-target="#exampleModal-2" data-backdrop="static" data-keyboard="false" value="<?php echo $value['id_order']; ?>">Chi tiết</button><br></td>
+				<td><button type="button" class="btn_detail_order btn btn-info" data-toggle="modal" data-target="#exampleModal-2" data-backdrop="static" data-keyboard="false" value="<?php echo $value['id_order']; ?>">Xem đơn</button><br></td>
 			</tr>
 			<?php
 		}
@@ -80,6 +126,10 @@
 
 	</tbody>
 </table>
+<?php 
+}
+ ?>
+		</div>
 		</div>
 
 

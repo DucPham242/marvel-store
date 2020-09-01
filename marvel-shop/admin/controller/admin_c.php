@@ -21,10 +21,6 @@ class Admin_c extends Admin_m
 	public function getAdmin_email($email,$pass){
 		return $this->ad->getAdmin_email($email,$pass);
 	}
-// Gọi hàm getOrder_ID($id) cho trang print
-	public function getOrder_ID($id){
-		return $this->ad->getOrder_ID($id);
-	}
 //Gọi hàm getDetail_Order_Name($id_order) cho trang print
 	public function getDetail_Order_Name($id_order){
 		return $this->ad->getDetail_Order_Name($id_order);
@@ -60,6 +56,10 @@ class Admin_c extends Admin_m
 	public function del_Img_inList($id,$src){
 		return $this->ad->del_Img_inList($id,$src);
 	}
+//Lấy hàm getOrder_ID($id) cho ajax và trang Print bên ngoài
+	public function getOrder_ID($id){
+		return $this->ad->getOrder_ID($id);
+	}
 //Lấy hàm Update_STT_Order($id_order,$stt) cho ajax
 	public function Update_STT_Order($id_order,$stt){
 		return $this->ad->Update_STT_Order($id_order,$stt);
@@ -68,7 +68,26 @@ class Admin_c extends Admin_m
 	public function Del_Order($id_order){
 		return $this->ad->Del_Order($id_order);
 	}
-
+//Lấy hàm Del_User($id_user) cho ajax
+	public function Del_User($id_user){
+		return $this->ad->Del_User($id_user);
+	}
+//Lấy hàm Del_Voucher($id_voucher) cho ajax
+	public function Del_Voucher($id_voucher){
+		return $this->ad->Del_Voucher($id_voucher);
+	}
+//Lấy hàm Del_Admin($id_admin) cho ajax
+    public function Del_Admin($id_admin){
+        return $this->ad->Del_Admin($id_admin);
+    }
+//Lấy hàm add_noti_order($id_order,$content_noti,$action)
+    public function add_noti_order($id_order,$content_noti,$action){
+        return $this->ad->add_noti_order($id_order,$content_noti,$action);
+    }
+//Lấy hàm get_noti_STT_order() cho ajax
+    public function get_noti_STT_order($id_order){
+        return $this->ad->get_noti_STT_order($id_order);
+    }
 
 
 	public function create_page(){
@@ -83,13 +102,7 @@ class Admin_c extends Admin_m
 
 		switch ($views) {
 			case 'status':
-
 			include_once "views/status.php";
-			break;
-
-			case 'control':
-
-			include_once "views/control.php";
 			break;
 
 			case'product' : // Danh sách sản phẩm
@@ -217,12 +230,7 @@ class Admin_c extends Admin_m
 
     			$update=$this->ad->Update_Product($id,$name_product,$id_brand,$id_type,$price,$discount,$quantity,$description);
     			if($update){
-			// echo "<pre>";
-			// print_r($img);
-			// echo "</pre><hr>";
-			// echo "<pre>";
-			// print_r($files);
-			// echo "</pre><hr>";
+
     				if(!empty($img['name']) && !empty($img['type']) && !empty($img['size']) && !empty($img['tmp_name'])){
     					$create_path="images/product/".$id."/".time().'_avatar_'.$img['name'];
     					move_uploaded_file($img['tmp_name'],"../".$create_path);
@@ -254,38 +262,41 @@ class Admin_c extends Admin_m
 
 
     		case 'order': //Danh sách đơn hàng
+            $del_noti=$this->ad->del_history_noti('tbl_noti_order');//Xóa bớt noti đã cũ
+           
     		if(isset($_POST['search_order'])){
     			$_SESSION['key_order']='%'.$_POST['key_order'].'%';
     		}
     		if(!isset($_SESSION['key_order'])){
-				$rs=$this->ad->get_Order(false);
-				$row=5;
-				$number=count($rs);
-				$pagination=ceil($number/$row);
-				if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
-					$pages=(int)$_GET['pages'];
-				}else{
-					$pages=1;
-					$_GET['pages']=1;
-				}
-				$form=($pages-1)*$row;
-				$rs=$this->ad->get_Order_limit($form,$row,false);
-			}
-			else{
-				$rs=$this->ad->get_Order($_SESSION['key_order']);
-				$row=5;
-				$number=count($rs);	
-				$pagination=ceil($number/$row);
-				if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
-					$pages=(int)$_GET['pages'];
-				}else{
-					$pages=1;
-					$_GET['pages']=1;
-				}
-				$form=($pages-1)*$row;
-				$rs=$this->ad->get_Order_limit($form,$row,$_SESSION['key_order']);
-			}
-			$rs_stt=$this->ad->getSttOrder();
+    			$rs=$this->ad->get_Order(false);
+    			$row=5;
+    			$number=count($rs);
+    			$pagination=ceil($number/$row);
+    			if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
+    				$pages=(int)$_GET['pages'];
+    			}else{
+    				$pages=1;
+    				$_GET['pages']=1;
+    			}
+    			$form=($pages-1)*$row;
+    			$rs=$this->ad->get_Order_limit($form,$row,false);
+    		}
+    		else{
+    			$rs=$this->ad->get_Order($_SESSION['key_order']);
+    			$row=5;
+    			$number=count($rs);	
+    			$pagination=ceil($number/$row);
+    			if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
+    				$pages=(int)$_GET['pages'];
+    			}else{
+    				$pages=1;
+    				$_GET['pages']=1;
+    			}
+    			$form=($pages-1)*$row;
+    			$rs=$this->ad->get_Order_limit($form,$row,$_SESSION['key_order']);
+    		}
+    		$rs_stt=$this->ad->getSttOrder();
+            $rs_noti=$this->ad->get_noti_order();
     		include_once "views/order.php";
     		break;
 
@@ -303,29 +314,158 @@ class Admin_c extends Admin_m
     		$rs=$this->ad->getOrder_ID($id);
     		$rs_payment=$this->ad->getPayment();
     		$rs_stt=$this->ad->getSttOrder();
+            $rs_noti=$this->ad->get_noti_STT_order($id);
    //  		echo "<pre>";
 			// print_r($rs);
 			// echo "</pre><hr>";
 
-			if(isset($_POST['edit_order'])){
-				$name=$_POST['name'];
-				$id_payment=$_POST['payment'];
-				$total=$_POST['total'];
-				$phone=$_POST['phone'];
-				$email=$_POST['email'];
-				$address=$_POST['address'];
-				$note=$_POST['note'];
-				$stt=$_POST['stt'];
+    		if(isset($_POST['edit_order'])){
+    			$name=$_POST['name'];
+    			$id_payment=$_POST['payment'];
+    			$total=$_POST['total'];
+    			$phone=$_POST['phone'];
+    			$email=$_POST['email'];
+    			$address=$_POST['address'];
+                $note=$_POST['note'];
 
-			$edit=$this->ad->Update_Order($name,$id_payment,$total,$phone,$email,$address,$note,$stt,$id);
-			if($edit){
-				echo "<script>alert('Sửa thành công');
-				window.location.href='index.php?page=home&views=edit-order&id=".$id."';</script>";
-			}else{
-				echo "<script>alert('Thất bại! Có lỗi trong quá trình sửa !');</script>";
-			}
-			}		
+    			$edit=$this->ad->Update_Order($name,$id_payment,$total,$phone,$email,$address,$note,$id);
+    			if($edit){
+                     foreach ($rs as $key => $value) {//Add thêm thông báo vào bảng noti_order
+                     $content_noti="Quản trị viên ".$_SESSION['name_admin']."(".$_SESSION['email_admin'].") đã cập nhật lại thông tin đơn hàng có ID là: ".$value['id_order']." vào lúc ".date('Y/m/d-H:i:s',time());
+                      $add_noti=$this->ad->add_noti_order($id,$content_noti,2);
+                    }
+    				echo "<script>alert('Sửa thành công');
+    				window.location.href='index.php?page=home&views=edit-order&id=".$id."';</script>";
+                    
+                   
+    			}else{
+    				echo "<script>alert('Thất bại! Có lỗi trong quá trình sửa !');</script>";
+    			}
+    		}		
     		include_once "views/edit-order.php";
+    		break;
+
+
+    		case 'customer'://Danh sách khách hàng
+    		if(isset($_POST['search_user'])){
+    			$_SESSION['key_user']='%'.$_POST['key_user'].'%';
+    		}
+
+    		if(!isset($_SESSION['key_user'])){
+    			$rs=$this->ad->get_User(false);
+    			$row=10;
+    			$number=count($rs);
+    			$pagination=ceil($number/$row);
+    			if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
+    				$pages=(int)$_GET['pages'];
+    			}else{
+    				$pages=1;
+    				$_GET['pages']=1;
+    			}
+    			$form=($pages-1)*$row;
+    			$rs=$this->ad->get_User_limit($form,$row,false);
+    		}
+    		else{
+    			$rs=$this->ad->get_User($_SESSION['key_user']);
+    			$row=5;
+    			$number=count($rs);	
+    			$pagination=ceil($number/$row);
+    			if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
+    				$pages=(int)$_GET['pages'];
+    			}else{
+    				$pages=1;
+    				$_GET['pages']=1;
+    			}
+    			$form=($pages-1)*$row;
+    			$rs=$this->ad->get_User_limit($form,$row,$_SESSION['key_user']);
+    		}
+
+			// Thêm mới khách hàng
+    		if(isset($_POST['add_user'])){
+    			$name_user=$_POST['name_user'];
+    			$phone=$_POST['phone'];
+    			$email=$_POST['email'];
+    			$address=$_POST['address'];
+    			$pass=md5(base64_encode($_POST['pass']));
+    			$count_email=count($this->ad->getInfo_user_as_email($email));
+    			$count_phone=count($this->ad->getInfo_user_as_phone($phone));
+    			if($count_email!=0){
+    				$_SESSION['noti_addUser']=1;
+    			}else if($count_phone!=0){
+    				$_SESSION['noti_addUser']=2;
+    			}else{
+    				$add_user=$this->ad->add_User($name_user,$email,$pass,$phone,$address);
+    				if($add_user){
+    					$_SESSION['noti_addUser']=3;
+    				}else{
+    					$_SESSION['noti_addUser']=4;
+    				}
+    			}
+    		}
+    		include_once"views/customer.php";
+    		break;
+
+    		case 'edit-customer'://Sửa thông tin khách hàng
+    		$id_max=$this->ad->getMaxId_User();
+    		if(isset($_GET['id']) && $_GET['id']>0 && $_GET['id'] <= $id_max['MAX(id_user)']){
+    			$id=(int)$_GET['id'];
+    		}
+    		else{
+    			header("Location:index.php");
+    		}
+
+    		$rs=$this->ad->getUser_ID($id);
+			// echo "<pre>";
+			// print_r($rs);
+			// echo "</pre><hr>";
+
+    		if(isset($_POST['edit_user'])){//Khi bấm submit sửa khách hàng
+    			$name_user=$_POST['name'];
+    			$phone=$_POST['phone'];
+    			if(isset($_SESSION['id_admin']) && $_SESSION['stt_admin']==1){//Nếu là admin toàn quyền thì đc phép sửa email
+    				$email=$_POST['email'];
+    			}
+    			$address=$_POST['address'];
+    			$check_email=count($this->ad->getInfo_user_as_email($email));
+    			$check_phone=count($this->ad->getInfo_user_as_phone($phone));
+
+
+    			if(isset($_SESSION['stt_admin']) && $_SESSION['stt_admin']==1){
+    				if($check_email!=0 && $email!=$_SESSION['mail_user']){
+    					echo "<script>alert('Email đã tồn tại, không sửa được !');</script>";
+    				}else if($check_phone!=0 && $phone!=$_SESSION['phone_user']){
+    					echo "<script>alert('Số điện thoại đã tồn tại, không sửa được !');</script>";
+    				}else{
+    					$edit=$this->ad->edit_user($name_user,$email,$phone,$address,$id);
+    					if($edit){
+    						echo "<script>alert('Sửa thành công !');
+    						window.location.href='index.php?page=home&views=edit-customer&id=".$id."';</script>";
+    					}else{
+    						echo "<script>alert('Thất bại! Có lỗi trong quá trình sửa.');
+    						window.location.href='index.php?page=home&views=edit-customer&id=".$id."';</script>";
+    					}
+    				}
+    				
+    			}else{
+    				if($check_phone!=0){
+    					echo "<script>alert('Số điện thoại đã tồn tại, không sửa được !');</script>";
+    				}else{
+    					$edit=$this->ad->edit_user_2($name_user,$phone,$address,$id);
+    					if($edit){
+    						echo "<script>alert('Sửa thành công !');
+    						window.location.href='index.php?page=home&views=edit-customer&id=".$id."';</script>";
+    					}else{
+    						echo "<script>alert('Thất bại! Có lỗi trong quá trình sửa.');
+    						window.location.href='index.php?page=home&views=edit-customer&id=".$id."';</script>";
+    					}
+    				}
+    			}
+
+
+    		}
+
+
+    		include_once "views/edit-customer.php";
     		break;
 
     		case 'print':
@@ -339,19 +479,199 @@ class Admin_c extends Admin_m
 
     		header("Location:print_order.php");
     		break;
-    		
-    		case 'logout'://Đăng xuất
-    		unset($_SESSION['id_admin']);
-    		unset($_SESSION['name_admin']);
-    		unset($_SESSION['stt_admin']);
-    		header("Location:login.php");
-    		break;
 
-    		default:
-    		header("Location:index.php");
-    		break;
+    	case 'profile'://Profile - thông tin tài khoản hiện tại
+    	$rs=$this->ad->Get_Admin_ID($_SESSION['id_admin']);
+    	if(isset($_POST['submit_changepass'])){
+    		$pass=$_POST['pass'];
+    		$newpass=$_POST['newpass'];
+    		$re_newpass=$_POST['re_newpass'];
+
+    		foreach ($rs as $key => $admin) {
+    			if($pass!=$admin['password']){
+    				$_SESSION['noti_changepass']=1;
+    			}else{
+    				$change=$this->ad->ChangePass_Admin($_SESSION['id_admin'],$newpass);
+    				if($change){
+    					$_SESSION['noti_changepass']=2;
+    				}else{
+    					$_SESSION['noti_changepass']=3;
+    				}
+    			}
+    		}
     	}
+
+
+    	include_once "views/profile.php";
+    	break;
+
+    	case 'voucher':
+    	$rs=$this->ad->Get_voucher();
+   			// echo "<pre>";
+			// print_r($rs);
+			// echo "</pre><hr>";
+
+    	if(isset($_POST['add_voucher'])){
+    		$code_voucher=$_POST['code_voucher'];
+    		$apply_for=$_POST['apply_for'];
+    		$time_apply=$_POST['time_apply'];
+    		$discount=$_POST['discount'];
+
+    		$count=count($this->ad->Get_voucher_Code($code_voucher));
+    		if($count==1){
+    			$_SESSION['noti_voucher']=1;
+    		}else{
+    			$add=$this->ad->add_Voucher($code_voucher,$apply_for,$time_apply,$discount);
+    			if($add){
+    				$_SESSION['noti_voucher']=2;
+    			}else{
+    				$_SESSION['noti_voucher']=3;
+    			}
+    		}
+    	}
+    	include_once"views/voucher.php";
+    	break;
+
+    	case 'edit-voucher':
+    	$id_max=$this->ad->getMaxId_Voucher();
+    	if(isset($_GET['id']) && $_GET['id']>0 && $_GET['id'] <= $id_max['MAX(id_voucher)']){
+    		$id=(int)$_GET['id'];
+    	}
+    	else{
+    		header("Location:index.php");
+    	}
+    	$rs=$this->ad->Get_voucher_ID($id);
+   //  		echo "<pre>";
+			// print_r($rs);
+			// echo "</pre><hr>";
+    	if(isset($_POST['edit_voucher'])){
+    		$code_voucher=$_POST['code_voucher'];
+    		$apply_for=$_POST['apply_for'];
+    		$time_apply=$_POST['time_apply'];
+    		$discount=$_POST['discount'];
+
+    		$check_code=count($this->ad->Get_voucher_Code($code_voucher));
+    		if($check_code!=0 && $code_voucher!=$_SESSION['OLD_code_voucher']){
+    			echo "<script>alert('CODE này đã tồn tại, không sửa được !');</script>";
+    		}else{
+    			$edit=$this->ad->Update_Voucher($id,$code_voucher,$apply_for,$time_apply,$discount);
+    			if($edit){
+    				echo "<script>alert('Sửa thành công !');
+                  window.location.href='index.php?page=home&views=edit-voucher&id=".$id."';</script>";
+              }else{
+                echo "<script>alert('Thất bại! Có lỗi trong quá trình sửa !');
+                window.location.href='index.php?page=home&views=edit-voucher&id=".$id."';</script>";
+            }
+        }
+
     }
+
+    include_once "views/edit-voucher.php";
+    break;
+
+        case 'admin-member': //Quản lý thành viên admin
+        if(!isset($_SESSION['stt_admin']) || $_SESSION['stt_admin']!=1){
+           header("Location:index.php");
+           exit();
+       }
+       $rs=$this->ad->Get_Admin($_SESSION['id_admin']);
+       $rs_stt=$this->ad->get_detail_stt_admin();
+            // echo "<pre>";
+            // print_r($rs_stt);
+            // echo "</pre><hr>";
+
+       if(isset($_POST['add_admin'])){
+        $name_admin=$_POST['name'];
+        $phone=$_POST['phone'];
+        $email=$_POST['email'];
+        $stt_admin=$_POST['stt_admin'];
+
+        $check_phone=count($this->ad->get_Admin_phone($phone));
+        $check_email=count($this->ad->get_Admin_email($email));
+
+        if($check_phone!=0){
+            $_SESSION['noti_addAdmin']=1;
+        }else if($check_email!=0){
+            $_SESSION['noti_addAdmin']=2;
+        }else{
+            $add=$this->ad->add_Admin($name_admin,$phone,$email,$stt_admin);
+            if($add){
+                $_SESSION['noti_addAdmin']=3;
+            }else{
+                $_SESSION['noti_addAdmin']=4;
+            }
+        }
+    }
+
+
+    include_once "views/adminmember.php";
+    break;
+
+    case 'edit-adminmember'://Sửa quản trị viên
+    if(!isset($_SESSION['stt_admin']) || $_SESSION['stt_admin']!=1){
+        header("Location:index.php");
+        exit();
+    }
+    $rs_stt=$this->ad->get_detail_stt_admin();
+    $id_max=$this->ad->getMaxId_Admin();
+
+    if(isset($_GET['id']) && $_GET['id']>0 && $_GET['id'] <= $id_max['MAX(id_admin)']){
+        $id=(int)$_GET['id'];
+    }
+    else{
+        header("Location:index.php");
+    }
+    $rs=$this->ad->Get_Admin_ID($id);
+         // echo "<pre>";
+         //    print_r($rs);
+         //    echo "</pre><hr>";
+
+
+    if(isset($_POST['edit_admin'])){//Nhấn sửa admin
+        $name_admin=$_POST['name_admin'];
+        $phone=$_POST['phone'];
+        $email=$_POST['email'];
+        $stt_admin=$_POST['stt_admin'];
+        echo $name_admin;
+        echo $phone;
+        echo $email;
+        echo $stt_admin;
+
+         $check_phone=count($this->ad->get_Admin_phone($phone));
+        $check_email=count($this->ad->get_Admin_email($email));
+
+        if($check_phone!=0 && $phone!=$_SESSION['OLD_phone_admin']){
+            echo "<script>alert('Số điện thoại bạn nhập đã tồn tại, vui lòng chọn số khác!');</script>";
+        }else if($check_email!=0 && $email!=$_SESSION['OLD_email_admin']){
+             echo "<script>alert('Email bạn nhập đã tồn tại, vui lòng chọn email khác!');</script>";
+        }
+        else{
+            $edit=$this->ad->edit_Admin($name_admin,$phone,$email,$stt_admin,$id);
+            if($edit){
+                echo "<script>alert('Sửa thành công !');
+                window.location.href='index.php?page=home&views=edit-adminmember&id=".$id."';</script>";
+            }else{
+                echo "<script>alert('Thất bại! Có lỗi trong quá trình sửa !');
+                window.location.href='index.php?page=home&views=edit-adminmember&id=".$id."';</script>";
+            }
+        }
+
+    }
+    include_once "views/edit-adminmember.php";
+    break;
+
+    	case 'logout'://Đăng xuất
+    	unset($_SESSION['id_admin']);
+    	unset($_SESSION['name_admin']);
+    	unset($_SESSION['stt_admin']);
+    	header("Location:login.php");
+    	break;
+
+    	default:
+    	header("Location:index.php");
+    	break;
+    }
+}
 
 
 }
