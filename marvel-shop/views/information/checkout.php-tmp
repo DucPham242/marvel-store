@@ -138,6 +138,8 @@ foreach ($_SESSION['cart'] as $key => $cart) {
 	<?php
 }
 ?>
+				<div>
+
 					<form action="" method="POST" class="form-inline" role="form">
 
 						<div class="form-group">
@@ -151,6 +153,8 @@ foreach ($_SESSION['cart'] as $key => $cart) {
 					</form>
 
 					<span id="noti_voucher"></span>
+				</div>
+
 
 					<hr>
 					<div class="row" id="price_table_box">
@@ -167,20 +171,10 @@ foreach ($_SESSION['cart'] as $key => $cart) {
 							</tr>
 							<tr>
 								<td>Mã giảm giá</td>
-<?php
-if (!isset($_SESSION['discount_voucher'])) {
 
-	?>
-	<td>0%</td>
-	<?php
-} else {
-	?>
-									<td><?php
-	echo "-".$_SESSION['discount_voucher']."%";
-	?></td>
-	<?php
-}
-?>
+								<td><?php
+echo "-".$_SESSION['discount_voucher']."%";
+?></td>
 							</tr>
 						</tbody>
 					</table>
@@ -191,7 +185,12 @@ echo number_format($_SESSION['TOTAL_ORDER'])." VNĐ";
 ?></span></h4>
 					</div>
 					</div>
+
 				</div>
+
+					</div>
+
+
 				</div>
 			</div>
 		</div>

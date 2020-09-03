@@ -11,24 +11,6 @@
 		public function __construct(){
 			parent::__construct(); // Gọi hàm __contruct bên config để luôn tồn tại $pdo để kết nối tới CSDL
 		}
-
-		//Lấy danh sách tất cả sản phẩm HOT
-		public function getProduct_Hot(){
-			$sql="SELECT * FROM tbl_product WHERE stt=1 ORDER BY id_product DESC";
-			$pre=$this->pdo->prepare($sql);
-			$pre->execute();
-			return $pre->fetchAll(PDO::FETCH_ASSOC);
-
-		}
-		//Lấy ra danh sách sản phẩm HOT kèm phân trang
-		public function getProduct_Hot_limit($form,$row){
-			$sql="SELECT * FROM tbl_product WHERE stt=1 ORDER BY id_product DESC LIMIT $form,$row";
-			$pre=$this->pdo->query($sql);
-			return $pre->fetchAll(PDO::FETCH_ASSOC);
-
-		}
-
-
 		//Lấy ra tất cả sản phẩm của 1 hãng
 		public function getProduct($id_brand){
 			
@@ -179,14 +161,45 @@
 			$pre->execute();
 			return $pre->fetchAll(PDO::FETCH_ASSOC);
 		}
-		//Lấy ra số lượng đánh giá của các sản phẩm
-		// public function get_info_review($id){
-		// 	$sql = "SELECT *FROM tbl_review WHERE id_product = :id";
-		// 	$pre = $this->pdo->prepare($sql);
-		// 	$pre->bindParam(':id', $id);
-		// 	$pre->execute();
-		// 	return $pre->fetchAll(PDO::FETCH_ASSOC);
-		// }
+		//Lấy ra số lượng account đánh giá của các sản phẩm
+		public function get_count_review($id_product){
+			$sql = "SELECT *FROM tbl_review WHERE id_product = :id_product";
+			$pre = $this->pdo->prepare($sql);
+			$pre->bindParam(':id_product', $id_product);
+			$pre->execute();
+			return $pre->fetchAll(PDO::FETCH_ASSOC);
+		}
+		//lấy product hot tại trang detail
+		public function get_product_5star(){
+			$sql = "SELECT id_product,COUNT(star = 5) AS tongso5sao FROM tbl_review GROUP BY id_product ORDER BY tongso5sao DESC limit 0,30";
+			$pre = $this->pdo->prepare($sql);
+			$pre->execute();
+			return $pre->fetchAll(PDO::FETCH_ASSOC);
+		}
+		//xử lý pagination cho hot_pro
+		public function get_product_5star_limit($from, $row){
+			$sql = "SELECT id_product,COUNT(star = 5) AS tongso5sao FROM tbl_review GROUP BY id_product ORDER BY tongso5sao DESC limit $from,$row";
+			$pre = $this->pdo->query($sql);
+			return $pre->fetchAll(PDO::FETCH_ASSOC);
+		}
+		//lấy product hot tại trang chủ
+		public function get_product_5star_home(){
+			$sql = "SELECT id_product,COUNT(star = 5) AS tongso5sao FROM tbl_review GROUP BY id_product ORDER BY tongso5sao DESC limit 0,4";
+			$pre = $this->pdo->prepare($sql);
+			$pre->execute();
+			return $pre->fetchAll(PDO::FETCH_ASSOC);
+		}
+
+		public function getProduct_Id_review($id){
+			$sql="SELECT tbl_product.*,tbl_brand.name_brand,tbl_type.name_type From tbl_brand,tbl_product,tbl_type WHERE (tbl_product.id_brand=tbl_brand.id_brand) AND (tbl_product.id_type=tbl_type.id_type) AND id_product=:id";
+			$pre=$this->pdo->prepare($sql);
+			$pre->bindParam(':id',$id);
+			$pre->execute();
+			return $rs=$pre->fetch(PDO::FETCH_ASSOC);
+
+		}
+
+
 		
 	}
 ?>

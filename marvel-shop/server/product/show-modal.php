@@ -53,7 +53,18 @@ if(isset($_POST['id']) && $_POST['id']>0){
 								<?php 
 							}
 							?>
-							<button class="button add-cart add-alert" value="<?php echo $value['id_product']; ?>" type="button">Add To Cart</button>
+							<?php 
+							if ($value['quantity'] <= 0) {
+
+								?>
+								<h4 style="red">Sản phẩm này tạm thời hết hàng!</h4>
+								<?php 
+							}else{
+								?>
+								<button class="button add-cart add-alert" value="<?php echo $value['id_product']; ?>" type="button">Add To Cart</button>
+								<?php 
+							}
+							?>
 						</div>
 
 					</div>

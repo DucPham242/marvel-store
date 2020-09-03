@@ -138,8 +138,12 @@
 	}
 	});
 
+$("#alert1").fadeOut(7000).slideUp();
+
 //tắt thông báo alert
 $(".alert").delay(4000).slideUp();
+
+
 
 //Click xem chi tiết,hiển thị chi tiết đơn hàng. Phần Thông tin tài khoản
 $(document).on('click', '.check_detail_order', function(e) {
@@ -182,23 +186,23 @@ $(document).on('click', '#cancel_edit', function(e) {
 $("#payment_ship").click(function(e) {
 	$("#bank_info").addClass('hide_or_show');
 	$.post('server/info/changeSS-35k.php', function(data) {
-		/*optional stuff to do after success */
+		
 	});
 	$("#price_table_box").load(" #content_price_table");
 });
 $("#payment_bank").click(function(e) {
 	$("#bank_info").removeClass('hide_or_show');
 	$.post('server/info/changeSS-0.php', function(data) {
-		/*optional stuff to do after success */
+		
 	});
 	$("#price_table_box").load(" #content_price_table");
 });
 if($("#ship").attr("checked")=='checked'){
 	$.post('server/info/changeSS-35k.php', function(data) {
-		/*optional stuff to do after success */
+	
 	});
 	$.post('server/info/voucherDefault.php', function(data) {
-		/*optional stuff to do after success */
+		
 	});
 	$("#price_table_box").load(" #content_price_table");
 }
@@ -215,8 +219,6 @@ $(document).on('click', '#submit_voucher', function(e) {
 		$("#price_table_box").load(" #content_price_table");
 	});
 });
-
-
 
  // làm phần Validate kiểm tra thông tin đăng kí
 

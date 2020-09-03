@@ -195,22 +195,20 @@ class Info_c extends Info_m
 				$last_order = $this->info->lastInsertId();
 				$id_order = $last_order;
 			
-				foreach ($_SESSION['cart'] as $key =>  $cart) {
-				// 	echo '<pre>';
-				// print_r($_SESSION['cart']);
-				// $id_product = $cart['id_product'];
-				// $quantity = $cart['qty'];
-				// $price = $cart['price']
-				// $total = $_SESSION['TOTAL_ORDER'];
+				foreach ($_SESSION['cart'] as $key => $cart) {
 				if ($cart['discount'] < 0) {
 						$add_detail = $this->info->add_detai_order($id_order, $cart['id_product'], $cart['qty'], $cart['price'], $_SESSION['TOTAL_ORDER']);
 					}else if ($cart['discount'] > 0) {
 						$add_detail = $this->info->add_detai_order($id_order, $cart['id_product'], $cart['qty'], $cart['discount_price'], $_SESSION['TOTAL_ORDER']);
 					}
+
+					//xóa số lượng sản phẩm khi khách click đặt hàng
+				$del_qty_pro = $this->info->del_qty_pro($cart['qty'], $cart['id_product']);
+
 				}
+
+				
 				// lấy thông tin phương thức thanh toán để gửi mail
-				// $last_order1 = $this->info->lastInsert();
-				// echo $last_order1;
 				$id = $last_order;
 				$order = $this->info->get_order($id);
 				foreach ($order as $key => $value) {
@@ -222,13 +220,6 @@ class Info_c extends Info_m
 						$price_buy = 0;
 					}
 				}
-				// echo $buy;
-				// echo $price_buy;
-				// echo '<pre>';
-				// print_r($order);
-		// if ($_SESSION) {
-	
-		// }
 		//gửi mail 
 	$data = '<!DOCTYPE html>
 <html lang="">

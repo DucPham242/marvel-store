@@ -153,8 +153,8 @@
 						<?php 
 						if(count($rs)<1){
 							echo "<p style='color:red;margin-left:100px;'>Mặt hàng này hiện không còn sản phẩm, bạn vui lòng quay lại sau.</p>";
-						}
-						foreach ($rs as $key => $value) {
+						}	
+							foreach ($rs as $key => $value) {
 							?>
 							<div class="col-md-4 col-xs-6 product_box" style="margin-top: 20px;">
 								<div class="thumbnail">
@@ -198,9 +198,9 @@
 						</div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-md-12 col-md-push-2">
-							<ul class="pagination">
+					<div class="row" >
+						<div class="col-md-6 col-md-push-2" >
+							<ul class="pagination" >
 
 								<?php 
 								if (isset($_GET['pages']) && $_GET['pages'] > 1) {

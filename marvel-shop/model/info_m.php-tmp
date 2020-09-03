@@ -166,5 +166,14 @@ class Info_m extends Connect {
 		return $pre->fetchAll(PDO::FETCH_ASSOC);
 	}
 
+	//trừ đi số lượng sản phẩm tại tbl_product khi khách đặt hàng
+	public function del_qty_pro($qty, $id_product) {
+		$sql = "UPDATE tbl_product SET quantity = quantity - :qty WHERE id_product = :id_product";
+		$pre = $this->pdo->prepare($sql);
+		$pre->bindParam(':qty', $qty);
+		$pre->bindParam(':id_product', $id_product);
+		return $pre->execute();
+	}
+
 }
 ?>

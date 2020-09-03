@@ -410,8 +410,7 @@ $(document).on('click', '.btn_del_voucher', function(e) {
 	}
 });
 
-<<<<<<< HEAD
-=======
+
 //click xóa admin
 $(document).on('click', '.btn_del_admin', function(e) {
 	e.preventDefault();
@@ -428,4 +427,4 @@ $(document).on('click', '.btn_del_admin', function(e) {
 
 
 });
->>>>>>> 0783333d1602c5f2ed2b8716564f8446ae6519ec
+

@@ -77,47 +77,46 @@
 		</div>
 		<!-- </div> -->
 		<div class="row">
-			<?php 
-			foreach ($rs_hot as $key => $hot) {
-				?>
-				<div class="col-md-3 col-xs-6 product_box">
-					<div class="thumbnail" style="">
-						<div class="set">
-							<div href="#"><img src="<?php echo $hot['img']; ?>" alt="..." width="100%">
-								<button class="btn btn-danger shower" value="<?php echo $hot['id_product']; ?>" data-toggle="modal" data-target=".bs-example-modal-lg">Xem nhanh</button>
+<?php
+foreach ($rs_hot as $key => $hot) {
+	?>
+					<div class="col-md-3 col-xs-6 product_box">
+						<div class="thumbnail" style="">
+							<div class="set">
+								<div href="#"><img src="<?php echo $hot['img'];?>" alt="..." width="100%">
+									<button class="btn btn-danger shower" value="<?php echo $hot['id_product'];?>" data-toggle="modal" data-target=".bs-example-modal-lg">Xem nhanh</button>
+								</div>
 							</div>
+
+
+
+							<div class="caption" style="">
+
+								<a href="index.php?page=home&method=product-detail&id=<?php echo $hot['id_product'];?>" style="color: #333333;"><h5><?php echo $hot['name_product'];
+	?></h5></a>
+								<hr>
+	<?php
+	if ($hot['discount'] <= 0) {
+
+		?>
+										<p class="caption_price_left"><?php echo number_format($hot['price']).' đ';?></p>
+		<?php
+	} else {
+
+		?>
+										<span class="caption_price_left"><?php echo number_format($hot['discount_price']).' đ';
+		?></span><span class="caption_price_right"><?php echo number_format($hot['price']).' đ';
+		?></span>
+		<?php }?>
+	</div>
+
 						</div>
-
-						
-
-						<div class="caption" style="">
-
-							<a href="index.php?page=home&method=product-detail&id=<?php echo $hot['id_product']; ?>" style="color: #333333;"><h5><?php echo $hot['name_product']; ?></h5></a>
-							<hr>
-							<?php 
-								if ($hot['discount'] <= 0) {
-								
-								
-							 ?>
-								<p class="caption_price_left"><?php echo number_format($hot['price']).' đ'; ?></p>
-							 <?php 
-							}else{
-
-							  ?>
-								<span class="caption_price_left"><?php echo number_format($hot['discount_price']).' đ'; ?></span><span class="caption_price_right"><?php echo number_format($hot['price']).' đ'; ?></span>
-							<?php } ?>
-							
-						</div>
-
 					</div>
-				</div>
-				<?php 
-			}
-		
-			?>
+	<?php
+}
 
-
-		</div>
+?>
+</div>
 
 		<div class="row">
 			<div class="col-md-6 col-md-push-5 col-xs-6 col-xs-push-3">
@@ -149,45 +148,46 @@
 				</div>
 			</div>
 			<div class="row">
-				<?php 
-				foreach ($rs_mv as $key => $mv) {
+<?php
+foreach ($rs_mv as $key => $mv) {
 
+	?>
+						<div class="col-md-3 col-xs-6 product_box" style="">
+							<div class="thumbnail">
+								<div class="set">
+									<div href="#" style=""><img style="" src="<?php echo $mv['img'];?>" width="100%" alt="...">
+										<button class="btn btn-danger shower"  data-toggle="modal" value="<?php echo $mv['id_product'];?>" data-target=".bs-example-modal-lg">Xem chi tiết</button>
+									</div>
 
-					?>
-					<div class="col-md-3 col-xs-6 product_box" style="">
-						<div class="thumbnail">
-							<div class="set">
-								<div href="#" style=""><img style="" src="<?php echo $mv['img']; ?>" width="100%" alt="...">
-									<button class="btn btn-danger shower"  data-toggle="modal" value="<?php echo $mv['id_product']; ?>" data-target=".bs-example-modal-lg">Xem chi tiết</button>
 								</div>
 
+
+
+								<div class="caption" style="">
+
+								<a href="index.php?page=home&method=product-detail&id=<?php echo $mv['id_product'];?>" style="color: #333333;"><h5><?php echo $mv['name_product'];
+	?></h5></a>
+								<hr>
+	<?php
+	if ($mv['discount'] <= 0) {
+
+		?>
+										<p class="caption_price_left"><?php echo number_format($mv['price']).' đ';?></p>
+		<?php
+	} else {
+
+		?>
+										<span class="caption_price_left"><?php echo number_format($mv['discount_price']).' đ';
+		?></span><span class="caption_price_right"><?php echo number_format($mv['price']).' đ';
+		?></span>
+		<?php }?>
+	</div>
 							</div>
-
-
-
-							<div class="caption" style="">
-
-							<a href="index.php?page=home&method=product-detail&id=<?php echo $mv['id_product']; ?>" style="color: #333333;"><h5><?php echo $mv['name_product']; ?></h5></a>
-							<hr>
-							<?php 
-								if ($mv['discount'] <= 0) {
-								
-								
-							 ?>
-								<p class="caption_price_left"><?php echo number_format($mv['price']).' đ'; ?></p>
-							 <?php 
-							}else{
-
-							  ?>
-								<span class="caption_price_left"><?php echo number_format($mv['discount_price']).' đ'; ?></span><span class="caption_price_right"><?php echo number_format($mv['price']).' đ'; ?></span>
-							<?php } ?>
 						</div>
-						</div>
-					</div>
-					<?php
-				}
-				?>
-			</div>
+	<?php
+}
+?>
+</div>
 
 			<div class="row">
 				<div class="col-md-6 col-md-push-5 col-xs-6 col-xs-push-3">
@@ -214,44 +214,45 @@
 				</div>
 
 				<div class="row">
-					<?php 
-						foreach ($rs_dc as $key => $dc) {
-						
-						
-					 ?>
-					<div class="col-md-3 col-xs-6 product_box">
-						<div class="thumbnail" style="">
-							<div class="set">
-								<div href="#" style=""><img style="" src="<?php echo $dc['img']; ?>" width="100%" alt="...">
-									<button class="btn btn-danger shower" value="<?php echo $dc['id_product']; ?>"  data-toggle="modal" data-target=".bs-example-modal-lg">Xem nhanh</button>
+<?php
+foreach ($rs_dc as $key => $dc) {
+
+	?>
+						<div class="col-md-3 col-xs-6 product_box">
+							<div class="thumbnail" style="">
+								<div class="set">
+									<div href="#" style=""><img style="" src="<?php echo $dc['img'];?>" width="100%" alt="...">
+										<button class="btn btn-danger shower" value="<?php echo $dc['id_product'];?>"  data-toggle="modal" data-target=".bs-example-modal-lg">Xem nhanh</button>
+									</div>
+
 								</div>
 
+
+
+								<div class="caption" style="">
+
+								<a href="index.php?page=home&method=product-detail&id=<?php echo $dc['id_product'];?>" style="color: #333333;"><h5><?php echo $dc['name_product'];
+	?></h5></a>
+								<hr>
+	<?php
+	if ($dc['discount'] <= 0) {
+
+		?>
+										<p class="caption_price_left"><?php echo number_format($dc['price']).' đ';?></p>
+		<?php
+	} else {
+
+		?>
+										<span class="caption_price_left"><?php echo number_format($dc['discount_price']).' đ';
+		?></span><span class="caption_price_right"><?php echo number_format($dc['price']).' đ';
+		?></span>
+		<?php }?>
+	</div>
 							</div>
-
-							
-
-							<div class="caption" style="">
-
-							<a href="index.php?page=home&method=product-detail&id=<?php echo $dc['id_product']; ?>" style="color: #333333;"><h5><?php echo $dc['name_product']; ?></h5></a>
-							<hr>
-							<?php 
-								if ($dc['discount'] <= 0) {
-								
-								
-							 ?>
-								<p class="caption_price_left"><?php echo number_format($dc['price']).' đ'; ?></p>
-							 <?php 
-							}else{
-
-							  ?>
-								<span class="caption_price_left"><?php echo number_format($dc['discount_price']).' đ'; ?></span><span class="caption_price_right"><?php echo number_format($dc['price']).' đ'; ?></span>
-							<?php } ?>
 						</div>
-						</div>
-					</div>
-					<?php 
-						}
-					 ?>
+	<?php
+}
+?>
 				</div>
 				<div class="row">
 					<div class="col-md-6 col-md-push-5 col-xs-6 col-xs-push-3">
@@ -259,7 +260,7 @@
 					</div>
 				</div>
 				<div class="modal fade bs-example-modal-lg modal_content" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-					
+
 				</div>
 				<div class="row">
 

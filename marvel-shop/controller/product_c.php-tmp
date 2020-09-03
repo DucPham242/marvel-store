@@ -44,7 +44,12 @@ class Product_c extends product_m {
 		}
 		switch ($method) {
 			case 'home':
-				$rs_hot = $this->pro->getProduct_Hot_limit(0, 8);
+				$rs_hot      = array();
+				$get_pro_hot = $this->pro->get_product_5star_home();
+				foreach ($get_pro_hot as $key => $value) {
+					$get_rs = $this->pro->getProduct_Id_review($value['id_product']);
+					array_push($rs_hot, $get_rs);
+				}
 				$rs_hot = $this->pro->add_discount($rs_hot);//Thêm trường giảm giá cho mảng
 
 				$rs_mv = $this->pro->Product_limit(0, 8, 1);
@@ -92,7 +97,7 @@ class Product_c extends product_m {
 
 					$info_rate     = $this->pro->get_info_review($_COOKIE['id_user'], $value['id_product']);
 					$check_raiting = count($info_rate);
-					echo $check_raiting;
+					// echo $check_raiting;
 					// echo '<pre>';
 					// print_r($info_rate);
 					foreach ($info_rate as $key => $info) {
@@ -103,19 +108,24 @@ class Product_c extends product_m {
 							$star = $_POST['star_val'];
 							$rate = $this->pro->rate_product($_COOKIE['id_user'], $value['id_product'], $star);
 							if ($rate) {
-								echo 'Đánh giá thành công';
 								$_SESSION['noti-review'] = 1;
+								echo $_SESSION['noti-review'];
 							} else {
 								$_SESSION['noti-review'] = 2;
 							}
 						}
-					} else if (isset($info)) {
-						echo 'bạn đã đánh giá sản phẩm';
+					} else {
+
 					}
+
 				}
-				// $get_pro_review = $this->pro->get_info_review($value['id_product']);
+				foreach ($rs as $key => $value) {
+
+				}
+				$get_qty_review = $this->pro->get_count_review($value['id_product']);
 				// echo '<pre>';
-				// print_r($get_pro_review);
+				// print_r($get_qty_review);
+				$count_review = count($get_qty_review);
 
 				//Lấy ra 3 sản phẩm liên quan
 				foreach ($rs as $key => $value) {
@@ -225,9 +235,19 @@ class Product_c extends product_m {
 				break;
 
 			case 'hot':
-				$rs         = $this->pro->getProduct_Hot();
-				$row        = 6;//Số sản phẩm, tin.. trên 1 trang
-				$number     = count($rs);//Tổng số bản ghi
+				$rs          = array();
+				$get_pro_hot = $this->pro->get_product_5star();
+				// foreach ($get_pro_hot as $key => $value) {
+				// 	$get_rs = $this->pro->getProduct_Id_review($value['id_product']);
+				// 	array_push($rs, $get_rs);
+
+				// }
+				// echo '<pre>';
+				// 	print_r($get_pro_hot);
+				// 	echo '</pre>';
+
+				$row        = 3;//Số sản phẩm, tin.. trên 1 trang
+				$number     = count($get_pro_hot);//Tổng số bản ghi
 				$pagination = ceil($number/$row);//Số phân trang
 				if (isset($_GET['pages']) && $_GET['pages'] <= $pagination && $_GET['pages'] >= 1) {
 					$pages = (int) $_GET['pages'];
@@ -235,10 +255,16 @@ class Product_c extends product_m {
 					$pages         = 1;
 					$_GET['pages'] = 1;
 				}
-				$current = $_GET['pages'];
-				$form    = ($pages-1)*$row;
-
-				$rs = $this->pro->getProduct_Hot_limit($form, $row);
+				$current   = $_GET['pages'];
+				$form      = ($pages-1)*$row;
+				$limit_hot = $this->pro->get_product_5star_limit($form, $row);
+				foreach ($limit_hot as $key => $value) {
+					$get_rs = $this->pro->getProduct_Id_review($value['id_product']);
+					array_push($rs, $get_rs);
+				}
+				// echo '<pre>';
+				// 		print_r($rs);
+				// 		echo '</pre>';
 				break;
 
 			case 'modeltoyMV':
@@ -359,6 +385,14 @@ class Product_c extends product_m {
 				break;
 		}
 		$rs = $this->pro->add_discount($rs);
+		// echo '<pre>';
+		// print_r($rs);
+		// echo '</pre>';
+		// if (case == 'hot') {
+		// 		add_discount_SS($rs);
+		// }else{
+		// 	$rs=$this->pro->add_discount($rs);
+		// }
 		include_once 'views/product/list-product.php';
 
 	}

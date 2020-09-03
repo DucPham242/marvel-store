@@ -200,9 +200,9 @@ foreach ($rs as $key => $value) {
 						</div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-md-12 col-md-push-2">
-							<ul class="pagination">
+					<div class="row" >
+						<div class="col-md-6 col-md-push-2" >
+							<ul class="pagination" >
 
 <?php
 if (isset($_GET['pages']) && $_GET['pages'] > 1) {
