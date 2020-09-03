@@ -64,9 +64,9 @@
 						<?php
 						foreach ($rs_listimg as $key => $listimg) {
 							?>
-							<span class="col-md-2" style="">
+							<div class="col-md-2" style="min-height: 300px;">
 								<img src="../<?php echo $listimg['path']; ?>" style="" alt="" class="list_imgR"><button value="<?php echo $value['id_product']; ?>" memory_src_img="<?php echo $listimg['path']; ?>" class="btn_del_listimg">Xóa</button>
-							</span>
+							</div>
 							<?php
 						}
 						?>

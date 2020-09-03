@@ -1,6 +1,6 @@
 <?php 
 	if(isset($ajax_flag)){
-		include_once '../config/config.php';
+		include_once '../../config/config.php';
 	}else{
 		include_once 'config/config.php';
 	}
@@ -88,9 +88,86 @@
 		$pre->bindParam(':id_user',$id_user);
 		return $pre->execute();
 	}
+//Hàm lấy thông tin ra 1 code voucher,dựa vào biến code truyền vào
+	public function check_voucher($code){
+		$sql="SELECT * FROM tbl_voucher_order WHERE code_voucher=:code";
+		$pre=$this->pdo->prepare($sql);
+		$pre->bindParam(':code',$code);
+		$pre->execute();
+		return $pre->fetchAll(PDO::FETCH_ASSOC);
+	}
 
+	//Truyền thông tin khách hàng và đơn hàng vào tbl_order
+	public function get_info($name, $id_payment, $total, $phone, $email, $address, $note){
+		$sql = "INSERT INTO tbl_order(name,id_payment, total,phone,email,address,note) VALUES (:name, :id_payment, :total, :phone, :email, :address, :note)";
+		$pre = $this->pdo->prepare($sql);
+		$pre->bindParam('name', $name);
+		$pre->bindParam('id_payment', $id_payment);
+		$pre->bindParam('total', $total);
+		$pre->bindParam('phone', $phone);
+		$pre->bindParam('email', $email);
+		$pre->bindParam('address', $address);
+		$pre->bindParam('note', $note);
 
+		$pre->execute();
+		return $pre;
 
+	}
+// 
+	// public function get_user($email,$phone){
+	// 	$sql = "SELECT * FROM tbl_user WHERE email = :email AND phone = :phone" ;
+	// 	$pre = $this->pdo->prepare($sql);
+	// 	$pre->bindParam('email', $email);
+	// 	$pre->bindParam('phone', $phone);
+	// 	$pre->execute();
+	// 	return $pre->fetchAll(PDO::FETCH_ASSOC);
+	// }
+	//hàm lấy ra thông tin tbl user
+	// public function get_user_lg(){
+	// 	$sql = "SELECT * FROM tbl_user";
+	// 	$pre = $this->pdo->prepare($sql);
+	// 	$pre->execute();
+	// 	return $pre->fetchAll(PDO::FETCH_ASSOC);
+	// }
+	// thêm chi tiết đơn hàng vào bảng tbl_order khi khách hàng  không đăng nhập
+	// public function create_account($name_user, $phone, $email, $pass, $address){
+	// $sql = "INSERT INTO tbl_order(name_user, phone, email, pass, address) VALUES (:name_user, :phone, :email, :pass, :address)";
+	// $pre = $this->pdo->prepare($sql);
+	// $pre->bindParam('name_user', $name_user);
+	// $pre->bindParam('phone', $phone);
+	// $pre->bindParam('email', $email);
+	// $pre->bindParam('pass', $pass);
+	// $pre->bindParam('address', $address);
+
+	// $pre->execute();
+	// return $pre;
+	// }
+	//hàm xử lý lấy ra id cuối cùng
+	public function lastInsertId(){
+			return $id_insert=$this->pdo->lastInsertId();
+		}
+
+	// thêm chi tiết đơn hàng vòa bảng detail order
+		public function add_detai_order($id_order, $id_product, $quantity, $price, $total){
+			$sql = "INSERT INTO tbl_detail_order(id_order, id_product, quantity, price, total) VALUES (:id_order, :id_product, :quantity, :price, :total)";
+			$pre = $this->pdo->prepare($sql);
+			$pre->bindParam('id_order', $id_order);
+			$pre->bindParam('id_product', $id_product);
+			$pre->bindParam('quantity', $quantity);
+			$pre->bindParam('price', $price);
+			$pre->bindParam('total', $total);
+			$pre->execute();
+
+			return $pre;
+		}
+		//lấy ra tất cả thông tin đơn hàng tại bảng detail_order
+		public function get_order($id){
+			$sql = "SELECT * FROM tbl_order WHERE id_order = :id";
+			$pre=$this->pdo->prepare($sql);
+			$pre->bindParam(':id', $id);
+			$pre->execute();
+			return $pre->fetchAll(PDO::FETCH_ASSOC);
+		}
 
 }
  ?>

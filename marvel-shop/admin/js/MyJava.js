@@ -161,7 +161,7 @@ $(document).ready(function () {
 $(document).on('click', '.btn_del_product', function(e) {
 	e.preventDefault();
 	var id=$(this).val();
-	var check=confirm("Bạn có muốn xóa sản phẩm này không ?");
+	var check=confirm("Tất cả đơn hàng liên quan đến sản phẩm này sẽ bị xóa cùng. Quan trị viên vui lòng cân nhắc xử lý. Bạn có muốn xóa không?");
 	if(check){
 		$.get('server/product/del_product.php',{id:id}, function(data) {
 			alert(data);
@@ -205,6 +205,4 @@ $("#price_product").change(function(e) {
 });
 // END
 
-
-});
 

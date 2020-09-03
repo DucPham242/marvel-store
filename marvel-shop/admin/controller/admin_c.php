@@ -16,6 +16,13 @@ class Admin_c extends Admin_m
 	{
 		$this->ad=new Admin_m();
 	}
+
+//Gọi hàm getAdmin_email($email)
+	public function getAdmin_email($email,$pass){
+		return $this->ad->getAdmin_email($email,$pass);
+	}
+
+
 //Các hàm cho Ajax
 //Lấy hàm xóa sản phẩm dùng cho Ajax
 	public function del_Product($id){
@@ -45,11 +52,14 @@ class Admin_c extends Admin_m
 	public function del_Img_inList($id,$src){
 		return $this->ad->del_Img_inList($id,$src);
 	}
-
+	
 
 
 
 	public function create_page(){
+		if(!isset($_SESSION['id_admin']) && empty($_SESSION['id_admin'])){
+			header("Location:login.php");
+		}
 		if(isset($_GET['views'])){
 			$views=$_GET['views'];
 		}else{
@@ -242,8 +252,8 @@ class Admin_c extends Admin_m
     		include_once "views/edit-product.php";
     		break;
 
-    		case 'order':
 
+    		case 'order':
     		include_once "views/order.php";
     		break;
 
@@ -256,6 +266,12 @@ class Admin_c extends Admin_m
 
     		include_once "views/user.php";
     		break;
+    		case 'logout':
+    			unset($_SESSION['id_admin']);
+    			unset($_SESSION['name_admin']);
+    			unset($_SESSION['stt_admin']);
+    			header("Location:login.php");
+    			break;
 
     		default:
     		header("Location:index.php");

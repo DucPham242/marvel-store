@@ -1,3 +1,7 @@
+<?php 
+ob_start();
+session_start();
+ ?>
 <!DOCTYPE html>
 <html lang="">
 <head>
@@ -11,97 +15,115 @@
 	<link rel="stylesheet" href="css/myCSS.css" />
 	<link rel="stylesheet" href="fonts/glyphicons-halflings-regular.ttf" />
 
-	<script src="js/jquery-3.4.1.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+
 </head>
 
 <body style="background: white;">
+	<?php 
+	include_once"controller/admin_c.php";
+	$create=new admin_c();
+	if(isset($_SESSION['id_admin']) && !empty($_SESSION['id_admin'])){
+			header("Location:index.php");
+		}
+	if(isset($_POST['submit_login'])){
+		$email=$_POST['email'];
+		$pass=$_POST['pass'];
+		$acc=$create->getAdmin_email($email,$pass);
+			echo "<pre>";
+			print_r($acc);
+			echo "</pre>";
+			echo $_SESSION['AA'];
+
+		if(count($acc)!=1){
+			$_SESSION['noti_login']=1;
+		}
+		else{
+			foreach ($acc as $key => $value) {
+				$_SESSION['id_admin']=$value['id_admin']."<br>";
+				$_SESSION['name_admin']=$value['name_admin'];
+				$_SESSION['stt_admin']=$value['stt_admin'];
+			}
+			echo "ok";
+			header("Location:index.php");
+		}
+	}
+	?>
 	
 	<div class="container" >
 		<div class="row">
 			<div class="col-md-3 col-sm-3 col-xs-1 col-lg-3"></div>
 			<div class="col-md-6 col-sm-6 col-xs-10 col-lg-6" >
-				<div class="row">
+				<div class="row" style="">
 					<h3  id="logo_text_loginadmin">Marvelstore.vn </h3>
 					<h4 id="tittle_text_loginadmin"> Đăng nhập vào chức năng quản trị </h4>
 					<hr><br>
-					<form action="" method="POST" role="form"  id="frm_login-admin" style="">
+					<?php 
+					if (isset($_SESSION['noti_login']) && $_SESSION['noti_login']==1) {
+						?>
+						<div class="alert alert-danger">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+							<strong>Bạn đã nhập sai thông tin</strong>
+						</div>
+						<?php
+						unset($_SESSION['noti_login']);
+					}
+					 ?>
+					<form action="" method="POST" style="width: 400px;margin: 0px auto;"> 
+						<h3 class="adjust-text-form" style="text-align: center;">Đăng nhập</h3>
 
-						<table>
-							<tr>
-								<td><div class="form-group">
-									<input type="text" class="form-control input-admin" id="input-admin-top" placeholder="Email đăng nhập">
-								</div></td>
-							</tr>
-							<tr><td><div class="form-group" >
-								<input type="password" class="form-control input-admin" id="input-admin-bottom" placeholder="Mật khẩu">
-							</div></td></tr>
+						<div class="form-group">
+							<div class="input-group">
 
+								<span class="input-group-addon">
+									<span class="glyphicon glyphicon-envelope"></span>
+								</span>
 
-							<tr><td><div class="form-group" >
-								<button type="submit" class="btn btn-primary" id="btn-login-admin">Đăng nhập</button>
-							</div></td></tr>
+								<input type="email" name="email" class="form-control" placeholder="Nhập email...">
 
-							<tr><td><div id="loginadmin_option" class="form-group" style="">
-								<input type="checkbox" ><label>&nbsp;Duy trì đăng nhập </label>
-								<a href=""  data-toggle="modal" data-target="#myModal">&nbsp;Bạn quên mật khẩu ?</a>
-								<a href=""><img src="images/logo.webp" alt="" width="200"  ></a>
-							</div></td></tr>
-						</table>
-					</form>
-
-					
-
-
-					<!-- START Modal -->
-					<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-						<div class="modal-dialog" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-									<h4 class="modal-title" id="myModalLabel">Thiết lập lại mật khẩu</h4>
-								</div>
-								<div class="modal-body">
-									<!--   START content Modal -->
-									<form action="" method="POST" role="form">
-										<legend>Vui lòng điền chính xác các trường dưới đây</legend>
-
-										<div class="form-group">
-											<label for="">Email tài khoản</label>
-											<input type="text" class="form-control" id="">
-										</div>
-										<div class="form-group">
-											<label for="">Số điện thoại</label>
-											<input type="text" class="form-control" id="">
-										</div>
-										<div class="form-group">
-											<label for="">Mật khẩu cấp 2</label>
-											<input type="text" class="form-control" id="">
-										</div>
-										<div class="form-group">
-											<label for="">Mật khẩu mới</label>
-											<input type="password" class="form-control" id="">
-										</div>
-										<div class="form-group">
-											<label for="">Nhập lại mật khẩu mới</label>
-											<input type="password" class="form-control" id="">
-										</div>
-
-
-									</form>
-
-
-
-									<!--    END content Modal -->
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-									<button type="button" class="btn btn-primary">Save changes</button>
-								</div>
 							</div>
 						</div>
+
+						<div class="form-group">
+							<div class="input-group">
+
+								<span class="input-group-addon">
+									<span class="glyphicon glyphicon-lock"></span>
+								</span>
+
+								<input type="password" name="pass" class="form-control" placeholder="Nhập password...">
+
+							</div>
+						</div>
+						<div  class="submit-user">
+							<input type="submit" name="submit_login" value="Đăng nhập" class="form-control">
+						</div>
+						<a href="#" style="text-decoration: none;color: red">Quên mật khẩu?</a>
+
+
+					</form><br>
+					<div>
+						<form action="" method="POST" style="width: 400px;margin: 0px auto;"> 
+							<h3 class="adjust-text-form" style="text-align: center;">Quên mật khẩu</h3>
+
+							<div class="form-group">
+								<div class="input-group">
+
+									<span class="input-group-addon">
+										<span class="glyphicon glyphicon-envelope"></span>
+									</span>
+
+									<input type="email" name="email" class="form-control" placeholder="Nhập email của bạn...">
+
+								</div>
+							</div>
+
+							<div  class="submit-user">
+								<input type="submit" name="submit_forget" value="Gửi mail" class="form-control">
+							</div>
+
+						</form>
+
 					</div>
-					<!-- END Modal -->
 
 
 
@@ -113,11 +135,13 @@
 				</div>
 
 			</div>
-			<div class="col-md-3 col-sm-3 col-lg-3 col-xs-1"></div>
 		</div>
 	</div>
+	<script src="js/jquery-3.4.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
 
 
 </body>
+
 
 </html>

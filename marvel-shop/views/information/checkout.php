@@ -38,7 +38,7 @@
 								 <span class="glyphicon glyphicon-user"></span>
 							</span>
 
-							<input type="text" class="form-control" value="<?php if(isset($rs_checkout)){ echo $value['name_user'];} ?>" placeholder="Họ và tên">
+							<input type="text" name="name" class="form-control" value="<?php if(isset($rs_checkout)){ echo $value['name_user'];} ?>" placeholder="Họ và tên">
 
 						</div>
 					</div>
@@ -49,7 +49,7 @@
 								 <span class="glyphicon glyphicon-envelope"></span>
 							</span>
 
-							<input type="text" class="form-control" value="<?php if(isset($rs_checkout)){echo $value['email'];}?>" placeholder="Email">
+							<input type="text" name="email" class="form-control" value="<?php if(isset($rs_checkout)){echo $value['email'];}?>" placeholder="Email">
 
 						</div>
 					</div>
@@ -61,7 +61,7 @@
 								<span class="glyphicon glyphicon-phone"></span>
 							</span>
 
-							<input type="text" class="form-control" value="<?php if(isset($rs_checkout)){echo $value['phone'];} ?>" placeholder="Số điện thoại">
+							<input type="text" class="form-control" name="phone" value="<?php if(isset($rs_checkout)){echo $value['phone'];} ?>" placeholder="Số điện thoại">
 
 						</div>
 					</div>
@@ -72,7 +72,7 @@
 								<span class="glyphicon glyphicon-home"></span>
 							</span>
 
-							<input type="text" class="form-control" value="<?php if(isset($rs_checkout)){echo $value['address'];} ?>" placeholder="Địa chỉ nhận hàng">
+							<input type="text" class="form-control" name="address" value="<?php if(isset($rs_checkout)){echo $value['address'];} ?>" placeholder="Địa chỉ nhận hàng">
 
 						</div>
 					</div>
@@ -81,18 +81,18 @@
 							<span class="input-group-addon">
 								<span class="glyphicon glyphicon-question-sign"></span>
 							</span>
-							<textarea name="" id="input" class="form-control" rows="3" style="resize: none" required="required" placeholder="Để lại lời nhắn cho chúng tôi...."></textarea>
+							<textarea name="mess" id="input" class="form-control" rows="3" style="resize: none" required="required" placeholder="Để lại lời nhắn cho chúng tôi...."></textarea>
 						</div>
 					</div>
 					<div class="radio">
 						<label id="payment_ship">
-							<input type="radio" name="payment"  value="ship" checked="checked">
+							<input type="radio" id="ship" name="payment"  value="1" checked="checked">
 							Thanh toán khi giao hàng (COD)
 						</label>
 					</div>
 					<div class="radio">
 						<label id="payment_bank">
-							<input type="radio" name="payment"  value="bank">
+							<input type="radio" id="bank" name="payment"  value="2">
 								Chuyển khoản qua ngân hàng
 						</label>
 						<div id="box_bank">
@@ -106,7 +106,7 @@
 						</div>
 					</div>
 					<div  class="submit-user">
-						 <input type="submit" value="Hoàn tất đơn hàng" class="form-control">
+						 <input type="submit" name="submit" value="Hoàn tất đơn hàng" class="form-control">
 					</div>
 					
 
@@ -127,7 +127,12 @@
 						<img src="<?php echo $cart['img'] ?>" alt="" width="80px;">
 						<span class="checkout_product_qty"><?php echo $cart['qty']; ?></span>
 						<span class="checkout_product_name" ><?php echo $cart['name_product']; ?></span>
-						<span class="checkout_product_price" ><?php echo number_format($cart['price']) . ' vnđ'; ?></span>
+						<span class="checkout_product_price" ><?php 
+						if($cart['discount']>0){
+							echo number_format($cart['discount_price']) . ' vnđ';
+						}else{
+							echo number_format($cart['price']) . ' vnđ';
+						}?></span>
 						<hr>
 					</div>
 					<?php 
@@ -137,39 +142,46 @@
 					
 						<div class="form-group">
 							<label class="sr-only" for="">label</label>
-							<input type="email" class="form-control" id="" placeholder="Nhập mã giảm giá">
+							<input type="email" class="form-control" id="code_voucher" placeholder="Nhập mã giảm giá">
 						</div>
 					
 						
 					
-						<button type="submit" class="btn btn-default" style="background: #DFDDDD">Sử dụng</button>
+						<button type="submit" id="submit_voucher" class="btn btn-default" style="background: #DFDDDD">Sử dụng</button>
 					</form>
+
+					<span id="noti_voucher"></span>
+
 					<hr>
-					<div class="row">
-					<table class="table table-hover">
+					<div class="row" id="price_table_box">
+					<div id="content_price_table">
+					<table class="table table-hover" id="">
 						<tbody>
 							<tr>
 								<td>Tạm tính:</td>
-								<td>1,350,000 VNĐ</td>
+								<td><?php if(isset($_SESSION['total'])){echo number_format($_SESSION['total']).' đ';} ?></td>
 							</tr>
 							<tr>
 								<td>Phí vận chuyển:</td>
-								<td>35,000 VNĐ</td>
+								<td><?php echo number_format($_SESSION['ship_price']).' đ'; ?></td>
 							</tr>
 							<tr>
 								<td>Mã giảm giá</td>
-								<td>___</td>
-							</tr>
-							<tr>
-								<td style="color: red">Platinum</td>
-								<td>___</td>
+								
+								<td><?php 
+									echo "-".$_SESSION['discount_voucher']."%";
+								 ?></td>
 							</tr>
 						</tbody>
 					</table>
 					<br>
-					<h4 style="margin-left: 20px">Tổng cộng: <span style="color: red;font-weight: bold;font-size:25px;">1,650,000 VNĐ</span></h4>
+					<h4 style="margin-left: 20px">Tổng cộng: <span style="color: red;font-weight: bold;font-size:25px;"><?php 
+						$_SESSION['TOTAL_ORDER']=$_SESSION['total']-(($_SESSION['total']*$_SESSION['discount_voucher'])/100)+$_SESSION['ship_price'];
+						echo number_format($_SESSION['TOTAL_ORDER'])." VNĐ";
+					 ?></span></h4>
 					</div>
-
+					</div>
+				</div>
 				</div>
 			</div>
 		</div>

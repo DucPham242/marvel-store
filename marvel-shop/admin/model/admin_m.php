@@ -174,5 +174,16 @@ class Admin_m extends Connect
 			return $pre;
 			
 		}
+//Lấy thông tin 1 admin khi đăng nhập( dựa vào email,pass)
+		public function getAdmin_email($email,$pass){
+			$sql="SELECT * FROM tbl_admin WHERE email=:email AND password=:pass";
+			$pre=$this->pdo->prepare($sql);
+			$pre->bindParam(':email',$email);
+			$pre->bindParam(':pass',$pass);
+			$pre->execute();
+			return $pre->fetchAll(PDO::FETCH_ASSOC);
+		}
+
+		
 }
-		?>
+?>

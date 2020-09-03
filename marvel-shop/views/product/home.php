@@ -80,9 +80,15 @@
 			<?php 
 				
 
-
+			
+				
+			// echo "<pre>";
+			// print_r($rs_review);
+			// echo "</pre>";
 			foreach ($rs_hot as $key => $hot) {
-
+// echo "<pre>";
+// 			print_r($rs_hot);
+// 			echo "</pre>";
 
 
 				?>
@@ -119,6 +125,7 @@
 				</div>
 				<?php 
 			}
+		
 			?>
 
 

@@ -1,6 +1,6 @@
 <?php 
 if(isset($ajax_flag)){
-	include_once '../model/product_m.php';
+	include_once '../../model/product_m.php';
 }else{
 	include_once 'model/product_m.php';
 }
@@ -77,6 +77,9 @@ class Product_c extends product_m
 			}
 			$rs=$this->pro->getProduct_Id($id);
 			$rs=$this->pro->add_discount($rs);
+
+			// echo '<pre>';
+			// print_r($rs);
 			$rs_listimg=$this->pro->get_Listimg($id);
 			// if (!isset($_SESSION['seen'])) {
 			// 	$_SESSION['seen'][$id] = $rs;
@@ -93,7 +96,38 @@ class Product_c extends product_m
 
 				}
 			}
+			
+			if(isset($_COOKIE['id_user']) && isset($_COOKIE['name_user'])){
+					foreach ($rs as $key => $value) {
+				
+					}
 
+					$info_rate = $this->pro->get_info_review($_COOKIE['id_user'], $value['id_product']);
+					$check_raiting=count($info_rate);
+					echo $check_raiting;
+					// echo '<pre>';
+					// print_r($info_rate);
+					foreach ($info_rate as $key => $info) {
+						
+					}
+					if (!isset($info)) {
+						   if (isset($_POST['rate'])) {
+							$star = $_POST['star_val'];
+							$rate = $this->pro->rate_product($_COOKIE['id_user'], $value['id_product'], $star);
+							if ($rate) {
+								echo 'Đánh giá thành công';
+								$_SESSION['noti-review'] = 1;
+							}else{
+								$_SESSION['noti-review'] = 2;
+						    }
+						}
+					}else if (isset($info)) {
+						echo 'bạn đã đánh giá sản phẩm';
+					}
+				}
+				// $get_pro_review = $this->pro->get_info_review($value['id_product']);
+				// echo '<pre>';
+				// print_r($get_pro_review);
 
 
 			//Lấy ra 3 sản phẩm liên quan
@@ -126,6 +160,7 @@ class Product_c extends product_m
 					$pages=1;
 					$_GET['pages']=1;
 				}
+				$current = $_GET['pages'];
 				$from=($pages-1)*$row;
 				$rs_search = $this->pro->search_limit($from,$row,$key);
 				$rs_search = $this->pro->add_discount($rs_search);
@@ -158,7 +193,7 @@ class Product_c extends product_m
 			switch ($method) {
 				case 'marvel':
 				$rs=$this->pro->getProduct(1);
-			$row=3;//Số sản phẩm, tin.. trên 1 trang
+			$row=6;//Số sản phẩm, tin.. trên 1 trang
 			$number=count($rs);//Tổng số sản phẩm,bản ghi,...
 			$pagination=ceil($number/$row);//Số phân trang	
 			if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
@@ -167,6 +202,7 @@ class Product_c extends product_m
 				$pages=1;
 				$_GET['pages']=1;
 			}
+			$current = $_GET['pages'];
 			$form=($pages-1)*$row;
 			
 			$rs=$this->pro->Product_limit($form,$row,1);
@@ -174,7 +210,7 @@ class Product_c extends product_m
 
 			case 'dc':
 			$rs=$this->pro->getProduct(2);
-			$row=3;//Số sản phẩm, tin.. trên 1 trang
+			$row=6;//Số sản phẩm, tin.. trên 1 trang
 			$number=count($rs);//Tổng số bản ghi
 			$pagination=ceil($number/$row);//Số phân trang	
 
@@ -184,6 +220,7 @@ class Product_c extends product_m
 				$pages=1;
 				$_GET['pages']=1;
 			}
+			$current = $_GET['pages'];
 			$form=($pages-1)*$row;
 			
 			$rs=$this->pro->Product_limit($form,$row,2);
@@ -191,7 +228,7 @@ class Product_c extends product_m
 
 			case 'trans':
 			$rs=$this->pro->getProduct(3);
-			$row=3;//Số sản phẩm, tin.. trên 1 trang
+			$row=6;//Số sản phẩm, tin.. trên 1 trang
 			$number=count($rs);//Tổng số bản ghi
 			$pagination=ceil($number/$row);//Số phân trang
 			if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
@@ -200,6 +237,7 @@ class Product_c extends product_m
 				$pages=1;
 				$_GET['pages']=1;
 			}
+			$current = $_GET['pages'];
 			$form=($pages-1)*$row;
 			
 			$rs=$this->pro->Product_limit($form,$row,3);
@@ -207,7 +245,7 @@ class Product_c extends product_m
 
 			case 'hot':
 			$rs=$this->pro->getProduct_Hot();
-			$row=3;//Số sản phẩm, tin.. trên 1 trang
+			$row=6;//Số sản phẩm, tin.. trên 1 trang
 			$number=count($rs);//Tổng số bản ghi
 			$pagination=ceil($number/$row);//Số phân trang
 			if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
@@ -216,6 +254,7 @@ class Product_c extends product_m
 				$pages=1;
 				$_GET['pages']=1;
 			}
+			$current = $_GET['pages'];
 			$form=($pages-1)*$row;
 			
 			$rs=$this->pro->getProduct_Hot_limit($form,$row);
@@ -223,7 +262,8 @@ class Product_c extends product_m
 
 			case 'modeltoyMV':
 			$rs=$this->pro->ProductOption(1,1);
-			$row=3;
+
+			$row=6;
 			$number=count($rs);//Tổng số bản ghi
 			$pagination=ceil($number/$row);//Số phân trang
 			if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
@@ -232,13 +272,14 @@ class Product_c extends product_m
 				$pages=1;
 				$_GET['pages']=1;
 			}
+			$current = $_GET['pages'];
 			$form=($pages-1)*$row;
 			$rs=$this->pro->ProductOption_limit($form,$row,1,1);
 			break;
 
 			case 'modeltoyDC':
 			$rs=$this->pro->ProductOption(2,1);
-			$row=3;
+			$row=6;
 			$number=count($rs);//Tổng số bản ghi
 			$pagination=ceil($number/$row);//Số phân trang
 			if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
@@ -247,13 +288,14 @@ class Product_c extends product_m
 				$pages=1;
 				$_GET['pages']=1;
 			}
+			$current = $_GET['pages'];
 			$form=($pages-1)*$row;
 			$rs=$this->pro->ProductOption_limit($form,$row,2,1);
 			break;
 
 			case 'modeltoyTrans':
 			$rs=$this->pro->ProductOption(3,1);
-			$row=3;
+			$row=6;
 			$number=count($rs);//Tổng số bản ghi
 			$pagination=ceil($number/$row);//Số phân trang
 			if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
@@ -262,13 +304,14 @@ class Product_c extends product_m
 				$pages=1;
 				$_GET['pages']=1;
 			}
+			$current = $_GET['pages'];
 			$form=($pages-1)*$row;
 			$rs=$this->pro->ProductOption_limit($form,$row,3,1);
 			break;
 
 			case 'techMV':
 			$rs=$this->pro->ProductOption(1,2);
-			$row=3;
+			$row=6;
 			$number=count($rs);//Tổng số bản ghi
 			$pagination=ceil($number/$row);//Số phân trang
 			if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
@@ -277,13 +320,14 @@ class Product_c extends product_m
 				$pages=1;
 				$_GET['pages']=1;
 			}
+			$current = $_GET['pages'];
 			$form=($pages-1)*$row;
 			$rs=$this->pro->ProductOption_limit($form,$row,1,2);
 			break;
 
 			case 'techDC':
 			$rs=$this->pro->ProductOption(2,2);
-			$row=3;
+			$row=6;
 			$number=count($rs);//Tổng số bản ghi
 			$pagination=ceil($number/$row);//Số phân trang
 			if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
@@ -292,13 +336,14 @@ class Product_c extends product_m
 				$pages=1;
 				$_GET['pages']=1;
 			}
+			$current = $_GET['pages'];
 			$form=($pages-1)*$row;
 			$rs=$this->pro->ProductOption_limit($form,$row,2,2);
 			break;
 
 			case 'itemsMV':
 			$rs=$this->pro->ProductOption(1,3);
-			$row=3;
+			$row=6;
 			$number=count($rs);//Tổng số bản ghi
 			$pagination=ceil($number/$row);//Số phân trang
 			if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
@@ -307,13 +352,14 @@ class Product_c extends product_m
 				$pages=1;
 				$_GET['pages']=1;
 			}
+			$current = $_GET['pages'];
 			$form=($pages-1)*$row;
 			$rs=$this->pro->ProductOption_limit($form,$row,1,3);
 			break;
 
 			case 'itemsDC':
 			$rs=$this->pro->ProductOption(2,3);
-			$row=3;
+			$row=6;
 			$number=count($rs);//Tổng số bản ghi
 			$pagination=ceil($number/$row);//Số phân trang
 			if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
@@ -322,6 +368,7 @@ class Product_c extends product_m
 				$pages=1;
 				$_GET['pages']=1;
 			}
+			$current = $_GET['pages'];
 			$form=($pages-1)*$row;
 			$rs=$this->pro->ProductOption_limit($form,$row,2,3);
 			break;

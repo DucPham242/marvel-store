@@ -149,7 +149,7 @@ unset($_SESSION['noti_addPro']);
 				<thead>
 					<tr>
 						<th>STT</th>
-						<th>ID</th>
+						<th>Image</th>
 						<th>Tên sản phẩm</th>
 						<th>Giá</th>
 						<th>% giảm giá</th>
@@ -165,7 +165,7 @@ unset($_SESSION['noti_addPro']);
 						?>
 						<tr>
 							<td ><?php echo $stt+=1; ?></td>
-							<td><?php echo $value['id_product']; ?></td>
+							<td style="width: 30px;"><img src="../<?php echo $value['img']; ?>" alt="" style="width: 100%;" ></td>
 							<td><?php echo $value['name_product']; ?></td>
 							<td><?php
 							if($value['discount']>0){
@@ -178,7 +178,13 @@ unset($_SESSION['noti_addPro']);
 							<td><?php echo $value['quantity']; ?></td>
 							<td>
 								<a href="index.php?page=home&views=edit-product&id=<?php echo $value['id_product']; ?>"><button type="button" class="btn_edit_product btn btn-primary" value="<?php echo $value['id_product']; ?>"  >Sửa</button></a>
-								<button type="button" value="<?php echo $value['id_product']; ?>" class="btn_del_product btn btn-danger">Xóa</button>
+								<?php 
+								if($_SESSION['stt_admin']==1){
+								 ?>
+								 <button type="button" value="<?php echo $value['id_product']; ?>" class="btn_del_product btn btn-danger">Xóa</button>
+								 <?php
+								}
+								?>
 							</td>
 						</tr>
 						<?php

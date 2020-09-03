@@ -24,7 +24,7 @@
 			<div class="col-md-3 col-xs-6 product_box">
 						<div class="thumbnail" style="">
 							<div class="set">
-								<div href="#" style=""><img style="" src="images/product/<?php echo $search['img']; ?>" width="100%" alt="...">
+								<div href="#" style=""><img style="" src="<?php echo $search['img']; ?>" width="100%" alt="...">
 									<button class="btn btn-danger shower"  data-toggle="modal" value="<?php echo $search['id_product']; ?>" data-target=".bs-example-modal-lg">Xem nhanh</button>
 								</div>
 
@@ -59,6 +59,7 @@
 		<div class="row">
 			<div class="col-md-6 col-md-push-4">
 			<ul class="pagination">
+								
 								<?php 
 								if (isset($_GET['pages']) && $_GET['pages'] > 1) {
 									$back = $_GET['pages'] - 1;
@@ -71,10 +72,13 @@
 								<?php
 									 // echo $pagination;
 								for($i = 1; $i <= $pagination; $i++){
-
+										if ($i > $current -3 && $i < $current + 3 ) {
+											
+										
 									?>
 									<li <?php if($i==$_GET['pages']){echo 'class="active"';} ?> ><a href="index.php?page=home&method=<?php echo $method; ?>&pages=<?php echo $i; ?>"><?php echo $i; ?></a></li>
 									<?php 
+								}
 								}
 								?>
 								<?php 

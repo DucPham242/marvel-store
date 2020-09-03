@@ -3,31 +3,30 @@
 		<ol class="breadcrumb" >
 			<li>Trang chủ</li>
 			<li>Danh mục sản phẩm</li>
-			<?php 
-			
-			switch ($method) {
-				case 'marvel':
-				case 'dc':
-				case 'trans':
-				?>
-				<li><?php echo $rs[0]['name_brand']; ?></li>
-				<?php
-				break;
-				case 'modeltoyMV':
-				case 'modeltoyDC':
-				case 'modeltoyTrans':
-				?>
-				<li><?php echo $rs[0]['name_brand']; ?></li>
-				<li><?php echo $rs[0]['name_type']; ?></li>
-				<?php
-				break;
-				case 'hot':
-				?>
-				<li><?php echo 'Sản phẩm HOT-SALE'; ?></li>
-				<?php
-			}
-			?>				
-		</ol>
+<?php
+
+switch ($method) {
+	case 'marvel':
+	case 'dc':
+	case 'trans':
+		?>
+						<li><?php echo $rs[0]['name_brand'];?></li>
+		<?php
+		break;
+	case 'modeltoyMV':
+	case 'modeltoyDC':
+	case 'modeltoyTrans':
+		?>
+						<li><?php echo $rs[0]['name_brand'];?></li>
+					<li>	<?php echo $rs[0]['name_type'];?></li>
+		<?php
+		break;
+	case 'hot':
+		?>
+						<li><?php echo 'Sản phẩm HOT-SALE';?></li>
+		<?php
+}
+?></ol>
 	</div>
 	<div class="row" >
 		<!-- left -->
@@ -89,7 +88,7 @@
 								Mô hình
 							</li>
 						</a>
-						
+
 					</ul>
 				</li>
 				<li class="nav-item">
@@ -139,7 +138,7 @@
 														<option value="">Giá giảm dần</option>
 
 													</select>
-													
+
 
 												</div>
 											</li>
@@ -150,50 +149,53 @@
 						</div>
 					</div>
 					<div class="row">
-						<?php 
-						if(count($rs)<1){
-							echo "<p style='color:red;margin-left:100px;'>Mặt hàng này hiện không còn sản phẩm, bạn vui lòng quay lại sau.</p>";
-						}
-						foreach ($rs as $key => $value) {
-							?>
-							<div class="col-md-4 col-xs-6 product_box" style="margin-top: 20px;">
-								<div class="thumbnail">
-									<div class="set">
-										<div href="#" style=""><img style="" src="<?php echo $value['img']; ?>" width="100%" alt="...">
-											<button class="btn btn-danger shower"  data-toggle="modal" value="<?php echo $value['id_product']; ?>" data-target=".bs-example-modal-lg">Xem nhanh</button>
+<?php
+if (count($rs) < 1) {
+	echo "<p style='color:red;margin-left:100px;'>Mặt hàng này hiện không còn sản phẩm, bạn vui lòng quay lại sau.</p>";
+
+}
+foreach ($rs as $key => $value) {
+	?>
+								<div class="col-md-4 col-xs-6 product_box" style="margin-top: 20px;">
+									<div class="thumbnail">
+										<div class="set">
+											<div href="#" style=""><img style="" src="<?php echo $value['img'];?>" width="100%" alt="...">
+												<button class="btn btn-danger shower"  data-toggle="modal" value="<?php echo $value['id_product'];?>" data-target=".bs-example-modal-lg">Xem nhanh</button>
+											</div>
+
 										</div>
 
-									</div>
 
-									
 
-									<div class="caption" style="">
+										<div class="caption" style="">
 
-										<a href="index.php?page=home&method=product-detail&id=<?php echo $value['id_product']; ?>" style="color: #333333;"><h5><?php echo $value['name_product']; ?></h5></a>
-										<hr>
-										<?php 
-										if ($value['discount'] <= 0) {
-											
-											
-											?>
-											<p class="caption_price_left"><?php echo number_format($value['price']).' đ'; ?></p>
-											<?php 
-										}else{
+											<a href="index.php?page=home&method=product-detail&id=<?php echo $value['id_product'];?>" style="color: #333333;"><h5><?php echo $value['name_product'];
+	?></h5></a>
+											<hr>
+	<?php
+	if ($value['discount'] <= 0) {
 
-											?>
-											<span class="caption_price_left"><?php echo number_format($value['discount_price']).' đ'; ?></span><span class="caption_price_right"><?php echo number_format($value['price']).' đ'; ?></span>
-										<?php } ?>
+		?>
+													<p class="caption_price_left"><?php echo number_format($value['price']).' đ';?></p>
+		<?php
+	} else {
+
+		?>
+													<span class="caption_price_left"><?php echo number_format($value['discount_price']).' đ';
+		?></span><span class="caption_price_right"><?php echo number_format($value['price']).' đ';
+		?></span>
+		<?php }?>
+	</div>
 									</div>
 								</div>
-							</div>
-							<?php
-						}
-						?>
-						<div class="modal fade bs-example-modal-lg modal_content" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+	<?php
+}
+?>
+<div class="modal fade bs-example-modal-lg modal_content" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 							<div class="modal-dialog modal-lg ">
 								<div class="modal-content" style="padding: 40px;">
-									
-								
+
+
 							</div>
 						</div>
 						</div>
@@ -202,43 +204,43 @@
 						<div class="col-md-12 col-md-push-2">
 							<ul class="pagination">
 
-								<?php 
-								if (isset($_GET['pages']) && $_GET['pages'] > 1) {
-									$back = $_GET['pages'] - 1;
-									
-									?>
-									<li><a href="index.php?page=list-product&method=<?php echo $method; ?>&pages=<?php echo $back; ?>">Back</a></li>
-									<?php 
-								}	
-								?>
-								<?php
-									// echo $pagination;
-								if ($pagination > 5) {
-									$pagination = $pagination = 5 + $pagination;
-								}
-								for($i = 1; $i <= $pagination; $i++){
-										if ($i > $current - 3 && $i < $current + 3) {
-											
-										
-									?>
-									<li <?php if($i==$_GET['pages']){echo 'class="active"';} ?> >
-										<a href="index.php?page=list-product&method=<?php echo $method; ?>&pages=<?php echo $i; ?>"><?php echo $i; ?>
-										</a> 
-									</li>
-									<?php 
-								}
-								}
-								?>
-								<?php 
+<?php
+if (isset($_GET['pages']) && $_GET['pages'] > 1) {
+	$back = $_GET['pages']-1;
 
-								if (isset($_GET['pages']) && $_GET['pages'] < $pagination) {
-									$next = $_GET['pages'] + 1;	
-									?>
-									<li><a href="index.php?page=list-product&method=<?php echo $method; ?>&pages=<?php echo $next; ?>">Next</a></li>
-									<?php 
-								}	
-								?>
-							</ul>
+	?>
+										<li><a href="index.php?page=list-product&method=<?php echo $method;?>&pages=<?php echo $back;?>">Back</a></li>
+	<?php
+}
+?>
+								<?php
+// echo $pagination;
+if ($pagination > 5) {
+	$pagination = $pagination = 5+$pagination;
+}
+for ($i = 1; $i <= $pagination; $i++) {
+	if ($i > $current-3 && $i < $current+3) {
+
+		?>
+											<li <?php if ($i == $_GET['pages']) {echo 'class="active"';}?> >
+												<a href="index.php?page=list-product&method=<?php echo $method;?>&pages=<?php echo $i;?>"><?php echo $i;
+		?>
+		</a>
+											</li>
+		<?php
+	}
+}
+?>
+								<?php
+
+if (isset($_GET['pages']) && $_GET['pages'] < $pagination) {
+	$next = $_GET['pages']+1;
+	?>
+										<li><a href="index.php?page=list-product&method=<?php echo $method;?>&pages=<?php echo $next;?>">Next</a></li>
+	<?php
+}
+?>
+</ul>
 
 						</div>
 					</div>
