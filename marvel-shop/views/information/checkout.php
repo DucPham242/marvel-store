@@ -138,6 +138,11 @@
 					<?php 
 						}
 					?>
+<<<<<<< HEAD
+=======
+					
+				<div>
+>>>>>>> 0783333d1602c5f2ed2b8716564f8446ae6519ec
 					<form action="" method="POST" class="form-inline" role="form">
 					
 						<div class="form-group">
@@ -149,8 +154,13 @@
 					
 						<button type="submit" id="submit_voucher" class="btn btn-default" style="background: #DFDDDD">Sử dụng</button>
 					</form>
+<<<<<<< HEAD
 
 					<span id="noti_voucher"></span>
+=======
+					<span id="noti_voucher"></span>
+				</div>
+>>>>>>> 0783333d1602c5f2ed2b8716564f8446ae6519ec
 
 					<hr>
 					<div class="row" id="price_table_box">
@@ -181,7 +191,12 @@
 					 ?></span></h4>
 					</div>
 					</div>
+<<<<<<< HEAD
 				</div>
+=======
+					</div>
+
+>>>>>>> 0783333d1602c5f2ed2b8716564f8446ae6519ec
 				</div>
 			</div>
 		</div>

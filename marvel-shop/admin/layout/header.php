@@ -1,4 +1,4 @@
-	<div class="container-fluid" id="header-fluid" style="">
+	<div class="container-fluid" id="header-fluid" >
 		
 		<div class="container">
 
@@ -16,13 +16,13 @@
 
 							<ul class="nav navbar-nav" id="nav_header">
 								<li class="">
-									<a href="#" >Xin chào Administrator</a>
+									<a href="#" >Xin chào <?php echo $_SESSION['name_admin']; ?></a>
 								</li>
 								<li class="">
 									<a href="#">Trang chủ</a>
 								</li>
 								<li>
-									<a href="profile.html">Profile</a>
+									<a href="index.php?page=home&views=profile">Profile</a>
 								</li>
 								<li>
 									<a href="index.php?page=home&views=logout">Đăng Xuất</a>

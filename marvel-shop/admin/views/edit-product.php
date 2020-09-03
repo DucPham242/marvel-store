@@ -52,10 +52,10 @@
 					</div>
 					<div class="form-group">
 						<p>Ảnh đại diện hiện tại 
-							<img src="<?php echo $_SESSION['memory_avt']='../'.$value['img']; ?>" width="100px" alt="">
+							<img src="<?php echo $_SESSION['memory_avt']='../'.$value['img']; ?>" width="100px" alt="" >
 						</p>
 						<label for="">Thay đổi ảnh đại diện</label><span id="spanimg" class="spanerror"></span>
-						<input type="file"  name="imgR" id="img" class="form-control"  placeholder="" onchange="validate_file();">
+						<input type="file"  name="imgR" id="img" class="form-control"  placeholder="" onchange="validate_file();" accept=".webp,.jpg,.jpeg,.png">
 					</div>
 					
 					<b>Danh sách ảnh mô tả sản phẩm hiện có:</b><br>
@@ -76,7 +76,7 @@
 					<div class="form-group">
 						<div id="noti_add_list"></div>
 						<label for="">Thêm ảnh mô tả mới</label><span id="spanlistimg" class="spanerror"></span>
-						<input type="file" multiple="" name="list_imgR[]" class="form-control" onchange="validate_files()" id="list_img" >
+						<input type="file" multiple="" name="list_imgR[]" class="form-control" onchange="validate_files()" id="list_img" accept=".webp,.jpg,.jpeg,.png">
 					</div>
 					</div>
 

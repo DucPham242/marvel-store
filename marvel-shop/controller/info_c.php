@@ -62,7 +62,7 @@ class Info_c extends Info_m
 					}
 					if(isset($_POST['submit_login'])){
 						$email=$_POST['email'];
-						$pass=base64_encode($_POST['pass']);
+						$pass=md5(base64_encode($_POST['pass']));
 
 						$rs=$this->info->getInfo_user_login($email,$pass);
 						// echo "<pre>";
@@ -101,7 +101,7 @@ class Info_c extends Info_m
 			if(isset($_POST['submit_register'])){
 				$name=$_POST['name'];
 				$email=$_POST['email'];
-				$pass=base64_encode($_POST['pass']);
+				$pass=md5(base64_encode($_POST['pass']));
 				$phone=$_POST['phone'];
 				$address=$_POST['address'];
 

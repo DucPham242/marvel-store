@@ -85,11 +85,11 @@ unset($_SESSION['noti_addPro']);
 					</div>
 					<div class="form-group">
 						<label for="">Ảnh đại diện</label><span id="spanimg" class="spanerror"></span>
-						<input type="file"  name="img" class="form-control"  placeholder="" onchange="validate_file()" id="img" required="">
+						<input type="file"  name="img" class="form-control"  placeholder="" onchange="validate_file()" id="img" required="" accept=".webp,.jpg,.jpeg,.png">
 					</div>
 					<div class="form-group">
 						<label for="">List ảnh</label><span id="spanlistimg" class="spanerror"></span>
-						<input type="file" multiple="" name="list_img[]" class="form-control"  placeholder="" id="list_img" onchange="validate_files()" required="">
+						<input type="file" multiple="" name="list_img[]" class="form-control"  placeholder="" id="list_img" onchange="validate_files()" required="" accept=".webp,.jpg,.jpeg,.png">
 					</div>
 					<div class="form-group"></span>
 						<label for="">% Giảm giá</label><span id="spandiscount" class="spanerror"></span>
@@ -149,6 +149,7 @@ unset($_SESSION['noti_addPro']);
 				<thead>
 					<tr>
 						<th>STT</th>
+						<th>ID</th>
 						<th>Image</th>
 						<th>Tên sản phẩm</th>
 						<th>Giá</th>
@@ -164,7 +165,8 @@ unset($_SESSION['noti_addPro']);
 
 						?>
 						<tr>
-							<td ><?php echo $stt+=1; ?></td>
+							<td style="width: 30px;"><?php echo $stt+=1; ?></td>
+							<td><?php echo $value['id_product']; ?></td>
 							<td style="width: 30px;"><img src="../<?php echo $value['img']; ?>" alt="" style="width: 100%;" ></td>
 							<td><?php echo $value['name_product']; ?></td>
 							<td><?php
@@ -174,7 +176,7 @@ unset($_SESSION['noti_addPro']);
 								echo number_format($value['price']).' đ';
 							}
 							?></td>
-							<td><?php echo $value['discount']; ?></td>
+							<td><?php echo $value['discount']."%"; ?></td>
 							<td><?php echo $value['quantity']; ?></td>
 							<td>
 								<a href="index.php?page=home&views=edit-product&id=<?php echo $value['id_product']; ?>"><button type="button" class="btn_edit_product btn btn-primary" value="<?php echo $value['id_product']; ?>"  >Sửa</button></a>
@@ -193,12 +195,15 @@ unset($_SESSION['noti_addPro']);
 
 				</tbody>
 			</table>
+				</div>
+</div>
+
 			<?php 
 		}
 		?>
 		<!-- END Product View Table -->
 		<!-- 	Phân trang -->
-		<div class="col-md-12 col-md-push-3">
+		<div class="col-md-6 col-md-push-3">
 			<ul class="pagination">
 				<?php 
 				if (isset($_GET['pages']) && $_GET['pages'] > 1) {
@@ -230,8 +235,6 @@ unset($_SESSION['noti_addPro']);
 
 		</div>
 		<!-- END Phân trang -->
-	</div>
-</div>
 
 
 

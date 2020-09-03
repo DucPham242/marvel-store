@@ -8,7 +8,7 @@
 	include_once "layout/head.php";
  ?>
 
-<body>
+<body >
 	<!-- START MENU Header -->
 	<?php 
 		include_once "layout/header.php";
@@ -21,8 +21,8 @@
 			<?php 
 				include_once "layout/nav-left.php";
 			 ?>
-			<div class="col-md-10" id="main_content">
-				<div class="row">
+			<div class="col-md-10" id="main_content" style="">
+				<div class="row" >
 					<!-- START Main-Content -->
 				<?php 
 

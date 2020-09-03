@@ -11,6 +11,9 @@ body{
 marquee{
 	color: #DBCD02;
 }
+li{
+	list-style: none;
+}
 .table>tbody>tr>td,.table>thead>tr>th{
 	text-align: center;
 }
@@ -133,4 +136,27 @@ a:hover{
 }
 .submit-user input[type='submit']:hover{
 	background-color:#F12828;
+}
+#order-detail-wrapper{
+	width: 500px;
+	margin: 100px auto;
+	border: solid 3px black;
+	padding: 10px;
+}
+#order-detail{
+	border: solid 1px black;
+	padding: 10px;
+}
+#title_print{
+	text-align: center;
+	font-weight: bold;
+}
+.hr_print{
+	border: solid 1px black;
+}
+.alert_user{
+	display: inline;
+}
+#btn_print{
+	margin-right: 500px;
 }

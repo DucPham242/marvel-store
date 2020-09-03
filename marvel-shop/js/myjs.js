@@ -221,7 +221,7 @@ $(document).on('click', '#submit_voucher', function(e) {
  // làm phần Validate kiểm tra thông tin đăng kí
 
  function blur_name(){
- 	var name = document.getElementById('name').value;
+ 	var name = (document.getElementById('name').value).trim();
  	var check = document.getElementById('check');
  	var regexName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
  		if (name == null || name == '') {
@@ -234,20 +234,20 @@ $(document).on('click', '#submit_voucher', function(e) {
  		}
  }
  function blur_phone() {
- 	var phone = document.getElementById('phone').value;
+ 	var phone = (document.getElementById('phone').value).trim();
  	var check = document.getElementById('check');
  	var regexPhone = /((09|03|07|08|05)+([0-9]{8})\b)/g;
  	if (phone == null || phone == '') {
  			check.innerHTML = "Bạn không đươc để trông bất kì trường nào";
  		}else if(!regexPhone.test(phone)) {
- 			check.innerHTML = "Số điện thoại phải đủ 10 chữ số";
+ 			check.innerHTML = " Số điện thoại sai định dạng";
  		}else {
  			check.innerHTML = "";
  			return phone;
  		}
   }
  function blur_addr(){
- 	var address = document.getElementById('address').value;
+ 	var address = (document.getElementById('address').value).trim();
  	var check = document.getElementById('check');
  		if (address == null || address == '') {
  			check.innerHTML = "Bạn không đươc để trông bất kì trường nào";
@@ -257,20 +257,20 @@ $(document).on('click', '#submit_voucher', function(e) {
  		}
  }
  function blur_email(){
- 	var email = document.getElementById('email').value;
+ 	var email = (document.getElementById('email').value).trim();
  	var check = document.getElementById('check');
  	var regexEmail = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
  		if (email == null || email == '') {
- 			check.innerHTML = "Bạn không đươc để trông bất kì trường nào";
+ 			check.innerHTML = " Bạn không đươc để trông bất kì trường nào";
  		}else if(!regexEmail.test(email)) {
- 			check.innerHTML = "Email của bạn phải chưa kí tự @";
+ 			check.innerHTML = " Email của bạn không hợp lệ";
  		}else {
  			check.innerHTML = "";
  			return email;
  		}
  }
  function blur_pass(){
- 	var pass = document.getElementById('pass').value;
+ 	var pass = (document.getElementById('pass').value).trim();
  	var check = document.getElementById('check');
  		if (pass == null || pass == '') {
  			check.innerHTML = "Bạn không đươc để trông bất kì trường nào";
@@ -280,7 +280,7 @@ $(document).on('click', '#submit_voucher', function(e) {
  		}
  }
  function blur_repass(){
- 	var pass = document.getElementById('pass').value;
+ 	var pass = (document.getElementById('pass').value).trim();
  	var repass = document.getElementById('repass').value;
  	var check = document.getElementById('check');
  		if (repass == null || repass == '') {
