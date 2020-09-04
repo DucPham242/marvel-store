@@ -52,10 +52,10 @@
 					</div>
 					<div class="form-group">
 						<p>Ảnh đại diện hiện tại 
-							<img src="<?php echo $_SESSION['memory_avt']='../'.$value['img']; ?>" width="100px" alt="" >
+							<img src="<?php echo $_SESSION['memory_avt']='../'.$value['img']; ?>" width="100px" alt="" id="avatar">
 						</p>
 						<label for="">Thay đổi ảnh đại diện</label><span id="spanimg" class="spanerror"></span>
-						<input type="file"  name="imgR" id="img" class="form-control"  placeholder="" onchange="validate_file();" accept=".webp,.jpg,.jpeg,.png">
+						<input type="file"  name="imgR" id="input_avt" class="form-control"  placeholder="" onchange="validate_file();" accept=".webp,.jpg,.jpeg,.png">
 					</div>
 					
 					<b>Danh sách ảnh mô tả sản phẩm hiện có:</b><br>

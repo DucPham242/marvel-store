@@ -12,18 +12,31 @@
 	// 	}
 	// })
 // })
-	function updatecart(id){
-		var qty=$('#'+id).val();
-		$.get('server/product/update-cart.php',{id:id,qty:qty}, function(data) {
-			$('#table-box-cart').load(' #cart-table');
-  			$("#cartbox").load(" #reload_cartbox");
-		});
-	}
+function updatecart(id){
+	var qty=$('#'+id).val();
+	$.get('server/product/update-cart.php',{id:id,qty:qty}, function(data) {
+		$('#table-box-cart').load(' #cart-table');
+		$("#cartbox").load(" #reload_cartbox");
+	});
+}
 
 
 
 	// làm mô tả từng ảnh
 	$(document).ready(function(){
+		//Thiết lập sẵn SS price ship và voucherdefault
+		if($("#ship").attr("checked")=='checked'){
+			$.post('server/info/changeSS-35k.php', function(data) {
+				
+			});
+			$.post('server/info/voucherDefault.php', function(data) {
+				
+			});
+			$("#price_table_box").load(" #content_price_table");
+		}
+
+
+
 	//JS hiệu ứng list ảnh ở phần Xem trước sản phẩm
 	$(document).on('click', '.list_img_detail', function(e) {
 
@@ -111,32 +124,32 @@
 
 
 //Click xóa sản phẩm trong trang Cart
-	$(document).on('click', '.alert-del', function(e){
-		
-		e.preventDefault();
-		var id = $(this).val();
-	 var check = confirm("Bạn có chắc chắn muốn xóa không?");
+$(document).on('click', '.alert-del', function(e){
+	
+	e.preventDefault();
+	var id = $(this).val();
+	var check = confirm("Bạn có chắc chắn muốn xóa không?");
 	if(check){
 		$.post('server/product/del-pro.php', {id: id}, function(data){
-  		$('#table-box-cart').load(' #cart-table');
-  		$("#cartbox").load(" #reload_cartbox");
-	 	});
+			$('#table-box-cart').load(' #cart-table');
+			$("#cartbox").load(" #reload_cartbox");
+		});
 	}	
-	});
+});
 
 //Click xóa sản phẩm trên cart hover
-	$(document).on('click', '.cart-hover-del', function(e){
-		
-		e.preventDefault();
-		var id = $(this).val();
-		var checkCartHover = confirm("Bạn có chắc chắn muốn xóa không?")
-		if (checkCartHover) {
+$(document).on('click', '.cart-hover-del', function(e){
+	
+	e.preventDefault();
+	var id = $(this).val();
+	var checkCartHover = confirm("Bạn có chắc chắn muốn xóa không?")
+	if (checkCartHover) {
 		$.post('server/product/del-pro.php', {id: id}, function(data){
-  		$('#table-box-cart').load(' #cart-table');
-  		$("#cartbox").load(" #reload_cartbox");
-	 	});
+			$('#table-box-cart').load(' #cart-table');
+			$("#cartbox").load(" #reload_cartbox");
+		});
 	}
-	});
+});
 
 $("#alert1").fadeOut(7000).slideUp();
 
@@ -197,15 +210,15 @@ $("#payment_bank").click(function(e) {
 	});
 	$("#price_table_box").load(" #content_price_table");
 });
-if($("#ship").attr("checked")=='checked'){
-	$.post('server/info/changeSS-35k.php', function(data) {
+// if($("#ship").attr("checked")=='checked'){
+// 	$.post('server/info/changeSS-35k.php', function(data) {
 	
-	});
-	$.post('server/info/voucherDefault.php', function(data) {
-		
-	});
-	$("#price_table_box").load(" #content_price_table");
-}
+// 	});
+// 	$.post('server/info/voucherDefault.php', function(data) {
+	
+// 	});
+// 	$("#price_table_box").load(" #content_price_table");
+// }
 
 })
  // END
@@ -226,82 +239,82 @@ $(document).on('click', '#submit_voucher', function(e) {
  	var name = (document.getElementById('name').value).trim();
  	var check = document.getElementById('check');
  	var regexName = /^[^\d+]*[\d+]{0}[^\d+]*$/;
- 		if (name == null || name == '') {
- 			check.innerHTML = "Bạn không đươc để trông bất kì trường nào";
- 		}else if(!regexName.test(name)) {
- 			check.innerHTML = "Trường họ tên không được chứa kí tự là số";
- 		}else {
- 			check.innerHTML = "";
- 			return name;
- 		}
+ 	if (name == null || name == '') {
+ 		check.innerHTML = "Bạn không đươc để trông bất kì trường nào";
+ 	}else if(!regexName.test(name)) {
+ 		check.innerHTML = "Trường họ tên không được chứa kí tự là số";
+ 	}else {
+ 		check.innerHTML = "";
+ 		return name;
+ 	}
  }
  function blur_phone() {
  	var phone = (document.getElementById('phone').value).trim();
  	var check = document.getElementById('check');
  	var regexPhone = /((09|03|07|08|05)+([0-9]{8})\b)/g;
  	if (phone == null || phone == '') {
- 			check.innerHTML = "Bạn không đươc để trông bất kì trường nào";
- 		}else if(!regexPhone.test(phone)) {
- 			check.innerHTML = " Số điện thoại sai định dạng";
- 		}else {
- 			check.innerHTML = "";
- 			return phone;
- 		}
-  }
+ 		check.innerHTML = "Bạn không đươc để trông bất kì trường nào";
+ 	}else if(!regexPhone.test(phone)) {
+ 		check.innerHTML = " Số điện thoại sai định dạng";
+ 	}else {
+ 		check.innerHTML = "";
+ 		return phone;
+ 	}
+ }
  function blur_addr(){
  	var address = (document.getElementById('address').value).trim();
  	var check = document.getElementById('check');
- 		if (address == null || address == '') {
- 			check.innerHTML = "Bạn không đươc để trông bất kì trường nào";
- 		}else {
- 			check.innerHTML = "";
- 			return address;
- 		}
+ 	if (address == null || address == '') {
+ 		check.innerHTML = "Bạn không đươc để trông bất kì trường nào";
+ 	}else {
+ 		check.innerHTML = "";
+ 		return address;
+ 	}
  }
  function blur_email(){
  	var email = (document.getElementById('email').value).trim();
  	var check = document.getElementById('check');
  	var regexEmail = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
- 		if (email == null || email == '') {
- 			check.innerHTML = " Bạn không đươc để trông bất kì trường nào";
- 		}else if(!regexEmail.test(email)) {
- 			check.innerHTML = " Email của bạn không hợp lệ";
- 		}else {
- 			check.innerHTML = "";
- 			return email;
- 		}
+ 	if (email == null || email == '') {
+ 		check.innerHTML = " Bạn không đươc để trông bất kì trường nào";
+ 	}else if(!regexEmail.test(email)) {
+ 		check.innerHTML = " Email của bạn không hợp lệ";
+ 	}else {
+ 		check.innerHTML = "";
+ 		return email;
+ 	}
  }
  function blur_pass(){
  	var pass = (document.getElementById('pass').value).trim();
  	var check = document.getElementById('check');
- 		if (pass == null || pass == '') {
- 			check.innerHTML = "Bạn không đươc để trông bất kì trường nào";
- 		}else {
- 			check.innerHTML = "";
- 			return address;
- 		}
+ 	if (pass == null || pass == '') {
+ 		check.innerHTML = "Bạn không đươc để trông bất kì trường nào";
+ 	}else {
+ 		check.innerHTML = "";
+ 		return address;
+ 	}
  }
  function blur_repass(){
  	var pass = (document.getElementById('pass').value).trim();
  	var repass = document.getElementById('repass').value;
  	var check = document.getElementById('check');
- 		if (repass == null || repass == '') {
- 			check.innerHTML = "Bạn không đươc để trông bất kì trường nào";
- 		}else if(repass !== pass){
- 			check.innerHTML = "Mật khẩu không trùng nhau";
- 		}else {
- 			check.innerHTML = "";
- 			return address;
- 		}
+ 	if (repass == null || repass == '') {
+ 		check.innerHTML = "Bạn không đươc để trông bất kì trường nào";
+ 	}else if(repass !== pass){
+ 		check.innerHTML = "Mật khẩu không trùng nhau";
+ 	}else {
+ 		check.innerHTML = "";
+ 		return address;
+ 	}
  }
-  function Validate_addUser(){
-  	if(blur_name() && blur_phone() && blur_addr() && blur_email() && blur_pass() && blur_repass()){
-	
-		return true;
-	}
-	else{
-		alert('Dữ liệu nhập vào chưa đúng, yêu cầu kiểm tra lại !');
-		return false;
+ function Validate_addUser(){
+ 	if(blur_name() && blur_phone() && blur_addr() && blur_email() && blur_pass() && blur_repass()){
+ 		
+ 		return true;
+ 	}
+ 	else{
+ 		alert('Dữ liệu nhập vào chưa đúng, yêu cầu kiểm tra lại !');
+ 		return false;
 
-	}
-  }
+ 	}
+ }

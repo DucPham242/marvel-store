@@ -15,6 +15,20 @@ function updateSTT_Order(id){
 		$("#table_order_boxout").load(" #table_order_boxin");
 }
 
+//Cập nhật hình ảnh hiện tại cho trường input img
+// function readURL(input) {
+//             if (input.files && input.files[0]) {
+//                 var reader = new FileReader();
+
+//                 reader.onload = function (e) {
+//                     $('#avatar')
+//                         .attr('src', e.target.result);
+//                 };
+
+//                 reader.readAsDataURL(input.files[0]);
+//             }
+//         }
+
 //Trường input chỉ cho nhập số
 function onlyNum(){
 	return event.charCode>=48 && event.charCode<=57;
@@ -165,7 +179,7 @@ function blur_pass(){
  }
 
 function validate_file(){
-	var inputfile=document.getElementById("img");
+	var inputfile=document.getElementById("input_avt");
 	var file_error=document.getElementById("spanimg");
 	var count=inputfile.files.length;
 	var memory=0;
@@ -289,11 +303,19 @@ function Validate_forgetPass(){ //Kiểm tra kết quả bảng nhập phần s�
 
 $(document).ready(function () {
 
-// // JS cho table MD bootstrap
-// var table=$('#dtBasicExample').DataTable({
-// "searching": true,//Bật chế độ search
-// });
-// $('.dataTables_length').addClass('bs-select');
+//Cập nhật hình ảnh hiện tại cho trường input img
+$("#input_avt").change(function(e) {
+	 if ($("#input_avt")[0].files && $("#input_avt")[0].files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#avatar')
+                        .attr('src', e.target.result);
+                };
+
+                reader.readAsDataURL($("#input_avt")[0].files[0]);
+            }
+});
 
 
 //Click xóa sản phẩm
