@@ -24,6 +24,15 @@
 
 	// làm mô tả từng ảnh
 	$(document).ready(function(){
+		if($("#ship").attr("checked")=='checked'){
+	$.post('server/info/changeSS-35k.php', function(data) {
+	
+	});
+	$.post('server/info/voucherDefault.php', function(data) {
+		
+	});
+	$("#price_table_box").load(" #content_price_table");
+}
 	//JS hiệu ứng list ảnh ở phần Xem trước sản phẩm
 	$(document).on('click', '.list_img_detail', function(e) {
 
@@ -197,15 +206,15 @@ $("#payment_bank").click(function(e) {
 	});
 	$("#price_table_box").load(" #content_price_table");
 });
-if($("#ship").attr("checked")=='checked'){
-	$.post('server/info/changeSS-35k.php', function(data) {
+// if($("#ship").attr("checked")=='checked'){
+// 	$.post('server/info/changeSS-35k.php', function(data) {
 	
-	});
-	$.post('server/info/voucherDefault.php', function(data) {
+// 	});
+// 	$.post('server/info/voucherDefault.php', function(data) {
 		
-	});
-	$("#price_table_box").load(" #content_price_table");
-}
+// 	});
+// 	$("#price_table_box").load(" #content_price_table");
+// }
 
 })
  // END

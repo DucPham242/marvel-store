@@ -56,13 +56,11 @@
 					<?php
 				}else{
 					?>
-					<span class="price_main_product">
+					<span class="price_discount_product">
 						<?php echo number_format($value['price']).' đ'; ?>
 					</span><br>
 					<?php
 				}
-
-
 				?>
 				
 
