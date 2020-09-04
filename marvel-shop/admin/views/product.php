@@ -85,11 +85,12 @@ unset($_SESSION['noti_addPro']);
 					</div>
 					<div class="form-group">
 						<label for="">Ảnh đại diện</label><span id="spanimg" class="spanerror"></span>
-						<input type="file"  name="img" class="form-control"  placeholder="" onchange="validate_file()" id="img" required="" accept=".webp,.jpg,.jpeg,.png">
+						<input type="file"  name="img" class="form-control"  placeholder="" onchange="validate_file()" id="input_avt" required="" accept=".webp,.jpg,.jpeg,.png">
+						<img src="images/product/new_product.jpg" id="avatar" alt="" width="100px">
 					</div>
 					<div class="form-group">
 						<label for="">List ảnh</label><span id="spanlistimg" class="spanerror"></span>
-						<input type="file" multiple="" name="list_img[]" class="form-control"  placeholder="" id="list_img" onchange="validate_files()" required="" accept=".webp,.jpg,.jpeg,.png">
+						<input type="file" multiple="" name="list_img[]" class="form-control"  placeholder="" id="list_img" onchange="validate_files()" required="" accept=".webp,.jpg,.jpeg,.png" >
 					</div>
 					<div class="form-group"></span>
 						<label for="">% Giảm giá</label><span id="spandiscount" class="spanerror"></span>

@@ -88,6 +88,14 @@ class Admin_c extends Admin_m
     public function get_noti_STT_order($id_order){
         return $this->ad->get_noti_STT_order($id_order);
     }
+    //hàm lấy banner quan id_banner
+    public function get_banner_id($id){
+        return $this->ad->get_banner_id($id);
+    }
+    //xóa banner
+    public function del_banner($id){
+        return $this->ad->del_banner($id);
+    }
 
 
 	public function create_page(){
@@ -657,6 +665,32 @@ class Admin_c extends Admin_m
     }
     include_once "views/edit-adminmember.php";
     break;
+    case 'banner':
+        if (isset($_POST['add_banner'])) {
+            $name = $_POST['name_banner'];
+            $img = $_FILES['img'];
+            // echo '<pre>';
+            // print_r($img);
+            // echo '</pre>';
+
+            $upload_path = "../images/banner/";
+            if (!is_dir($upload_path)) {
+
+                mkdir($uploadPath, 0777, true);
+            }
+            //thêm ảnh banner 
+            move_uploaded_file($img['tmp_name'], $path = $upload_path.'/'.time().$img['name']);
+            $real_path = substr($path,3);
+            $add_banner = $this->ad->add_banner($name, $real_path);
+            if ($add_banner) {
+                $_SESSION['noti_banner'] = 1;
+            }else{
+                $_SESSION['noti_banner'] = 2;
+            }
+        }
+        $get_banner = $this->ad->get_banner();
+        include_once'views/add-banner.php';
+        break;
 
     	case 'logout'://Đăng xuất
     	unset($_SESSION['id_admin']);

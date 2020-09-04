@@ -4,20 +4,20 @@
 
 	<div class="row">
 		<ul class="list-group" id="menu_left" >
-			<li class="list-group-item"><a href="index.php?page=home&views=status" class="active">Báo cáo, thống kê</a></li>
-			<li class="list-group-item" ><a href="index.php?page=home&views=control" class="">Bảng điều khiển</a></li>
-
-			<li class="list-group-item"><a href="index.php?page=home&views=product">Quản lý sản phẩm</a></li>
-			<li class="list-group-item"><a href="index.php?page=home&views=order">Quản lý đơn hàng</a></li>
-			<li class="list-group-item"><a href="index.php?page=home&views=customer">Quản lý khách hàng</a></li>
+			<a href="index.php?page=home&views=status" class="active set-text-nav"><li class="list-group-item">Báo cáo, thống kê</li></a>
+			<a href="index.php?page=home&views=control" class="set-text-nav"><li class="list-group-item" >Bảng điều khiển</li></a>
+			<a href="index.php?page=home&views=banner" class="set-text-nav"><li class="list-group-item" >Thêm ảnh banner</li></a>
+			<a href="index.php?page=home&views=product" class="set-text-nav"><li class="list-group-item">Quản lý sản phẩm</li></a>
+			<a href="index.php?page=home&views=order" class="set-text-nav"><li class="list-group-item">Quản lý đơn hàng</li></a>
+			<a href="index.php?page=home&views=customer" class="set-text-nav"><li class="list-group-item">Quản lý khách hàng</li></a>
 <?php
 if (isset($_SESSION['id_admin']) && $_SESSION['stt_admin'] == 1) {
 	?>
-	<li class="list-group-item"><a href="index.php?page=home&views=admin-member">Quản lý thành viên</a></li>
+	<a href="index.php?page=home&views=admin-member" class="set-text-nav"><li class="list-group-item">Quản lý thành viên</li></a>
 	<?php
 }
 ?>
-<li class="list-group-item"><a href="index.php?page=home&views=voucher">Voucher + mã giảm giá</a></li>
+<a href="index.php?page=home&views=voucher" class="set-text-nav"><li class="list-group-item">Voucher + mã giảm giá</li></a>
 
 
 		</ul>

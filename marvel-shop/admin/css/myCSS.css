@@ -160,3 +160,11 @@ a:hover{
 #btn_print{
 	margin-right: 500px;
 }
+/*set nav-left*/
+.set-text-nav{
+	text-decoration: none;
+	color: #fff;
+}
+.set-text-nav:hover{
+	color: red;
+}

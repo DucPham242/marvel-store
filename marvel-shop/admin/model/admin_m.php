@@ -606,7 +606,37 @@ class Admin_m extends Connect
 			return $pre->fetchAll(PDO::FETCH_ASSOC);
 		}
 
+		//thêm ảnh banner
+		public function add_banner($name_banner, $path){
+			$sql = "INSERT INTO tbl_banner(name_banner, path) VALUES (:name_banner, :path)";
+			$pre = $this->pdo->prepare($sql);
+			$pre->bindParam(':name_banner', $name_banner);
+			$pre->bindParam(':path', $path);
+			return $pre->execute();
 
+		}
+		//get info at tbl_banner
+		public function get_banner(){
+			$sql = "SELECT * FROM tbl_banner";
+			$pre = $this->pdo->prepare($sql);
+			$pre->execute();
+			return $pre->fetchAll(PDO::FETCH_ASSOC);
+		}
+		//get banner at id_banner
+		public function get_banner_id($id){
+			$sql = "SELECT * FROM tbl_banner WHERE id_banner = :id";
+			$pre = $this->pdo->prepare($sql);
+			$pre->bindParam(':id', $id);
+			$pre->execute();
+			return $pre->fetchAll(PDO::FETCH_ASSOC);
+		}
+		// delete banner
+		public function del_banner($id){
+			$sql = "DELETE FROM tbl_banner WHERE id_banner = :id";
+			$pre = $this->pdo->prepare($sql);
+			$pre->bindParam(':id', $id);
+			return $pre->execute();
+		}
 		
 }
 ?>
