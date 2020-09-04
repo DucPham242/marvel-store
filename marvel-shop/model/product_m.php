@@ -161,7 +161,7 @@
 			$pre->execute();
 			return $pre->fetchAll(PDO::FETCH_ASSOC);
 		}
-		//Lấy ra số lượng account đánh giá của các sản phẩm
+		//Lấy ra số lượng account đánh giá của 1 sản phẩm
 		public function get_count_review($id_product){
 			$sql = "SELECT *FROM tbl_review WHERE id_product = :id_product";
 			$pre = $this->pdo->prepare($sql);
@@ -184,7 +184,7 @@
 		}
 		//lấy product hot tại trang chủ
 		public function get_product_5star_home(){
-			$sql = "SELECT id_product,COUNT(star = 5) AS tongso5sao FROM tbl_review GROUP BY id_product ORDER BY tongso5sao DESC limit 0,4";
+			$sql = "SELECT id_product,COUNT(star = 5) AS tongso5sao FROM tbl_review GROUP BY id_product ORDER BY tongso5sao DESC limit 0,8";
 			$pre = $this->pdo->prepare($sql);
 			$pre->execute();
 			return $pre->fetchAll(PDO::FETCH_ASSOC);

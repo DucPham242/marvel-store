@@ -399,6 +399,7 @@ a .iconfa_user:hover{
 	margin-bottom: 10px;
 
 }
+
 #tbl_ordered tbody tr td{
 	border: 0px none;
 }
@@ -560,7 +561,7 @@ a .iconfa_user:hover{
 	display: none;
 }	
 .product_box{
-	min-height: 500px;
+	min-height: 540px;
 }
 .caption{
 	margin-top: 10px;

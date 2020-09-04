@@ -97,7 +97,7 @@
 		return $pre->fetchAll(PDO::FETCH_ASSOC);
 	}
 
-	//Truyền thông tin khách hàng và đơn hàng vào tbl_order
+	//Truyền thông tin khách hàng và đơn hàng vào tbl_order danh cho trường hợp chưa đăng nhập
 	public function get_info($name, $id_payment, $total, $phone, $email, $address, $note){
 		$sql = "INSERT INTO tbl_order(name,id_payment, total,phone,email,address,note) VALUES (:name, :id_payment, :total, :phone, :email, :address, :note)";
 		$pre = $this->pdo->prepare($sql);
@@ -113,6 +113,25 @@
 		return $pre;
 
 	}
+
+	//Truyền thông tin khách hàng và đơn hàng vào tbl_order danh cho trường hợp ĐÃ ĐĂNG NHẬP
+	public function get_info_Login($id_user,$name, $id_payment, $total, $phone, $email, $address, $note){
+		$sql = "INSERT INTO tbl_order(id_user,name,id_payment, total,phone,email,address,note) VALUES (:id_user,:name, :id_payment, :total, :phone, :email, :address, :note)";
+		$pre = $this->pdo->prepare($sql);
+		$pre->bindParam('id_user', $id_user);
+		$pre->bindParam('name', $name);
+		$pre->bindParam('id_payment', $id_payment);
+		$pre->bindParam('total', $total);
+		$pre->bindParam('phone', $phone);
+		$pre->bindParam('email', $email);
+		$pre->bindParam('address', $address);
+		$pre->bindParam('note', $note);
+
+		$pre->execute();
+		return $pre;
+
+	}
+
 // 
 	// public function get_user($email,$phone){
 	// 	$sql = "SELECT * FROM tbl_user WHERE email = :email AND phone = :phone" ;
@@ -142,6 +161,8 @@
 	// $pre->execute();
 	// return $pre;
 	// }
+
+
 	//hàm xử lý lấy ra id cuối cùng
 	public function lastInsertId(){
 			return $id_insert=$this->pdo->lastInsertId();
@@ -177,6 +198,25 @@
 			$pre->bindParam(':id_product', $id_product);
 			return $pre->execute();
 		}
+
+		//Lấy thông tin 1 thành viên dựa theo ID FB - tbl_user
+		public function get_User_FB($id_fb){
+			$sql = "SELECT * FROM tbl_user WHERE id_fb=:id_fb";
+			$pre = $this->pdo->prepare($sql);
+			$pre->bindParam(':id_fb', $id_fb);
+			$pre->execute();
+			return $pre->fetchAll(PDO::FETCH_ASSOC);
+		}
+
+		//Add thêm 1 user có chứa cả ID FB
+		public function add_User_FB($id_fb,$name,$pass){
+		$sql="INSERT INTO tbl_user(id_fb,name_user,pass) VALUES (:id_fb,:name,:pass)";
+		$pre=$this->pdo->prepare($sql);
+		$pre->bindParam(':id_fb',$id_fb);
+		$pre->bindParam(':name',$name);
+		$pre->bindParam(':pass',$pass);
+		return $pre->execute();
+	}
 
 }
  ?>

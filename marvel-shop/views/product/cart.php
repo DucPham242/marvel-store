@@ -12,7 +12,7 @@
 		<!-- show product -->
 		<?php 
 		if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
-
+			unset($_SESSION['total']);
 
 			?>
 			<h4 style="color: red; margin: 20px 10px 200px 150px;">Hiện tại chưa có sản phẩm nào!</h4>
@@ -60,7 +60,6 @@
 														?>
 														<td><?php echo number_format($price = $cart['price']).' đ';  ?></td>
 														<?php
-														$_SESSION['total']+=$price;
 													}else{	
 														?>
 														<td><?php echo number_format($price = $cart['discount_price']). ' đ'; ?></td>
@@ -70,7 +69,7 @@
 
 
 													<td>
-														<input type="number" value="<?php echo $cart['qty'] ?>" class="form-control" min="1" max="10" id="<?php echo $cart['id_product'] ?>" onchange="updatecart(<?php echo $cart['id_product']; ?>);" >
+														<input type="number" value="<?php echo $cart['qty'] ?>" class="form-control" min="1" max="<?php echo $cart['quantity']; ?>" id="<?php echo $cart['id_product'] ?>" onchange="updatecart(<?php echo $cart['id_product']; ?>);" onkeypress="return onlyNum();" >
 													</td>
 													<?php 
 													if ($cart['discount'] <= 0) {
@@ -78,7 +77,6 @@
 														?>
 														<td><?php echo number_format($total = $price * $cart['qty']).' đ';  ?></td>
 														<?php
-														$_SESSION['total']+=$price;
 													}else{	
 														?>
 														<td><?php echo number_format($total = $price * $cart['qty']). ' đ'; ?></td>
@@ -108,8 +106,7 @@
 					<div class="col-md-4">
 						<h3>Đơn hàng</h3>
 						<div class="shippingbox">
-							<h3 >Tổng tiền: <?php echo number_format($_SESSION['total']).' đ'; ?></h3>
-			
+							<h3 >Tổng tiền: <?php echo number_format($_SESSION['total']).' đ'; ?></h3>		
 								<a href="index.php?page=info&method=checkout"><button type="button" class="btn btn-danger">Thanh Toán</button></a>
 						</div>
 					</div>

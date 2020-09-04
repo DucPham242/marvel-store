@@ -13,11 +13,20 @@
 			<div class="col-md-4 col-xs-12">
 				<a href="index.php?page=info&method=logout" style="margin-top: 40px"><i  class="fa fa-sign-out iconfa_user" aria-hidden="true">Thoát</i></a>
 
-					<div class="userbox" style="width: 300px;padding-left: 10px;position: relative;min-height: 250px;padding-bottom: 20px;margin-bottom: 40px">
+					<div class="userbox"  style="width: 300px;padding-left: 10px;position: relative;min-height: 250px;padding-bottom: 20px;margin-bottom: 40px">
 						<?php foreach ($info_user as $key => $info) {
 							
 						 ?>
-						<p>Họ tên: <?php echo $info['name_user']; ?></p>	
+						<p>Họ tên: <?php echo $info['name_user']; ?></p>
+						<?php 
+							if (isset($_COOKIE['user_imageFB'])) {
+								?>
+								<p>
+									<img src="<?php echo $_COOKIE['user_imageFB']; ?>" alt="">
+								</p>
+								<?php
+							}
+						 ?>
 						<p>Email: <?php echo $info['email']; ?></p>
 						<p>Điện thoại: <?php echo $info['phone']; ?></p>
 						<div id="address_box"><p id="address">Địa chỉ: <?php echo "<span style='color: gray;font-style: italic;'>".$info['address']."</span>"; ?></p></div>
@@ -25,6 +34,10 @@
 						<?php 
 							}
 						?>
+					</div>
+					<div class="userbox" style="width: 300px;color: gray;font-style: italic;padding: 20px;">
+						Liên hệ với quản trị viên Marvel Store để được thay đổi thông tin tài khoản và thông tin đơn hàng. <br>
+						Hotline: 0398762441.
 					</div>
 			</div>
 			<div class="col-md-8 col-xs-12">

@@ -9,6 +9,7 @@
 	<!-- Nhúng FB SDK -->
 	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v8.0&appId=638712913439562&autoLogAppEvents=1" nonce="usB2CBM1"></script>
 	<!-- END FB SDK -->
+	
 		<!-- START MENU Header -->
 		<?php include_once 'layout/nav-header.php' ?>
 		<!-- END MENU Header -->

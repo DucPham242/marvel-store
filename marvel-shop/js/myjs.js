@@ -20,10 +20,14 @@ function updatecart(id){
 	});
 }
 
+//Trường input chỉ cho nhập số
+function onlyNum(){
+	return event.charCode>=48 && event.charCode<=57;
+}
 
 
-	// làm mô tả từng ảnh
-	$(document).ready(function(){
+
+$(document).ready(function(){
 		//Thiết lập sẵn SS price ship và voucherdefault
 		if($("#ship").attr("checked")=='checked'){
 			$.post('server/info/changeSS-35k.php', function(data) {
@@ -210,15 +214,14 @@ $("#payment_bank").click(function(e) {
 	});
 	$("#price_table_box").load(" #content_price_table");
 });
-// if($("#ship").attr("checked")=='checked'){
-// 	$.post('server/info/changeSS-35k.php', function(data) {
-	
-// 	});
-// 	$.post('server/info/voucherDefault.php', function(data) {
-	
-// 	});
-// 	$("#price_table_box").load(" #content_price_table");
-// }
+
+// Khi người dùng thay đổi thông tin họ tên, phone ở phần checkout,thì sẽ
+//đồng thời thay đổi phần nội dung chuyển khoản
+$("#name_checkout,#phone_checkout").keyup(function(e) {
+	var name=$("#name_checkout").val();
+	var phone=$("#phone_checkout").val();
+	$("#bank_content").html(' Họ tên: '+name+'. Số điện thoại: '+phone);
+});
 
 })
  // END

@@ -57,10 +57,10 @@ class Product_c extends product_m
 			case 'home':
 			$rs_hot=array();
 			$get_pro_hot = $this->pro->get_product_5star_home();
-				foreach ($get_pro_hot as $key => $value) {
-					$get_rs = $this->pro->getProduct_Id_review($value['id_product']);
-					array_push($rs_hot, $get_rs);
-				}
+			foreach ($get_pro_hot as $key => $value) {
+				$get_rs = $this->pro->getProduct_Id_review($value['id_product']);
+				array_push($rs_hot, $get_rs);
+			}
 			$rs_hot=$this->pro->add_discount($rs_hot); //Thêm trường giảm giá cho mảng
 			
 
@@ -81,129 +81,135 @@ class Product_c extends product_m
 				header("Location:index.php");
 			}
 			$rs=$this->pro->getProduct_Id($id);
+			$rs_seen=$this->pro->getProduct_Id_SS($id);			
 			$rs=$this->pro->add_discount($rs);
 
 			// echo '<pre>';
 			// print_r($rs);
 			$rs_listimg=$this->pro->get_Listimg($id);
-			// if (!isset($_SESSION['seen'])) {
-			// 	$_SESSION['seen'][$id] = $rs;
-			// }
 
+
+
+//Thiết lập sản phẩm đã xem qua
 			if (!isset($_SESSION['seen']) || empty($_SESSION['seen'])){
-				$_SESSION['seen'][$id]=$rs;
+				$_SESSION['seen'][$id]=$rs_seen;
 			}else{
 				if (!array_key_exists($id, $_SESSION['seen'])) {
-					$_SESSION['seen'][$id]=$rs;
+					$_SESSION['seen'][$id]=$rs_seen;
 				}else{
 					unset($_SESSION['seen'][$id]);
-					$_SESSION['seen'][$id]=$rs;
+					$_SESSION['seen'][$id]=$rs_seen;
 
 				}
 			}
+			if (isset($_SESSION['seen'])) {
+				$count = count($_SESSION['seen']);
+				if ($count > 5) {
+					array_shift($_SESSION['seen']);
+				}
+			}
+
+
 			
 			if(isset($_COOKIE['id_user']) && isset($_COOKIE['name_user'])){
-					foreach ($rs as $key => $value) {
-				
-					}
+				foreach ($rs as $key => $value) {
 
-					$info_rate = $this->pro->get_info_review($_COOKIE['id_user'], $value['id_product']);
-					$check_raiting=count($info_rate);
+				}
+
+				$info_rate = $this->pro->get_info_review($_COOKIE['id_user'], $value['id_product']);
+				$check_raiting=count($info_rate);
 					// echo $check_raiting;
 					// echo '<pre>';
 					// print_r($info_rate);
-					foreach ($info_rate as $key => $info) {
-						
-					}
-					if (!isset($info)) {
-						   if (isset($_POST['rate'])) {
-							$star = $_POST['star_val'];
-							$rate = $this->pro->rate_product($_COOKIE['id_user'], $value['id_product'], $star);
-							if ($rate) {
-								$_SESSION['noti-review'] = 1;
-								echo $_SESSION['noti-review'];
-							}else{
-								$_SESSION['noti-review'] = 2;
-						    }
-						}
-					}else{
-						
-					}
+					// echo "</pre>";
+				foreach ($info_rate as $key => $info) {
 
 				}
-				foreach ($rs as $key => $value) {
-				
+				if (!isset($info)) {
+					if (isset($_POST['rate'])) {
+						$star = $_POST['star_val'];
+						$rate = $this->pro->rate_product($_COOKIE['id_user'], $value['id_product'], $star);
+						if ($rate) {
+							$_SESSION['noti-review'] = 1;
+						}else{
+							$_SESSION['noti-review'] = 2;
+						}
 					}
-				$get_qty_review = $this->pro->get_count_review($value['id_product']);
+				}
+
+			}
+
+			$get_qty_review = $this->pro->get_count_review($id);
 					// echo '<pre>';
 					// print_r($get_qty_review);
-					$count_review = count($get_qty_review);
-				
-				
+					// echo '</pre>';
+			$count_review = count($get_qty_review);
+
+
 
 			//Lấy ra 3 sản phẩm liên quan
-				foreach ($rs as $key => $value) {
-					$rs_related=$this->pro->getProduct_related($value['id_product'],$value['id_brand']);
-					$rs_related=$this->pro->add_discount($rs_related);
+			foreach ($rs as $key => $value) {
+				$rs_related=$this->pro->getProduct_related($value['id_product'],$value['id_brand']);
+				$rs_related=$this->pro->add_discount($rs_related);
 				// echo "<pre>";
 				// print_r($rs_related); 
-				}
+			}
 
-				include_once "views/product/product-detail.php";
-				break;
+			include_once "views/product/product-detail.php";
+			break;
 
 			// SEARCH
-				case 'search':
-				if (isset($_POST['submit-search'])) {
-					$_SESSION['key'] = '%'.$_POST['search'].'%';
-				}
+			case 'search':
+			if (isset($_POST['submit-search'])) {
+				$_SESSION['key'] = '%'.$_POST['search'].'%';
+			}
 
 
-				$key=$_SESSION['key'];
-				$rs_search = $this->pro->search($key);
-				$rs_search = $this->pro->add_discount($rs_search);
-				$row = 8;
-				$count = count($rs_search);
-				$pagination = ceil($count / $row);
-				if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>0){
-					$pages=(int)$_GET['pages'];
-				}else{
-					$pages=1;
-					$_GET['pages']=1;
-				}
-				$current = $_GET['pages'];
-				$from=($pages-1)*$row;
-				$rs_search = $this->pro->search_limit($from,$row,$key);
-				$rs_search = $this->pro->add_discount($rs_search);
+			$key=$_SESSION['key'];
+			$rs_search = $this->pro->search($key);
+			$rs_search = $this->pro->add_discount($rs_search);
+			$row = 8;
+			$count = count($rs_search);
+			$pagination = ceil($count / $row);
+			if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>0){
+				$pages=(int)$_GET['pages'];
+			}else{
+				$pages=1;
+				$_GET['pages']=1;
+			}
+			$current = $_GET['pages'];
+			$from=($pages-1)*$row;
+			$rs_search = $this->pro->search_limit($from,$row,$key);
+			$rs_search = $this->pro->add_discount($rs_search);
 
 			
 
-				include_once "views/product/search.php";
-				
-				break;
+			include_once "views/product/search.php";
 
-				case 'cart':
-				include_once "views/product/cart.php";
-				break;
+			break;
+
+			case 'cart':
+			include_once "views/product/cart.php";
+			break;
 
 
-				default:
-				header("Location:index.php");
-				break;
-			}
+			default:
+			header("Location:index.php");
+			break;
 		}
-		public function typeProduct(){
-			if(isset($_GET['method'])) {
-				$method = $_GET['method'];
-			}else{
-				$method='marvel';
-			}
+	}
+	public function typeProduct(){
+		if(isset($_GET['method'])) {
+			$method = $_GET['method'];
+		}else{
+			$method='marvel';
+		}
 
 
 
-			switch ($method) {
-				case 'marvel':
-				$rs=$this->pro->getProduct(1);
+		switch ($method) {
+			case 'marvel':
+			$rs=$this->pro->getProduct(1);
 			$row=6;//Số sản phẩm, tin.. trên 1 trang
 			$number=count($rs);//Tổng số sản phẩm,bản ghi,...
 			$pagination=ceil($number/$row);//Số phân trang	
@@ -265,8 +271,8 @@ class Product_c extends product_m
 				// echo '<pre>';
 				// 	print_r($get_pro_hot);
 				// 	echo '</pre>';
-				
-			$row=3;//Số sản phẩm, tin.. trên 1 trang
+
+			$row=9;//Số sản phẩm, tin.. trên 1 trang
 			$number=count($get_pro_hot);//Tổng số bản ghi
 			$pagination=ceil($number/$row);//Số phân trang
 			if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
@@ -279,9 +285,9 @@ class Product_c extends product_m
 			$form=($pages-1)*$row;
 			$limit_hot = $this->pro->get_product_5star_limit($form, $row);
 			foreach ($limit_hot as $key => $value) {
-					$get_rs = $this->pro->getProduct_Id_review($value['id_product']);
-					array_push($rs, $get_rs);
-				}
+				$get_rs = $this->pro->getProduct_Id_review($value['id_product']);
+				array_push($rs, $get_rs);
+			}
 			// echo '<pre>';
 			// 		print_r($rs);
 			// 		echo '</pre>';

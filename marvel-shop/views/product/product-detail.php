@@ -36,11 +36,11 @@
 					<?php
 				}else{
 					?>
-					<h5>Sản phẩm này đã được <?php echo $count_review; ?> người đánh giá 5 sao!</h5><br>
+					<h5 style="color: #0825AB;">Sản phẩm này đã được <?php echo $count_review; ?> người đánh giá 5 sao !</h5><br>
 					<?php 
 				}
 				?>
-				<h4>Price:</h4>
+				<h4>Giá sản phẩm:</h4>
 				<?php 
 				if($value['discount']>0){
 					?>
@@ -65,7 +65,7 @@
 
 				?>
 				
-
+				<h4 style="color:red;">Số lượng còn: <?php echo $value['quantity']; ?> sản phẩm</h4>
 				<?php 
 				// echo $value['quantity'];
 					if ($value['quantity'] <= 0) {
@@ -89,7 +89,7 @@
 					if ($check_raiting == 1) {
 						
 						?>
-						<h4 style="color: #F91717">Bạn đã đánh giá sản phẩm này!</h4>
+						<h4 style="color: #0825AB;">Bạn đã đánh giá sản phẩm này!</h4>
 						<?php 
 					}else{
 						?>
@@ -113,7 +113,7 @@
 								?>
 								<span class="alert alert-success " id="alert1">
 									<button type="button" data-dismiss="alert" aria-hidden="true"></button>
-									<strong>Đánh giá sản phẩm thành công!</strong>
+									<strong>Cảm ơn bạn đã đánh giá sản phẩm !</strong>
 								</span>
 								<?php
 							} else if(isset($_SESSION['noti-review']) && $_SESSION['noti-review'] == 2){
@@ -133,7 +133,7 @@
 					}
 				}
 				?>
-				<div class="fb-like" id="like_share_product" data-href="http://localhost/PHP0320E2/marvel-store/marvel-shop/file-link/product-detail.php" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>
+				<div class="fb-like" id="like_share_product" data-href="http://localhost/PHP0320E2/marvel-store/marvel-shop/index.php?page=home&method=product-detail&id=<?php echo $id; ?>" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>
 
 			</div>
 		</div>
@@ -148,10 +148,11 @@
 						?>
 					</div>
 				</div>
+				<div class="fb-comments" data-href="http://localhost/PHP0320E2/marvel-store/marvel-shop/index.php?page=home&method=product-detail&id=<?php echo $value['id_product']; ?>" data-numposts="5" data-width="" order_by="reverse_time"></div>
 				<?php
 			}
 			?>
-			<div class="fb-comments" data-href="http://localhost/PHP0320E2/test_cmtFB/index3.php" data-numposts="5" data-width="" order_by="reverse_time"></div>
+			<!-- <div class="fb-comments" data-href="http://localhost/PHP0320E2/test_cmtFB/index3.php" data-numposts="5" data-width="" order_by="reverse_time"></div> -->
 
 		</div>
 		<div class="col-md-4" >
@@ -209,23 +210,19 @@
 		<?php  
 			// echo '<pre>';
 			// print_r($_SESSION['seen']);
-		$count = count($_SESSION['seen']);
-		if ($count > 5) {
-			array_shift($_SESSION['seen']);
-				// $count - 1;
-		}
+			// echo"</pre>";
+		// $count = count($_SESSION['seen']);
+		// if ($count > 5) {
+		// 	array_shift($_SESSION['seen']);
+		// }
 
 
 		foreach ($_SESSION['seen'] as $key => $value) {
-			foreach ($value as $key => $info) {
-				$count = count($_SESSION['seen']);		
-
 				?>		
 
-				<div class="col-md-1" style=""><a href="index.php?page=home&method=product-detail&id=<?php echo $info['id_product'] ?>"><img class="list_img_visited" src="<?php echo $info['img']; ?>" alt=""></a></div>
+				<div class="col-md-1" style=""><a href="index.php?page=home&method=product-detail&id=<?php echo $value['id_product'] ?>"><img class="list_img_visited" src="<?php echo $value['img']; ?>" alt=""></a></div>
 
 				<?php 
-			}
 		}
 		?>
 	</div>

@@ -38,7 +38,7 @@
 								 <span class="glyphicon glyphicon-user"></span>
 							</span>
 
-							<input type="text" name="name" class="form-control" value="<?php if(isset($rs_checkout)){ echo $value['name_user'];} ?>" placeholder="Họ và tên">
+							<input type="text" name="name" class="form-control" value="<?php if(isset($rs_checkout)){ echo $value['name_user'];} ?>" placeholder="Họ và tên" id="name_checkout">
 
 						</div>
 					</div>
@@ -61,7 +61,7 @@
 								<span class="glyphicon glyphicon-phone"></span>
 							</span>
 
-							<input type="text" class="form-control" name="phone" value="<?php if(isset($rs_checkout)){echo $value['phone'];} ?>" placeholder="Số điện thoại">
+							<input type="text" class="form-control" name="phone" value="<?php if(isset($rs_checkout)){echo $value['phone'];} ?>" placeholder="Số điện thoại" id="phone_checkout">
 
 						</div>
 					</div>
@@ -101,7 +101,7 @@
 							Ngân hàng : VP Bank <br>
 							Chi nhánh : sở giao dịch <br>
 							Chủ tài khoản : Hoang Van Lam <br>
-							Nội dung chuyển khoản: Điền thông tin, số điện thoại của bạn
+							Nội dung chuyển khoản:<span id="bank_content"><?php if(isset($rs_checkout)){ echo " Họ tên: ".$value['name_user']." .Số điện thoại: ".$value['phone'];} ?></span>
 						</div>
 						</div>
 					</div>

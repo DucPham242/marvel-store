@@ -20,7 +20,7 @@ if(count($check)!=1){
 		// echo "Thời gian code đc tạo là:".$created."<br>";
 		$time_apply=$value['time_apply']*86400;
 		// echo "Code có giá trị trong:". $time_apply."<br>";
-		$my_time=$created-$time;
+		$my_time=$time-$created;
 		// echo "Thời gian từ khi code đc tạo đến hiện tại là:".$my_time."<br>";
 		if($_SESSION['total']<$value['apply_for']){
 			echo "<span style='color:red;'>Trị giá đơn hàng của bạn chưa đủ để sử dụng Voucher này</span>";
