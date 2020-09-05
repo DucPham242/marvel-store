@@ -446,7 +446,22 @@ $(document).on('click', '.btn_del_admin', function(e) {
 	$("#tbl_admin_boxout").load(" #tbl_admin_boxin");
 });
 
-
+//load lại bảng khi thêm mới banner
+$(".alert").fadeOut(5000,function() {
+	$("#tbl_banner_boxout").load(" #tbl_banner_boxin");
+});
+//xử lý xóa ảnh banner
+	$(document).on('click', '.btn_del_banner', function(e){
+		e.preventDefault();
+		var id = $(this).val();
+		var check = confirm('Admin: có thực sự muốn xóa hình ảnh này không?');
+		if (check) {
+			$.get('server/product/del-banner.php', {id:id}, function(data){
+				alert(data);
+				$("#tbl_banner_boxout").load(" #tbl_banner_boxin");
+			});
+		}
+	 });
 
 });
 

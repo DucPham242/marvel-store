@@ -1,17 +1,4 @@
- // $(document).ready(function(){
-
-	// var nav = jQuery("nav").offset().top; // đo khoảng cách từ top đến nav
-	
-	// jQuery(window).scroll(function(){ // để mỗi khi cuộn dòng trong function sẽ được kích hoạt
-	// 	var scrollPos = jQuery(window).scrollTop(); //Hiện giá trị khi cuộn
-	// 	// jQuery(".status").html(scrollPos);
-	// 	if ( scrollPos >= nav) {
-	// 		jQuery("nav").addClass("fixed");
-	// 	}else {
-	// 		jQuery("nav").removeClass("fixed");
-	// 	}
-	// })
-// })
+//Cập nhật lại số lượng sản phẩm trog giỏ hàng
 function updatecart(id){
 	var qty=$('#'+id).val();
 	$.get('server/product/update-cart.php',{id:id,qty:qty}, function(data) {
@@ -25,11 +12,8 @@ function onlyNum(){
 	return event.charCode>=48 && event.charCode<=57;
 }
 
-
-
-$(document).ready(function(){
-		//Thiết lập sẵn SS price ship và voucherdefault
-		if($("#ship").attr("checked")=='checked'){
+function set_PriceShip_Voucher(){
+	if($("#ship").attr("checked")=='checked'){
 			$.post('server/info/changeSS-35k.php', function(data) {
 				
 			});
@@ -38,7 +22,23 @@ $(document).ready(function(){
 			});
 			$("#price_table_box").load(" #content_price_table");
 		}
+}
+set_PriceShip_Voucher();
 
+
+
+$(document).ready(function(){
+
+		//Thiết lập sẵn SS price ship và voucherdefault
+		// if($("#ship").attr("checked")=='checked'){
+		// 	$.post('server/info/changeSS-35k.php', function(data) {
+				
+		// 	});
+		// 	$.post('server/info/voucherDefault.php', function(data) {
+				
+		// 	});
+		// 	$("#price_table_box").load(" #content_price_table");
+		// }
 
 
 	//JS hiệu ứng list ảnh ở phần Xem trước sản phẩm
@@ -223,7 +223,7 @@ $("#name_checkout,#phone_checkout").keyup(function(e) {
 	$("#bank_content").html(' Họ tên: '+name+'. Số điện thoại: '+phone);
 });
 
-})
+
  // END
 
 //Phần xử lý mã giảm giá voucher
@@ -235,6 +235,8 @@ $(document).on('click', '#submit_voucher', function(e) {
 		$("#price_table_box").load(" #content_price_table");
 	});
 });
+})
+
 
  // làm phần Validate kiểm tra thông tin đăng kí
 

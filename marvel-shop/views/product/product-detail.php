@@ -61,8 +61,6 @@
 					</span><br>
 					<?php
 				}
-
-
 				?>
 				
 				<h4 style="color:red;">Số lượng còn: <?php echo $value['quantity']; ?> sản phẩm</h4>

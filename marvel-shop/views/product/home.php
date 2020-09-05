@@ -7,15 +7,17 @@
 				<li data-target="#carousel-id" data-slide-to="2" class="active"></li>
 			</ol>
 			<div class="carousel-inner">
-				<div class="item">
-					<img alt="First slide" src="images/banner/banner.webp" style="width: 100%;">
+				<?php 
+				$at=0;
+				foreach ($rs_banner as $key => $value) {
+					$at+=1;
+				?>
+				<div class="item <?php if($at==1){ echo 'active';} ?>" >
+					<img alt="First slide" src="<?php echo $value['path']; ?>" style="width: 100%;">
 				</div>
-				<div class="item">
-					<img alt="First slide" src="images/banner/banner.webp" style="width: 100%;">
-				</div>
-				<div class="item active">
-					<img alt="First slide" src="images/banner/banner.webp" style="width: 100%;">
-				</div>
+				<?php
+				}
+				 ?>
 			</div>
 
 			<a class="left carousel-control" href="#carousel-id" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>

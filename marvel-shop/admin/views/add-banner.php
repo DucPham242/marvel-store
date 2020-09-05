@@ -9,7 +9,7 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Điền thông tin User cần thêm</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Thêm ảnh banner</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -17,12 +17,12 @@
 			<div class="modal-body">
 				<form action="" onsubmit="return Validate_addPro();" method="POST" role="form" enctype="multipart/form-data">
 				<div class="form-group">
-						<label for="">Tên sản phẩm</label><span id="spanname" class="spanerror"></span>
+						<label for="">Tên ảnh</label><span id="spanname" class="spanerror"></span>
 						<input type="text" id="name_product" name="name_banner" class="form-control"  placeholder="" onblur="Blurname_product()">
 					</div>
 					<div class="form-group">
-						<label for="">Ảnh đại diện</label><span id="spanimg" class="spanerror"></span>
-						<input type="file"  name="img" class="form-control"  placeholder="" onchange="validate_file()" id="img" required="">
+						<label for="">Chọn ảnh</label><span id="spanimg" class="spanerror"></span>
+						<input type="file"  name="img" class="form-control"  placeholder="" onchange="validate_file();" id="input_avt" required="">
 					</div>
 
 					<button type="submit" id="submit_addPro" name="add_banner" class="btn btn-primary">Thêm</button>

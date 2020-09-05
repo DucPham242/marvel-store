@@ -55,6 +55,10 @@ class Product_c extends product_m
 		}
 		switch ($method) {
 			case 'home':
+			$rs_banner=$this->pro->get_Banner();
+			// echo "<pre>";
+			// print_r($rs_banner);
+			// echo "</pre>";
 			$rs_hot=array();
 			$get_pro_hot = $this->pro->get_product_5star_home();
 			foreach ($get_pro_hot as $key => $value) {

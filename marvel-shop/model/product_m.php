@@ -190,6 +190,8 @@
 			return $pre->fetchAll(PDO::FETCH_ASSOC);
 		}
 
+
+//
 		public function getProduct_Id_review($id){
 			$sql="SELECT tbl_product.*,tbl_brand.name_brand,tbl_type.name_type From tbl_brand,tbl_product,tbl_type WHERE (tbl_product.id_brand=tbl_brand.id_brand) AND (tbl_product.id_type=tbl_type.id_type) AND id_product=:id";
 			$pre=$this->pdo->prepare($sql);
@@ -197,6 +199,14 @@
 			$pre->execute();
 			return $rs=$pre->fetch(PDO::FETCH_ASSOC);
 
+		}
+
+//Lấy ra danh sách các banner
+		public function get_Banner(){
+			$sql="SELECT * FROM tbl_banner";
+			$pre=$this->pdo->prepare($sql);
+			$pre->execute();
+			return $rs=$pre->fetchAll(PDO::FETCH_ASSOC);
 		}
 
 
