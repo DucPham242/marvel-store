@@ -35,8 +35,20 @@
 
 		//Lấy danh sách sản phẩm của 1 hãng kèm theo tên hãng(giới hạn phân trang)
 		public function Product_limit($form,$row,$id_brand){
-			
-			$sql="SELECT tbl_product.*,tbl_brand.name_brand,tbl_type.name_type From tbl_brand,tbl_product,tbl_type WHERE (tbl_product.id_brand=tbl_brand.id_brand) AND (tbl_product.id_type=tbl_type.id_type) AND tbl_product.id_brand=$id_brand ORDER BY id_product DESC LIMIT $form,$row";
+			if(!isset($_SESSION['sort']) || (isset($_SESSION['sort'])&&$_SESSION['sort']=='id_product_ASC')){
+				$sort='ORDER BY tbl_product.id_product ASC';
+			}else if(isset($_SESSION['sort'])&&$_SESSION['sort']=='id_product_DESC'){
+				$sort='ORDER BY tbl_product.id_product DESC';
+			}else if(isset($_SESSION['sort'])&&$_SESSION['sort']=='name_product_ASC'){
+				$sort='ORDER BY tbl_product.name_product ASC';
+			}else if(isset($_SESSION['sort'])&&$_SESSION['sort']=='name_product_DESC'){
+				$sort='ORDER BY tbl_product.name_product DESC';
+			}else if(isset($_SESSION['sort'])&&$_SESSION['sort']=='sale_price_ASC'){
+				$sort='ORDER BY sale_price ASC';
+			}else if(isset($_SESSION['sort'])&&$_SESSION['sort']=='sale_price_DESC'){
+				$sort='ORDER BY sale_price DESC';
+			}
+			$sql="SELECT tbl_product.*,tbl_brand.name_brand,tbl_type.name_type,(price-(price*discount/100)) as sale_price From tbl_brand,tbl_product,tbl_type WHERE (tbl_product.id_brand=tbl_brand.id_brand) AND (tbl_product.id_type=tbl_type.id_type) AND tbl_product.id_brand=$id_brand ".$sort." LIMIT $form,$row";
 			$pre=$this->pdo->query($sql);		
 			return $pre->fetchAll(PDO::FETCH_ASSOC);
 
@@ -57,8 +69,22 @@
 
 		//Lấy danh sách sản phẩm tùy chọn theo tùy chọn theo ID Hãng và ID Type.. Kèm theo tên hãng,tên loại (giới hạn phân trang)
 		public function ProductOption_limit($form,$row,$id_brand,$id_type){
+			
+			if(!isset($_SESSION['sort']) || (isset($_SESSION['sort'])&&$_SESSION['sort']=='id_product_ASC')){
+				$sort='ORDER BY tbl_product.id_product ASC';
+			}else if(isset($_SESSION['sort'])&&$_SESSION['sort']=='id_product_DESC'){
+				$sort='ORDER BY tbl_product.id_product DESC';
+			}else if(isset($_SESSION['sort'])&&$_SESSION['sort']=='name_product_ASC'){
+				$sort='ORDER BY tbl_product.name_product ASC';
+			}else if(isset($_SESSION['sort'])&&$_SESSION['sort']=='name_product_DESC'){
+				$sort='ORDER BY tbl_product.name_product DESC';
+			}else if(isset($_SESSION['sort'])&&$_SESSION['sort']=='sale_price_ASC'){
+				$sort='ORDER BY sale_price ASC';
+			}else if(isset($_SESSION['sort'])&&$_SESSION['sort']=='sale_price_DESC'){
+				$sort='ORDER BY sale_price DESC';
+			}
 
-			$sql="SELECT tbl_product.*,tbl_brand.name_brand,tbl_type.name_type From tbl_brand,tbl_product,tbl_type WHERE (tbl_product.id_brand=tbl_brand.id_brand) AND (tbl_product.id_type=tbl_type.id_type) AND tbl_product.id_brand=$id_brand AND tbl_product.id_type=$id_type ORDER BY id_product DESC LIMIT $form,$row";
+			$sql="SELECT tbl_product.*,tbl_brand.name_brand,tbl_type.name_type,(price-(price*discount/100)) as sale_price From tbl_brand,tbl_product,tbl_type WHERE (tbl_product.id_brand=tbl_brand.id_brand) AND (tbl_product.id_type=tbl_type.id_type) AND tbl_product.id_brand=$id_brand AND tbl_product.id_type=$id_type ".$sort." LIMIT $form,$row";
 			$pre=$this->pdo->query($sql);		
 			return $pre->fetchAll(PDO::FETCH_ASSOC);
 		}	
@@ -74,6 +100,8 @@
 			foreach ($arr as $key => $value) {
 					if($value['discount']>0){
 					$arr[$key]['discount_price']=$value['price']-(($value['price']*$value['discount'])/100);
+				}else{
+					$arr[$key]['discount_price']=$value['price'];
 				}
 			}
 			return $arr;

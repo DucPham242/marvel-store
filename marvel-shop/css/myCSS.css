@@ -178,6 +178,7 @@ a:hover{
 .button{
 	border-radius: 10px;
 	background-color: #fff;
+	outline: none;
 }
 .button:hover{
 	background-color: #40E55B;
@@ -406,6 +407,7 @@ a .iconfa_user:hover{
 .btn_viewall{
 	border-radius: 40px;
 	padding: 10px 35px;
+
 }
 .tittle_footer{
 	color: #ECE7E7;
@@ -561,7 +563,7 @@ a .iconfa_user:hover{
 	display: none;
 }	
 .product_box{
-	min-height: 540px;
+	min-height: 560px;
 }
 .caption{
 	margin-top: 10px;

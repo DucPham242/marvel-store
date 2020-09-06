@@ -88,6 +88,27 @@
 		$pre->bindParam(':id_user',$id_user);
 		return $pre->execute();
 	}
+
+//Sửa phone của user
+	public function edit_phone($phone,$id_user){
+		$sql="UPDATE tbl_user SET phone=:phone WHERE id_user=:id_user";
+		$pre=$this->pdo->prepare($sql);
+		$pre->bindParam(':phone',$phone);
+		$pre->bindParam(':id_user',$id_user);
+		return $pre->execute();
+	}
+
+//Sửa lại email,phone,địa chỉ của user
+	public function edit_email_phone_address($email,$phone,$address,$id_user){
+		$sql="UPDATE tbl_user SET email=:email,phone=:phone,address=:address WHERE id_user=:id_user";
+		$pre=$this->pdo->prepare($sql);
+		$pre->bindParam(':email',$email);
+		$pre->bindParam(':phone',$phone);
+		$pre->bindParam(':address',$address);
+		$pre->bindParam(':id_user',$id_user);
+		return $pre->execute();
+	}
+
 //Hàm lấy thông tin ra 1 code voucher,dựa vào biến code truyền vào
 	public function check_voucher($code){
 		$sql="SELECT * FROM tbl_voucher_order WHERE code_voucher=:code";
@@ -217,6 +238,65 @@
 		$pre->bindParam(':pass',$pass);
 		return $pre->execute();
 	}
+
+	//Hàm lấy ra 1 bản ghi trong bảng tbl_verification dựa theo email
+	public function get_Verification_email($email){
+			$sql = "SELECT * FROM tbl_verification WHERE email=:email";
+			$pre = $this->pdo->prepare($sql);
+			$pre->bindParam(':email', $email);
+			$pre->execute();
+			return $pre->fetchAll(PDO::FETCH_ASSOC);
+		}
+
+		//Tìm kiếm 1 bản ghi bảng tbl_verification dựa theo email và verification_code
+		public function get_Verification_email_code($email,$verification_code){
+			$sql = "SELECT * FROM tbl_verification WHERE email=:email AND verification_code=:verification_code";
+			$pre = $this->pdo->prepare($sql);
+			$pre->bindParam(':email',$email);
+			$pre->bindParam(':verification_code',$verification_code);
+			$pre->execute();
+			return $pre->fetchAll(PDO::FETCH_ASSOC);			
+		}	
+
+	//Thêm 1 verification code vào tbl_verification
+	public function add_Verification($email,$verification_code){
+			$sql = "INSERT INTO tbl_verification (email,verification_code) VALUES (:email,:verification_code)";
+			$pre = $this->pdo->prepare($sql);
+			$pre->bindParam(':email', $email);
+			$pre->bindParam(':verification_code', $verification_code);
+			return $pre->execute();
+			
+		}
+
+	//Update lại 1 verification code vào tbl_verification dựa theo email
+	public function update_Verification($email,$verification_code){
+			$sql = "UPDATE tbl_verification SET verification_code=:verification_code WHERE email=:email";
+			$pre = $this->pdo->prepare($sql);
+			$pre->bindParam(':email', $email);
+			$pre->bindParam(':verification_code', $verification_code);
+			return $pre->execute();
+			
+		}
+
+	//Xóa 1 bản ghi bảng tbl_verification dựa theo verification_code
+	public function del_Verification($verification_code){
+			$sql = "DELETE FROM tbl_verification WHERE verification_code=:verification_code";
+			$pre = $this->pdo->prepare($sql);
+			$pre->bindParam(':verification_code', $verification_code);
+			return $pre->execute();
+			
+		}
+	
+	//Thay đổi mật khẩu của 1 user tìm theo email
+	public function update_PassUser_email($email,$pass){
+			$sql = "UPDATE tbl_user SET pass=:pass WHERE email=:email";
+			$pre = $this->pdo->prepare($sql);
+			$pre->bindParam(':email', $email);
+			$pre->bindParam(':pass', $pass);
+			return $pre->execute();
+			
+		}	
+
 
 }
  ?>

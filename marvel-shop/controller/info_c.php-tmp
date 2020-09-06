@@ -320,7 +320,7 @@ class Info_c extends Info_m {
 					unset($_SESSION['cart']);
 					echo "<script>alert('Đặt hàng thành công!');";
 
-					echo "location.href = 'index.php';</script>";
+					echo "window.location.href = 'index.php';</script>";
 
 			} else if (isset($_POST['submit']) && isset($_COOKIE['id_user']) && isset($_COOKIE['name_user'])) {
 

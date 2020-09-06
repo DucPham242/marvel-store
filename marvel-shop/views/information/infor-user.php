@@ -28,9 +28,11 @@
 							}
 						 ?>
 						<p>Email: <?php echo $info['email']; ?></p>
-						<p>Điện thoại: <?php echo $info['phone']; ?></p>
+						<div id="noti_phone"></div>
+						<div id="phone_box"><p style="position: relative;" id="phone">Điện thoại: <?php echo $info['phone']; $_SESSION['phone_user']=$info['phone']; ?><a id="edit_phone" href="#" style="position: absolute;right: 5px;"><i class="fa fa-share fa-1x iconfa_user" aria-hidden="true"  > Sửa</i></a></p></div>
 						<div id="address_box"><p id="address">Địa chỉ: <?php echo "<span style='color: gray;font-style: italic;'>".$info['address']."</span>"; ?></p></div>
-						<a href="#" id="edit_address" class="" style="position: absolute;right:10px;bottom:20px;"><i class="fa fa-share fa-1x iconfa_user" aria-hidden="true"  > Sửa địa chỉ</i></a>
+						<div id="noti_address"></div>
+						<a href="#" id="edit_address" class="" style="position: absolute;right:10px;bottom:10px;"><i class="fa fa-share fa-1x iconfa_user" aria-hidden="true"  > Sửa địa chỉ</i></a>
 						<?php 
 							}
 						?>

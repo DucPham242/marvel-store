@@ -1,5 +1,4 @@
 <?php
-
 if(isset($ajax_flag)){
 	include_once '../../model/info_m.php';
 }else{
@@ -25,9 +24,17 @@ class Info_c extends Info_m
 	public function edit_address($address,$id_user){
 		return $this->info->edit_address($address,$id_user);
 	}
+//Lấy hàm edit_phone($phone,$id_user) cho ajax
+	public function edit_phone($phone,$id_user){
+		return $this->info->edit_phone($phone,$id_user);
+	}
 //Lấy hàm check_voucher($code) cho AJax
 	public function check_voucher($code){
 		return $this->info->check_voucher($code);
+	}
+//Lấy hàm getInfo_user_as_phone($phone) cho ajax
+	public function getInfo_user_as_phone($phone){
+		return $this->info->getInfo_user_as_phone($phone);
 	}
 
 
@@ -44,9 +51,11 @@ class Info_c extends Info_m
 				header("Location:index.php?page=info&method=login");
 			}
 			$info_user=$this->info->getInfo_user($_COOKIE['id_user']);
-				// echo "<pre>";
-				// print_r($info_user);
-				// echo "</pre>";
+			foreach ($info_user as $key => $value) {
+				if(!isset($value['email']) || !isset($value['phone']) || !isset($value['address'])){
+					header("Location:index.php?page=info&method=update-info");
+				}
+			}
 
 			$info_order=$this->info->getOrder_Id($_COOKIE['id_user']);
 				// echo "<pre>";
@@ -142,7 +151,7 @@ class Info_c extends Info_m
     $facebook_login_url = $facebook_helper->getLoginUrl('http://localhost/PHP0320E2/marvel-store/marvel-shop/index.php?page=info&method=login', $facebook_permissions);
     
     // Render Facebook login button
-    $facebook_login_url = '<div align="center"><a href="'.$facebook_login_url.'"><img src="images/login_FB.png" style="width:240px;" /></a></div>';
+    $facebook_login_url = '<div align="center"><a href="'.$facebook_login_url.'"><img src="images/login_FB.png" style="width:220px;" /></a></div>';
 }
 
 if(isset($_SESSION['user_idFB']) && isset($_SESSION['user_nameFB'])){
@@ -187,6 +196,9 @@ break;
 case 'logout1':
 setcookie('id_user','',(time()-999999999999999999999999999));
 setcookie('name_user','',(time()-999999999999999999999999999));
+setcookie('user_imageFB','',(time()-999999999999999999999999999));
+
+session_destroy();
 header("Location:index.php?page=home&method=cart");
 
 break;
@@ -226,13 +238,43 @@ if(isset($_POST['submit_register'])){
 
 }
 
-
-
-
-
-
 include_once "views/information/user-register.php";
 break;	
+
+case 'update-info'://Trang bổ sung lại thông tin cá nhân của tài khoản
+$check_info=$this->info->getInfo_user($_COOKIE['id_user']);
+foreach ($check_info as $key => $value) {
+	if(isset($value['email']) && isset($value['phone']) && isset($value['address'])){
+		header("Location:index.php?page=info&method=info-user");
+	}
+}
+if(isset($_POST['submit_update_info'])){
+	$email=$_POST['email'];
+	$phone=$_POST['phone'];
+	$address=$_POST['address'];
+
+	$rs_email=$this->info->getInfo_user_as_email($email);
+	$rs_phone=$this->info->getInfo_user_as_phone($phone);
+
+
+	if(count($rs_email)!=0){
+		$_SESSION['noti_updateinfor']=1;
+	}else if(count($rs_phone)!=0){
+		$_SESSION['noti_updateinfor']=2;
+	}else{
+		$edit=$this->info->edit_email_phone_address($email,$phone,$address,$_COOKIE['id_user']);
+		if($edit){
+			$_SESSION['noti_updateinfor']=4;
+		}else{
+			$_SESSION['noti_updateinfor']=3;
+		}
+	}
+
+}
+
+
+include_once "views/information/update-inforuser.php";
+break;
 
 
 
@@ -241,11 +283,18 @@ case 'checkout':
 if(!isset($_SESSION['cart']) || empty($_SESSION['cart'])){
 	header("Location:index.php");
 }
-include_once 'PHPMailer/class.phpmailer.php';
-include_once 'PHPMailer/class.smtp.php'; 
+
+
+
+
 if (isset($_COOKIE['id_user']) && isset($_COOKIE['name_user'])) {
 
 			$rs_checkout = $this->info->getInfo_user($_COOKIE['id_user']);// lấy thông tin đăng nhập của người dùng
+			foreach ($rs_checkout as $key => $value) {//Nếu thông tin tài khoản chưa đầy đủ,bắt bổ sung
+				if(!isset($value['email']) || !isset($value['phone']) || !isset($value['address'])){
+					header("Location:index.php?page=info&method=update-info");
+				}
+			}
 		}
 			// thêm mới tài khoản nếu khách hàng chưa có tài khoản
 		if (isset($_POST['submit']) && !isset($_COOKIE['id_user']) && !isset($_COOKIE['name_user'])) {
@@ -319,6 +368,8 @@ if (isset($_COOKIE['id_user']) && isset($_COOKIE['name_user'])) {
 
 
 		//gửi mail 
+			include_once 'PHPMailer/class.phpmailer.php';
+			include_once 'PHPMailer/class.smtp.php'; 
 			$data = '<!DOCTYPE html>
 			<html lang="">
 			<head>
@@ -481,6 +532,8 @@ if (isset($_COOKIE['id_user']) && isset($_COOKIE['name_user'])) {
 		}
 
 		//gửi mail 
+		include_once 'PHPMailer/class.phpmailer.php';
+		include_once 'PHPMailer/class.smtp.php'; 
 		$data = '<!DOCTYPE html>
 		<html lang="">
 		<head>
@@ -603,8 +656,147 @@ if (isset($_COOKIE['id_user']) && isset($_COOKIE['name_user'])) {
 	break;
 
 	case 'forget':
-	include_once "views/information/forget-pass.php";
-	break;
+
+	if (isset($_COOKIE['id_user']) || !empty($_COOKIE['id_user'])) {
+		header("Location:index.php");
+	}
+
+	if(isset($_POST['submit_forget'])){
+		$email=$_POST['email'];
+
+		$check_email=count($this->info->getInfo_user_as_email($email));
+		if($check_email==0){
+			$_SESSION['noti_forget']=1;
+		}else{
+			//tạo ra 1 mã verification_code
+			$verification_code=base64_encode($email).time();
+
+			//Thêm hoặc sửa verification trong DB
+			$search_email=count($this->info->get_Verification_email($email));
+			if($search_email==0){
+				$add=$this->info->add_Verification($email,$verification_code);
+			}else if($search_email==1){
+				$edit=$this->info->update_Verification($email,$verification_code);
+			}
+
+			include_once 'PHPMailer/class.phpmailer.php';
+			include_once 'PHPMailer/class.smtp.php';
+
+			$resetpass_url='http://localhost/PHP0320E2/marvel-store/marvel-shop/index.php?page=info&method=reset-pass&email='.$email.'&code='.$verification_code;
+
+			$data='<!DOCTYPE html>
+			<html lang="en">
+			<head>
+			<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<title>Thiết lập mật khẩu</title>
+			</head>
+			<style type="text/css">
+  *{
+			font-size: 20px;
+			font-family: Arial;
+			text-align: left;
+		}
+		a{
+			color: #1666a2;
+			text-decoration: none;
+		}
+		</style>
+		<body>
+		<div id="wrapper" style="width: 800px;margin: 0px auto;">
+		<h2 style="font-size: 30px;color: #F12828;">MarlvelStore</h2><br>
+		<p style="font-size: 25px;">Thiết lập mật khẩu</p> <br><p style="color: gray;font-style: italic;">Click vào đường dẫn dưới đây để thiết lập mật khẩu tài khoản của bạn tại <a href="" style="">Marvelstore.</a> Nếu bạn không có yêu cầu thay đổi mật khẩu, xin hãy xóa email này để bảo mật thông tin.</p><br>
+		<a href="'.$resetpass_url.'" style=""><button style="color: white;background: #1666a2;border-radius: 8px;padding: 20px 25px;cursor: pointer;
+		">Thiết lập mật khẩu</button></a>  hoặc  <a style="text-decoration:none;" href="http://localhost/PHP0320E2/marvel-store/marvel-shop/index.php"><span style="font-style: italic;"> Đến cửa hàng của chúng tôi</span></a>
+		<hr>
+		<p style="color: gray;font-style: italic;">Nếu bạn có bất cứ câu hỏi nào, đừng ngần ngại liên lạc với chúng tôi tại <a href="mailto:lamtiensink98@gmail.com"><span style="">lamtiensink98@gmail.com</span></a></p>
+
+		</div>
+
+		</body>
+		</html>';
+
+		$mail = new PHPMailer(true);
+		try {
+						//Server settings
+			$mail->CharSet   = 'UTF-8';
+						$mail->SMTPDebug = 0;// Enable verbose debug output
+						$mail->isSMTP();// Send using SMTP
+						$mail->Host       = 'smtp.gmail.com';// Set the SMTP server to send through
+						$mail->SMTPAuth   = true;// Enable SMTP authentication
+						$mail->Username   = 'ngocduc24021997@gmail.com';// SMTP username
+						$mail->Password   = 'ngocduc2402';// SMTP password
+						$mail->SMTPSecure = 'tls';
+						// Enable TLS encryption;`PHPMailer::ENCRYPTION_SMTPS`encouraged
+						$mail->Port = 587;// TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+
+						//Recipients
+						$mail->setFrom('marvel-shop@gmail.com', 'Marvel Store-Thế giới đồ chơi số 1 tại Việt Nam');// tên của tài khoản để hiển thị email.
+						$mail->addAddress($email);// email và tên người nhận
+
+						// Content
+						$mail->isHTML(true);// Set email format to HTML
+						$mail->Subject = 'THIẾT LẬP LẠI MẬT KHẨU';
+						$mail->Body    = $data;
+
+						$mail->send();
+						$_SESSION['noti_forget']=2;
+					} catch (Exception $e) {
+						$_SESSION['noti_forget']=3;
+					}
+				}
+			}
+			include_once "views/information/forget-pass.php";
+			break;
+
+	case 'reset-pass':
+	if (isset($_COOKIE['id_user']) || !empty($_COOKIE['id_user'])) {
+		header("Location:index.php");
+	}
+
+	if(isset($_GET['email']) && isset($_GET['code'])){
+		$email=$_GET['email'];
+		$verification_code=$_GET['code'];
+	}else{
+		header("Location:index.php");
+	}
+	$check_url=$this->info->get_Verification_email_code($email,$verification_code);
+	if(count($check_url)!=1){
+		$_SESSION['noti_resetpass']=1;
+	}else{
+		// echo "<pre>";
+		// print_r($check_url);
+		// echo"</pre>";
+
+		foreach ($check_url as $key => $value) {
+			$time_created=strtotime($value['last_created']);
+			// echo $time_created."<br>";
+			$time=time();
+			// echo $time."<br>";
+			if($time-$time_created>600){//Nếu quá 10 phút thì thông báo mail hết hiệu lực
+				$_SESSION['noti_resetpass']=2;
+			}else{
+				$_SESSION['noti_resetpass']=3;
+
+				if(isset($_POST['submit_resetpass'])){
+					$pass=md5(base64_encode($_POST['pass']));
+
+					$update=$this->info->update_PassUser_email($email,$pass);
+					if($update){
+						$del_verification=$this->info->del_Verification($verification_code);
+						echo "<script>alert('Thiết lập mật khẩu thành công');</script>";
+						echo "<script>window.location.href='index.php?page=info&method=login';</script>";
+					}else{
+						echo "<script>alert('Thất bại! Có lỗi trong quá trình xử lý');</script>";
+						echo "<script>window.location.href='index.php?page=info&method=login';</script>";
+					}
+				}
+			}
+		}
+	}
+
+		include_once "views/information/reset-pass.php";
+		break;
 
 
 	case 'tutorial': //Trang hướng dẫn mua hàng

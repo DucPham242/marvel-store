@@ -123,7 +123,7 @@
 
 		<div class="row">
 			<div class="col-md-6 col-md-push-5 col-xs-6 col-xs-push-3">
-				<a href="index.php?page=list-product&method=hot"><button type="button" class="btn btn-success btn_viewall">Xem tất cả</button></a>
+				<a href="index.php?page=list-product&method=hot"><button type="button" class="btn_viewall btn btn-success" style="outline: none;">Xem tất cả</button></a>
 			</div>
 		</div>
 
@@ -193,7 +193,7 @@
 
 			<div class="row">
 				<div class="col-md-6 col-md-push-5 col-xs-6 col-xs-push-3">
-					<a href="index.php?page=list-product&method=marvel"><button type="button" class="btn btn-success btn_viewall" style="">Xem tất cả</button></a>
+					<a href="index.php?page=list-product&method=marvel"><button type="button" class="btn btn-success btn_viewall" style="outline: none">Xem tất cả</button></a>
 				</div>
 			</div>
 			<div class="row">
@@ -257,7 +257,7 @@
 				</div>
 				<div class="row">
 					<div class="col-md-6 col-md-push-5 col-xs-6 col-xs-push-3">
-						<a href="index.php?page=list-product&method=dc"><button type="button" class="btn btn-success btn_viewall">Xem tất cả</button></a>
+						<a href="index.php?page=list-product&method=dc"><button type="button" class="btn btn-success btn_viewall" style="outline: none;">Xem tất cả</button></a>
 					</div>
 				</div>
 				<div class="modal fade bs-example-modal-lg modal_content" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">

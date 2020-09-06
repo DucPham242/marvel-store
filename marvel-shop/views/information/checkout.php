@@ -38,7 +38,7 @@
 								 <span class="glyphicon glyphicon-user"></span>
 							</span>
 
-							<input type="text" name="name" class="form-control" value="<?php if(isset($rs_checkout)){ echo $value['name_user'];} ?>" placeholder="Họ và tên" id="name_checkout">
+							<input type="text" name="name" class="form-control" value="<?php if(isset($rs_checkout)){ echo $value['name_user'];} ?>" placeholder="Họ và tên" id="name_checkout"  <?php if(isset($_COOKIE['id_user'])){echo "readonly";} ?>>
 
 						</div>
 					</div>
@@ -49,7 +49,7 @@
 								 <span class="glyphicon glyphicon-envelope"></span>
 							</span>
 
-							<input type="text" name="email" class="form-control" value="<?php if(isset($rs_checkout)){echo $value['email'];}?>" placeholder="Email">
+							<input type="text" name="email" class="form-control" value="<?php if(isset($rs_checkout)){echo $value['email'];}?>" placeholder="Email" <?php if(isset($_COOKIE['id_user'])){echo "readonly";} ?>>
 
 						</div>
 					</div>
@@ -61,7 +61,7 @@
 								<span class="glyphicon glyphicon-phone"></span>
 							</span>
 
-							<input type="text" class="form-control" name="phone" value="<?php if(isset($rs_checkout)){echo $value['phone'];} ?>" placeholder="Số điện thoại" id="phone_checkout">
+							<input type="text" class="form-control" name="phone" value="<?php if(isset($rs_checkout)){echo $value['phone'];} ?>" placeholder="Số điện thoại" id="phone_checkout" <?php if(isset($_COOKIE['id_user'])){echo "readonly";} ?>>
 
 						</div>
 					</div>
@@ -72,7 +72,7 @@
 								<span class="glyphicon glyphicon-home"></span>
 							</span>
 
-							<input type="text" class="form-control" name="address" value="<?php if(isset($rs_checkout)){echo $value['address'];} ?>" placeholder="Địa chỉ nhận hàng">
+							<input type="text" class="form-control" name="address" value="<?php if(isset($rs_checkout)){echo $value['address'];} ?>" placeholder="Địa chỉ nhận hàng" <?php if(isset($_COOKIE['id_user'])){echo "readonly";} ?>>
 
 						</div>
 					</div>
@@ -144,7 +144,7 @@
 					
 						<div class="form-group">
 							<label class="sr-only" for="">label</label>
-							<input type="email" class="form-control" id="code_voucher" placeholder="Nhập mã giảm giá">
+							<input type="text" class="form-control" id="code_voucher" placeholder="Nhập mã giảm giá">
 						</div>
 					
 						

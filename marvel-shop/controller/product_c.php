@@ -245,6 +245,7 @@ class Product_c extends product_m
 			$form=($pages-1)*$row;
 			
 			$rs=$this->pro->Product_limit($form,$row,2);
+
 			break;
 
 			case 'trans':
@@ -418,13 +419,14 @@ class Product_c extends product_m
 		}
 		$rs=$this->pro->add_discount($rs);
 		// echo '<pre>';
-					// print_r($rs);
-					// echo '</pre>';
-		// if (case == 'hot') {
-		// 		add_discount_SS($rs);		
-		// }else{
-		// 	$rs=$this->pro->add_discount($rs);
-		// }			
+		// 			print_r($rs);
+		// 			echo '</pre>';
+		
+		// array_multisort(array_column($rs, 'discount_price'), SORT_DESC, $rs);
+		// 			echo '<pre>';
+		// 			print_r($rs);
+		// 			echo '</pre>';
+
 		include_once 'views/product/list-product.php';
 
 
