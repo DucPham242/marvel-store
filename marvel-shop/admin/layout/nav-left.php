@@ -18,6 +18,7 @@
 			}
 			 ?>
 			 <a href="index.php?page=home&views=voucher" class="set-text-nav"><li class="list-group-item">Voucher + mã giảm giá</li></a>
+			 <a href="index.php?page=home&views=news" class="set-text-nav"><li class="list-group-item">Quản lý bài viết</li></a>
 			
 
 		</ul>

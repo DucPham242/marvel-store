@@ -24,7 +24,7 @@ function updatecart(id){
 
 	// làm mô tả từng ảnh
 	$(document).ready(function(){
-<<<<<<< HEAD
+
 		if($("#ship").attr("checked")=='checked'){
 	$.post('server/info/changeSS-35k.php', function(data) {
 	
@@ -34,7 +34,6 @@ function updatecart(id){
 	});
 	$("#price_table_box").load(" #content_price_table");
 }
-=======
 		//Thiết lập sẵn SS price ship và voucherdefault
 		if($("#ship").attr("checked")=='checked'){
 			$.post('server/info/changeSS-35k.php', function(data) {
@@ -46,9 +45,6 @@ function updatecart(id){
 			$("#price_table_box").load(" #content_price_table");
 		}
 
-
-
->>>>>>> 4b69368b27b85d25aca3a84739f2a6791f7e9da1
 	//JS hiệu ứng list ảnh ở phần Xem trước sản phẩm
 	$(document).on('click', '.list_img_detail', function(e) {
 
@@ -227,11 +223,6 @@ $("#payment_bank").click(function(e) {
 	
 // 	});
 // 	$.post('server/info/voucherDefault.php', function(data) {
-<<<<<<< HEAD
-		
-=======
-	
->>>>>>> 4b69368b27b85d25aca3a84739f2a6791f7e9da1
 // 	});
 // 	$("#price_table_box").load(" #content_price_table");
 // }

@@ -10,7 +10,7 @@
                                         <i class="fa fa-comments fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge"><?php echo $count_review; ?></div>
+                                        <div class="huge"><?php echo $count_review;?></div>
                                         <div>Lượt đánh giá</div>
                                     </div>
                                 </div>
@@ -32,7 +32,7 @@
                                         <i class="fa fa-tasks fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge"><?php echo $count_user; ?></div>
+                                        <div class="huge"><?php echo $count_user;?></div>
                                         <div>Thành viên</div>
                                     </div>
                                 </div>
@@ -54,7 +54,7 @@
                                         <i class="fa fa-shopping-cart fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge"><?php echo  $count_order; ?></div>
+                                        <div class="huge"><?php echo $count_order;?></div>
                                         <div>Tổng đơn hàng</div>
                                     </div>
                                 </div>
@@ -76,7 +76,7 @@
                                         <i class="fa fa-support fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge"><?php echo $count_pro; ?></div>
+                                        <div class="huge"><?php echo $count_pro;?></div>
                                         <div>Tổng số sản phẩm</div>
                                     </div>
                                 </div>
@@ -106,18 +106,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($new_order as $key => $value) {
-                                
-                                ?>
-                                <tr class="success">
-                                    <td><?php echo $value['id_order']; ?></td>
-                                    <td><?php echo $value['name']; ?></td>
-                                    <td><?php echo $value['email']; ?></td>
-                                    <td><?php echo $value['address']; ?></td>
-                                    <td><a href="index.php?page=home&views=order"><button type="button" class="btn btn-success">Xem chi tiết</button></a></td>
-                                </tr>
-                            <?php } ?>
-                            </tbody>
+<?php foreach ($new_order as $key => $value) {
+
+	?>
+	                                <tr class="success">
+	                                    <td><?php echo $value['id_order'];?></td>
+	                                    <td><?php echo $value['name'];?></td>
+	                                    <td><?php echo $value['email'];?></td>
+	                                    <td><?php echo $value['address'];?></td>
+	                                    <td><a href="index.php?page=home&views=order"><button type="button" class="btn btn-success">Xem chi tiết</button></a></td>
+	                                </tr>
+	<?php }?>
+</tbody>
                         </table>
                     </div>
                 </div>
