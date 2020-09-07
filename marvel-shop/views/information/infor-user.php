@@ -13,7 +13,8 @@
 			<div class="col-md-4 col-xs-12">
 				<a href="index.php?page=info&method=logout" style="margin-top: 40px"><i  class="fa fa-sign-out iconfa_user" aria-hidden="true">Thoát</i></a>
 
-					<div class="userbox"  style="width: 300px;padding-left: 10px;position: relative;min-height: 250px;padding-bottom: 20px;margin-bottom: 40px">
+
+					<div class="userbox" id="userbox_main"  style="">
 						<?php foreach ($info_user as $key => $info) {
 							
 						 ?>
@@ -37,8 +38,16 @@
 							}
 						?>
 					</div>
+						<?php 
+				if(!isset($_COOKIE['user_imageFB'])){
+					?>
+					<a href="index.php?page=info&method=change-pass" style="margin-left: 100px;"><i class="fa fa-unlock-alt iconfa_user" aria-hidden="true"> Đổi mật khẩu</i></a>
+					<?php
+				}
+
+				 ?>
 					<div class="userbox" style="width: 300px;color: gray;font-style: italic;padding: 20px;">
-						Liên hệ với quản trị viên Marvel Store để được thay đổi thông tin tài khoản và thông tin đơn hàng. <br>
+						Liên hệ với quản trị viên Marvel Store để được thay đổi thông tin đơn hàng. <br>
 						Hotline: 0398762441.
 					</div>
 			</div>

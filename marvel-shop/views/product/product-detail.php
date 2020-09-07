@@ -62,8 +62,6 @@
 					<?php
 				}
 				?>
-				
-				<h4 style="color:red;">Số lượng còn: <?php echo $value['quantity']; ?> sản phẩm</h4>
 				<?php 
 				// echo $value['quantity'];
 					if ($value['quantity'] <= 0) {
@@ -131,7 +129,7 @@
 					}
 				}
 				?>
-				<div class="fb-like" id="like_share_product" data-href="http://localhost/PHP0320E2/marvel-store/marvel-shop/index.php?page=home&method=product-detail&id=<?php echo $id; ?>" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>
+				<div class="fb-like" id="like_share_product" data-href="https://lamtiensink98.xyz/" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>
 
 			</div>
 		</div>

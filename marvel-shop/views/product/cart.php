@@ -36,7 +36,8 @@
 												<th></th>
 												<th style="width: 200px;">Sản phẩm </th>
 												<th>Đơn giá</th>
-												<th>Số lượng</th>
+												<th>Số lượng mua</th>
+												<th style="width: 120px;">Số lượng còn</th>
 												<th>Thành tiền</th>
 												<th>Action</th>
 											</tr>
@@ -71,6 +72,7 @@
 													<td>
 														<input type="number" value="<?php echo $cart['qty'] ?>" class="form-control" min="1" max="<?php echo $cart['quantity']; ?>" id="<?php echo $cart['id_product'] ?>" onchange="updatecart(<?php echo $cart['id_product']; ?>);" onkeypress="return onlyNum();" >
 													</td>
+													<td><input type="number" readonly="" class="form-control" value="<?php echo $cart['quantity']; ?>"></td>
 													<?php 
 													if ($cart['discount'] <= 0) {
 

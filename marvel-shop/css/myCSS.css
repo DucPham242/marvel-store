@@ -390,6 +390,7 @@ a:hover{
 }
 a .iconfa_user{
 	color: #000;
+	
 }
 a .iconfa_user:hover{
 	color: #337ab7;
@@ -399,6 +400,9 @@ a .iconfa_user:hover{
 	
 	margin-bottom: 10px;
 
+}
+#userbox_main{
+	width: 300px;padding-left: 10px;position: relative;min-height: 250px;padding-bottom: 20px;margin-bottom: 10px;
 }
 
 #tbl_ordered tbody tr td{

@@ -799,6 +799,33 @@ if (isset($_COOKIE['id_user']) && isset($_COOKIE['name_user'])) {
 		break;
 
 
+	case 'change-pass':
+		if(!isset($_COOKIE['id_user']) || isset($_COOKIE['user_imageFB'])){
+			header("Location:index.php");
+		}
+
+		if(isset($_POST['submit_changepass'])){
+			$old_pass=md5(base64_encode($_POST['old_pass']));
+			$pass=md5(base64_encode($_POST['pass']));
+
+			$check_pass=count($this->info->getInfo_user_id_pass($_COOKIE['id_user'],$old_pass));
+			// echo "<pre>";
+			// print_r($check_pass);
+			// echo "</pre>";
+			if($check_pass!=1){
+				$_SESSION['noti_changepass']=1;
+			}else{
+				$change=$this->info->update_PassUser_id_user($_COOKIE['id_user'],$pass);
+				if($change){
+					$_SESSION['noti_changepass']=2;
+				}else{
+					$_SESSION['noti_changepass']=3;
+				}
+			}
+		}
+		include_once "views/information/changepass.php";
+		break;
+
 	case 'tutorial': //Trang hướng dẫn mua hàng
 	include_once "views/information/how-buy.php";
 	break;

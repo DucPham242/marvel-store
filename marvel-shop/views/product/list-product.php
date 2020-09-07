@@ -132,13 +132,13 @@
 													</ul> -->
 													<select name="city" id="sort_list_name" class="form-control">
 														<option value="">--Sắp xếp theo--</option>
-														<option value="id_product_DESC" >Mới nhất</option>
-														<option value="id_product_ASC">Cũ nhất</option>
-														<option value="name_product_ASC">Tên: A-Z</option><option value="name_product_DESC" >Tên: Z-A</option>
-														<option value="sale_price_ASC">
+														<option value="id_product_DESC" <?php if(isset($_SESSION['sort']) && $_SESSION['sort']=='id_product_DESC'){echo 'selected';} ?> >Mới nhất</option>
+														<option value="id_product_ASC" <?php if(isset($_SESSION['sort']) && $_SESSION['sort']=='id_product_ASC'){echo 'selected';} ?> >Cũ nhất</option>
+														<option value="name_product_ASC" <?php if(isset($_SESSION['sort']) && $_SESSION['sort']=='name_product_ASC'){echo 'selected';} ?> >Tên: A-Z</option><option value="name_product_DESC"  <?php if(isset($_SESSION['sort']) && $_SESSION['sort']=='name_product_DESC'){echo 'selected';} ?> >Tên: Z-A</option>
+														<option value="sale_price_ASC" <?php if(isset($_SESSION['sort']) && $_SESSION['sort']=='sale_price_ASC'){echo 'selected';} ?> >
 															Giá: Tăng dần
 														</option>
-														<option value="sale_price_DESC">
+														<option value="sale_price_DESC" <?php if(isset($_SESSION['sort']) && $_SESSION['sort']=='sale_price_DESC'){echo 'selected';} ?> >
 															Giá: Giảm dần
 														</option>
 														

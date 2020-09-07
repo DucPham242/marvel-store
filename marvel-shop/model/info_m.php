@@ -23,6 +23,16 @@
 		return $pre->fetchAll(PDO::FETCH_ASSOC);
 	}
 
+//Lấy thông tin người dùng đối chiếu qua id_user và pass
+	public function getInfo_user_id_pass($id_user,$pass){
+		$sql="SELECT * FROM tbl_user WHERE id_user=:id_user AND pass=:pass";
+		$pre=$this->pdo->prepare($sql);
+		$pre->bindParam(':id_user',$id_user);
+		$pre->bindParam(':pass',$pass);
+		$pre->execute();
+		return $pre->fetchAll(PDO::FETCH_ASSOC);
+	}
+
 //Lấy thông tin người dùng đối chiếu thông qua COOKIE id_user
 	public function getInfo_user($id){
 		$sql="SELECT * FROM tbl_user WHERE id_user=:id";
@@ -292,6 +302,16 @@
 			$sql = "UPDATE tbl_user SET pass=:pass WHERE email=:email";
 			$pre = $this->pdo->prepare($sql);
 			$pre->bindParam(':email', $email);
+			$pre->bindParam(':pass', $pass);
+			return $pre->execute();
+			
+		}	
+
+	//Thay đổi mật khẩu của 1 user tìm theo id_user
+	public function update_PassUser_id_user($id_user,$pass){
+			$sql = "UPDATE tbl_user SET pass=:pass WHERE id_user=:id_user";
+			$pre = $this->pdo->prepare($sql);
+			$pre->bindParam(':id_user', $id_user);
 			$pre->bindParam(':pass', $pass);
 			return $pre->execute();
 			
