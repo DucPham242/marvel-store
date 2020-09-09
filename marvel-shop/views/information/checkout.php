@@ -13,7 +13,7 @@
 							if(!isset($_COOKIE['id_user'])&& empty($_COOKIE['id_user'])) {
 								
 						?>
-							<h4>Bạn đã có tài khoản? <a href="index.php?page=info&method=login">Đăng nhập</a></h4>
+							<h4>Bạn đã có tài khoản? <a href="info/login">Đăng nhập</a></h4>
 						<?php 
 
 							}else{
@@ -23,7 +23,7 @@
 						?>
 							<i class="fa fa-user-circle-o fa-3x" style="color: gray;" aria-hidden="true"></i>
 							<span id="checkout_user_txt" style=""><?php echo $value['name_user']; ?> (<?php echo $value['email'];  ?>)<br>
-							<a href="index.php?page=info&method=logout1">Đăng xuất</a></span>
+							<a href="info/logout1">Đăng xuất</a></span>
 						<?php 
 							}
 							}	
@@ -111,7 +111,7 @@
 					
 
 				</form><br>
-				<a href="index.php?page=home&method=cart"> Trở về giỏ hàng</a>
+				<a href="cart"> Trở về giỏ hàng</a>
 
 				</div>
 				

@@ -536,8 +536,8 @@ a .iconfa_user:hover{
 /*cart-icon*/
 .cart-icon{
 	position: fixed;
-	bottom: 350px;
-	right: 20px;
+	bottom: 500px;
+	left: 10px;
 	font-size: 25px;
 	width: 40px;
 	height: 40px;
@@ -547,14 +547,20 @@ a .iconfa_user:hover{
 	border: 0px solid #fff;
 	border-radius: 10px;
 	box-sizing: border-box;
+	z-index:999999;
+
+
+
 	
 }
+
+
 /*end cart-icon*/
 /*back-to top arrow*/
 .back-top{
 	position: fixed;
 	bottom: 40px;
-	right: 40px;
+	left: 40px;
 	font-size: 25px;
 	width: 40px;
 	height: 40px;
@@ -584,16 +590,140 @@ a .iconfa_user:hover{
 .hide_or_show{
 	display: none;
 }
+
+
 /*end*/
 /*thuong hieu*/
-@media (min-width: 992px){
+@media only screen and  (min-width: 992px){
 .col-md-3a{
 	float: left;
     width: 20%;
     padding: 20px;
 
 }
-
+}
 /*end*/
+
+/*Responsive dành cho điện thoại nhỏ ,320px đổ xuống,IP5/SE*/
+@media only screen and (max-width:320px){
+	#logo_web{
+		margin-left: -15px;
+	}
+	#input_search_top{
+		width:100px;
+	}
+	#show-cart:hover .cart_hover-frame{
+	display: none;
+	}
+	.caption_price_left{
+		display: block;
+	}
+	.caption_price_right{
+		display: block;
+		margin-left:0px;
+	}
+	.cart-icon{
+		top:130px;
+	}
+	.product_box{
+		min-height: 400px !important;
+	}
+	.intro{
+		display: none
+	}
+	#iframe_page_fb{
+		margin-left: -20px;
+		width:300px;
+	}
+	.back-top{
+		bottom: 15px;
+		left: 10px;
+	}
+	#input_search_top{
+		width: 120px !important;
+		margin-left: -20px;
+		
+	}
+	.fb-customerchat{ /*Điện thoại thì ẩn chat FB*/
+		display: none; 
+	}
+	.set:hover .shower{
+	display: none;
+	}
+	.brand_img{
+	width: 140%;
+	margin-bottom: 5px;
+	
+	}
+	.box_listimg_detail{
+		margin-bottom: 30px;
+		margin-top: 30px;
+	}
+	#at_image{
+		display: none;
+	}
+
+}
+
+
+/*Responsive dành cho điện thoại nhỏ iphone X đổ xuống*/
+@media only screen and (min-width:321px) and (max-width:767px){
+	#show-cart:hover .cart_hover-frame{
+	display: none;
+	}
+	.caption_price_left{
+		display: block;
+	}
+	.caption_price_right{
+		display: block;
+		margin-left:0px;
+	}
+	.product_box{
+		min-height: 435px;
+	}
+	.set:hover .shower{
+	display: none;
+	}
+	#iframe_page_fb{
+		margin-left: -20px;
+		width:300px;
+	}
+	.back-top{
+		bottom: 15px;
+		left: 10px;
+	}
+	.intro{
+		display: none
+	}
+	#input_search_top{
+		width: 150px;
+		margin-left: -20px;
+		
+	}
+	.fb-customerchat{ /*Điện thoại thì ẩn chat FB*/
+		display: none; 
+	}
+
+	.brand_img{
+	width: 130%;
+	margin-bottom: 5px;
+	}
+	
+	.box_listimg_detail{
+		margin-bottom: 30px;
+		margin-top: 30px;
+	}
+	#at_image{
+		display: none;
+	}
+
+
+
+}
+
+/*Responsive dành cho Tablet*/
+@media only screen and (min-width:768px) and (max-width:991px){
+	
+}
 
 

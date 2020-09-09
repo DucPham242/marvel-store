@@ -42,18 +42,18 @@ class Info_c extends Info_m
 		if(isset($_GET['method'])) {
 			$method = $_GET['method'];
 		}else{
-			$method = 'contact'; //chuyển hướng về trang liên hệ
+			$method = 'home';
 		}
 
 		switch ($method) {
 			case 'info-user':
-			if(!isset($_COOKIE['id_user'])&& empty($_COOKIE['id_user'])){
-				header("Location:index.php?page=info&method=login");
+			if(!isset($_COOKIE['id_user']) || empty($_COOKIE['id_user'])){
+				header("Location:login");
 			}
 			$info_user=$this->info->getInfo_user($_COOKIE['id_user']);
 			foreach ($info_user as $key => $value) {
 				if(!isset($value['email']) || !isset($value['phone']) || !isset($value['address'])){
-					header("Location:index.php?page=info&method=update-info");
+					header("Location:update-info");
 				}
 			}
 
@@ -67,9 +67,9 @@ class Info_c extends Info_m
 
 			case 'login':
 			if(isset($_COOKIE['id_user']) && isset($_COOKIE['name_user'])){
-				header("Location:index.php?page=info&method=info-user");
+				header("Location:../home");
 			}
-			if(isset($_POST['submit_login'])){ //Đăng nhập bình thường
+			if(isset($_POST['submit_login'])){ //Đăng nhập bình thường thì
 				$email=$_POST['email'];
 				$pass=md5(base64_encode($_POST['pass']));
 
@@ -82,11 +82,11 @@ class Info_c extends Info_m
 				}
 				else{
 					foreach ($rs as $key => $value) {
-						setcookie('id_user', $value['id_user'], time() + (90* 86400*100));
-						setcookie('name_user', $value['name_user'], time() + (90* 86400*100));
+						setcookie('id_user', $value['id_user'], time() + (90* 86400*100),'/PHP0320E2/marvel-store/marvel-shop');
+						setcookie('name_user', $value['name_user'], time() + (90* 86400*100),'/PHP0320E2/marvel-store/marvel-shop');
 					}
 					echo "ok";
-					header("Location:index.php?page=info&method=info-user");
+					header("Location:info-user");
 				}
 			}
 
@@ -135,7 +135,7 @@ class Info_c extends Info_m
 				if(!empty($facebook_user_info['id'])){
 					$_SESSION['user_idFB'] = $facebook_user_info['id'];
 					$_SESSION['user_imageFB'] = 'http://graph.facebook.com/'.$facebook_user_info['id'].'/picture';
-					setcookie('user_imageFB',$_SESSION['user_imageFB'] , time() + (90* 86400*100));
+					setcookie('user_imageFB',$_SESSION['user_imageFB'] , time() + (90* 86400*100),'/PHP0320E2/marvel-store/marvel-shop');
 
 				}
 				if(!empty($facebook_user_info['name']))
@@ -143,6 +143,28 @@ class Info_c extends Info_m
 					$_SESSION['user_nameFB'] = $facebook_user_info['name'];
 
 				}
+
+					//Kiểm tra xem có tồn tại tài khoản chứa ID FB này không.
+				$user_FB=$this->info->get_User_FB($_SESSION['user_idFB']);
+				if(count($user_FB)==0){
+					$pass=md5(base64_encode($_SESSION['user_idFB']));
+					$add_user_FB=$this->info->add_User_FB($_SESSION['user_idFB'],$_SESSION['user_nameFB'],$pass);
+					$id_last=$this->info->lastInsertId();
+					setcookie('id_user',$id_last, time() + (90* 86400*100),'/PHP0320E2/marvel-store/marvel-shop');
+					setcookie('name_user',$_SESSION['user_nameFB'], time() + (90* 86400*100),'/PHP0320E2/marvel-store/marvel-shop');
+					header("Location:info/info-user");
+
+				}else{
+		// echo "<pre>";
+		// 				print_r($user_FB);
+		// 				echo "</pre>";
+					foreach ($user_FB as $key => $value) {
+						setcookie('id_user',$value['id_user'], time() + (90* 86400*100),'/PHP0320E2/marvel-store/marvel-shop');
+						setcookie('name_user',$value['name_user'], time() + (90* 86400*100),'/PHP0320E2/marvel-store/marvel-shop');
+						header("Location:info/info-user");
+					}
+				}
+
 
 			}else{
  // Get login url
@@ -154,52 +176,33 @@ class Info_c extends Info_m
     $facebook_login_url = '<div align="center"><a href="'.$facebook_login_url.'"><img src="images/login_FB.png" style="width:220px;" /></a></div>';
 }
 
-if(isset($_SESSION['user_idFB']) && isset($_SESSION['user_nameFB'])){
-		//Kiểm tra xem có tồn tại tài khoản chứa ID FB này không.
-	$user_FB=$this->info->get_User_FB($_SESSION['user_idFB']);
-	if(count($user_FB)==0){
-		$pass=md5(base64_encode($_SESSION['user_idFB']));
-		$add_user_FB=$this->info->add_User_FB($_SESSION['user_idFB'],$_SESSION['user_nameFB'],$pass);
-		$id_last=$this->info->lastInsertId();
-		setcookie('id_user',$id_last, time() + (90* 86400*100));
-		setcookie('name_user',$_SESSION['user_nameFB'], time() + (90* 86400*100));
-		header("Location:index.php?page=info&method=info-user");
 
-	}else{
-		// echo "<pre>";
-		// 				print_r($user_FB);
-		// 				echo "</pre>";
-		foreach ($user_FB as $key => $value) {
-			setcookie('id_user',$value['id_user'], time() + (90* 86400*100));
-			setcookie('name_user',$value['name_user'], time() + (90* 86400*100));
-			header("Location:index.php?page=info&method=info-user");
-		}
-	}
-
-}
 // --------------END LOGIN FB
 
 include_once "views/information/user-login.php";
 break;
-case 'logout':
-setcookie('id_user','',(time()-999999999999999999999999999));
-setcookie('name_user','',(time()-999999999999999999999999999));
-setcookie('user_imageFB','',(time()-999999999999999999999999999));
 
+case 'logout':
+
+setcookie('id_user','',(time()-999999999999999999999999999999999999999),'/PHP0320E2/marvel-store/marvel-shop');
+setcookie('name_user','',(time()-999999999999999999999999999999999999999),'/PHP0320E2/marvel-store/marvel-shop');
+setcookie('user_imageFB','',(time()-999999999999999999999999999999999999999),'/PHP0320E2/marvel-store/marvel-shop');
 session_destroy();
 
-// header("Location:index.php?page=info&method=login");
-header("Location:index.php");
+
+
+header("Location:../home");
 
 break;
-				//logout checkout
+				//logout từ trang checkout
 case 'logout1':
-setcookie('id_user','',(time()-999999999999999999999999999));
-setcookie('name_user','',(time()-999999999999999999999999999));
-setcookie('user_imageFB','',(time()-999999999999999999999999999));
+
+setcookie('id_user','',(time()-999999999999999999999999999999999999999),'/PHP0320E2/marvel-store/marvel-shop');
+setcookie('name_user','',(time()-999999999999999999999999999999999999999),'/PHP0320E2/marvel-store/marvel-shop');
+setcookie('user_imageFB','',(time()-999999999999999999999999999999999999999),'/PHP0320E2/marvel-store/marvel-shop');
 
 session_destroy();
-header("Location:index.php?page=home&method=cart");
+header("Location:../cart");
 
 break;
 case 'register':
@@ -209,6 +212,7 @@ if(isset($_POST['submit_register'])){
 	$pass=md5(base64_encode($_POST['pass']));
 	$phone=$_POST['phone'];
 	$address=$_POST['address'];
+	$captcha = $_POST['g-recaptcha-response']; 
 
 	$rs_email=$this->info->getInfo_user_as_email($email);
 	$rs_phone=$this->info->getInfo_user_as_phone($phone);
@@ -219,33 +223,54 @@ if(isset($_POST['submit_register'])){
 						// echo "<pre>";
 						// print_r($rs_phone);
 						// echo "</pre>";
-	if(count($rs_email)!=0){
-		$_SESSION['noti_regis']=1;
-	}else if(count($rs_phone)!=0){
-		$_SESSION['noti_regis']=2;
+	if(!$captcha){
+		$_SESSION['noti_regis']=5;
 	}else{
-		$add_user=$this->info->add_User($name,$phone,$email,$address,$pass);
-		if($add_user){
-			$_SESSION['noti_regis']=3;
-			header("Location:index.php?page=info&method=login");
-		}else{
-			$_SESSION['noti_regis']=4;
-		}
+		$response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6LeR_8kZAAAAANuTHs9pWgZ-O4V4gIqdG512hhfR&response=".$captcha."&remoteip=".$_SERVER['REMOTE_ADDR']);
+		$js_responsive = json_decode($response);
+
+	        // echo $response; die();
+
+			// echo "<pre>";
+			// print_r($response);
+			// echo "</pre>"; 
+
+	        if($js_responsive->success == false){ // true is oke
+	        	$_SESSION['noti_regis']=6;
+	        }else{
+	        	if(count($rs_email)!=0){
+	        		$_SESSION['noti_regis']=1;
+	        	}else if(count($rs_phone)!=0){
+	        		$_SESSION['noti_regis']=2;
+	        	}else{
+	        		$add_user=$this->info->add_User($name,$phone,$email,$address,$pass);
+	        		if($add_user){
+	        			$_SESSION['noti_regis']=3;
+	        			header("Location:login");
+	        		}else{
+	        			$_SESSION['noti_regis']=4;
+	        		}
+	        	}
+
+	        	
+	        }
+	    }
+
+
+
 	}
 
-
-
-
-}
-
-include_once "views/information/user-register.php";
-break;	
+	include_once "views/information/user-register.php";
+	break;	
 
 case 'update-info'://Trang bổ sung lại thông tin cá nhân của tài khoản
+if(!isset($_COOKIE['id_user']) || empty($_COOKIE['id_user'])){
+	header("Location:../home");
+}
 $check_info=$this->info->getInfo_user($_COOKIE['id_user']);
 foreach ($check_info as $key => $value) {
 	if(isset($value['email']) && isset($value['phone']) && isset($value['address'])){
-		header("Location:index.php?page=info&method=info-user");
+		header("Location:info-user");
 	}
 }
 if(isset($_POST['submit_update_info'])){
@@ -281,7 +306,7 @@ break;
 case 'checkout':
 			//Nếu k tồn tại ss cart đá về trang chủ
 if(!isset($_SESSION['cart']) || empty($_SESSION['cart'])){
-	header("Location:index.php");
+	header("Location:../home");
 }
 
 
@@ -292,7 +317,7 @@ if (isset($_COOKIE['id_user']) && isset($_COOKIE['name_user'])) {
 			$rs_checkout = $this->info->getInfo_user($_COOKIE['id_user']);// lấy thông tin đăng nhập của người dùng
 			foreach ($rs_checkout as $key => $value) {//Nếu thông tin tài khoản chưa đầy đủ,bắt bổ sung
 				if(!isset($value['email']) || !isset($value['phone']) || !isset($value['address'])){
-					header("Location:index.php?page=info&method=update-info");
+					header("Location:update-info");
 				}
 			}
 		}
@@ -436,7 +461,7 @@ if (isset($_COOKIE['id_user']) && isset($_COOKIE['name_user'])) {
 			<p>Tên khách hàng: '.$name.'.</p>
 			<p>Địa chỉ nhận hàng: '.$address.'.</p>
 			<p>Trên đây là các thông tin về đơn hàng Anh/Chị vui lòng xác nhận lại để đơn hàng được giao theo đúng tiến độ.</p>
-			<p>Một lần nữa, trân trọn cảm ơn Anh/Chị đã tin tưởng và đồng hành cùng Marvel Store. hy vọng hệ thống sẽ được tiếp đón ANh/Chị trong thời gian tới!</p>
+			<p>Một lần nữa, trân trọn cảm ơn Anh/Chị đã tin tưởng và đồng hành cùng Marvel Store. hy vọng hệ thống sẽ được tiếp đón Anh/Chị trong thời gian tới!</p>
 			<br>
 			<h4><i>Trân trọng.</i></h4>
 			<h4><i><img src="icon-marvel.png" alt="" width="30px">Marvel Store</i></h4>
@@ -600,7 +625,7 @@ if (isset($_COOKIE['id_user']) && isset($_COOKIE['name_user'])) {
 		<p>tên khách hàng: '.$name.'.</p>
 		<p>Địa chỉ nhận hàng: '.$address.'.</p>
 		<p>Trên đây là các thông tin về đơn hàng Anh/Chị vui lòng xác nhận lại để đơn hàng được giao theo đúng tiến độ.</p>
-		<p>Một lần nữa, trân trọn cảm ơn Anh/Chị đã tin tưởng và đồng hành cùng Marvel Store. hy vọng hệ thống sẽ được tiếp đón ANh/Chị trong thời gian tới!</p>
+		<p>Một lần nữa, trân trọn cảm ơn Anh/Chị đã tin tưởng và đồng hành cùng Marvel Store. hy vọng hệ thống sẽ được tiếp đón Anh/Chị trong thời gian tới!</p>
 		<br>
 		<h4><i>Trân trọng.</i></h4>
 		<h4><i><img src="icon-marvel.png" alt="" width="30px">Marvel Store</i></h4>
@@ -658,7 +683,7 @@ if (isset($_COOKIE['id_user']) && isset($_COOKIE['name_user'])) {
 	case 'forget':
 
 	if (isset($_COOKIE['id_user']) || !empty($_COOKIE['id_user'])) {
-		header("Location:index.php");
+		header("Location:home");
 	}
 
 	if(isset($_POST['submit_forget'])){
@@ -749,29 +774,29 @@ if (isset($_COOKIE['id_user']) && isset($_COOKIE['name_user'])) {
 			include_once "views/information/forget-pass.php";
 			break;
 
-	case 'reset-pass':
-	if (isset($_COOKIE['id_user']) || !empty($_COOKIE['id_user'])) {
-		header("Location:index.php");
-	}
+			case 'reset-pass':
+			if (isset($_COOKIE['id_user']) || !empty($_COOKIE['id_user'])) {
+				header("Location:home");
+			}
 
-	if(isset($_GET['email']) && isset($_GET['code'])){
-		$email=$_GET['email'];
-		$verification_code=$_GET['code'];
-	}else{
-		header("Location:index.php");
-	}
-	$check_url=$this->info->get_Verification_email_code($email,$verification_code);
-	if(count($check_url)!=1){
-		$_SESSION['noti_resetpass']=1;
-	}else{
+			if(isset($_GET['email']) && isset($_GET['code'])){
+				$email=$_GET['email'];
+				$verification_code=$_GET['code'];
+			}else{
+				header("Location:home");
+			}
+			$check_url=$this->info->get_Verification_email_code($email,$verification_code);
+			if(count($check_url)!=1){
+				$_SESSION['noti_resetpass']=1;
+			}else{
 		// echo "<pre>";
 		// print_r($check_url);
 		// echo"</pre>";
 
-		foreach ($check_url as $key => $value) {
-			$time_created=strtotime($value['last_created']);
+				foreach ($check_url as $key => $value) {
+					$time_created=strtotime($value['last_created']);
 			// echo $time_created."<br>";
-			$time=time();
+					$time=time();
 			// echo $time."<br>";
 			if($time-$time_created>600){//Nếu quá 10 phút thì thông báo mail hết hiệu lực
 				$_SESSION['noti_resetpass']=2;
@@ -795,49 +820,61 @@ if (isset($_COOKIE['id_user']) && isset($_COOKIE['name_user'])) {
 		}
 	}
 
-		include_once "views/information/reset-pass.php";
-		break;
+	include_once "views/information/reset-pass.php";
+	break;
 
 
 	case 'change-pass':
-		if(!isset($_COOKIE['id_user']) || isset($_COOKIE['user_imageFB'])){
-			header("Location:index.php");
-		}
+	if(!isset($_COOKIE['id_user']) || isset($_COOKIE['user_imageFB'])){
+		header("Location:home");
+	}
 
-		if(isset($_POST['submit_changepass'])){
-			$old_pass=md5(base64_encode($_POST['old_pass']));
-			$pass=md5(base64_encode($_POST['pass']));
+	if(isset($_POST['submit_changepass'])){
+		$old_pass=md5(base64_encode($_POST['old_pass']));
+		$pass=md5(base64_encode($_POST['pass']));
 
-			$check_pass=count($this->info->getInfo_user_id_pass($_COOKIE['id_user'],$old_pass));
+		$check_pass=count($this->info->getInfo_user_id_pass($_COOKIE['id_user'],$old_pass));
 			// echo "<pre>";
 			// print_r($check_pass);
 			// echo "</pre>";
-			if($check_pass!=1){
-				$_SESSION['noti_changepass']=1;
+		if($check_pass!=1){
+			$_SESSION['noti_changepass']=1;
+		}else{
+			$change=$this->info->update_PassUser_id_user($_COOKIE['id_user'],$pass);
+			if($change){
+				$_SESSION['noti_changepass']=2;
 			}else{
-				$change=$this->info->update_PassUser_id_user($_COOKIE['id_user'],$pass);
-				if($change){
-					$_SESSION['noti_changepass']=2;
-				}else{
-					$_SESSION['noti_changepass']=3;
-				}
+				$_SESSION['noti_changepass']=3;
 			}
 		}
-		include_once "views/information/changepass.php";
-		break;
+	}
+	include_once "views/information/changepass.php";
+	break;
 
 	case 'tutorial': //Trang hướng dẫn mua hàng
 	include_once "views/information/how-buy.php";
 	break;
 
 	case 'contact': //Trang liên hệ
-		# code...
+	if(isset($_POST['submit_contact'])){
+		$name=$_POST['name'];
+		$email=$_POST['email'];
+		$phone=$_POST['phone'];
+		$contact=$_POST['contact'];
+
+		$add=$this->info->add_contact($name,$email,$phone,$contact);
+		if($add){
+			$_SESSION['noti_contact']=1;
+		}else{
+			$_SESSION['noti_contact']=2;
+		}
+	}
 	include_once "views/information/contact.php";
 	break;
 
 
 	default:
-	header("Location:index.php");
+	header("Location:home");
 	break;
 }
 }

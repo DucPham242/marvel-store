@@ -315,7 +315,19 @@
 			$pre->bindParam(':pass', $pass);
 			return $pre->execute();
 			
-		}	
+		}
+
+	//Thêm 1 trường contact bảng tbl_contact	
+		public function add_contact($name,$email,$phone,$contact){
+			$sql = "INSERT INTO tbl_contact (name,email,phone,contact) VALUES (:name,:email,:phone,:contact)";
+			$pre = $this->pdo->prepare($sql);
+			$pre->bindParam(':name', $name);
+			$pre->bindParam(':email', $email);
+			$pre->bindParam(':phone', $phone);
+			$pre->bindParam(':contact', $contact);
+			return $pre->execute();
+			
+		}
 
 
 }

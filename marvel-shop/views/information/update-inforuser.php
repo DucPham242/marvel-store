@@ -49,7 +49,7 @@
 							<span class="glyphicon glyphicon-envelope"></span>
 						</span>
 
-						<input type="text" name="email" onblur="blur_email()" class="form-control" id="email" placeholder="Nhập email...">
+						<input type="text" name="email" onblur="blur_email()" class="form-control" id="email" placeholder="Nhập email..." value="<?php if(isset($email)){ echo $email;} ?>">
 
 					</div>
 				</div>
@@ -60,7 +60,7 @@
 							<span class="glyphicon glyphicon-phone"></span>
 						</span>
 
-						<input type="number" name="phone" onblur="blur_phone()" class="form-control" id="phone" placeholder="Số điện thoại ..." onkeypress="return onlyNum();">
+						<input type="number" name="phone" onblur="blur_phone()" class="form-control" id="phone" placeholder="Số điện thoại ..." onkeypress="return onlyNum();" value="<?php if(isset($phone)){ echo $phone;} ?>">
 
 					</div>
 				</div>
@@ -71,7 +71,7 @@
 							<span class="glyphicon glyphicon-globe"></span>
 						</span>
 
-						<input type="text" name="address" onblur="blur_addr()" class="form-control" id="address" placeholder="Địa chỉ ...">
+						<input type="text" name="address" onblur="blur_addr()" class="form-control" id="address" placeholder="Địa chỉ ..." value="<?php if(isset($address)){ echo $address;} ?>">
 
 					</div>
 				</div>

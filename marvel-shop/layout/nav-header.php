@@ -1,24 +1,24 @@
 <div class="container">
 
-	<div class="row" style="padding: 20px;position: relative;min-height: 80px;" >
-		<div class="col-md-3 col-xs-12" style="">
-			<a href="index.php"><img src="images/logo.webp" alt="Ảnh logo"></a>
+	<div class="row" style="padding: 20px;position: relative;min-height: 80px;">
+		<div class="col-md-3 col-xs-12 col-sm-12" style="">
+			<a href="home"><img id="logo_web" src="images/logo.webp" alt="Ảnh logo"></a>
 		</div>
-		<div class="col-md-5 col-md-push-1 col-xs-8" style="padding-top: 5px" >
-			<form action="index.php?page=home&method=search" method="POST">
+		<div class="col-md-5 col-md-push-1 col-xs-7" style="padding-top: 5px" >
+			<form action="search" method="POST">
 				<div class="input-group">
-					<input type="text" name="search" class="form-control" placeholder="Tìm kiếm sản phẩm">
+					<input type="text" name="search" class="form-control" placeholder="Tìm kiếm sản phẩm" id="input_search_top">
 					<span class="input-group-btn">
-						<button type="submit" name="submit-search" class="btn btn-default">Tìm kiếm</button>
+						<button type="submit" name="submit-search" class="btn btn-default" id="button_search_top">Tìm kiếm</button>
 					</span>
 				</div><!-- /input-group -->
 			</form>
 		</div>
 		<div id="cartbox">
-		<div class="col-md-3 col-md-push-2 col-xs-4" style="padding-top: 5px" id="reload_cartbox" >
-			<a href="index.php?page=info&method=info-user"><i class="fa fa-user-circle-o fa-2x icon-header" aria-hidden="true"></i></a>
+		<div class="col-md-3 col-md-push-2 col-xs-5 col-xs-push-1 " style="padding-top: 5px" id="reload_cartbox" >
+			<a href="info/info-user"><i class="fa fa-user-circle-o fa-2x icon-header" aria-hidden="true"></i></a>
 				<span class="show-cart">
-					<a href="index.php?page=home&method=cart" id="show-cart" >
+					<a href="cart" id="show-cart" >
 						<i class="fa fa-cart-arrow-down fa-2x icon-header" id="icon-show" aria-hidden="true" ></i>
 
 						<div class="cart_hover-frame"  >

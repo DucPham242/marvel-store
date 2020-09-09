@@ -3,7 +3,7 @@
 		<ol class="breadcrumb" >
 			<li>Trang chủ</li>
 			<li>Danh mục sản phẩm</li>
-			<?php 			
+			<?php 	
 			switch ($method) {
 				case 'marvel':
 				case 'dc':
@@ -36,23 +36,23 @@
 				<li><h4>Danh mục nhóm</h4></li>
 				<hr>
 				<li class="nav-item">
-					<a class="nav-link" href="index.php">Trang chủ</a>
+					<a class="nav-link" href="home">Trang chủ</a>
 				</li>
 
 				<li class="nav-item">
 					<a href="javascript:;" class="hidden-drop" data-toggle="collapse" data-target="#demo"> Marvel <i class="fa fa-fw fa-caret-down"></i></a>
-					<ul  class="collapse " id="demo">
-						<a href="index.php?page=list-product&method=modeltoyMV">
+					<ul  class="collapse " id="demo" style="z-index: 9999">
+						<a href="list-product/modeltoyMV/pages1">
 							<li>
 								Mô hình
 							</li>
 						</a>
-						<a href="index.php?page=list-product&method=techMV">
+						<a href="list-product/techMV/pages1">
 							<li>
 								Đồ chơi công nghệ
 							</li>
 						</a>
-						<a href="index.php?page=list-product&method=itemsMV">
+						<a href="list-product/itemsMV/pages1">
 							<li>
 								Phụ kiện
 							</li>
@@ -63,17 +63,17 @@
 				<li class="nav-item">
 					<a href="javascript:;" class="hidden-drop" data-toggle="collapse" data-target="#demo2"> DC <i class="fa fa-fw fa-caret-down"></i></a>
 					<ul  class="collapse " id="demo2">
-						<a href="index.php?page=list-product&method=modeltoyDC">
+						<a href="list-product/modeltoyDC/pages1">
 							<li>
 								Mô hình
 							</li>
 						</a>
-						<a href="index.php?page=list-product&method=techDC">
+						<a href="list-product/techDC/pages1">
 							<li>
 								Đồ chơi công nghệ
 							</li>
 						</a>
-						<a href="index.php?page=list-product&method=itemsDC">
+						<a href="list-product/itemsDC/pages1">
 							<li>
 								Phụ kiện
 							</li>
@@ -83,7 +83,7 @@
 				<li class="nav-item">
 					<a href="javascript:;" class="hidden-drop" data-toggle="collapse" data-target="#demo3"> Transformer <i class="fa fa-fw fa-caret-down"></i></a>
 					<ul id="demo3" class="collapse">
-						<a href="index.php?page=list-product&method=modeltoyTrans">
+						<a href="list-product/modeltoyTrans/pages1">
 							<li>
 								Mô hình
 							</li>
@@ -92,13 +92,13 @@
 					</ul>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="index.php?page=list-product&method=hot">Hot sale</a>
+					<a class="nav-link" href="list-product/hot/pages1">Hot sale</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="index.php?page=info&method=tutorial">Chỉ dẫn mua hàng</a>
+					<a class="nav-link" href="info/tutorial">Chỉ dẫn mua hàng</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link disabled" href="index.php?page=info&method=contact">Liên hệ</a>
+					<a class="nav-link disabled" href="info/contact">Liên hệ</a>
 				</li>
 			</ul>
 		</div>
@@ -176,7 +176,7 @@
 
 									<div class="caption" style="">
 
-										<a href="index.php?page=home&method=product-detail&id=<?php echo $value['id_product']; ?>" style="color: #333333;"><h5><?php echo $value['name_product']; ?></h5></a>
+										<a href="product-detail/<?php echo $value['id_product'].'/'.$value['url_name']; ?>" style="color: #333333;"><h5><?php echo $value['name_product']; ?></h5></a>
 										<hr>
 										<?php 
 										if ($value['discount'] <= 0) {
@@ -215,7 +215,7 @@
 									$back = $_GET['pages'] - 1;
 									
 									?>
-									<li><a href="index.php?page=list-product&method=<?php echo $method; ?>&pages=<?php echo $back; ?>">Back</a></li>
+									<li><a href="list-product/<?php echo $method; ?>/pages<?php echo $back; ?>">Back</a></li>
 									<?php 
 								}	
 								?>
@@ -230,7 +230,7 @@
 										
 									?>
 									<li <?php if($i==$_GET['pages']){echo 'class="active"';} ?> >
-										<a href="index.php?page=list-product&method=<?php echo $method; ?>&pages=<?php echo $i; ?>"><?php echo $i; ?>
+										<a href="list-product/<?php echo $method; ?>/pages<?php echo $i; ?>"><?php echo $i; ?>
 										</a> 
 									</li>
 									<?php 
@@ -242,7 +242,7 @@
 								if (isset($_GET['pages']) && $_GET['pages'] < $pagination) {
 									$next = $_GET['pages'] + 1;	
 									?>
-									<li><a href="index.php?page=list-product&method=<?php echo $method; ?>&pages=<?php echo $next; ?>">Next</a></li>
+									<li><a href="list-product/<?php echo $method; ?>/pages<?php echo $next; ?>">Next</a></li>
 									<?php 
 								}	
 								?>

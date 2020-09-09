@@ -66,14 +66,17 @@ class Product_c extends product_m
 				array_push($rs_hot, $get_rs);
 			}
 			$rs_hot=$this->pro->add_discount($rs_hot); //Thêm trường giảm giá cho mảng
-			
+			$rs_hot=$this->pro->add_Url_name($rs_hot);//Thêm trường url_name cho mảng
 
 			$rs_mv=$this->pro->Product_limit(0,8,1);
 			$rs_mv=$this->pro->add_discount($rs_mv); //Thêm trường giảm giá cho mảng
+			$rs_mv=$this->pro->add_Url_name($rs_mv);//Thêm trường url_name cho mảng
+
 			$rs_dc=$this->pro->Product_limit(0,8,2);
 			$rs_dc=$this->pro->add_discount($rs_dc); //Thêm trường giảm giá cho mảng
+			$rs_dc=$this->pro->add_Url_name($rs_dc);//Thêm trường url_name cho mảng
 			// echo "<pre>";
-			// print_r($rs_hot);
+			// print_r($rs_mv);
 			// echo "</pre>";
 			include_once 'views/product/home.php';
 			break;
@@ -82,7 +85,7 @@ class Product_c extends product_m
 			if(isset($_GET['id']) && $_GET['id']>0) {
 				$id =(int)$_GET['id'];
 			}else{
-				header("Location:index.php");
+				header("Location:home");
 			}
 			$rs=$this->pro->getProduct_Id($id);
 			$rs_seen=$this->pro->getProduct_Id_SS($id);			
@@ -112,6 +115,8 @@ class Product_c extends product_m
 					array_shift($_SESSION['seen']);
 				}
 			}
+
+			$_SESSION['seen']=$this->pro->add_Url_name($_SESSION['seen']);
 
 
 			
@@ -155,6 +160,7 @@ class Product_c extends product_m
 			foreach ($rs as $key => $value) {
 				$rs_related=$this->pro->getProduct_related($value['id_product'],$value['id_brand']);
 				$rs_related=$this->pro->add_discount($rs_related);
+				$rs_related=$this->pro->add_Url_name($rs_related);
 				// echo "<pre>";
 				// print_r($rs_related); 
 			}
@@ -164,6 +170,9 @@ class Product_c extends product_m
 
 			// SEARCH
 			case 'search':
+			if(!isset($_SESSION['key'])){
+				$_SESSION['key'] ='%%';
+			}
 			if (isset($_POST['submit-search'])) {
 				$_SESSION['key'] = '%'.$_POST['search'].'%';
 			}
@@ -185,7 +194,7 @@ class Product_c extends product_m
 			$from=($pages-1)*$row;
 			$rs_search = $this->pro->search_limit($from,$row,$key);
 			$rs_search = $this->pro->add_discount($rs_search);
-
+			$rs_search=$this->pro->add_Url_name($rs_search);
 			
 
 			include_once "views/product/search.php";
@@ -196,9 +205,14 @@ class Product_c extends product_m
 			include_once "views/product/cart.php";
 			break;
 
+			case 'error':
+
+				include_once "views/product/error.php";
+				break;
+
 
 			default:
-			header("Location:index.php");
+			header("Location:home");
 			break;
 		}
 	}
@@ -414,10 +428,11 @@ class Product_c extends product_m
 
 
 			default:
-			header("Location:index.php"); 
+			header("Location:home"); 
 			break;
 		}
 		$rs=$this->pro->add_discount($rs);
+		$rs=$this->pro->add_Url_name($rs);
 		// echo '<pre>';
 		// 			print_r($rs);
 		// 			echo '</pre>';

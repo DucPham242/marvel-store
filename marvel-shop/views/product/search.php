@@ -34,7 +34,7 @@
 
 							<div class="caption" style="">
 
-							<a href="index.php?page=home&method=product-detail&id=<?php echo $search['id_product']; ?>" style="color: #333333;"><h5><?php echo $search['name_product']; ?></h5></a>
+							<a href="product-detail/<?php echo $search['id_product'].'/'.$search['url_name']; ?>" style="color: #333333;"><h5><?php echo $search['name_product']; ?></h5></a>
 							<hr>
 							<?php 
 								if ($search['discount'] <= 0) {
@@ -65,7 +65,7 @@
 									$back = $_GET['pages'] - 1;
 									
 									?>
-									<li><a href="index.php?page=home&method=<?php echo $method; ?>&pages=<?php echo $back; ?>">Back</a></li>
+									<li><a href="search/pages<?php echo $back; ?>">Back</a></li>
 									<?php 
 								}	
 								?>
@@ -76,7 +76,7 @@
 											
 										
 									?>
-									<li <?php if($i==$_GET['pages']){echo 'class="active"';} ?> ><a href="index.php?page=home&method=<?php echo $method; ?>&pages=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+									<li <?php if($i==$_GET['pages']){echo 'class="active"';} ?> ><a href="search/pages<?php echo $i; ?>"><?php echo $i; ?></a></li>
 									<?php 
 								}
 								}
@@ -85,7 +85,7 @@
 								if (isset($_GET['pages']) && $_GET['pages'] < $pagination) {
 									$next = $_GET['pages'] + 1;	
 									?>
-									<li><a href="index.php?page=home&method=<?php echo $method; ?>&pages=<?php echo $next; ?>">Next</a></li>
+									<li><a href="search/pages<?php echo $next; ?>">Next</a></li>
 									<?php 
 								}	
 								?>

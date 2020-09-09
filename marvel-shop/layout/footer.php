@@ -42,13 +42,15 @@
 						<h4 class="tittle_footer">CẬP NHẬT NHIỀU TIN TỨC HƠN</h4>
 						<div style="height: 2px; width: 40px;background-color:#4C83DF"></div>
 						<p style="color: #676767">Fanpage của chúng tôi</p>
-						<p><iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FMarvel-Store-109805184142141&tabs=message&width=300&height=150&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=638712913439562" width="300" height="150" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe></p>
+						<p><iframe id="iframe_page_fb" src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FMarvel-Store-109805184142141&tabs=message&width=300&height=150&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=638712913439562" width="300" height="150" style="border:none;overflow:hidden;" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe></p>
 					</div>
 				</div>
 			</div>
 		<!-- END Footer -->
 		<!-- back to top -->
 		<button class="back-top" title="Lên đầu trang"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>
-		<button class="cart-icon" title="Xem chỉ tiết giỏ hàng"><a href="index.php?page=home&method=cart"><i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i></a></button>
+		<button class="cart-icon" title="Xem chỉ tiết giỏ hàng"><a href="cart"><i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i></a></button>
 		<!-- end -->
+
+
 	</div>

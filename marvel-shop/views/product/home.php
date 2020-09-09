@@ -34,24 +34,24 @@
 			<div class="col-md-6 col-xs-6 intro">
 				<i style="color: #5E5D5D" class="fa fa-truck fa-3x" aria-hidden="true"></i>
 				<h4>GIAO HÀNG MIỄN PHÍ</h4>
-				<p>Tất cả hàng đều được vận chuyển miễn phí khi chuyển khoản trước</p>
+				<p class="content_intro">Tất cả hàng đều được vận chuyển miễn phí khi chuyển khoản trước</p>
 			</div>
 			<div  class="col-md-6 col-xs-6 intro">
 				<i style="color: #5E5D5D;" class="fa fa-refresh fa-3x" aria-hidden="true"></i>
 				<h4>ĐỔI TRẢ HÀNG</h4>
-				<p>Hàng chuẩn như hình thì nhận không chuẩn trả về không mất phí</p>
+				<p class="content_intro">Hàng chuẩn như hình thì nhận không chuẩn trả về không mất phí</p>
 			</div>
 		</div>
 		<div class="col-md-6 col-xs-12">
 			<div  class="col-md-6 col-xs-6 intro">
 				<i style="color: #5E5D5D" class="fa fa-handshake-o fa-3x" aria-hidden="true"></i>
 				<h4>GIAO HÀNG NHẬN TIỀN</h4>
-				<p>Thanh toán đơn hàng bằng hình thức trực tiếp</p>
+				<p class="content_intro">Thanh toán đơn hàng bằng hình thức trực tiếp</p>
 			</div>
 			<div  class="col-md-6 col-xs-6 intro">
 				<i style="color: #5E5D5D" class="fa fa-phone-square fa-3x" aria-hidden="true"></i>
 				<h4>ĐẶT HÀNG ONLINE</h4>
-				<p>Liên hệ thanh toán: 0357545556</p>
+				<p class="content_intro">Liên hệ thanh toán: 0357545556</p>
 			</div>
 		</div>
 	</div>
@@ -94,7 +94,7 @@
 
 						<div class="caption" style="">
 
-							<a href="index.php?page=home&method=product-detail&id=<?php echo $hot['id_product']; ?>" style="color: #333333;"><h5><?php echo $hot['name_product']; ?></h5></a>
+							<a href="product-detail/<?php echo $hot['id_product'].'/'.$hot['url_name']; ?>" style="color: #333333;"><h5><?php echo $hot['name_product']; ?></h5></a>
 							<hr>
 							<?php 
 								if ($hot['discount'] <= 0) {
@@ -123,7 +123,7 @@
 
 		<div class="row">
 			<div class="col-md-6 col-md-push-5 col-xs-6 col-xs-push-3">
-				<a href="index.php?page=list-product&method=hot"><button type="button" class="btn_viewall btn btn-success" style="outline: none;">Xem tất cả</button></a>
+				<a href="list-product/hot/pages1"><button type="button" class="btn_viewall btn btn-success" style="outline: none;">Xem tất cả</button></a>
 			</div>
 		</div>
 
@@ -169,7 +169,7 @@
 
 							<div class="caption" style="">
 
-							<a href="index.php?page=home&method=product-detail&id=<?php echo $mv['id_product']; ?>" style="color: #333333;"><h5><?php echo $mv['name_product']; ?></h5></a>
+							<a href="product-detail/<?php echo $mv['id_product'].'/'.$mv['url_name']; ?>" style="color: #333333;"><h5><?php echo $mv['name_product']; ?></h5></a>
 							<hr>
 							<?php 
 								if ($mv['discount'] <= 0) {
@@ -193,7 +193,7 @@
 
 			<div class="row">
 				<div class="col-md-6 col-md-push-5 col-xs-6 col-xs-push-3">
-					<a href="index.php?page=list-product&method=marvel"><button type="button" class="btn btn-success btn_viewall" style="outline: none">Xem tất cả</button></a>
+					<a href="list-product/marvel/pages1"><button type="button" class="btn btn-success btn_viewall" style="outline: none">Xem tất cả</button></a>
 				</div>
 			</div>
 			<div class="row">
@@ -234,7 +234,7 @@
 
 							<div class="caption" style="">
 
-							<a href="index.php?page=home&method=product-detail&id=<?php echo $dc['id_product']; ?>" style="color: #333333;"><h5><?php echo $dc['name_product']; ?></h5></a>
+							<a href="product-detail/<?php echo $dc['id_product'].'/'.$dc['url_name']; ?>" style="color: #333333;"><h5><?php echo $dc['name_product']; ?></h5></a>
 							<hr>
 							<?php 
 								if ($dc['discount'] <= 0) {
@@ -257,7 +257,7 @@
 				</div>
 				<div class="row">
 					<div class="col-md-6 col-md-push-5 col-xs-6 col-xs-push-3">
-						<a href="index.php?page=list-product&method=dc"><button type="button" class="btn btn-success btn_viewall" style="outline: none;">Xem tất cả</button></a>
+						<a href="list-product/dc/pages1"><button type="button" class="btn btn-success btn_viewall" style="outline: none;">Xem tất cả</button></a>
 					</div>
 				</div>
 				<div class="modal fade bs-example-modal-lg modal_content" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -284,35 +284,35 @@
 					</div>
 
 					<div class="row" style="margin: 0px; text-align: center;">
-						<div class="col-md-3a col-xs-6">
+						<div class="col-md-3a col-xs-4">
 							<a href="#">
 
 								<img src="images/brand/playarts.webp" alt="..." class="brand_img" >
 
 							</a>
 						</div>
-						<div class="col-md-3a col-xs-6">
+						<div class="col-md-3a col-xs-4">
 							<a href="#">
 
 								<img src="images/brand/bandai.webp" alt="..." class="brand_img" >
 
 							</a>
 						</div>
-						<div class="col-md-3a col-xs-6">
+						<div class="col-md-3a col-xs-4">
 							<a href="#">
 
 								<img src="images/brand/toyz.webp" alt="..." class="brand_img" >
 
 							</a>
 						</div>
-						<div class="col-md-3a col-xs-6">
+						<div class="col-md-3a col-xs-4">
 							<a href="#">
 
 								<img src="images/brand/marvellegends.webp" alt="..." class="brand_img" >
 
 							</a>
 						</div>
-						<div class="col-md-3a col-xs-6">
+						<div class="col-md-3a col-xs-4">
 							<a href="#">
 
 								<img src="images/brand/lego.webp" alt="..." class="brand_img" >

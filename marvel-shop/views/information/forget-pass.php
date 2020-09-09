@@ -36,7 +36,7 @@
 				<div  class="submit-user">
 					<input type="submit" value="Gửi mail" name="submit_forget" class="form-control">
 				</div>
-				<a href="index.php?page=info&method=login" style="text-decoration: none;color: red">Hủy</a>
+				<a href="info/login" style="text-decoration: none;color: red">Hủy</a>
 			</form>
 		</div>
 	</div>

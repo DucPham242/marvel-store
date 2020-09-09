@@ -109,7 +109,7 @@
 						<h3>Đơn hàng</h3>
 						<div class="shippingbox">
 							<h3 >Tổng tiền: <?php echo number_format($_SESSION['total']).' đ'; ?></h3>		
-								<a href="index.php?page=info&method=checkout"><button type="button" class="btn btn-danger">Thanh Toán</button></a>
+								<a href="info/checkout"><button type="button" class="btn btn-danger">Thanh Toán</button></a>
 						</div>
 					</div>
 
@@ -120,7 +120,7 @@
 			<div class="container" >
 				<div class="row">
 					<div class="col-md-4">
-						<a href="index.php"><button type="button" class="btn btn-danger">Mua tiếp</button></a>
+						<a href="home"><button type="button" class="btn btn-danger">Mua tiếp</button></a>
 					</div>
 				</div>
 			</div >

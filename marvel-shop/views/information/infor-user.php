@@ -11,7 +11,7 @@
 			<div class="col-md-12">
 	
 			<div class="col-md-4 col-xs-12">
-				<a href="index.php?page=info&method=logout" style="margin-top: 40px"><i  class="fa fa-sign-out iconfa_user" aria-hidden="true">Thoát</i></a>
+				<a href="info/logout" style="margin-top: 40px"><i  class="fa fa-sign-out iconfa_user" aria-hidden="true">Thoát</i></a>
 
 
 					<div class="userbox" id="userbox_main"  style="">
@@ -41,7 +41,7 @@
 						<?php 
 				if(!isset($_COOKIE['user_imageFB'])){
 					?>
-					<a href="index.php?page=info&method=change-pass" style="margin-left: 100px;"><i class="fa fa-unlock-alt iconfa_user" aria-hidden="true"> Đổi mật khẩu</i></a>
+					<a href="info/change-pass" style="margin-left: 100px;"><i class="fa fa-unlock-alt iconfa_user" aria-hidden="true"> Đổi mật khẩu</i></a>
 					<?php
 				}
 

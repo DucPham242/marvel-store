@@ -58,7 +58,7 @@
 					<div  class="submit-user">
 						 <input type="submit" name="submit_login" value="Đăng nhập" class="form-control">
 					</div>
-					<a href="index.php?page=info&method=forget" style="text-decoration: none;color: red">Quên mật khẩu?</a> <span> hoặc <a href="index.php?page=info&method=register" style="text-decoration: none;color: red">Đăng ký</a>
+					<a href="info/forget" style="text-decoration: none;color: red">Quên mật khẩu?</a> <span> hoặc <a href="info/register" style="text-decoration: none;color: red">Đăng ký</a>
 						<hr>
 
 						<?php 

@@ -22,7 +22,7 @@
 				<h5><b><span class="glyphicon glyphicon-envelope"></span>  Để lại lời nhắn cho chúng tôi</b></h5>
 				<hr>
 
-				<form action="" method="POST" role="form">
+				<form action="" method="POST" role="form" onsubmit="return Validate_contact();">
 					<div class="col-md-6">
 
 						<div class="input-group">
@@ -33,7 +33,7 @@
 
 							</span>
 
-							<input type="text" class="form-control" placeholder="Họ tên...">
+							<input type="text" name="name" class="form-control" placeholder="Họ tên..." onblur="blur_name();" id="name">
 
 						</div>
 						<div class="input-group">
@@ -44,7 +44,7 @@
 
 							</span>
 
-							<input type="text" class="form-control" placeholder="Email đầy đủ...">
+							<input type="email" name="email" class="form-control" placeholder="Email đầy đủ..." onblur="blur_email();" id="email">
 
 						</div>
 						<div class="input-group">
@@ -55,19 +55,30 @@
 
 								</span>
 
-								<input type="text" class="form-control" placeholder="Số điện thoại...">
+								<input type="number" name="phone" class="form-control" placeholder="Số điện thoại..." onkeypress="return onlyNum();" onblur="blur_phone();" id="phone">
 
 							</div>
 
 						</div>
 						<div class="col-md-6">
-							<textarea name="" id="input" class="form-control" rows="3" required="required" placeholder="gửi lời nhắn..." style="height: 100px"></textarea>
+							<textarea class="form-control" rows="4" required="required" placeholder="gửi lời nhắn..." style="resize: none;" name="contact"></textarea>
 						</div>
 
 						<div class="row">
 							<div class="col-md-12 col-md-push-4" style="margin-top: 10px;margin-bottom: 20px">
-								<button type="button" class="btn btn-default">Gửi lời nhắn</button>
+								<button type="submit" name="submit_contact" class="btn btn-default">Gửi lời nhắn</button>
+								
 							</div>
+							<span id="check" style="color:red;">
+									<?php 
+										if(isset($_SESSION['noti_contact']) && $_SESSION['noti_contact']==1){
+											echo "<span style='color:green;'>Cảm ơn đóng góp ý kiến của bạn, MarvelStore sẽ phản hồi lại bạn nhanh nhất có thể</span>";
+										}else if(isset($_SESSION['noti_contact']) && $_SESSION['noti_contact']==2){
+											echo "<span style='color:red;'>Thất bại! Có lỗi trong quá trình gửi</span>";
+										}
+										unset($_SESSION['noti_contact']);
+									 ?>
+								</span>
 						</div>
 					</form>
 				</div>
@@ -79,7 +90,7 @@
 				<p><span class="glyphicon glyphicon-globe"></span> Marvel Việt Nam</p>
 				<p> <span class="glyphicon glyphicon-earphone"></span> 0357545556</p>
 				<p><span class="glyphicon glyphicon-map-marker"></span> Ngọc Thụy- Long biên- Hà Nội</p>
-				<p><span class="glyphicon glyphicon-envelope"></span> ngocduc022497@gmail.com</p>
+				<span class="glyphicon glyphicon-envelope"></span> ngocduc022497@gmail.com
 			</div>
 		</div>
 

@@ -117,6 +117,31 @@
 			return $arr;
 		}
 
+
+//Hàm này sử dụng để biến đổi tên sản phẩm thành chuỗi url,để gán trên rewrite url
+		public function makeUrl($string){
+			$string=trim($string);
+			$string=preg_replace('/( - | -|- )/','-',$string);
+			$string=str_replace(' ','-',$string);
+			$string=preg_replace('/(á|à|ả|ạ|ã|ă|ắ|ằ|ẳ|ặ|ẵ|â|ấ|ầ|ẩ|ậ|ẫ|Á|À|Ả|Ạ|Ã|Ă|Ắ|Ằ|Ẳ|Ặ|Ẵ|Â|Ấ|Ầ|Ẩ|Ậ|Ẫ)/','a',$string);
+			$string=preg_replace('/(é|è|ẻ|ẹ|ẽ|ê|ế|ề|ể|ệ|ễ|É|È|Ẻ|Ẹ|Ẽ|Ê|Ế|Ề|Ể|Ệ|Ễ)/','e',$string);
+			$string=preg_replace('/(í|ì|ỉ|ị|ĩ|Í|Ì|Ỉ|Ị|Ĩ)/','i',$string);
+			$string=preg_replace('/(ó|ò|ỏ|ọ|õ|ô|ố|ồ|ổ|ộ|ỗ|ơ|ớ|ờ|ở|ợ|ỡ|O|Ó|Ò|Ỏ|Ọ|Õ|Ô|Ố|Ồ|Ổ|Ộ|Ỗ|Ơ|Ớ|Ờ|Ở|Ợ|Ỡ)/','o',$string);
+			$string=preg_replace('/(ú|ù|ủ|ụ|ũ|ư|ứ|ừ|ử|ự|ữ|U|Ú|Ù|Ủ|Ụ|Ũ|Ư|Ứ|Ừ|Ử|Ự|Ữ)/','u',$string);
+			$string=preg_replace('/(ý|ỳ|ỷ|ỵ|ỹ|Y|Ý|Ỳ|Ỷ|Ỵ|Ỹ)/','y',$string);
+			$string=strtolower($string);
+			return $string;
+		}
+
+			//Thêm trường url_name cho mảng sản phẩm
+		public function add_Url_name($arr){
+			foreach ($arr as $key => $value) {	
+				$arr[$key]['url_name']=self::makeUrl($value['name_product']);
+
+			}
+			return $arr;
+		}
+
 		//Lấy 1 sản phẩm dựa theo ID
 		public function getProduct_Id($id){
 			$sql="SELECT tbl_product.*,tbl_brand.name_brand,tbl_type.name_type From tbl_brand,tbl_product,tbl_type WHERE (tbl_product.id_brand=tbl_brand.id_brand) AND (tbl_product.id_type=tbl_type.id_type) AND id_product=:id";
@@ -236,7 +261,6 @@
 			$pre->execute();
 			return $rs=$pre->fetchAll(PDO::FETCH_ASSOC);
 		}
-
 
 		
 	}

@@ -77,6 +77,7 @@ $(document).ready(function(){
 			$('.back-top').fadeOut();
 		}		
 	});
+	
 	$('.back-top').click(function(){
 		$('html, body').animate({scrollTop : 0},1000);
 	});
@@ -246,6 +247,18 @@ $(document).on('click', '#submit_voucher', function(e) {
 		$("#price_table_box").load(" #content_price_table");
 	});
 });
+
+//JS cho chức năng sắp xếp list product theo tên
+$(document).on('change', '#sort_list_name', function(e) {
+	e.preventDefault();
+	var ss=$("#sort_list_name").val();
+	$.get('server/product/sort-list.php',{ss:ss}, function(data) {
+		$("#list_product_box").load(" #list_product");
+	});
+});
+
+
+
 })
 
 
@@ -374,11 +387,15 @@ $(document).on('click', '#submit_voucher', function(e) {
  	}
   }
 
-//JS cho chức năng sắp xếp list product theo tên
-$(document).on('change', '#sort_list_name', function(e) {
-	e.preventDefault();
-	var ss=$("#sort_list_name").val();
-	$.get('server/product/sort-list.php',{ss:ss}, function(data) {
-		$("#list_product_box").load(" #list_product");
-	});
-});
+   //validate cho form gửi contact
+ function Validate_contact(){
+  	if(blur_name() && blur_email() && blur_phone()){
+ 		
+ 		return true;
+ 	}
+ 	else{
+ 		alert('Dữ liệu nhập vào chưa đúng, yêu cầu kiểm tra lại !');
+ 		return false;
+
+ 	}
+  }

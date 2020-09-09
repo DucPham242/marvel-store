@@ -17,7 +17,7 @@
 					<?php 
 					foreach ($rs_listimg as $key => $list) {
 						?>
-						<div class="col-md-6"><img class="list_img_product" src="<?php echo $list['path']; ?>" alt="" width=""></div>
+						<div class="col-md-6 box_listimg_detail"><img class="list_img_product" src="<?php echo $list['path']; ?>" alt="" width=""></div>
 						<?php
 					}
 					?>
@@ -32,7 +32,7 @@
 				<h4 style="font-weight: bold"><?php echo $value['name_product']; ?></h4>
 				<?php if ($count_review <= 0) {	
 					?>
-					<h5>Sản phẩm này chưa được đánh giá!</h5><br>
+					<h5>Sản phẩm này chưa được ai đánh giá!</h5><br>
 					<?php
 				}else{
 					?>
@@ -72,6 +72,7 @@
 				}else{
 				?>
 				<button type="button" value="<?php echo $value['id_product']; ?>" class="btn add-alert btn-success btn_buynow"><i class="fa fa-shopping-cart fa-2x cart_icon" aria-hidden="true"></i>Thêm vào giỏ</button><br><br>
+				<span style="font-weight: bold;color: gray;font-style: italic;">SL còn: <?php echo $value['quantity']; ?></span>
 				<?php 
 				}
 				?>
@@ -79,7 +80,7 @@
 				if (!isset($_COOKIE['id_user']) && !isset($_COOKIE['name_user'])) {
 
 					?>
-					<div><a href="index.php?page=info&method=login">Đăng nhập</a><span> Để đánh giá sản phẩm!</span></div>
+					<div><a href="info/login">Đăng nhập</a><span> Để đánh giá sản phẩm!</span></div>
 					<?php 
 				}else if(isset($_COOKIE['id_user']) && isset($_COOKIE['name_user'])){
 					if ($check_raiting == 1) {
@@ -129,7 +130,7 @@
 					}
 				}
 				?>
-				<div class="fb-like" id="like_share_product" data-href="https://lamtiensink98.xyz/" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>
+				<div class="fb-like" id="like_share_product" data-href="http://57579b8a0657.ngrok.io/PHP0320E2/marvel-store/marvel-shop/product-detail/260/3athreezero-optimus-prime-dlx-scale" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>
 
 			</div>
 		</div>
@@ -148,7 +149,6 @@
 				<?php
 			}
 			?>
-			<!-- <div class="fb-comments" data-href="http://localhost/PHP0320E2/test_cmtFB/index3.php" data-numposts="5" data-width="" order_by="reverse_time"></div> -->
 
 		</div>
 		<div class="col-md-4" >
@@ -158,7 +158,7 @@
 					<?php 
 					foreach ($rs_related as $key => $value) {
 						?>
-						<a href="index.php?page=home&method=product-detail&id=<?php echo $value['id_product']; ?>"><div class="row" style="">
+						<a href="product-detail/<?php echo $value['id_product'].'/'.$value['url_name']; ?>"><div class="row" style="">
 							<div class="col-md-4" style="">
 								<div class="row">
 									<img class="related_img" src="<?php echo $value['img']; ?>" alt="">
@@ -216,7 +216,7 @@
 		foreach ($_SESSION['seen'] as $key => $value) {
 				?>		
 
-				<div class="col-md-1" style=""><a href="index.php?page=home&method=product-detail&id=<?php echo $value['id_product'] ?>"><img class="list_img_visited" src="<?php echo $value['img']; ?>" alt=""></a></div>
+				<div class="col-md-1" style=""><a href="product-detail/<?php echo $value['id_product'].'/'.$value['url_name']; ?>"><img class="list_img_visited" src="<?php echo $value['img']; ?>" alt=""></a></div>
 
 				<?php 
 		}

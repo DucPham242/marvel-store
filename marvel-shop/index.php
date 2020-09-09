@@ -5,10 +5,36 @@
 <!DOCTYPE html>
 <html lang="">
 <?php include_once 'layout/header.php' ?>
-<body>	
+<body>
 	<!-- Nhúng FB SDK -->
 	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v8.0&appId=638712913439562&autoLogAppEvents=1" nonce="usB2CBM1"></script>
 	<!-- END FB SDK -->
+
+	<!-- Load Facebook SDK for JavaScript -->
+      <div id="fb-root" ></div>
+      <script>
+        window.fbAsyncInit = function() {
+          FB.init({
+            xfbml            : true,
+            version          : 'v8.0'
+          });
+        };
+
+        (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));</script>
+            <!-- Your Chat Plugin code -->
+      <div class="fb-customerchat"
+        attribution=setup_tool
+        page_id="109805184142141"
+  theme_color="#0084ff"
+  logged_in_greeting="Chào bạn! Marvel Store có thể hỗ trợ điều gì cho bạn ?"
+  logged_out_greeting="Chào bạn! Marvel Store có thể hỗ trợ điều gì cho bạn ?">
+      </div>
 	
 		<!-- START MENU Header -->
 		<?php include_once 'layout/nav-header.php' ?>
