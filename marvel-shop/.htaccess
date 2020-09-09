@@ -1,0 +1,18 @@
+RewriteEngine On
+
+RewriteRule "^home" "index.php"
+
+RewriteRule "^([a-zA-Z0-9-]+)$" "index.php?page=home&method=$1"
+
+RewriteRule "^search/pages([0-9]+)$" "index.php?page=home&method=search&pages=$1"
+
+
+RewriteRule "^info/([a-zA-Z0-9-]+)$" "index.php?page=info&method=$1"
+
+RewriteRule "^list-product/([a-zA-Z0-9-]+)/pages([0-9]+)$" "index.php?page=list-product&method=$1&pages=$2"
+
+RewriteRule "^product-detail/([0-9]+)/([a-zA-Z0-9-()+#]+)$" "index.php?page=home&method=product-detail&id=$1$name=$2"
+
+
+ErrorDocument 404 http://localhost/PHP0320E2/marvel-store/marvel-shop/error
+
