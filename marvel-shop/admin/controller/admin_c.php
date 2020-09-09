@@ -96,6 +96,10 @@ class Admin_c extends Admin_m
     public function del_banner($id){
         return $this->ad->del_banner($id);
     }
+    //hàm add noti_user
+    public function add_noti_user($id_user, $content_noti){
+        return $this->ad->add_noti_user($id_user, $content_noti);
+    }
 
 
 	public function create_page(){
@@ -109,12 +113,64 @@ class Admin_c extends Admin_m
 		}
 
 		switch ($views) {
-			case 'status':
+            
+			case 'status'://Thống kê trang web
+            $reviews = $this->ad->get_review();//thống kê tất cả review
+            $count_review = count($reviews);
+
+            $user = $this->ad->get_all_user();//thống kê tất cả user
+            $count_user = count($user);
+
+            $order = $this->ad->get_all_order();//thống kê tất cả order
+            $count_order = count($order);
+
+            $product = $this->ad->get_all_pro();//thống kê tất cả sản phẩm
+            $count_pro = count($product);
+
+            $new_order = $this->ad->get_new_order();  //Lấy ra tất cả những đơn hàng mới được đặt
+             $count_new = count($new_order);
+            $row=5;
+                $number=count($new_order); 
+                $pagination=ceil($number/$row);
+                if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
+                    $pages=(int)$_GET['pages'];
+                }else{
+                    $pages=1;
+                    $_GET['pages']=1;
+                }
+                $current = $_GET['pages'];
+                $form=($pages-1)*$row;
+                $new_order = $this->ad->get_new_order_limit($form,$row);
+
+            if (isset($_POST['submit'])) {   
+                $start = $_POST['start'];
+                $end = $_POST['end'];
+                // echo  $start."<br>";
+                // echo  $end;
+                 $get_order_done = $this->ad->get_order_as_date($start, $end);
+                 $count = count($get_order_done);
+
+            //     $row=5;
+            //     $number=count($get_order_done); 
+            //     $pagination=ceil($number/$row);
+            //     if(isset($_GET['page']) && $_GET['page'] <= $pagination && $_GET['page']>=1){
+            //         $page=(int)$_GET['page'];
+            //     }else{
+            //         $page = 1;
+            //         $_GET['page'] = 1;
+            //     }
+            //     $current = $_GET['page'];
+            //     $form=($page-1)*$row;
+            //    $get_order_done = $this->ad->get_order_as_date_limit($form, $row, $start, $end);
+             } //lấy ra đơn hàng đã hoàn thành theo ngày tháng
+           
+            // echo '<pre>';
+            // print_r($get_order_done);
+            // echo '</pre>';
 			include_once "views/status.php";
 			break;
 
 			case'product' : // Danh sách sản phẩm
-			
 			if(isset($_POST['search_product'])){
 				$_SESSION['key_product']='%'.$_POST['key_product'].'%';
 			}
@@ -130,6 +186,7 @@ class Admin_c extends Admin_m
 					$pages=1;
 					$_GET['pages']=1;
 				}
+                $current = $_GET['pages'];
 				$form=($pages-1)*$row;
 				$rs=$this->ad->get_Product_limit($form,$row,false);
 				$rs=$this->ad->add_discount($rs);
@@ -284,6 +341,7 @@ class Admin_c extends Admin_m
     				$pages=1;
     				$_GET['pages']=1;
     			}
+                $current = $_GET['pages'];
     			$form=($pages-1)*$row;
     			$rs=$this->ad->get_Order_limit($form,$row,false);
     		}
@@ -298,11 +356,15 @@ class Admin_c extends Admin_m
     				$pages=1;
     				$_GET['pages']=1;
     			}
+                $current = $_GET['pages'];
     			$form=($pages-1)*$row;
     			$rs=$this->ad->get_Order_limit($form,$row,$_SESSION['key_order']);
     		}
     		$rs_stt=$this->ad->getSttOrder();
             $rs_noti=$this->ad->get_noti_order();
+            // echo "<pre>";
+            // print_r($rs_noti);
+            // echo "</pre><hr>";
     		include_once "views/order.php";
     		break;
 
@@ -403,11 +465,18 @@ class Admin_c extends Admin_m
     				$add_user=$this->ad->add_User($name_user,$email,$pass,$phone,$address);
     				if($add_user){
     					$_SESSION['noti_addUser']=3;
+                        $id_last_user = $this->ad->lastInsertId();
+                        $id_user = $id_last_user;
+                        $content_noti = 'Quản trị viên '.$_SESSION['name_admin']."(".$_SESSION['email_admin'].') đã thêm thành viên có id user là '.$id_last_user.' và email là '.$email.' vào lúc '.date('Y/m/d-H:i:s',time());
+                        $add_noti = $this->ad->add_noti_user($id_user, $content_noti);
     				}else{
     					$_SESSION['noti_addUser']=4;
     				}
     			}
     		}
+            $get_noti_user = $this->ad->get_noti_user();
+            // echo '<pre>';
+            // print_r($get_noti_user);
     		include_once"views/customer.php";
     		break;
 
@@ -467,8 +536,19 @@ class Admin_c extends Admin_m
     				}
     			}
 
+                foreach ($rs as $key => $value) {
+                    
+                }
+                $content_noti = 'Quản trị viên '.$_SESSION['name_admin']."(".$_SESSION['email_admin'].') đã sửa thành viên có id user là '.$value['id_user'].' vào lúc '.date('Y/m/d-H:i:s',time()).'. Chi tiết: '.$value['phone'].' thành '.$phone.' và email từ '.$value['email'].' thành '.$email;
+                $add_noti_user = $this->ad->add_noti_user($value['id_user'], $content_noti);
+
 
     		}
+
+            if (isset($_GET['id'])) {
+                $id = (int)$_GET['id'];
+                $get__info_noti_user = $this->ad->get_noti_user_id($id);
+            }
 
 
     		include_once "views/edit-customer.php";
@@ -691,6 +771,42 @@ class Admin_c extends Admin_m
         $get_banner = $this->ad->get_banner();
         include_once'views/add-banner.php';
         break;
+        case 'news':
+            if (isset($_POST['add_new'])) {
+                $title = $_POST['name_new'];
+                $content = $_POST['content'];
+                $img = $_FILES['img_news'];
+
+                $upload_path = "../images/news_img";
+                if (!is_dir($upload_path )) {
+                    mkdir($upload_path, 0777, true);
+                }
+                move_uploaded_file($img['tmp_name'], $path = $upload_path.'/'.time().$img['name']);
+                $real_path = substr($path, 3);
+                $add_new = $this->ad->add_news($title, $content,$real_path);
+                if ($add_new) {
+                    $_SESSION['news'] = 1;
+                }else{
+                    $_SESSION['news'] = 2;
+                }
+
+            }
+        $get_new = $this->ad->get_new();
+        if (isset($_POST['edit_news'])) {
+            foreach ($get_new as $key => $value) {
+
+            }
+            $id = $value['id_news'];
+            $content = $_POST['content'];
+            $edit_news = $this->ad->edit_news($content, $id);
+            if ($edit_news) {
+                $_SESSION['news'] = 3; 
+            }else{
+                $_SESSION['news'] = 4; 
+            }
+        }
+            include_once 'views/news.php';
+            break;
 
     	case 'logout'://Đăng xuất
     	unset($_SESSION['id_admin']);

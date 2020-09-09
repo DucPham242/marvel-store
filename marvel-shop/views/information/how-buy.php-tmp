@@ -13,13 +13,13 @@
 				<div class="row">
 					<div class="col-md-6 col-xs-6">
 						<div class="thumbnail">
-							<?php 
-							foreach ($get_news as $key => $value) {
-								// echo "<pre>";
-								// print_r($get_news);
-							}
-							?>
-							<img src="<?php echo $value['img'] ?>" alt="...">
+<?php
+foreach ($get_news as $key => $value) {
+	// echo "<pre>";
+	// print_r($get_news);
+}
+?>
+							<img src="<?php echo $value['img']?>" alt="...">
 
 							<div class="caption" style="text-align: left">
 								<a href="index.php?page=info&method=how-buy"><h4 style="color: #000">Hướng dẫn mua hàng và đặt hàng tại MARVEL STORE trên máy tính và laptop</h4></a>
@@ -33,7 +33,7 @@
 						</div>
 					</div>
 				</div>
-					
+
 			</div>
 			<div class="fb-comments" data-href="http://localhost/PHP0320E2/test_cmtFB/index3.php" data-numposts="5" data-width="" order_by="reverse_time"></div>
 
@@ -45,7 +45,7 @@
 					<a href="index.php?page=info&method=how-buy"><div class="row" style="">
 						<div class="col-md-4" style="">
 							<div class="row">
-								<img class="related_img" src="<?php echo $value['img']; ?>" alt="">
+								<img class="related_img" src="<?php echo $value['img'];?>" alt="">
 							</div>
 						</div>
 						<div class="col-md-8" style="">
@@ -54,7 +54,7 @@
 
 						</div>
 					</div></a>
-					
+
 				</div>
 				<div class="panel panel-default	">
 					<div class="panel-heading"><b>NHỮNG SẢN PHẨM HOT NHẤT</b></div>

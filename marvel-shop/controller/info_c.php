@@ -776,14 +776,22 @@ if (isset($_COOKIE['id_user']) && isset($_COOKIE['name_user'])) {
 
 			case 'reset-pass':
 			if (isset($_COOKIE['id_user']) || !empty($_COOKIE['id_user'])) {
+<<<<<<< HEAD
 				header("Location:home");
+=======
+				header("Location:index.php");
+>>>>>>> 0fb14bdb80bdda0bf6d0ab91da129dc55a5a21ff
 			}
 
 			if(isset($_GET['email']) && isset($_GET['code'])){
 				$email=$_GET['email'];
 				$verification_code=$_GET['code'];
 			}else{
+<<<<<<< HEAD
 				header("Location:home");
+=======
+				header("Location:index.php");
+>>>>>>> 0fb14bdb80bdda0bf6d0ab91da129dc55a5a21ff
 			}
 			$check_url=$this->info->get_Verification_email_code($email,$verification_code);
 			if(count($check_url)!=1){
@@ -826,7 +834,11 @@ if (isset($_COOKIE['id_user']) && isset($_COOKIE['name_user'])) {
 
 	case 'change-pass':
 	if(!isset($_COOKIE['id_user']) || isset($_COOKIE['user_imageFB'])){
+<<<<<<< HEAD
 		header("Location:home");
+=======
+		header("Location:index.php");
+>>>>>>> 0fb14bdb80bdda0bf6d0ab91da129dc55a5a21ff
 	}
 
 	if(isset($_POST['submit_changepass'])){
@@ -852,9 +864,15 @@ if (isset($_COOKIE['id_user']) && isset($_COOKIE['name_user'])) {
 	break;
 
 	case 'tutorial': //Trang hướng dẫn mua hàng
+	$get_news = $this->info->get_new();
 	include_once "views/information/how-buy.php";
 	break;
-
+	case 'how-buy':
+	$get_news = $this->info->get_new();
+			// echo '<pre>';
+			// print_r($get_news);
+	include_once 'views/information/detail-how-buy.php';
+	break;
 	case 'contact': //Trang liên hệ
 	if(isset($_POST['submit_contact'])){
 		$name=$_POST['name'];

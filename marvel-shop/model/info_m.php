@@ -329,6 +329,14 @@
 			
 		}
 
+		//lấy thông tin tại bảng tbl_news
+		public function get_new(){
+			$sql = "SELECT * FROM tbl_news";
+			$pre = $this->pdo->prepare($sql);
+			$pre->execute();
+			return $pre->fetchAll(PDO::FETCH_ASSOC);
+		}
+	
 
 }
  ?>

@@ -6,7 +6,18 @@ function updatecart(id){
 		$("#cartbox").load(" #reload_cartbox");
 	});
 }
+	// làm mô tả từng ảnh
+	$(document).ready(function(){
 
+		if($("#ship").attr("checked")=='checked'){
+	$.post('server/info/changeSS-35k.php', function(data) {
+	
+	});
+	$.post('server/info/voucherDefault.php', function(data) {
+		
+	});
+	$("#price_table_box").load(" #content_price_table");
+}
 //Trường input chỉ cho nhập số
 function onlyNum(){
 	return event.charCode>=48 && event.charCode<=57;
@@ -23,8 +34,6 @@ function set_PriceShip_Voucher(){
 			$("#price_table_box").load(" #content_price_table");
 }
 set_PriceShip_Voucher();//Gọi hàm
-
-
 
 $(document).ready(function(){
 
@@ -145,11 +154,6 @@ $(document).on('click', '.cart-hover-del', function(e){
 
 $("#alert1").fadeOut(7000).slideUp();
 
-//tắt thông báo alert
-$(".alert").fadeOut(7000);
-
-
-
 //Click xem chi tiết,hiển thị chi tiết đơn hàng. Phần Thông tin tài khoản
 $(document).on('click', '.check_detail_order', function(e) {
 	e.preventDefault();
@@ -159,8 +163,6 @@ $(document).on('click', '.check_detail_order', function(e) {
 
 	});
 });
-
-
 //Khu vực xử lý chức năng sửa địa chỉ khách hàng--------START
 //Nhấn vào sửa địa chỉ,hiện textarea
 $(document).on('click', '#edit_address', function(e) {
@@ -227,6 +229,15 @@ $("#payment_bank").click(function(e) {
 	$("#price_table_box").load(" #content_price_table");
 });
 
+// if($("#ship").attr("checked")=='checked'){
+// 	$.post('server/info/changeSS-35k.php', function(data) {
+	
+// 	});
+// 	$.post('server/info/voucherDefault.php', function(data) {
+// 	});
+// 	$("#price_table_box").load(" #content_price_table");
+// }
+
 // Khi người dùng thay đổi thông tin họ tên, phone ở phần checkout,thì sẽ
 //đồng thời thay đổi phần nội dung chuyển khoản
 $("#name_checkout,#phone_checkout").keyup(function(e) {
@@ -247,6 +258,7 @@ $(document).on('click', '#submit_voucher', function(e) {
 		$("#price_table_box").load(" #content_price_table");
 	});
 });
+<<<<<<< HEAD
 
 //JS cho chức năng sắp xếp list product theo tên
 $(document).on('change', '#sort_list_name', function(e) {
@@ -261,6 +273,8 @@ $(document).on('change', '#sort_list_name', function(e) {
 
 })
 
+=======
+>>>>>>> 0fb14bdb80bdda0bf6d0ab91da129dc55a5a21ff
 
  // làm phần Validate kiểm tra thông tin đăng kí
 

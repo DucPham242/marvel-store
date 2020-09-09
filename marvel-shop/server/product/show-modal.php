@@ -30,9 +30,6 @@ if(isset($_POST['id']) && $_POST['id']>0){
 							}
 
 							?>
-
-
-
 						</div>
 					</div>
 					<div class="col-md-4">
@@ -76,7 +73,4 @@ if(isset($_POST['id']) && $_POST['id']>0){
 		<?php
 	}
 }
-
-
-
 ?>

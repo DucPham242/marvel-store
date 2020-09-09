@@ -566,8 +566,8 @@ class Admin_m extends Connect {
 	//Hàm xóa 1 bản ghi cũ nhất của 1 bảng của 1 hành động
 	public function del_history_noti_in_table($tbl, $i) {
 		$sql = "DELETE FROM $tbl WHERE action=$i AND id_noti=(
-						SELECT MIN(id_noti) FROM $tbl
-					)";
+                SELECT MIN(id_noti) FROM $tbl
+            )";
 		return $pre = $this->pdo->query($sql);
 	}
 	//Hàm xử lý xóa nếu đủ điều kiện xóa
@@ -633,6 +633,116 @@ class Admin_m extends Connect {
 		$pre = $this->pdo->prepare($sql);
 		$pre->bindParam(':id', $id);
 		return $pre->execute();
+	}
+	//add tbl_news
+
+	public function add_news($title, $content, $img) {
+		$sql = "INSERT INTO tbl_news(title, content, img) VALUES (:title, :content, :img)";
+		$pre = $this->pdo->prepare($sql);
+		$pre->bindParam(':title', $title);
+		$pre->bindParam(':content', $content);
+		$pre->bindParam(':img', $img);
+		return $pre->execute();
+	}
+	// lấy thông tin từ bảng tbl_news
+	public function get_new() {
+		$sql = "SELECT * FROM tbl_news";
+		$pre = $this->pdo->prepare($sql);
+		$pre->execute();
+		return $pre->fetchAll(PDO::FETCH_ASSOC);
+	}
+	//chỉnh sửa bảng tbl_news
+	public function edit_news($content, $id) {
+		$sql = "UPDATE tbl_news SET content = :content WHERE id_news = :id";
+		$pre = $this->pdo->prepare($sql);
+		$pre->bindParam(':id', $id);
+		$pre->bindParam(':content', $content);
+
+		return $pre->execute();
+	}
+	//Hàm lấy tất cả thông tin tại bảng tbl_review
+	public function get_review() {
+		$sql = "SELECT * FROM tbl_review";
+		$pre = $this->pdo->prepare($sql);
+		$pre->execute();
+		return $pre->fetchAll(PDO::FETCH_ASSOC);
+	}
+	//Lấy ra tất cả thông tin tại bảng tbl_user
+	public function get_all_user() {
+		$sql = "SELECT * FROM tbl_user";
+		$pre = $this->pdo->prepare($sql);
+		$pre->execute();
+		return $pre->fetchAll(PDO::FETCH_ASSOC);
+	}
+	//lấy ra tất cả thông tin tại bảng tbl_order
+	public function get_all_order() {
+		$sql = "SELECT * FROM tbl_order";
+		$pre = $this->pdo->prepare($sql);
+		$pre->execute();
+		return $pre->fetchAll(PDO::FETCH_ASSOC);
+	}
+	//láy ra tất cả sản phẩm
+	public function get_all_pro() {
+		$sql = "SELECT * FROM tbl_product";
+		$pre = $this->pdo->prepare($sql);
+		$pre->execute();
+		return $pre->fetchAll(PDO::FETCH_ASSOC);
+	}
+	//Lấy ra những đơn hàng mới tại bảng tbl_order
+	public function get_new_order() {
+		$sql = "SELECT * FROM tbl_order WHERE stt = 1 ORDER BY tbl_order.id_order DESC";
+		$pre = $this->pdo->prepare($sql);
+		$pre->execute();
+		return $pre->fetchAll(PDO::FETCH_ASSOC);
+	}
+	//limit đơn hàng mới được đặt
+	public function get_new_order_limit($form, $row) {
+		$sql = "SELECT * FROM tbl_order WHERE stt = 1 ORDER BY tbl_order.id_order DESC LIMIT $form, $row";
+		$pre = $this->pdo->prepare($sql);
+		$pre->execute();
+		return $pre->fetchAll(PDO::FETCH_ASSOC);
+	}
+	//hiển thị đơn hàng đã thanh toán theo ngày được lựa chọn
+	public function get_order_as_date($start, $end) {
+		$sql = "SELECT * FROM tbl_order WHERE last_update BETWEEN :start AND :end AND stt = 4";
+		$pre = $this->pdo->prepare($sql);
+		$pre->bindParam(':start', $start);
+		$pre->bindParam(':end', $end);
+		$pre->execute();
+		return $pre->fetchAll(PDO::FETCH_ASSOC);
+	}
+	//limit đơn hàng thanh toán theo ngày được lựa chọn
+	// public function get_order_as_date_limit($form, $row, $start, $end){
+	//  $sql = "SELECT * FROM tbl_order WHERE last_update BETWEEN :start AND :end AND stt = 4 LIMIT $form, $row";
+	//  $pre = $this->pdo->prepare($sql);
+	//  $pre->bindParam(':start', $start);
+	//  $pre->bindParam(':end', $end);
+	//  $pre->execute();
+	//  return $pre->fetchAll(PDO::FETCH_ASSOC);
+	// }
+
+	//Add lịch sử chỉnh sửa user vào bảng tbl_noti_user
+	public function add_noti_user($id_user, $content_noti) {
+		$sql = "INSERT INTO tbl_noti_user (id_user, content_noti) VALUES (:id_user, :content_noti)";
+		$pre = $this->pdo->prepare($sql);
+		$pre->bindParam('id_user', $id_user);
+		$pre->bindParam('content_noti', $content_noti);
+		return $pre->execute();
+	}
+	//lấy thông tin từ bảng tbl_noti_user
+	public function get_noti_user() {
+		$sql = "SELECT * FROM tbl_noti_user";
+		$pre = $this->pdo->prepare($sql);
+		$pre->execute();
+		return $pre->fetchAll(PDO::FETCH_ASSOC);
+	}
+	//Lấy thông tin từ bảng tbl_noti_user bằng id
+	public function get_noti_user_id($id) {
+		$sql = "SELECT * FROM tbl_noti_user WHERE id_user = :id";
+		$pre = $this->pdo->prepare($sql);
+		$pre->bindParam(':id', $id);
+		$pre->execute();
+		return $pre->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 }

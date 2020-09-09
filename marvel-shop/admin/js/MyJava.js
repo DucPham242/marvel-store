@@ -403,12 +403,14 @@ $(document).on('click', '.btn_detail_order', function(e) {
 //Click xoa User
 $(document).on('click', '.btn_del_user', function(e) {
 	e.preventDefault();
-	var id=$(this).val();
-	var check=confirm("Lưu ý: Sau khi xóa, các dữ liệu liên quan đến khách hàng này cũng sẽ mất.Quản trị viên hãy cân nhắc xử lý trước khi xóa. Bạn có muốn xóa khách hàng này ? ");
+	var id = $(this).val();
+	var check = confirm("Lưu ý: Sau khi xóa, các dữ liệu liên quan đến khách hàng này cũng sẽ mất.Quản trị viên hãy cân nhắc xử lý trước khi xóa. Bạn có muốn xóa khách hàng này ? ");
+	if(check){
 	$.get('server/user/del-user.php',{id:id}, function(data) {
 		alert(data);
 		$("#tbl_user_boxount").load(" #tbl_user_boxin");
 	});
+	}
 });
 
 //Click đổi mật khẩu trong profile

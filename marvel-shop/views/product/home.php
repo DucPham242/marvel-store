@@ -161,6 +161,7 @@
 							<div class="set">
 								<div href="#" style=""><img style="" src="<?php echo $mv['img']; ?>" width="100%" alt="...">
 									<button class="btn btn-danger shower"  data-toggle="modal" value="<?php echo $mv['id_product']; ?>" data-target=".bs-example-modal-lg">Xem chi tiết</button>
+									
 								</div>
 
 							</div>

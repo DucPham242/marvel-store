@@ -221,9 +221,7 @@
 								?>
 								<?php
 									// echo $pagination;
-								if ($pagination > 5) {
-									$pagination = $pagination = 5 + $pagination;
-								}
+							
 								for($i = 1; $i <= $pagination; $i++){
 										if ($i > $current - 3 && $i < $current + 3) {
 											

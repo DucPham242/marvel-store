@@ -10,7 +10,7 @@ class Connect {
 	function __construct() {
 		try {
 			$this->pdo = new PDO($this->dns, $this->user, $this->pass);
-			$this->pdo->query("SET NAME utf8");
+			$this->pdo->query("SET NAMES utf8");
 		} catch (PDOException $e) {
 			echo $e->getMessage();
 			exit;

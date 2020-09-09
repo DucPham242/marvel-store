@@ -37,15 +37,15 @@
 		public function Product_limit($form,$row,$id_brand){
 			if(!isset($_SESSION['sort']) || (isset($_SESSION['sort'])&&$_SESSION['sort']=='id_product_ASC')){
 				$sort='ORDER BY tbl_product.id_product ASC';
-			}else if(isset($_SESSION['sort'])&&$_SESSION['sort']=='id_product_DESC'){
+			}else if(isset($_SESSION['sort'])&& $_SESSION['sort']=='id_product_DESC'){
 				$sort='ORDER BY tbl_product.id_product DESC';
-			}else if(isset($_SESSION['sort'])&&$_SESSION['sort']=='name_product_ASC'){
+			}else if(isset($_SESSION['sort'])&& $_SESSION['sort']=='name_product_ASC'){
 				$sort='ORDER BY tbl_product.name_product ASC';
-			}else if(isset($_SESSION['sort'])&&$_SESSION['sort']=='name_product_DESC'){
+			}else if(isset($_SESSION['sort'])&& $_SESSION['sort']=='name_product_DESC'){
 				$sort='ORDER BY tbl_product.name_product DESC';
-			}else if(isset($_SESSION['sort'])&&$_SESSION['sort']=='sale_price_ASC'){
+			}else if(isset($_SESSION['sort'])&& $_SESSION['sort']=='sale_price_ASC'){
 				$sort='ORDER BY sale_price ASC';
-			}else if(isset($_SESSION['sort'])&&$_SESSION['sort']=='sale_price_DESC'){
+			}else if(isset($_SESSION['sort'])&& $_SESSION['sort']=='sale_price_DESC'){
 				$sort='ORDER BY sale_price DESC';
 			}
 			$sql="SELECT tbl_product.*,tbl_brand.name_brand,tbl_type.name_type,(price-(price*discount/100)) as sale_price From tbl_brand,tbl_product,tbl_type WHERE (tbl_product.id_brand=tbl_brand.id_brand) AND (tbl_product.id_type=tbl_type.id_type) AND tbl_product.id_brand=$id_brand ".$sort." LIMIT $form,$row";

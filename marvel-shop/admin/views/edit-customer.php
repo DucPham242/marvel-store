@@ -41,7 +41,21 @@
 			}
 		 ?>
 		
-		
+		 <div class="form-group">
+		<label for="">Lịch sử cập nhật</label>
+		<div style="overflow: scroll; width: 100%;height: 200px;" >
+			<?php 
+			$sx=0;
+			foreach($get__info_noti_user as $key => $noti) {
+				?>
+				<label for="" style="color: red;"><?php  echo $sx+=1.;echo "."; ?></label>
+				<p><?php echo $noti['content_noti']; ?></p><hr>
+				<?php
+			}
+			 ?>
+		</div>
+	</div>
+	
 	
 		<button type="submit" name="edit_user" class="btn btn-primary">Cập nhật</button>
 	</form>
