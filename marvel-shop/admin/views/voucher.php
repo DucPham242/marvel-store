@@ -20,24 +20,23 @@ if(isset($_SESSION['stt_admin']) && $_SESSION['stt_admin']==1){
 				</button>
 			</div>
 			<div class="modal-body">
-				<form action="" method="POST" role="form">
+				<form action="" method="POST" role="form" onsubmit="return Validate_voucher();">
 					<legend>Thiết lập mã</legend>
-					
 					<div class="form-group">
-						<label for="">Code</label>
-						<input type="text" name="code_voucher" class="form-control" id="">
+						<label for="">Code</label><span id="spanaddress" class="spanerror"></span>
+						<input type="text" name="code_voucher" class="form-control" id="address" onblur="blur_address();">
 					</div>
 					<div class="form-group">
-						<label for="">Áp dụng cho đơn hàng có trị giá từ</label>
-						<input type="number" name="apply_for" onkeypress="return onlyNum();" class="form-control" id="" >
+						<label for="">Áp dụng cho đơn hàng có trị giá từ</label><span id="span_orderprice" class="spanerror"></span>
+						<input type="number" name="apply_for" onkeypress="return onlyNum();" class="form-control" id="orderprice" onblur="BlurOrderPrice();">
 					</div>
 					<div class="form-group">
-						<label for="">Số ngày code tồn tại (*/ngày)</label>
-						<input type="number" name="time_apply" onkeypress="return onlyNum();"  class="form-control" id="" >
+						<label for="">Số ngày code tồn tại (*/ngày)</label><span id="spand_timeapply" class="spanerror"></span>
+						<input type="number" name="time_apply" onkeypress="return onlyNum();"  class="form-control" id="timeapply" onblur="Blurtimeapply();">
 					</div>
 					<div class="form-group">
-						<label for="">% giảm giá</label>
-						<input type="number" name="discount" onkeypress="return onlyNum();"  class="form-control" id="" >
+						<label for="">% giảm giá</label><span id="spandiscount" class="spanerror"></span>
+						<input type="number" name="discount" onkeypress="return onlyNum();"  class="form-control" id="discount" onblur="Blurdiscount();">
 					</div>
 		
 					<button type="submit" name="add_voucher" class="btn btn-primary">Khởi tạo</button>

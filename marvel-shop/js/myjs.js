@@ -6,18 +6,7 @@ function updatecart(id){
 		$("#cartbox").load(" #reload_cartbox");
 	});
 }
-	// làm mô tả từng ảnh
-	$(document).ready(function(){
 
-		if($("#ship").attr("checked")=='checked'){
-	$.post('server/info/changeSS-35k.php', function(data) {
-	
-	});
-	$.post('server/info/voucherDefault.php', function(data) {
-		
-	});
-	$("#price_table_box").load(" #content_price_table");
-}
 //Trường input chỉ cho nhập số
 function onlyNum(){
 	return event.charCode>=48 && event.charCode<=57;
@@ -258,7 +247,6 @@ $(document).on('click', '#submit_voucher', function(e) {
 		$("#price_table_box").load(" #content_price_table");
 	});
 });
-<<<<<<< HEAD
 
 //JS cho chức năng sắp xếp list product theo tên
 $(document).on('change', '#sort_list_name', function(e) {
@@ -269,12 +257,11 @@ $(document).on('change', '#sort_list_name', function(e) {
 	});
 });
 
-
-
 })
 
-=======
->>>>>>> 0fb14bdb80bdda0bf6d0ab91da129dc55a5a21ff
+
+
+
 
  // làm phần Validate kiểm tra thông tin đăng kí
 

@@ -619,6 +619,9 @@ class Admin_c extends Admin_m
     	break;
 
     	case 'edit-voucher':
+        if(!isset($_SESSION['stt_admin']) || $_SESSION['stt_admin']!=1){
+            header("Location:index.php");
+        }
     	$id_max=$this->ad->getMaxId_Voucher();
     	if(isset($_GET['id']) && $_GET['id']>0 && $_GET['id'] <= $id_max['MAX(id_voucher)']){
     		$id=(int)$_GET['id'];
