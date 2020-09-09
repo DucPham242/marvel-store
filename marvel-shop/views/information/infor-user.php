@@ -13,18 +13,42 @@
 			<div class="col-md-4 col-xs-12">
 				<a href="index.php?page=info&method=logout" style="margin-top: 40px"><i  class="fa fa-sign-out iconfa_user" aria-hidden="true">Thoát</i></a>
 
-					<div class="userbox" style="width: 300px;padding-left: 10px;position: relative;min-height: 250px;padding-bottom: 20px;margin-bottom: 40px">
+
+					<div class="userbox" id="userbox_main"  style="">
 						<?php foreach ($info_user as $key => $info) {
 							
 						 ?>
-						<p>Họ tên: <?php echo $info['name_user']; ?></p>	
+						<p>Họ tên: <?php echo $info['name_user']; ?></p>
+						<?php 
+							if (isset($_COOKIE['user_imageFB'])) {
+								?>
+								<p>
+									<img src="<?php echo $_COOKIE['user_imageFB']; ?>" alt="">
+								</p>
+								<?php
+							}
+						 ?>
 						<p>Email: <?php echo $info['email']; ?></p>
-						<p>Điện thoại: <?php echo $info['phone']; ?></p>
+						<div id="noti_phone"></div>
+						<div id="phone_box"><p style="position: relative;" id="phone">Điện thoại: <?php echo $info['phone']; $_SESSION['phone_user']=$info['phone']; ?><a id="edit_phone" href="#" style="position: absolute;right: 5px;"><i class="fa fa-share fa-1x iconfa_user" aria-hidden="true"  > Sửa</i></a></p></div>
 						<div id="address_box"><p id="address">Địa chỉ: <?php echo "<span style='color: gray;font-style: italic;'>".$info['address']."</span>"; ?></p></div>
-						<a href="#" id="edit_address" class="" style="position: absolute;right:10px;bottom:20px;"><i class="fa fa-share fa-1x iconfa_user" aria-hidden="true"  > Sửa địa chỉ</i></a>
+						<div id="noti_address"></div>
+						<a href="#" id="edit_address" class="" style="position: absolute;right:10px;bottom:10px;"><i class="fa fa-share fa-1x iconfa_user" aria-hidden="true"  > Sửa địa chỉ</i></a>
 						<?php 
 							}
 						?>
+					</div>
+						<?php 
+				if(!isset($_COOKIE['user_imageFB'])){
+					?>
+					<a href="index.php?page=info&method=change-pass" style="margin-left: 100px;"><i class="fa fa-unlock-alt iconfa_user" aria-hidden="true"> Đổi mật khẩu</i></a>
+					<?php
+				}
+
+				 ?>
+					<div class="userbox" style="width: 300px;color: gray;font-style: italic;padding: 20px;">
+						Liên hệ với quản trị viên Marvel Store để được thay đổi thông tin đơn hàng. <br>
+						Hotline: 0398762441.
 					</div>
 			</div>
 			<div class="col-md-8 col-xs-12">

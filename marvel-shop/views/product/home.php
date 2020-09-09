@@ -7,15 +7,17 @@
 				<li data-target="#carousel-id" data-slide-to="2" class="active"></li>
 			</ol>
 			<div class="carousel-inner">
-				<div class="item">
-					<img alt="First slide" src="images/banner/banner.webp" style="width: 100%;">
+				<?php 
+				$at=0;
+				foreach ($rs_banner as $key => $value) {
+					$at+=1;
+				?>
+				<div class="item <?php if($at==1){ echo 'active';} ?>" >
+					<img alt="First slide" src="<?php echo $value['path']; ?>" style="width: 100%;">
 				</div>
-				<div class="item">
-					<img alt="First slide" src="images/banner/banner.webp" style="width: 100%;">
-				</div>
-				<div class="item active">
-					<img alt="First slide" src="images/banner/banner.webp" style="width: 100%;">
-				</div>
+				<?php
+				}
+				 ?>
 			</div>
 
 			<a class="left carousel-control" href="#carousel-id" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
@@ -121,7 +123,7 @@
 
 		<div class="row">
 			<div class="col-md-6 col-md-push-5 col-xs-6 col-xs-push-3">
-				<a href="index.php?page=list-product&method=hot"><button type="button" class="btn btn-success btn_viewall">Xem tất cả</button></a>
+				<a href="index.php?page=list-product&method=hot"><button type="button" class="btn_viewall btn btn-success" style="outline: none;">Xem tất cả</button></a>
 			</div>
 		</div>
 
@@ -159,6 +161,7 @@
 							<div class="set">
 								<div href="#" style=""><img style="" src="<?php echo $mv['img']; ?>" width="100%" alt="...">
 									<button class="btn btn-danger shower"  data-toggle="modal" value="<?php echo $mv['id_product']; ?>" data-target=".bs-example-modal-lg">Xem chi tiết</button>
+									
 								</div>
 
 							</div>
@@ -191,7 +194,7 @@
 
 			<div class="row">
 				<div class="col-md-6 col-md-push-5 col-xs-6 col-xs-push-3">
-					<a href="index.php?page=list-product&method=marvel"><button type="button" class="btn btn-success btn_viewall" style="">Xem tất cả</button></a>
+					<a href="index.php?page=list-product&method=marvel"><button type="button" class="btn btn-success btn_viewall" style="outline: none">Xem tất cả</button></a>
 				</div>
 			</div>
 			<div class="row">
@@ -255,7 +258,7 @@
 				</div>
 				<div class="row">
 					<div class="col-md-6 col-md-push-5 col-xs-6 col-xs-push-3">
-						<a href="index.php?page=list-product&method=dc"><button type="button" class="btn btn-success btn_viewall">Xem tất cả</button></a>
+						<a href="index.php?page=list-product&method=dc"><button type="button" class="btn btn-success btn_viewall" style="outline: none;">Xem tất cả</button></a>
 					</div>
 				</div>
 				<div class="modal fade bs-example-modal-lg modal_content" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">

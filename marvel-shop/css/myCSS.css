@@ -178,6 +178,7 @@ a:hover{
 .button{
 	border-radius: 10px;
 	background-color: #fff;
+	outline: none;
 }
 .button:hover{
 	background-color: #40E55B;
@@ -389,6 +390,7 @@ a:hover{
 }
 a .iconfa_user{
 	color: #000;
+	
 }
 a .iconfa_user:hover{
 	color: #337ab7;
@@ -399,12 +401,17 @@ a .iconfa_user:hover{
 	margin-bottom: 10px;
 
 }
+#userbox_main{
+	width: 300px;padding-left: 10px;position: relative;min-height: 250px;padding-bottom: 20px;margin-bottom: 10px;
+}
+
 #tbl_ordered tbody tr td{
 	border: 0px none;
 }
 .btn_viewall{
 	border-radius: 40px;
 	padding: 10px 35px;
+
 }
 .tittle_footer{
 	color: #ECE7E7;
@@ -560,7 +567,7 @@ a .iconfa_user:hover{
 	display: none;
 }	
 .product_box{
-	min-height: 500px;
+	min-height: 560px;
 }
 .caption{
 	margin-top: 10px;

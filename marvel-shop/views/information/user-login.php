@@ -59,6 +59,15 @@
 						 <input type="submit" name="submit_login" value="Đăng nhập" class="form-control">
 					</div>
 					<a href="index.php?page=info&method=forget" style="text-decoration: none;color: red">Quên mật khẩu?</a> <span> hoặc <a href="index.php?page=info&method=register" style="text-decoration: none;color: red">Đăng ký</a>
+						<hr>
+
+						<?php 
+							if(isset($facebook_login_url))
+    {
+     echo $facebook_login_url;
+    }
+
+						 ?>
 
 				</form>
 			</div>

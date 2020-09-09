@@ -3,8 +3,7 @@
 		<ol class="breadcrumb" >
 			<li>Trang chủ</li>
 			<li>Danh mục sản phẩm</li>
-			<?php 
-			
+			<?php 			
 			switch ($method) {
 				case 'marvel':
 				case 'dc':
@@ -26,7 +25,7 @@
 				<li><?php echo 'Sản phẩm HOT-SALE'; ?></li>
 				<?php
 			}
-			?>				
+						?>		
 		</ol>
 	</div>
 	<div class="row" >
@@ -131,12 +130,18 @@
 														<li>Từ 0-9</li>
 
 													</ul> -->
-													<select name="city" id="">
+													<select name="city" id="sort_list_name" class="form-control">
 														<option value="">--Sắp xếp theo--</option>
-
-														<option value="">Tên: A-Z</option><option value="">Tên: Z-A</option>
-														<option value="">Giá tăng dần</option>
-														<option value="">Giá giảm dần</option>
+														<option value="id_product_DESC" <?php if(isset($_SESSION['sort']) && $_SESSION['sort']=='id_product_DESC'){echo 'selected';} ?> >Mới nhất</option>
+														<option value="id_product_ASC" <?php if(isset($_SESSION['sort']) && $_SESSION['sort']=='id_product_ASC'){echo 'selected';} ?> >Cũ nhất</option>
+														<option value="name_product_ASC" <?php if(isset($_SESSION['sort']) && $_SESSION['sort']=='name_product_ASC'){echo 'selected';} ?> >Tên: A-Z</option><option value="name_product_DESC"  <?php if(isset($_SESSION['sort']) && $_SESSION['sort']=='name_product_DESC'){echo 'selected';} ?> >Tên: Z-A</option>
+														<option value="sale_price_ASC" <?php if(isset($_SESSION['sort']) && $_SESSION['sort']=='sale_price_ASC'){echo 'selected';} ?> >
+															Giá: Tăng dần
+														</option>
+														<option value="sale_price_DESC" <?php if(isset($_SESSION['sort']) && $_SESSION['sort']=='sale_price_DESC'){echo 'selected';} ?> >
+															Giá: Giảm dần
+														</option>
+														
 
 													</select>
 													
@@ -149,8 +154,10 @@
 							</nav>
 						</div>
 					</div>
-					<div class="row">
+					<div id="list_product_box">
+					<div class="row" id="list_product">
 						<?php 
+
 						if(count($rs)<1){
 							echo "<p style='color:red;margin-left:100px;'>Mặt hàng này hiện không còn sản phẩm, bạn vui lòng quay lại sau.</p>";
 						}	
@@ -198,6 +205,7 @@
 						</div>
 						</div>
 					</div>
+					</div>
 					<div class="row" >
 						<div class="col-md-6 col-md-push-2" >
 							<ul class="pagination" >
@@ -213,9 +221,7 @@
 								?>
 								<?php
 									// echo $pagination;
-								if ($pagination > 5) {
-									$pagination = $pagination = 5 + $pagination;
-								}
+							
 								for($i = 1; $i <= $pagination; $i++){
 										if ($i > $current - 3 && $i < $current + 3) {
 											

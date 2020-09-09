@@ -23,6 +23,16 @@
 		return $pre->fetchAll(PDO::FETCH_ASSOC);
 	}
 
+//Lấy thông tin người dùng đối chiếu qua id_user và pass
+	public function getInfo_user_id_pass($id_user,$pass){
+		$sql="SELECT * FROM tbl_user WHERE id_user=:id_user AND pass=:pass";
+		$pre=$this->pdo->prepare($sql);
+		$pre->bindParam(':id_user',$id_user);
+		$pre->bindParam(':pass',$pass);
+		$pre->execute();
+		return $pre->fetchAll(PDO::FETCH_ASSOC);
+	}
+
 //Lấy thông tin người dùng đối chiếu thông qua COOKIE id_user
 	public function getInfo_user($id){
 		$sql="SELECT * FROM tbl_user WHERE id_user=:id";
@@ -88,6 +98,27 @@
 		$pre->bindParam(':id_user',$id_user);
 		return $pre->execute();
 	}
+
+//Sửa phone của user
+	public function edit_phone($phone,$id_user){
+		$sql="UPDATE tbl_user SET phone=:phone WHERE id_user=:id_user";
+		$pre=$this->pdo->prepare($sql);
+		$pre->bindParam(':phone',$phone);
+		$pre->bindParam(':id_user',$id_user);
+		return $pre->execute();
+	}
+
+//Sửa lại email,phone,địa chỉ của user
+	public function edit_email_phone_address($email,$phone,$address,$id_user){
+		$sql="UPDATE tbl_user SET email=:email,phone=:phone,address=:address WHERE id_user=:id_user";
+		$pre=$this->pdo->prepare($sql);
+		$pre->bindParam(':email',$email);
+		$pre->bindParam(':phone',$phone);
+		$pre->bindParam(':address',$address);
+		$pre->bindParam(':id_user',$id_user);
+		return $pre->execute();
+	}
+
 //Hàm lấy thông tin ra 1 code voucher,dựa vào biến code truyền vào
 	public function check_voucher($code){
 		$sql="SELECT * FROM tbl_voucher_order WHERE code_voucher=:code";
@@ -97,7 +128,7 @@
 		return $pre->fetchAll(PDO::FETCH_ASSOC);
 	}
 
-	//Truyền thông tin khách hàng và đơn hàng vào tbl_order
+	//Truyền thông tin khách hàng và đơn hàng vào tbl_order danh cho trường hợp chưa đăng nhập
 	public function get_info($name, $id_payment, $total, $phone, $email, $address, $note){
 		$sql = "INSERT INTO tbl_order(name,id_payment, total,phone,email,address,note) VALUES (:name, :id_payment, :total, :phone, :email, :address, :note)";
 		$pre = $this->pdo->prepare($sql);
@@ -113,6 +144,25 @@
 		return $pre;
 
 	}
+
+	//Truyền thông tin khách hàng và đơn hàng vào tbl_order danh cho trường hợp ĐÃ ĐĂNG NHẬP
+	public function get_info_Login($id_user,$name, $id_payment, $total, $phone, $email, $address, $note){
+		$sql = "INSERT INTO tbl_order(id_user,name,id_payment, total,phone,email,address,note) VALUES (:id_user,:name, :id_payment, :total, :phone, :email, :address, :note)";
+		$pre = $this->pdo->prepare($sql);
+		$pre->bindParam('id_user', $id_user);
+		$pre->bindParam('name', $name);
+		$pre->bindParam('id_payment', $id_payment);
+		$pre->bindParam('total', $total);
+		$pre->bindParam('phone', $phone);
+		$pre->bindParam('email', $email);
+		$pre->bindParam('address', $address);
+		$pre->bindParam('note', $note);
+
+		$pre->execute();
+		return $pre;
+
+	}
+
 // 
 	// public function get_user($email,$phone){
 	// 	$sql = "SELECT * FROM tbl_user WHERE email = :email AND phone = :phone" ;
@@ -142,6 +192,8 @@
 	// $pre->execute();
 	// return $pre;
 	// }
+
+
 	//hàm xử lý lấy ra id cuối cùng
 	public function lastInsertId(){
 			return $id_insert=$this->pdo->lastInsertId();
@@ -177,6 +229,102 @@
 			$pre->bindParam(':id_product', $id_product);
 			return $pre->execute();
 		}
+
+		//Lấy thông tin 1 thành viên dựa theo ID FB - tbl_user
+		public function get_User_FB($id_fb){
+			$sql = "SELECT * FROM tbl_user WHERE id_fb=:id_fb";
+			$pre = $this->pdo->prepare($sql);
+			$pre->bindParam(':id_fb', $id_fb);
+			$pre->execute();
+			return $pre->fetchAll(PDO::FETCH_ASSOC);
+		}
+
+		//Add thêm 1 user có chứa cả ID FB
+		public function add_User_FB($id_fb,$name,$pass){
+		$sql="INSERT INTO tbl_user(id_fb,name_user,pass) VALUES (:id_fb,:name,:pass)";
+		$pre=$this->pdo->prepare($sql);
+		$pre->bindParam(':id_fb',$id_fb);
+		$pre->bindParam(':name',$name);
+		$pre->bindParam(':pass',$pass);
+		return $pre->execute();
+	}
+
+	//Hàm lấy ra 1 bản ghi trong bảng tbl_verification dựa theo email
+	public function get_Verification_email($email){
+			$sql = "SELECT * FROM tbl_verification WHERE email=:email";
+			$pre = $this->pdo->prepare($sql);
+			$pre->bindParam(':email', $email);
+			$pre->execute();
+			return $pre->fetchAll(PDO::FETCH_ASSOC);
+		}
+
+		//Tìm kiếm 1 bản ghi bảng tbl_verification dựa theo email và verification_code
+		public function get_Verification_email_code($email,$verification_code){
+			$sql = "SELECT * FROM tbl_verification WHERE email=:email AND verification_code=:verification_code";
+			$pre = $this->pdo->prepare($sql);
+			$pre->bindParam(':email',$email);
+			$pre->bindParam(':verification_code',$verification_code);
+			$pre->execute();
+			return $pre->fetchAll(PDO::FETCH_ASSOC);			
+		}	
+
+	//Thêm 1 verification code vào tbl_verification
+	public function add_Verification($email,$verification_code){
+			$sql = "INSERT INTO tbl_verification (email,verification_code) VALUES (:email,:verification_code)";
+			$pre = $this->pdo->prepare($sql);
+			$pre->bindParam(':email', $email);
+			$pre->bindParam(':verification_code', $verification_code);
+			return $pre->execute();
+			
+		}
+
+	//Update lại 1 verification code vào tbl_verification dựa theo email
+	public function update_Verification($email,$verification_code){
+			$sql = "UPDATE tbl_verification SET verification_code=:verification_code WHERE email=:email";
+			$pre = $this->pdo->prepare($sql);
+			$pre->bindParam(':email', $email);
+			$pre->bindParam(':verification_code', $verification_code);
+			return $pre->execute();
+			
+		}
+
+	//Xóa 1 bản ghi bảng tbl_verification dựa theo verification_code
+	public function del_Verification($verification_code){
+			$sql = "DELETE FROM tbl_verification WHERE verification_code=:verification_code";
+			$pre = $this->pdo->prepare($sql);
+			$pre->bindParam(':verification_code', $verification_code);
+			return $pre->execute();
+			
+		}
+	
+	//Thay đổi mật khẩu của 1 user tìm theo email
+	public function update_PassUser_email($email,$pass){
+			$sql = "UPDATE tbl_user SET pass=:pass WHERE email=:email";
+			$pre = $this->pdo->prepare($sql);
+			$pre->bindParam(':email', $email);
+			$pre->bindParam(':pass', $pass);
+			return $pre->execute();
+			
+		}	
+
+	//Thay đổi mật khẩu của 1 user tìm theo id_user
+	public function update_PassUser_id_user($id_user,$pass){
+			$sql = "UPDATE tbl_user SET pass=:pass WHERE id_user=:id_user";
+			$pre = $this->pdo->prepare($sql);
+			$pre->bindParam(':id_user', $id_user);
+			$pre->bindParam(':pass', $pass);
+			return $pre->execute();
+			
+		}	
+
+		//lấy thông tin tại bảng tbl_news
+		public function get_new(){
+			$sql = "SELECT * FROM tbl_news";
+			$pre = $this->pdo->prepare($sql);
+			$pre->execute();
+			return $pre->fetchAll(PDO::FETCH_ASSOC);
+		}
+	
 
 }
  ?>

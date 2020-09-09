@@ -35,8 +35,20 @@
 
 		//Lấy danh sách sản phẩm của 1 hãng kèm theo tên hãng(giới hạn phân trang)
 		public function Product_limit($form,$row,$id_brand){
-			
-			$sql="SELECT tbl_product.*,tbl_brand.name_brand,tbl_type.name_type From tbl_brand,tbl_product,tbl_type WHERE (tbl_product.id_brand=tbl_brand.id_brand) AND (tbl_product.id_type=tbl_type.id_type) AND tbl_product.id_brand=$id_brand ORDER BY id_product DESC LIMIT $form,$row";
+			if(!isset($_SESSION['sort']) || (isset($_SESSION['sort'])&&$_SESSION['sort']=='id_product_ASC')){
+				$sort='ORDER BY tbl_product.id_product ASC';
+			}else if(isset($_SESSION['sort'])&& $_SESSION['sort']=='id_product_DESC'){
+				$sort='ORDER BY tbl_product.id_product DESC';
+			}else if(isset($_SESSION['sort'])&& $_SESSION['sort']=='name_product_ASC'){
+				$sort='ORDER BY tbl_product.name_product ASC';
+			}else if(isset($_SESSION['sort'])&& $_SESSION['sort']=='name_product_DESC'){
+				$sort='ORDER BY tbl_product.name_product DESC';
+			}else if(isset($_SESSION['sort'])&& $_SESSION['sort']=='sale_price_ASC'){
+				$sort='ORDER BY sale_price ASC';
+			}else if(isset($_SESSION['sort'])&& $_SESSION['sort']=='sale_price_DESC'){
+				$sort='ORDER BY sale_price DESC';
+			}
+			$sql="SELECT tbl_product.*,tbl_brand.name_brand,tbl_type.name_type,(price-(price*discount/100)) as sale_price From tbl_brand,tbl_product,tbl_type WHERE (tbl_product.id_brand=tbl_brand.id_brand) AND (tbl_product.id_type=tbl_type.id_type) AND tbl_product.id_brand=$id_brand ".$sort." LIMIT $form,$row";
 			$pre=$this->pdo->query($sql);		
 			return $pre->fetchAll(PDO::FETCH_ASSOC);
 
@@ -57,8 +69,22 @@
 
 		//Lấy danh sách sản phẩm tùy chọn theo tùy chọn theo ID Hãng và ID Type.. Kèm theo tên hãng,tên loại (giới hạn phân trang)
 		public function ProductOption_limit($form,$row,$id_brand,$id_type){
+			
+			if(!isset($_SESSION['sort']) || (isset($_SESSION['sort'])&&$_SESSION['sort']=='id_product_ASC')){
+				$sort='ORDER BY tbl_product.id_product ASC';
+			}else if(isset($_SESSION['sort'])&&$_SESSION['sort']=='id_product_DESC'){
+				$sort='ORDER BY tbl_product.id_product DESC';
+			}else if(isset($_SESSION['sort'])&&$_SESSION['sort']=='name_product_ASC'){
+				$sort='ORDER BY tbl_product.name_product ASC';
+			}else if(isset($_SESSION['sort'])&&$_SESSION['sort']=='name_product_DESC'){
+				$sort='ORDER BY tbl_product.name_product DESC';
+			}else if(isset($_SESSION['sort'])&&$_SESSION['sort']=='sale_price_ASC'){
+				$sort='ORDER BY sale_price ASC';
+			}else if(isset($_SESSION['sort'])&&$_SESSION['sort']=='sale_price_DESC'){
+				$sort='ORDER BY sale_price DESC';
+			}
 
-			$sql="SELECT tbl_product.*,tbl_brand.name_brand,tbl_type.name_type From tbl_brand,tbl_product,tbl_type WHERE (tbl_product.id_brand=tbl_brand.id_brand) AND (tbl_product.id_type=tbl_type.id_type) AND tbl_product.id_brand=$id_brand AND tbl_product.id_type=$id_type ORDER BY id_product DESC LIMIT $form,$row";
+			$sql="SELECT tbl_product.*,tbl_brand.name_brand,tbl_type.name_type,(price-(price*discount/100)) as sale_price From tbl_brand,tbl_product,tbl_type WHERE (tbl_product.id_brand=tbl_brand.id_brand) AND (tbl_product.id_type=tbl_type.id_type) AND tbl_product.id_brand=$id_brand AND tbl_product.id_type=$id_type ".$sort." LIMIT $form,$row";
 			$pre=$this->pdo->query($sql);		
 			return $pre->fetchAll(PDO::FETCH_ASSOC);
 		}	
@@ -74,6 +100,8 @@
 			foreach ($arr as $key => $value) {
 					if($value['discount']>0){
 					$arr[$key]['discount_price']=$value['price']-(($value['price']*$value['discount'])/100);
+				}else{
+					$arr[$key]['discount_price']=$value['price'];
 				}
 			}
 			return $arr;
@@ -161,7 +189,7 @@
 			$pre->execute();
 			return $pre->fetchAll(PDO::FETCH_ASSOC);
 		}
-		//Lấy ra số lượng account đánh giá của các sản phẩm
+		//Lấy ra số lượng account đánh giá của 1 sản phẩm
 		public function get_count_review($id_product){
 			$sql = "SELECT *FROM tbl_review WHERE id_product = :id_product";
 			$pre = $this->pdo->prepare($sql);
@@ -184,12 +212,14 @@
 		}
 		//lấy product hot tại trang chủ
 		public function get_product_5star_home(){
-			$sql = "SELECT id_product,COUNT(star = 5) AS tongso5sao FROM tbl_review GROUP BY id_product ORDER BY tongso5sao DESC limit 0,4";
+			$sql = "SELECT id_product,COUNT(star = 5) AS tongso5sao FROM tbl_review GROUP BY id_product ORDER BY tongso5sao DESC limit 0,8";
 			$pre = $this->pdo->prepare($sql);
 			$pre->execute();
 			return $pre->fetchAll(PDO::FETCH_ASSOC);
 		}
 
+
+//
 		public function getProduct_Id_review($id){
 			$sql="SELECT tbl_product.*,tbl_brand.name_brand,tbl_type.name_type From tbl_brand,tbl_product,tbl_type WHERE (tbl_product.id_brand=tbl_brand.id_brand) AND (tbl_product.id_type=tbl_type.id_type) AND id_product=:id";
 			$pre=$this->pdo->prepare($sql);
@@ -197,6 +227,14 @@
 			$pre->execute();
 			return $rs=$pre->fetch(PDO::FETCH_ASSOC);
 
+		}
+
+//Lấy ra danh sách các banner
+		public function get_Banner(){
+			$sql="SELECT * FROM tbl_banner";
+			$pre=$this->pdo->prepare($sql);
+			$pre->execute();
+			return $rs=$pre->fetchAll(PDO::FETCH_ASSOC);
 		}
 
 

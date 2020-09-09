@@ -103,6 +103,48 @@ unset($_SESSION['noti_addUser']);
 </div>
 <!-- END Modal -->
 
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal1" data-backdrop="static" data-keyboard="false">
+	Xem lịch sử hoạt động
+</button>
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+	<div class="modal-dialog" role="document" style="width: 1000px;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title" id="exampleModalLabel" style="color: blue;">Lịch sử hoạt động</h3>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<table class="table table-hover" style="">
+					<tbody>
+						
+						<?php 
+						$stt_noti=0;
+						foreach ($get_noti_user as $key => $noti) {
+							// echo '<pre>';
+							// print_r($get_noti_user);
+							?>
+							<tr>
+								<td style="text-align: left;line-height: 40px; "><?php echo $stt_noti +=1; ?></td>
+								<td style="text-align: left;color:gray;line-height: 40px; "><?php echo $noti['content_noti']; ?></td>
+							</tr>
+							<?php
+						}
+						?>
+						
+					</tbody>
+				</table>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- END MODAL History -->
 <!-- Product View Table -->
 <div id="tbl_user_boxout">
 <div id="tbl_user_boxin">

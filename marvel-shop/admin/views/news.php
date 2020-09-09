@@ -18,6 +18,10 @@
 						<input type="text" id="name_product" name="name_new" class="form-control"  placeholder="" onblur="Blurname_product()">
 					</div>
 					<div class="form-group">
+						<label for="">Thêm ảnh mô tả</label><span id="spanname" class="spanerror"></span>
+						<input type="file" id="img_product" name="img_news" class="form-control"  placeholder="" onblur="Blurname_product()">
+					</div>
+					<div class="form-group">
 						<label for="">Thêm nội dung</label>
 						<textarea name="content"  cols="30" rows="10" class="ckeditor form-control">
 						</textarea>
@@ -68,6 +72,7 @@ unset($_SESSION['news']);
 	<thead>
 		<tr>
 			<th>STT</th>
+			<th>Ảnh Tin tức</th>
 			<th>Tiêu đề</th>
 			<th>Hành động</th>
 		</tr>
@@ -83,6 +88,7 @@ unset($_SESSION['news']);
 			?>
 			<tr>
 				<td><?php echo $stt; ?></td>
+				<td><img src="../<?php echo $value['img']; ?>" alt="" width="150px"></td>
 				<td><?php echo $value['title']; ?></td>
 				<?php 
 				if($_SESSION['stt_admin']==1){

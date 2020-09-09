@@ -5,7 +5,6 @@
 	<div class="row">
 		<ul class="list-group" id="menu_left" >
 			<a href="index.php?page=home&views=status" class="active set-text-nav"><li class="list-group-item">Báo cáo, thống kê</li></a>
-			<a href="index.php?page=home&views=control" class="set-text-nav"><li class="list-group-item" >Bảng điều khiển</li></a>
 			<a href="index.php?page=home&views=banner" class="set-text-nav"><li class="list-group-item" >Thêm ảnh banner</li></a>
 			<a href="index.php?page=home&views=product" class="set-text-nav"><li class="list-group-item">Quản lý sản phẩm</li></a>
 			<a href="index.php?page=home&views=order" class="set-text-nav"><li class="list-group-item">Quản lý đơn hàng</li></a>

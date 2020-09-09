@@ -82,6 +82,8 @@
 												</li>
 
 												<?php
+											}else if(!isset($_SESSION['cart']) || empty($_SESSION['cart'])){
+												unset($_SESSION['total']);
 											}else{
 												unset($_SESSION['total']);
 											}

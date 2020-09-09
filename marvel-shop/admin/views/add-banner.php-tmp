@@ -3,27 +3,26 @@
 		<button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" style="margin: 30px 0px 40px 20px">
 			Thêm mới ảnh banner
 		</button>
-
-		<!-- Modal -->
-		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Thêm ảnh banner</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Thêm ảnh banner</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form action="" onsubmit="return Validate_addPro();" method="POST" role="form" enctype="multipart/form-data">
+				<div class="form-group">
+						<label for="">Tên ảnh</label><span id="spanname" class="spanerror"></span>
+						<input type="text" id="name_product" name="name_banner" class="form-control"  placeholder="" onblur="Blurname_product()">
 					</div>
-					<div class="modal-body">
-						<form action="" onsubmit="return Validate_addPro();" method="POST" role="form" enctype="multipart/form-data">
-							<div class="form-group">
-								<label for="">Tên ảnh</label><span id="spanname" class="spanerror"></span>
-								<input type="text" id="name_product" name="name_banner" class="form-control"  placeholder="" onblur="Blurname_product()">
-							</div>
-							<div class="form-group">
-								<label for="">Chọn ảnh</label><span id="spanimg" class="spanerror"></span>
-								<input type="file"  name="img" class="form-control"  placeholder="" onchange="validate_file()" id="img" required="">
-							</div>
+					<div class="form-group">
+						<label for="">Chọn ảnh</label><span id="spanimg" class="spanerror"></span>
+						<input type="file"  name="img" class="form-control"  placeholder="" onchange="validate_file();" id="input_avt" required="">
+					</div>
 
 							<button type="submit" id="submit_addPro" name="add_banner" class="btn btn-primary">Thêm</button>
 						</form>
@@ -46,7 +45,6 @@
 					<strong>Thất bại ! Có lỗi trong quá trình thêm</strong>
 				</div>
 	<?php
-
 }
 unset($_SESSION['noti_banner']);
 ?>
