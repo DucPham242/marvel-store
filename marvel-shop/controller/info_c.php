@@ -786,7 +786,14 @@ if (isset($_COOKIE['id_user']) && isset($_COOKIE['name_user'])) {
 			}else{
 
 				header("Location:home");
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
 
+>>>>>>> cb35d09cbdac2b4a879cbc59e01d85563036cd23
+=======
+
+>>>>>>> cb35d09cbdac2b4a879cbc59e01d85563036cd23
 			}
 			$check_url=$this->info->get_Verification_email_code($email,$verification_code);
 			if(count($check_url)!=1){

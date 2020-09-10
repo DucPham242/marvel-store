@@ -7,7 +7,7 @@
 						<span class="sr-only">Toggle navigation</span>
 						<span class="icon-bar" style="color: red; padding-bottom: 20px"><i class="fa fa-bars" aria-hidden="true" style="color: red"></i></span>
 					</button>
-					
+
 					<div class="input-res">
 						<form action="search" method="POST">
 							<div class="input-group" style="display: flex">
@@ -25,18 +25,17 @@
 							<a href="cart" id="show-cart" >
 								<i class="fa fa-cart-arrow-down fa-2x icon-header" id="icon-show" aria-hidden="true" style="color: #fff"></i></a>
 							</span>
-							<?php 
-							if(isset($_SESSION['cart']) && !empty($_SESSION['cart'])){
-								?>
-								<span id="cart_nums"><?php echo $_SESSION['cart_qty']; ?></span>
-								<?php
-							}else{
-								?>
-								<span id="cart_nums">0</span>
-								<?php
-							}
-							?>	
-						</div>
+<?php
+if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
+	?>
+									<span id="cart_nums"><?php echo $_SESSION['cart_qty'];?></span>
+	<?php
+} else {
+	?>
+	<span id="cart_nums">0</span>
+	<?php
+}
+?></div>
 
 					</div>
 					<!-- Phần nav responsive -->

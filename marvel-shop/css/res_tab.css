@@ -1,0 +1,70 @@
+
+	/*Responsive dành cho Tablet*/
+@media only screen and (min-width:768px) and (max-width:1024px){
+
+		#show-cart:hover .cart_hover-frame{
+			display: none;
+		}
+
+		.btn_viewall{
+			margin-left: 100px;
+		}
+		.caption_price_left{
+			display: block;
+		}
+		.caption_price_right{
+			display: block;
+			margin-left:0px;
+		}
+		.set:hover .shower{
+			display: none;
+		}
+		.back-top{
+			bottom: 25px;
+			left: 8px;
+		}
+		.res-nav{
+			display: none;
+		}
+		.input-navhea{
+			display: block;	
+			/*margin-left: 150px;
+			/*background-color: red;*/
+			/*padding-right: 0px;*/
+			/*position: absolute;
+			left: 350px;
+			top: 20px;*/
+			/*width:250px;*/
+		}
+		.input-group{
+			display: block;
+		}
+		#menu_nav{
+			display: block;
+		}
+		/*#menu_nav li a{
+			margin-right: 15px;
+			font-size: 12px;
+		}*/
+		/*#menu_nav li a:first-child{
+			margin-left: -20px;
+		}*/
+		.input-res{
+			display: none;
+		}
+		#reload_cartbox{
+			display: block;
+			/*position: absolute;
+			left: 100px;
+			top: 20px;*/
+		}
+		.icon-nav-res{
+			display: none;
+			background-color: red;
+		}
+		#cart_nums{
+			padding: 0 1;
+			margin-left: 0px;
+		}
+
+}

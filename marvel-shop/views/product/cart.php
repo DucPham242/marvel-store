@@ -23,14 +23,14 @@
 			<div class="container"  id="">
 				<div class="row">
 					<!-- show product guest picked -->
-					<div class="col-md-8">
+					<div class="col-md-8 col-xs-12">
 						<div class="row">
-							<h2>Giỏ hàng</h2>
+							<h2 class="text-cart-rs">Giỏ hàng</h2>
 							<div class="row">
 
 
-								<div id="table-box-cart">
-									<table class="table table-hover" style=" border: 1px solid #E1E1E1;" border="1px" >
+								<div id="table-box-cart" class="table_cart">
+									<table class="table table-hover" style=" border: 1px solid #E1E1E1;" border="1px"  >
 										<thead>
 											<tr>
 												<th></th>
@@ -105,8 +105,8 @@
 					</div>
 					<!-- end -->
 					<!-- show total -->
-					<div class="col-md-4">
-						<h3>Đơn hàng</h3>
+					<div class="col-md-4 col-xs-12">
+						<h3 class="text-cart-rs">Đơn hàng</h3>
 						<div class="shippingbox">
 							<h3 >Tổng tiền: <?php echo number_format($_SESSION['total']).' đ'; ?></h3>		
 								<a href="info/checkout"><button type="button" class="btn btn-danger">Thanh Toán</button></a>
@@ -119,7 +119,7 @@
 
 			<div class="container" >
 				<div class="row">
-					<div class="col-md-4">
+					<div class="col-md-4 col-xs-4">
 						<a href="home"><button type="button" class="btn btn-danger">Mua tiếp</button></a>
 					</div>
 				</div>

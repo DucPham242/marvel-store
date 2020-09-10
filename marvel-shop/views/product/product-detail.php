@@ -12,7 +12,7 @@
 
 			</ol>
 			
-			<div class="col-md-2" >
+			<div class="col-md-2 col-xs-12" >
 				<div class="row">
 					<?php 
 					foreach ($rs_listimg as $key => $list) {
@@ -25,7 +25,7 @@
 					
 				</div>
 			</div>
-			<div class="col-md-5" >
+			<div class="col-md-5 col-xs-12" >
 				<img src="<?php echo $value['img']; ?>" alt="" width="450px" id="at_image">
 			</div>
 			<div class="col-md-5 box_price" style="">
