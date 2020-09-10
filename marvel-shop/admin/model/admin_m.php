@@ -574,7 +574,7 @@ class Admin_m extends Connect
         }
 //Hàm xử lý xóa nếu đủ điều kiện xóa
         public function del_history_noti($tbl){
-            for($i=1;$i<=4;$i++){
+            for($i=1;$i<=3;$i++){
                 $a=self::get_history_noti($tbl,$i);
                     // echo "<pre>";
                     // print_r($a);
@@ -591,17 +591,46 @@ class Admin_m extends Connect
 
 //Hiển thị toàn bộ bản ghi của bảng tbl_noti_order
         public function get_noti_order(){
-            $sql="SELECT * FROM tbl_noti_order ORDER BY created DESC LIMIT 0,50";
+            $sql="SELECT * FROM tbl_noti_order ORDER BY id_noti DESC LIMIT 0,50";
             $pre=$this->pdo->prepare($sql);
             $pre->execute();
             return $pre->fetchAll(PDO::FETCH_ASSOC);
         }
 
-//Lấy ra noti của hành động chỉnh sửa  của 1 trạng thái đơn hàng bảng tbl_noti_order
-        public function get_noti_STT_order($id_order){
+//Lấy ra noti của 1  đơn hàng bảng tbl_noti_order theo ID
+        public function get_noti_order_ID($id_order){
             $sql="SELECT * FROM tbl_noti_order WHERE id_order=:id_order ORDER BY id_noti DESC LIMIT 0,20";
             $pre=$this->pdo->prepare($sql);
             $pre->bindParam(':id_order',$id_order);
+            $pre->execute();
+            return $pre->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+
+
+//Insert 1 thông báo vào bảng tbl_noti_product
+            public function add_noti_product($id_product,$content_noti,$action){
+                $sql="INSERT INTO tbl_noti_product(id_product,content_noti,action) VALUES (:id_product,:content_noti,:action)";
+                $pre=$this->pdo->prepare($sql);
+                $pre->bindParam(':id_product',$id_product);
+                $pre->bindParam(':content_noti',$content_noti);
+                $pre->bindParam(':action',$action);
+                return $pre->execute();
+            }
+
+//Hiển thị toàn bộ bản ghi của bảng tbl_noti_product
+        public function get_noti_product(){
+            $sql="SELECT * FROM tbl_noti_product ORDER BY id_noti DESC LIMIT 0,50";
+            $pre=$this->pdo->prepare($sql);
+            $pre->execute();
+            return $pre->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+//Lấy ra noti của 1  sản phầm bảng tbl_noti_product theo ID
+        public function get_noti_product_ID($id_product){
+            $sql="SELECT * FROM tbl_noti_product WHERE id_product=:id_product ORDER BY id_noti DESC LIMIT 0,20";
+            $pre=$this->pdo->prepare($sql);
+            $pre->bindParam(':id_product',$id_product);
             $pre->execute();
             return $pre->fetchAll(PDO::FETCH_ASSOC);
         }
@@ -724,24 +753,26 @@ class Admin_m extends Connect
         //  return $pre->fetchAll(PDO::FETCH_ASSOC);
         // }
 
+
         //Add lịch sử chỉnh sửa user vào bảng tbl_noti_user
-        public function add_noti_user($id_user, $content_noti){
-            $sql = "INSERT INTO tbl_noti_user (id_user, content_noti) VALUES (:id_user, :content_noti)";
-            $pre = $this->pdo->prepare($sql);
-            $pre->bindParam('id_user', $id_user);
-            $pre->bindParam('content_noti', $content_noti);
-            return $pre->execute();
-        }
+            public function add_noti_user($id_user,$content_noti,$action){
+                $sql="INSERT INTO tbl_noti_user (id_user,content_noti,action) VALUES (:id_user,:content_noti,:action)";
+                $pre=$this->pdo->prepare($sql);
+                $pre->bindParam(':id_user',$id_user);
+                $pre->bindParam(':content_noti',$content_noti);
+                $pre->bindParam(':action',$action);
+                return $pre->execute();
+            }
         //lấy thông tin từ bảng tbl_noti_user
         public function get_noti_user(){
-            $sql = "SELECT * FROM tbl_noti_user";
+            $sql = "SELECT * FROM tbl_noti_user ORDER BY id_noti DESC";
             $pre = $this->pdo->prepare($sql);
             $pre->execute();
             return $pre->fetchAll(PDO::FETCH_ASSOC);
         }
-        //Lấy thông tin từ bảng tbl_noti_user bằng id
+        //Lấy noti của 1 user từ bảng tbl_noti_user bằng id
         public function get_noti_user_id($id){
-            $sql = "SELECT * FROM tbl_noti_user WHERE id_user = :id";
+            $sql = "SELECT * FROM tbl_noti_user WHERE id_user = :id ORDER BY id_noti DESC";
             $pre = $this->pdo->prepare($sql);
             $pre->bindParam(':id', $id);
             $pre->execute();

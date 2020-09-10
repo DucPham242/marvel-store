@@ -120,6 +120,38 @@ function Blurprice(){
 	}
 
 }
+function BlurOrderPrice(){
+	var price=(document.getElementById('orderprice').value).trim();
+	var spanprice=document.getElementById('span_orderprice');
+	var regexPhone=/^\d+$/;
+	if(price==''||price==null){
+		spanprice.innerHTML="Giảm giá không được để trống";
+	}	
+	else if(!regexPhone.test(price)){
+		spanprice.innerHTML="Nhập sai kiểu giảm giá"
+	}
+	else {
+		spanprice.innerHTML="";
+		return price;
+	}
+
+}
+function Blurtimeapply(){
+	var price=(document.getElementById('timeapply').value).trim();
+	var spanprice=document.getElementById('spand_timeapply');
+	var regexPhone=/^\d+$/;
+	if(price==''||price==null){
+		spanprice.innerHTML="Giảm giá không được để trống";
+	}	
+	else if(!regexPhone.test(price)){
+		spanprice.innerHTML="Nhập sai kiểu giảm giá"
+	}
+	else {
+		spanprice.innerHTML="";
+		return price;
+	}
+
+}
 function Blurdiscount(){
 	var price=(document.getElementById('discount').value).trim();
 	var spanprice=document.getElementById('spandiscount');
@@ -287,6 +319,15 @@ function Validate_editUser(){ //Kiểm tra kết quả bảng nhập phần sả
 
 function Validate_forgetPass(){ //Kiểm tra kết quả bảng nhập phần sản phẩm
 	if(blur_pass() && blur_repass()){
+		return true;
+	}else{
+		alert('Dữ liệu nhập vào chưa đúng, yêu cầu kiểm tra lại !');
+		return false;
+	}
+}
+
+function Validate_voucher(){ //validate cho phần thêm voucher
+	if(BlurOrderPrice() && Blurtimeapply() && Blurdiscount() && blur_address()){
 		return true;
 	}else{
 		alert('Dữ liệu nhập vào chưa đúng, yêu cầu kiểm tra lại !');
