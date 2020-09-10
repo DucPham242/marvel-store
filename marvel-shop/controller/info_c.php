@@ -787,6 +787,10 @@ if (isset($_COOKIE['id_user']) && isset($_COOKIE['name_user'])) {
 
 				header("Location:home");
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> cb35d09cbdac2b4a879cbc59e01d85563036cd23
 =======
 
 >>>>>>> cb35d09cbdac2b4a879cbc59e01d85563036cd23
