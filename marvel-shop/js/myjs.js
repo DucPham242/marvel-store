@@ -6,18 +6,7 @@ function updatecart(id){
 		$("#cartbox").load(" #reload_cartbox");
 	});
 }
-	// làm mô tả từng ảnh
-	$(document).ready(function(){
 
-		if($("#ship").attr("checked")=='checked'){
-	$.post('server/info/changeSS-35k.php', function(data) {
-	
-	});
-	$.post('server/info/voucherDefault.php', function(data) {
-		
-	});
-	$("#price_table_box").load(" #content_price_table");
-}
 //Trường input chỉ cho nhập số
 function onlyNum(){
 	return event.charCode>=48 && event.charCode<=57;
@@ -54,7 +43,7 @@ $(document).ready(function(){
 		var target_this = $(this).attr('data-target');
 		$(this).parent().prevAll().removeClass('collapse');
 		$(this).parent().nextAll().removeClass('collapse');
-	})
+	});
 
 	//JS hiệu ứng list ảnh ở phần Xem chi tiết của sản phẩm
 	$(document).on('click', '.list_img_product', function(e) {
@@ -112,7 +101,7 @@ $(document).ready(function(){
 			timer: 1500
 		});
 
-	})
+	});
 
 	//Click add to card
 	$(document).on('click', '.add-alert', function(e) {
@@ -258,7 +247,7 @@ $(document).on('click', '#submit_voucher', function(e) {
 		$("#price_table_box").load(" #content_price_table");
 	});
 });
-<<<<<<< HEAD
+
 
 //JS cho chức năng sắp xếp list product theo tên
 $(document).on('change', '#sort_list_name', function(e) {
@@ -269,13 +258,7 @@ $(document).on('change', '#sort_list_name', function(e) {
 	});
 });
 
-
-
-})
-
-=======
->>>>>>> 0fb14bdb80bdda0bf6d0ab91da129dc55a5a21ff
-
+});
  // làm phần Validate kiểm tra thông tin đăng kí
 
  function blur_name(){
@@ -361,7 +344,6 @@ $(document).on('change', '#sort_list_name', function(e) {
 
  	}
  }
-
 //validate cho form hoàn thiện thông tin cá nhân
   function Validate_Update_inforUser(){
   	if(blur_phone() && blur_addr() && blur_email()){
@@ -374,7 +356,6 @@ $(document).on('change', '#sort_list_name', function(e) {
 
  	}
   }
-
  //validate cho form Phuục hồi mật khẩu
  function Validate_forgetPass(){
   	if(blur_email()){
@@ -387,7 +368,6 @@ $(document).on('change', '#sort_list_name', function(e) {
 
  	}
   }
-
  //validate cho form reset mật khẩu
  function Validate_ResetPass(){
   	if(blur_pass() && blur_repass()){
@@ -400,7 +380,6 @@ $(document).on('change', '#sort_list_name', function(e) {
 
  	}
   }
-
    //validate cho form gửi contact
  function Validate_contact(){
   	if(blur_name() && blur_email() && blur_phone()){
@@ -412,4 +391,4 @@ $(document).on('change', '#sort_list_name', function(e) {
  		return false;
 
  	}
-  }
+ }

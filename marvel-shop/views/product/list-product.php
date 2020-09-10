@@ -208,7 +208,7 @@
 					</div>
 					<div class="row" >
 						<div class="col-md-6 col-md-push-2" >
-							<ul class="pagination" >
+							<ul class="pagination pagi-list" >
 
 								<?php 
 								if (isset($_GET['pages']) && $_GET['pages'] > 1) {

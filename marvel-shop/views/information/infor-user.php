@@ -46,14 +46,14 @@
 				}
 
 				 ?>
-					<div class="userbox" style="width: 300px;color: gray;font-style: italic;padding: 20px;">
+					<div class="userbox" id="change_pass" style="color: gray;font-style: italic;padding: 20px;">
 						Liên hệ với quản trị viên Marvel Store để được thay đổi thông tin đơn hàng. <br>
 						Hotline: 0398762441.
 					</div>
 			</div>
 			<div class="col-md-8 col-xs-12">
 				<h4>Tài khoản của bạn:</h4>
-				<div class="userbox">
+				<div class="userbox" id="table-info-user">
 					<table class="table table-striped table-hover" id="tbl_ordered" style="" >
 						<thead>
 							<tr>
@@ -88,7 +88,7 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade info-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
  
 </div>
 <!-- END Modal -->

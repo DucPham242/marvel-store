@@ -122,8 +122,8 @@
 		</div>
 
 		<div class="row">
-			<div class="col-md-6 col-md-push-5 col-xs-6 col-xs-push-3">
-				<a href="list-product/hot/pages1"><button type="button" class="btn_viewall btn btn-success" style="outline: none;">Xem tất cả</button></a>
+			<div class="col-md-6 col-md-push-5 col-xs-6">
+				<a href="list-product/hot/pages1"><button type="button" class="btn_viewall btn btn-success res-showall-button" style="outline: none;">Xem tất cả</button></a>
 			</div>
 		</div>
 
