@@ -69,7 +69,7 @@ class Admin_m extends Connect
                     $sql="SELECT * FROM tbl_user ORDER BY id_user DESC";
                     $pre=$this->pdo->prepare($sql);
                 }else{
-                    $sql="SELECT * FROM tbl_user WHERE (name_user LIKE '$ss_search' OR phone LIKE '$ss_search' OR email LIKE '$ss_search' OR address LIKE '$ss_search') ORDER BY id_user DESC";
+                    $sql="SELECT * FROM tbl_user WHERE (id_user LIKE '$ss_search' OR name_user LIKE '$ss_search' OR phone LIKE '$ss_search' OR email LIKE '$ss_search' OR address LIKE '$ss_search') ORDER BY id_user DESC";
                     $pre=$this->pdo->prepare($sql);
                     $pre->bindParam(':ss_search',$ss_search);
                 }
@@ -82,7 +82,7 @@ class Admin_m extends Connect
                 if($ss_search==false){
                     $sql="SELECT * FROM tbl_user ORDER BY id_user DESC LIMIT $form,$row";
                 }else{
-                    $sql="SELECT * FROM tbl_user WHERE (name_user LIKE '$ss_search' OR phone LIKE '$ss_search' OR email LIKE '$ss_search' OR address LIKE '$ss_search') ORDER BY id_user DESC LIMIT $form,$row";
+                    $sql="SELECT * FROM tbl_user WHERE (id_user LIKE '$ss_search' OR name_user LIKE '$ss_search' OR phone LIKE '$ss_search' OR email LIKE '$ss_search' OR address LIKE '$ss_search') ORDER BY id_user DESC LIMIT $form,$row";
                 }
                 $pre=$this->pdo->query($sql);
                 return $pre->fetchAll(PDO::FETCH_ASSOC);

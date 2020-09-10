@@ -159,6 +159,7 @@ unset($_SESSION['noti_addUser']);
 	<thead>
 		<tr>
 			<th style="width: 80px;">STT</th>
+			<th>ID</th>
 			<th style="width: 250px;">Họ tên</th>
 			<th style="width: 80px;">SĐT</th>
 			<th style="width: 250px;">Email</th>
@@ -173,6 +174,7 @@ unset($_SESSION['noti_addUser']);
 			?>
 			<tr>
 				<td><?php echo $stt+=1; ?></td>
+				<td><?php echo $value['id_user']; ?></td>
 				<td><?php echo $value['name_user']; ?></td>
 				<td><?php echo $value['phone']; ?></td>
 				<td><?php echo $value['email']; ?></td>

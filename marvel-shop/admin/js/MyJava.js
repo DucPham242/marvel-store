@@ -408,7 +408,7 @@ $(document).on('click', '.btn_del_user', function(e) {
 	if(check){
 	$.get('server/user/del-user.php',{id:id}, function(data) {
 		alert(data);
-		$("#tbl_user_boxount").load(" #tbl_user_boxin");
+		$("#tbl_user_boxout").load(" #tbl_user_boxin");
 	});
 	}
 });

@@ -776,8 +776,8 @@ if (isset($_COOKIE['id_user']) && isset($_COOKIE['name_user'])) {
 
 			case 'reset-pass':
 			if (isset($_COOKIE['id_user']) || !empty($_COOKIE['id_user'])) {
-				header("Location:home");
 
+				header("Location:home");
 			}
 
 			if(isset($_GET['email']) && isset($_GET['code'])){
@@ -828,9 +828,7 @@ if (isset($_COOKIE['id_user']) && isset($_COOKIE['name_user'])) {
 
 	case 'change-pass':
 	if(!isset($_COOKIE['id_user']) || isset($_COOKIE['user_imageFB'])){
-
 		header("Location:home");
-
 	}
 
 	if(isset($_POST['submit_changepass'])){
