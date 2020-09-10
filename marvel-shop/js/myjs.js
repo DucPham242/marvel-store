@@ -247,12 +247,7 @@ $(document).on('click', '#submit_voucher', function(e) {
 		$("#price_table_box").load(" #content_price_table");
 	});
 });
-<<<<<<< HEAD
 
-=======
->>>>>>> cb35d09cbdac2b4a879cbc59e01d85563036cd23
-=======
->>>>>>> cb35d09cbdac2b4a879cbc59e01d85563036cd23
 
 //JS cho chức năng sắp xếp list product theo tên
 $(document).on('change', '#sort_list_name', function(e) {
@@ -263,22 +258,12 @@ $(document).on('change', '#sort_list_name', function(e) {
 	});
 });
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 });
-=======
-=======
->>>>>>> cb35d09cbdac2b4a879cbc59e01d85563036cd23
-=======
->>>>>>> cb35d09cbdac2b4a879cbc59e01d85563036cd23
-})
 
 
 
 
-
->>>>>>> cb35d09cbdac2b4a879cbc59e01d85563036cd23
  // làm phần Validate kiểm tra thông tin đăng kí
 
  function blur_name(){
