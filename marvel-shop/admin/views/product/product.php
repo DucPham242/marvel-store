@@ -16,25 +16,6 @@
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-backdrop="static" data-keyboard="false">
 	Thêm mới sản phẩm
 </button> 
-<?php if(isset($_SESSION['noti_addPro'])&&$_SESSION['noti_addPro']==1){
-	?>
-	<div class="alert alert-success" style="display: inline;">
-		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-		<strong>Thêm thành công!</strong> 
-	</div>
-	<?php
-	
-} else if(isset($_SESSION['noti_addPro'])&&$_SESSION['noti_addPro']==2){
-	?>
-	<div class="alert alert-danger">
-		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-		<strong>Thất bại ! Có lỗi trong quá trình thêm</strong>
-	</div>
-	<?php
-
-}
-unset($_SESSION['noti_addPro']);
-?>
 
 <!-- <a href="" id="test"> HHHH</a> -->
 <!-- Modal -->
@@ -53,11 +34,11 @@ unset($_SESSION['noti_addPro']);
 
 					<div class="form-group">
 						<label for="">Tên sản phẩm</label><span id="spanname" class="spanerror"></span>
-						<input type="text" id="name_product" name="name_product" class="form-control"  placeholder="" onblur="Blurname_product()">
+						<input type="text" id="name_product" name="name_product" class="form-control"  placeholder="" onblur="Blurname_product()" value="<?php if(isset($name_product)){echo $name_product;} ?>">
 					</div>
 					<div class="form-group">
 						<label for="">Hãng</label>
-						<select name="brand"  class="form-control">
+						<select name="brand"  class="form-control" value="<?php if(isset($id_brand)){echo $id_brand;} ?>">
 							<?php 
 							foreach ($rs_brand as $key => $brand) {
 								?>
@@ -69,7 +50,7 @@ unset($_SESSION['noti_addPro']);
 					</div>
 					<div class="form-group">
 						<label for="">Thể loại</label>
-						<select name="type"  class="form-control">
+						<select name="type"  class="form-control" value="<?php if(isset($id_type)){echo $id_type;} ?>">
 							<?php 
 							foreach ($rs_type as $key => $type) {
 								?>
@@ -81,11 +62,11 @@ unset($_SESSION['noti_addPro']);
 					</div>
 					<div class="form-group">
 						<label for="">Giá (Số liền, không dấu. VD:1000000)</label><span id="spanprice" class="spanerror"></span>
-						<input type="number" class="form-control" name="price"  placeholder="100000" id="price_product" onblur="Blurprice()">
+						<input type="number" class="form-control" name="price"  placeholder="100000" id="price_product" onblur="Blurprice()" value="<?php if(isset($price)){echo $price;} ?>">
 					</div>
 					<div class="form-group">
 						<label for="">Ảnh đại diện</label><span id="spanimg" class="spanerror"></span>
-						<input type="file"  name="img" class="form-control"  placeholder="" onchange="validate_file()" id="input_avt" required="" accept=".webp,.jpg,.jpeg,.png">
+						<input type="file"  name="img" class="form-control"  placeholder="" onchange="validate_file()" id="input_avt" required="" accept=".webp,.jpg,.jpeg,.png" >
 						<img src="images/product/new_product.jpg" id="avatar" alt="" width="100px">
 					</div>
 					<div class="form-group">
@@ -94,16 +75,16 @@ unset($_SESSION['noti_addPro']);
 					</div>
 					<div class="form-group"></span>
 						<label for="">% Giảm giá</label><span id="spandiscount" class="spanerror"></span>
-						<input type="number" name="discount"  class="form-control" onblur="Blurdiscount()" id="discount">
+						<input type="number" name="discount"  class="form-control" onblur="Blurdiscount()" id="discount" value="<?php if(isset($discount)){echo $discount;} ?>">
 						
 					</div>
 					<div class="form-group">
 						<label for="">Số lượng</label><span id="spanquantity" class="spanerror"></span>
-						<input type="number"  name="quantity" class="form-control"  placeholder="" onblur="Blurquantity()" id="quantity" >
+						<input type="number"  name="quantity" class="form-control"  placeholder="" onblur="Blurquantity()" id="quantity" value="<?php if(isset($quantity)){echo $quantity;} ?>">
 					</div>
 					<div class="form-group">
 						<label for="">Mô tả sản phẩm</label>
-						<textarea name="description"  cols="30" rows="10" class="ckeditor form-control"></textarea>
+						<textarea name="description"  cols="30" rows="10" class="ckeditor form-control"><?php if(isset($description)){echo $description;} ?></textarea>
 					</div>
 
 					
@@ -125,7 +106,7 @@ unset($_SESSION['noti_addPro']);
 <!-- END Modal -->
 
 <!-- MODAL History -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal1" data-backdrop="static" data-keyboard="false">
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal1" >
 	Xem lịch sử hoạt động
 </button>
 
@@ -167,6 +148,25 @@ unset($_SESSION['noti_addPro']);
 </div>
 
 <!-- END MODAL History -->
+<?php if(isset($_SESSION['noti_addPro'])&&$_SESSION['noti_addPro']==1){
+	?>
+	<div class="alert alert-success" style="display: inline;">
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		<strong>Thêm thành công!</strong> 
+	</div>
+	<?php
+	
+} else if(isset($_SESSION['noti_addPro'])&&$_SESSION['noti_addPro']==2){
+	?>
+	<div class="alert alert-danger">
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		<strong>Thất bại ! Có lỗi trong quá trình thêm</strong>
+	</div>
+	<?php
+
+}
+unset($_SESSION['noti_addPro']);
+?>
 
 <?php 
 	// echo "<pre>";
@@ -280,6 +280,36 @@ unset($_SESSION['noti_addPro']);
 
 		</div>
 		<!-- END Phân trang -->
+
+
+<!-- --Noti-- -->
+<div class="col-md-10 col-md-push-1" style="margin-top: 150px;">
+	<table class="table table-hover">
+		<legend style="color: red;">Lịch sử hoạt động:</legend>
+		<tbody id="body_noti">
+			<div from="0" class="div_from">
+			<?php
+			$stt=0;
+			foreach ( $rs_noti as $key => $noti) {
+				$stt+=1;
+				?>
+				<tr>
+				<td class="td_noti"><?php echo $stt.'. '.$noti['content_noti']; ?></td>
+				</tr>
+
+				<?php
+			}if(count($rs_noti_next)>=1){
+				?>
+			<td class="more_product"><a href="">Xem thêm</a></td>
+				<?php
+			}
+			?>
+			</div>
+		</tbody>
+
+	</table>	
+</div>
+<!-- END noti -->
 
 
 

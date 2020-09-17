@@ -1,6 +1,6 @@
 //Sự kiện thay đổi select option trạng thái đơn hàng trên bảng danh sách đơn hàng
 function updateSTT_Order(id){
-	var stt=$('#'+id).val();
+	var stt=$('#order'+id).val();
 	var check=confirm("Bạn có muốn thay đổi trạng thái đơn hàng này không ?");
 	var reason='';
 	if(check){
@@ -14,6 +14,7 @@ function updateSTT_Order(id){
 	}
 		$("#table_order_boxout").load(" #table_order_boxin");
 }
+
 
 //Cập nhật hình ảnh hiện tại cho trường input img
 // function readURL(input) {
@@ -334,6 +335,14 @@ function Validate_voucher(){ //validate cho phần thêm voucher
 		return false;
 	}
 }
+function Validate_admin(){ //validate cho phần thêm thành viên admin
+	if(blur_name() && blur_phone() && blur_email()){
+		return true;
+	}else{
+		alert('Dữ liệu nhập vào chưa đúng, yêu cầu kiểm tra lại !');
+		return false;
+	}
+}
 //END
 
 //Phần này xử lý validate cho Form sửa sản phẩm
@@ -457,10 +466,16 @@ $(document).on('click', '.btn_del_user', function(e) {
 //Click đổi mật khẩu trong profile
 $(document).on('click', '#changepass', function(e) {
 	e.preventDefault();
-	$.get('server/profile/click-changepass.php', function(data) {
-		$("#box_changepass").html(data);
-	});
+	$("#box_changepass_in").css('display', 'block');
 });
+
+
+//Click hủy của phần đổi mật khẩu profile
+$(document).on('click', '#cancel_changepass', function(e) {
+	e.preventDefault();
+	$("#box_changepass_out").load(" #box_changepass_in");
+});
+
 
 //Click xoá voucher
 $(document).on('click', '.btn_del_voucher', function(e) {
@@ -505,6 +520,64 @@ $(".alert").fadeOut(5000,function() {
 			});
 		}
 	 });
+
+
+//Click xem chi tiết đơn trên marquee noti_top,tạo SESSION['key_order'] tương
+// ứng với ID của đơn đó => search ra đơn hàng
+	$(".setSS_order").click(function(e) {
+		var id=$(this).attr("id_order");
+		$.get('server/order/setSS_order.php',{id:id}, function(data) {
+		});
+	});
+
+
+//Click xem thêm phần hiển thị noti user
+	$(document).on('click', '.more_user', function(e) {
+		e.preventDefault();
+		var from=parseInt($(".div_from:last").attr("from"))+5;
+		$(".more_user").hide();
+		$.get('server/user/more-noti-user.php',{from:from}, function(data) {
+			$("#body_noti").append(data);
+		});
+	});
+
+//Click xem thêm phần hiển thị noti product
+	$(document).on('click', '.more_product', function(e) {
+		e.preventDefault();
+		var from=parseInt($(".div_from:last").attr("from"))+5;
+		$(".more_product").hide();
+		$.get('server/product/more-noti-product.php',{from:from}, function(data) {
+			$("#body_noti").append(data);
+		});
+	});
+
+//Click xem thêm phần hiển thị noti order
+	$(document).on('click', '.more_order', function(e) {
+		e.preventDefault();
+		var from=parseInt($(".div_from:last").attr("from"))+5;
+		$(".more_order").hide();
+		$.get('server/order/more-noti-order.php',{from:from}, function(data) {
+			$("#body_noti").append(data);
+		});
+	});
+
+//JS cho chức năng sắp xếp bảng doanh thu theo ngày tháng
+$(document).on('change', '#sort_report_date', function(e) {
+	e.preventDefault();
+	var ss=$("#sort_report_date").val();
+	$.get('server/status/sort-report-date.php',{ss:ss}, function(data) {
+		$("#report_date_box").load(" #table_report_date");
+	});
+});
+
+//JS cho chức năng sắp xếp bảng doanh thu theo sản phẩm
+$(document).on('change', '#sort_report_product', function(e) {
+	e.preventDefault();
+	var ss=$("#sort_report_product").val();
+	$.get('server/status/sort-report-product.php',{ss:ss}, function(data) {
+		$("#report_product_box").load(" #table_report_product");
+	});
+});
 
 });
 

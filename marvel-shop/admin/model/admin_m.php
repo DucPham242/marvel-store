@@ -166,6 +166,17 @@ class Admin_m extends Connect
 
             }
 
+//Update lại số lượng của 1 sản phẩm dựa theo id
+            public function EditQuantity_Product($id_product,$quantity){
+                $sql="UPDATE tbl_product SET quantity=quantity+:quantity WHERE id_product=:id_product";
+                $pre=$this->pdo->prepare($sql);
+                $pre->bindParam(':quantity',$quantity);
+                $pre->bindParam(':id_product',$id_product);
+                $pre->execute();
+                return $pre;
+
+            }
+
 //Hàm lấy ra trường ID cuối cùng vừa insert vào database
             public function lastInsertId(){
                 return $id_insert=$this->pdo->lastInsertId();
@@ -589,11 +600,10 @@ class Admin_m extends Connect
 // ---------END-----------
 
 
-//Hiển thị toàn bộ bản ghi của bảng tbl_noti_order
-        public function get_noti_order(){
-            $sql="SELECT * FROM tbl_noti_order ORDER BY id_noti DESC LIMIT 0,50";
-            $pre=$this->pdo->prepare($sql);
-            $pre->execute();
+//Hiển thị bản ghi của bảng tbl_noti_order giới hạn limit
+        public function get_noti_order($from){
+            $sql="SELECT * FROM tbl_noti_order ORDER BY id_noti DESC LIMIT $from,5";
+            $pre=$this->pdo->query($sql);
             return $pre->fetchAll(PDO::FETCH_ASSOC);
         }
 
@@ -618,11 +628,10 @@ class Admin_m extends Connect
                 return $pre->execute();
             }
 
-//Hiển thị toàn bộ bản ghi của bảng tbl_noti_product
-        public function get_noti_product(){
-            $sql="SELECT * FROM tbl_noti_product ORDER BY id_noti DESC LIMIT 0,50";
-            $pre=$this->pdo->prepare($sql);
-            $pre->execute();
+//Hiển thị  bản ghi của bảng tbl_noti_product giới hạn limit
+        public function get_noti_product($from){
+            $sql="SELECT * FROM tbl_noti_product ORDER BY id_noti DESC LIMIT $from,5";
+            $pre=$this->pdo->query($sql);
             return $pre->fetchAll(PDO::FETCH_ASSOC);
         }
 
@@ -722,16 +731,15 @@ class Admin_m extends Connect
         }
         //Lấy ra những đơn hàng mới tại bảng tbl_order
         public function get_new_order(){
-            $sql = "SELECT * FROM tbl_order WHERE stt = 1 ORDER BY tbl_order.id_order DESC";
+            $sql = "SELECT * FROM tbl_order WHERE stt = 1 ORDER BY id_order DESC";
             $pre = $this->pdo->prepare($sql);
             $pre->execute();
             return $pre->fetchAll(PDO::FETCH_ASSOC);
         }
         //limit đơn hàng mới được đặt
         public function get_new_order_limit($form, $row){
-            $sql = "SELECT * FROM tbl_order WHERE stt = 1 ORDER BY tbl_order.id_order DESC LIMIT $form, $row";
-            $pre = $this->pdo->prepare($sql);
-            $pre->execute();
+            $sql = "SELECT * FROM tbl_order WHERE stt = 1 ORDER BY id_order DESC LIMIT $form, $row";
+            $pre = $this->pdo->query($sql);
             return $pre->fetchAll(PDO::FETCH_ASSOC);
         }
         //hiển thị đơn hàng đã thanh toán theo ngày được lựa chọn
@@ -763,11 +771,10 @@ class Admin_m extends Connect
                 $pre->bindParam(':action',$action);
                 return $pre->execute();
             }
-        //lấy thông tin từ bảng tbl_noti_user
-        public function get_noti_user(){
-            $sql = "SELECT * FROM tbl_noti_user ORDER BY id_noti DESC";
-            $pre = $this->pdo->prepare($sql);
-            $pre->execute();
+        //lấy noti từ bảng tbl_noti_user có giới hạn limit
+        public function get_noti_user($from){
+            $sql = "SELECT * FROM tbl_noti_user ORDER BY id_noti DESC LIMIT $from,5";
+            $pre = $this->pdo->query($sql);
             return $pre->fetchAll(PDO::FETCH_ASSOC);
         }
         //Lấy noti của 1 user từ bảng tbl_noti_user bằng id
@@ -779,5 +786,166 @@ class Admin_m extends Connect
             return $pre->fetchAll(PDO::FETCH_ASSOC);
         }
 
+//Lấy ra 3 đơn hàng thời điểm gần nhất dựa theo stt
+       public function get_3order($stt){
+            $sql = "SELECT * FROM tbl_order WHERE stt=1 ORDER BY id_order DESC LIMIT 0,3";
+            $pre = $this->pdo->prepare($sql);
+            $pre->bindParam(':stt', $stt);
+            $pre->execute();
+            return $pre->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+//Cập nhật thời gian đơn hàng thành công
+        public function update_Orderdone($id_order,$order_done){
+            $sql="UPDATE tbl_order SET order_done=:order_done WHERE id_order=:id_order";
+            $pre=$this->pdo->prepare($sql);
+            $pre->bindParam(':id_order', $id_order);
+            $pre->bindParam(':order_done', $order_done);
+            return $pre->execute();
+        }
+
+//Lấy ra ngày order_done cũ nhất của bảng tbl_order
+        public function get_Oldtime_orderdone(){
+            $sql="SELECT MIN(order_done) FROM tbl_order";
+            $pre=$this->pdo->query($sql);
+            return $pre->fetch(PDO::FETCH_ASSOC);
+        }
+
+
+//Lấy ra số đơn chốt thành công và doanh thu trong 1 khoảng thời gian đó
+        public function orderdone_revenue_date_all($start_time,$end_time){
+            if($start_time==false && $end_time == false){
+                $get_oldtime=self::get_Oldtime_orderdone();
+                $get_oldtime=$get_oldtime['MIN(order_done)'];
+                $start_time=date("Y-m-d",strtotime($get_oldtime));//mặc định lấy ra thời gian cũ nhất,nếu k có session cho tìm kiếm
+                $end_time=date("Y-m-d",time()).' 23:59:59';// lấy thời gian hiện tại cho đên cuối ngày (23:59:59).Giải thích ở duới
+            }
+            else{
+                //Note Ví dụ: Nếu để BETWEEN giữa 2020/10/12 và 2020/10/14,thì mặc định sql sẽ lấy khoảng từ 2020/10/12 00:00:00 đến 14/10/2020 00:00:00. Nên sẽ không thể lấy được bản ghi sau 0h ngày 2020/10/14.Xử lý thêm time end 23:59:59
+
+                $end_time=$end_time.' 23:59:59';
+            }
+            $sql="SELECT count(id_order) as sodonchot,sum(total) as doanhthu FROM tbl_order WHERE stt=4 AND (order_done BETWEEN :start_time AND :end_time)";
+            $pre = $this->pdo->prepare($sql);
+            $pre->bindParam(':start_time', $start_time);
+            $pre->bindParam(':end_time', $end_time);
+            $pre->execute();
+            return $pre->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+//Lấy ra tất cả số đơn chốt thành công và doanh thu cho từng ngày      
+        public function orderdone_revenue_date_detail($start_time,$end_time){
+            if($start_time==false && $end_time == false){
+                $get_oldtime=self::get_Oldtime_orderdone();
+                $get_oldtime=$get_oldtime['MIN(order_done)'];
+                $start_time=date("Y-m-d",strtotime($get_oldtime));
+                $end_time=date("Y-m-d",time()).' 23:59:59';
+            }else{
+                $end_time=$end_time.' 23:59:59';
+            }               
+            $sql="SELECT order_done,count(id_order) as sodonchot,sum(total) as doanhthu FROM tbl_order WHERE stt=4 AND (order_done BETWEEN '$start_time' AND '$end_time') GROUP BY order_done";
+            $pre = $this->pdo->query($sql);
+            return $pre->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+//Lấy ra số đơn chốt thành công và doanh thu cho từng ngày, có limit phân trang      
+        public function orderdone_revenue_date_detail_limit($start_time,$end_time,$from,$row){
+            if($start_time==false && $end_time == false){
+                $get_oldtime=self::get_Oldtime_orderdone();
+                $get_oldtime=$get_oldtime['MIN(order_done)'];
+                $start_time=date("Y-m-d",strtotime($get_oldtime));
+                $end_time=date("Y-m-d",time()).' 23:59:59';
+                // echo $start_time;
+                // echo $end_time;
+            }else{
+                $end_time=$end_time.' 23:59:59';
+            }
+
+            if(!isset($_SESSION['sort_date']) || (isset($_SESSION['sort_date'])&&$_SESSION['sort_date']=='date_ASC')){
+                $sort='ORDER BY tbl_order.order_done ASC';
+            }else if(isset($_SESSION['sort_date'])&&$_SESSION['sort_date']=='date_DESC'){
+                $sort='ORDER BY tbl_order.order_done DESC';
+            }else if(isset($_SESSION['sort_date'])&&$_SESSION['sort_date']=='revenua_ASC'){
+                $sort='ORDER BY doanhthu ASC';
+            }else if(isset($_SESSION['sort_date'])&&$_SESSION['sort_date']=='revenua_DESC'){
+                $sort='ORDER BY doanhthu DESC';
+            }else if(isset($_SESSION['sort_date'])&&$_SESSION['sort_date']=='quantity_ASC'){
+                $sort='ORDER BY sodonchot ASC';
+            }else if(isset($_SESSION['sort_date'])&&$_SESSION['sort_date']=='quantity_DESC'){
+                $sort='ORDER BY sodonchot DESC';
+            }
+
+            $sql="SELECT order_done,count(id_order) as sodonchot,sum(total) as doanhthu FROM tbl_order WHERE stt=4 AND (order_done BETWEEN '$start_time' AND '$end_time') GROUP BY order_done ".$sort." LIMIT $from,$row";
+            $pre = $this->pdo->query($sql);
+            return $pre->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+//Lấy ra tổng số lượng đã bán,tổng doanh thua của tổng tất cả sản phẩm trong 1 khoảng thời gian đó
+        public function orderdone_revenue_product_all($start_time,$end_time,$key_search){
+            if($start_time==false && $end_time == false && $key_search==false){
+                $get_oldtime=self::get_Oldtime_orderdone();
+                $get_oldtime=$get_oldtime['MIN(order_done)'];
+                $start_time=date("Y-m-d",strtotime($get_oldtime));//mặc định lấy ra thời gian cũ nhất,nếu k có session cho tìm kiếm
+                $end_time=date("Y-m-d",time()).' 23:59:59';// lấy thời gian hiện tại cho đên cuối ngày (23:59:59).Giải thích ở duới
+                $key_search='%%';
+            }
+            else{
+                //Note Ví dụ: Nếu để BETWEEN giữa 2020/10/12 và 2020/10/14,thì mặc định sql sẽ lấy khoảng từ 2020/10/12 00:00:00 đến 14/10/2020 00:00:00. Nên sẽ không thể lấy được bản ghi sau 0h ngày 2020/10/14.Xử lý thêm time end 23:59:59
+
+                $end_time=$end_time.' 23:59:59';
+            }
+            $sql="SELECT SUM(tbl_detail_order.quantity) as SLdaban,SUM(tbl_detail_order.total) as doanhthu FROM tbl_order,tbl_product,tbl_detail_order WHERE (tbl_product.id_product=tbl_detail_order.id_product) AND (tbl_order.id_order=tbl_detail_order.id_order) AND (tbl_order.stt=4) AND (tbl_order.order_done BETWEEN :start_time AND :end_time) AND (tbl_product.name_product LIKE :key_search OR tbl_product.id_product LIKE :key_search)";
+            $pre = $this->pdo->prepare($sql);
+            $pre->bindParam(':start_time', $start_time);
+            $pre->bindParam(':end_time', $end_time);
+            $pre->bindParam(':key_search', $key_search);
+            $pre->execute();
+            return $pre->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+//Lấy ra tổng sl đã bán và doanh thu cho từng sản phẩm     
+        public function orderdone_revenue_product_detail($start_time,$end_time,$key_search){
+            if($start_time==false && $end_time == false && $key_search==false){
+                $get_oldtime=self::get_Oldtime_orderdone();
+                $get_oldtime=$get_oldtime['MIN(order_done)'];
+                $start_time=date("Y-m-d",strtotime($get_oldtime));
+                $end_time=date("Y-m-d",time()).' 23:59:59';
+                $key_search='%%';
+            }else{
+                $end_time=$end_time.' 23:59:59';
+            }               
+            $sql="SELECT tbl_detail_order.id_product,tbl_product.img,tbl_product.name_product,SUM(tbl_detail_order.quantity) as SLdaban,SUM(tbl_detail_order.total) as doanhthu FROM tbl_order,tbl_product,tbl_detail_order WHERE (tbl_product.id_product=tbl_detail_order.id_product) AND (tbl_order.id_order=tbl_detail_order.id_order) AND (tbl_order.stt=4) AND (tbl_order.order_done BETWEEN '$start_time' AND '$end_time') AND (tbl_product.name_product LIKE '$key_search' OR tbl_product.id_product LIKE '$key_search') GROUP BY tbl_detail_order.id_product";
+            $pre = $this->pdo->query($sql);
+            return $pre->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+//Lấy ra tổng sl đã bán và doanh thu cho từng sản phẩm  , có limit phân trang      
+        public function orderdone_revenue_product_detail_limit($start_time,$end_time,$key_search,$from,$row){
+            if($start_time==false && $end_time == false && $key_search == false){
+                $get_oldtime=self::get_Oldtime_orderdone();
+                $get_oldtime=$get_oldtime['MIN(order_done)'];
+                $start_time=date("Y-m-d",strtotime($get_oldtime));
+                $end_time=date("Y-m-d",time()).' 23:59:59';
+                $key_search='%%';
+            }else{
+                $end_time=$end_time.' 23:59:59';
+            }
+
+            if(!isset($_SESSION['sort_product']) || (isset($_SESSION['sort_product'])&&$_SESSION['sort_product']=='revenua_ASC')){
+                $sort='ORDER BY doanhthu ASC';
+            }else if(isset($_SESSION['sort_product'])&&$_SESSION['sort_product']=='revenua_DESC'){
+                $sort='ORDER BY doanhthu DESC';
+            }else if(isset($_SESSION['sort_product'])&&$_SESSION['sort_product']=='quantity_ASC'){
+                $sort='ORDER BY SLdaban ASC';
+            }else if(isset($_SESSION['sort_product'])&&$_SESSION['sort_product']=='quantity_DESC'){
+                $sort='ORDER BY SLdaban DESC';
+            }
+
+            $sql="SELECT tbl_detail_order.id_product,tbl_product.img,tbl_product.name_product,SUM(tbl_detail_order.quantity) as SLdaban,SUM(tbl_detail_order.total) as doanhthu FROM tbl_order,tbl_product,tbl_detail_order WHERE (tbl_product.id_product=tbl_detail_order.id_product) AND (tbl_order.id_order=tbl_detail_order.id_order) AND (tbl_order.stt=4) AND (tbl_order.order_done BETWEEN '$start_time' AND '$end_time') AND (tbl_product.name_product LIKE '$key_search' OR tbl_product.id_product LIKE '$key_search') GROUP BY tbl_detail_order.id_product ".$sort." LIMIT $from,$row";
+            $pre = $this->pdo->query($sql);
+            return $pre->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+
     }
-    ?>
+ ?>

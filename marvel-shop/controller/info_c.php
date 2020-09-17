@@ -777,7 +777,7 @@ if (isset($_COOKIE['id_user']) && isset($_COOKIE['name_user'])) {
 			case 'reset-pass':
 			if (isset($_COOKIE['id_user']) || !empty($_COOKIE['id_user'])) {
 
-				header("Location:home");
+				header("Location:../home");
 			}
 
 			if(isset($_GET['email']) && isset($_GET['code'])){
@@ -785,15 +785,8 @@ if (isset($_COOKIE['id_user']) && isset($_COOKIE['name_user'])) {
 				$verification_code=$_GET['code'];
 			}else{
 
-				header("Location:home");
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+				header("Location:../home");
 
->>>>>>> cb35d09cbdac2b4a879cbc59e01d85563036cd23
-=======
-
->>>>>>> cb35d09cbdac2b4a879cbc59e01d85563036cd23
 			}
 			$check_url=$this->info->get_Verification_email_code($email,$verification_code);
 			if(count($check_url)!=1){

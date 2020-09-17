@@ -67,6 +67,10 @@
 		<input type="text" class="form-control" name="date_order" id="" placeholder="Input field" value="<?php echo $value['date_order']; ?>" readonly="">
 	</div>
 	<div class="form-group">
+		<label for="">Ngày chốt đơn</label>
+		<input type="text" class="form-control" name="date_order" id=""  value="<?php echo $value['order_done']; ?>" readonly="">
+	</div>
+	<div class="form-group">
 		<label for="">Cập nhật lần cuối</label>
 		<input type="text" class="form-control" name="last_update" id="" placeholder="Input field" value="<?php echo $value['last_update']; ?>" readonly="">
 	</div>

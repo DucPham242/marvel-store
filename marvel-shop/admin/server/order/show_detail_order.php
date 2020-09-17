@@ -6,7 +6,7 @@ if(isset($_GET['id']) && $_GET['id']>0){
 	$id=(int)$_GET['id'];
 	$rs=$admin->getDetail_Order_Name($id);
 	$rs_order=$admin->getOrder_ID($id);
-	$rs_noti=$admin->get_noti_STT_order($id);
+	$rs_noti=$admin->get_noti_order_ID($id);
 	?>
 	<div class="modal-dialog" role="document" style="width: 800px;">
 		<div class="modal-content">

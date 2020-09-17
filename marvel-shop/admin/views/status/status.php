@@ -102,7 +102,7 @@
                     </div>
                 </div>
             </div>
-            <a href="index.php?page=home&views=status&action=report-date">
+            <a href="#">
                 <div class="panel-footer">
                     <span class="pull-left">Xem chi tiết</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -123,7 +123,7 @@
                     </div>
                 </div>
             </div>
-            <a href="index.php?page=home&views=status&action=report-product">
+            <a href="#">
                 <div class="panel-footer">
                     <span class="pull-left">Xem chi tiết</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -200,7 +200,7 @@
             
                 <div class="form-group">
                     <label for="">Ngày bắt đầu</label>
-                    <input type="date" name="start" class="form-control" id="" placeholder="Input field">
+                    <input type="datetime-local" name="start" class="form-control" id="" placeholder="Input field">
                     <span>
                         <label for="">Ngày kết thúc</label>
                         <input type="date" name="end" class="form-control" id="" placeholder="Input field">

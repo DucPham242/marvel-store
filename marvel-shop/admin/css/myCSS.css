@@ -10,6 +10,7 @@ body{
 }
 marquee{
 	color: #DBCD02;
+	background: black;
 }
 li{
 	list-style: none;
@@ -167,4 +168,12 @@ a:hover{
 }
 .set-text-nav:hover{
 	color: red;
+}
+.td_noti{
+	text-align: left !important;
+	color:#464646;
+	line-height: 40px !important;
+}
+#box_changepass_in{
+	width: 400px;margin: 0px auto;display: none;
 }

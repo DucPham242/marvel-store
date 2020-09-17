@@ -85,8 +85,8 @@ class Admin_c extends Admin_m
         return $this->ad->add_noti_order($id_order,$content_noti,$action);
     }
 //Lấy hàm get_noti_STT_order() cho ajax
-    public function get_noti_STT_order($id_order){
-        return $this->ad->get_noti_STT_order($id_order);
+    public function get_noti_order_ID($id_order){
+        return $this->ad->get_noti_order_ID($id_order);
     }
     //hàm lấy banner quan id_banner
     public function get_banner_id($id){
@@ -100,12 +100,40 @@ class Admin_c extends Admin_m
     public function add_noti_user($id_user,$content_noti,$action){
         return $this->ad->add_noti_user($id_user,$content_noti,$action);
     }
-
+//Lấy hàm EditQuantity_Product($id_product,$quantity) cho ajax
+    public function EditQuantity_Product($id_product,$quantity){
+        return $this->ad->EditQuantity_Product($id_product,$quantity);
+    }
+//Lấy hàm add_noti_product($id_product,$content_noti,$action)
+    public function add_noti_product($id_product,$content_noti,$action){
+        return $this->ad->add_noti_product($id_product,$content_noti,$action);
+    }
+//Lấy hàm get_noti_user($from) cho ajax
+    public function get_noti_user($from){
+        return $this->ad->get_noti_user($from);
+    }
+//Lấy hàm get_noti_product($from) cho ajax
+    public function get_noti_product($from){
+        return $this->ad->get_noti_product($from);
+    }
+//Lấy hàm get_noti_order($from) cho ajax
+    public function get_noti_order($from){
+        return $this->ad->get_noti_order($from);
+    }
+//Lấy hàm update_Orderdone($id_order,$order_done) cho ajax
+    public function update_Orderdone($id_order,$order_done){
+        return $this->ad->update_Orderdone($id_order,$order_done);
+    }
 
     public function create_page(){
       if(!isset($_SESSION['id_admin']) && empty($_SESSION['id_admin'])){
          header("Location:login.php");
      }
+     $get_3order=$this->ad->get_3order(1);
+    //  echo '<pre>';
+    // print_r($get_3order);
+    // echo '</pre>';
+     include_once"views/noti_top.php";
      if(isset($_GET['views'])){
          $views=$_GET['views'];
      }else{
@@ -115,38 +143,46 @@ class Admin_c extends Admin_m
      switch ($views) {
 
 			case 'status'://Thống kê trang web
-            $reviews = $this->ad->get_review();//thống kê tất cả review
-            $count_review = count($reviews);
-
-            $user = $this->ad->get_all_user();//thống kê tất cả user
-            $count_user = count($user);
-
-            $order = $this->ad->get_all_order();//thống kê tất cả order
-            $count_order = count($order);
-
-            $product = $this->ad->get_all_pro();//thống kê tất cả sản phẩm
-            $count_pro = count($product);
-
-            $new_order = $this->ad->get_new_order();  //Lấy ra tất cả những đơn hàng mới được đặt
-            $count_new = count($new_order);
-            $row=5;
-            $number=count($new_order); 
-            $pagination=ceil($number/$row);
-            if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
-                $pages=(int)$_GET['pages'];
+            if(isset($_GET['action'])){
+                $action=$_GET['action'];
             }else{
-                $pages=1;
-                $_GET['pages']=1;
+                $action='normal';
             }
-            $current = $_GET['pages'];
-            $form=($pages-1)*$row;
-            $new_order = $this->ad->get_new_order_limit($form,$row);
 
-            if (isset($_POST['submit'])) {   
+            switch ($action) {
+                case 'normal':
+                $reviews = $this->ad->get_review();//thống kê tất cả review
+                $count_review = count($reviews);
+
+                $user = $this->ad->get_all_user();//thống kê tất cả user
+                $count_user = count($user);
+
+                $order = $this->ad->get_all_order();//thống kê tất cả order
+                $count_order = count($order);
+
+                $product = $this->ad->get_all_pro();//thống kê tất cả sản phẩm
+                $count_pro = count($product);
+
+                $new_order = $this->ad->get_new_order();  //Lấy ra tất cả những đơn hàng    mới được đặt
+                $count_new = count($new_order);
+                $row=5;
+                $number=count($new_order); 
+                $pagination=ceil($number/$row);
+                if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
+                    $pages=(int)$_GET['pages'];
+                }else{
+                 $pages=1;
+                 $_GET['pages']=1;
+             }
+             $current = $_GET['pages'];
+             $form=($pages-1)*$row;
+             $new_order = $this->ad->get_new_order_limit($form,$row);
+
+             if (isset($_POST['submit'])) {   
                 $start = $_POST['start'];
                 $end = $_POST['end'];
-                // echo  $start."<br>";
-                // echo  $end;
+                    // echo  $start."<br>";
+                    // echo  $end;
                 $get_order_done = $this->ad->get_order_as_date($start, $end);
                 $count = count($get_order_done);
 
@@ -170,7 +206,111 @@ class Admin_c extends Admin_m
              include_once "views/status.php";
              break;
 
-			case'product' : // Danh sách sản phẩm
+
+             //Thống kê doanh thu theo ngày tháng
+             case 'report-date':
+             if(isset($_POST['submit_report_date'])){
+                $start=$_POST['start'];
+                $end=$_POST['end'];
+                    // echo $start;
+                    // echo $end;
+                $_SESSION['start_reportdate']=$start;
+                $_SESSION['end_reportdate']=$end;
+            }
+
+            if(isset($_SESSION['start_reportdate']) && isset($_SESSION['end_reportdate'])){
+                // echo  $_SESSION['start_reportdate']."<br>";
+                //     echo $_SESSION['end_reportdate'];
+                $rs_all=$this->ad->orderdone_revenue_date_all($_SESSION['start_reportdate'],$_SESSION['end_reportdate']);
+                $rs_detail=$this->ad->orderdone_revenue_date_detail($_SESSION['start_reportdate'],$_SESSION['end_reportdate']);
+                $row=3;
+                $number=count($rs_detail);
+                $pagination=ceil($number/$row);
+                if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
+                   $pages=(int)$_GET['pages'];
+               }else{
+                   $pages=1;
+                   $_GET['pages']=1;
+               }
+               $from=($pages-1)*$row;
+               $rs_detail_limit=$this->ad->orderdone_revenue_date_detail_limit($_SESSION['start_reportdate'],$_SESSION['end_reportdate'],$from,$row);
+           }else{
+            $rs_all=$this->ad->orderdone_revenue_date_all(false,false);
+            $rs_detail=$this->ad->orderdone_revenue_date_detail(false,false);
+            $row=3;
+            $number=count($rs_detail);
+            $pagination=ceil($number/$row);
+            if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
+               $pages=(int)$_GET['pages'];
+           }else{
+               $pages=1;
+               $_GET['pages']=1;
+           }
+           $from=($pages-1)*$row;
+           $rs_detail_limit=$this->ad->orderdone_revenue_date_detail_limit(false,false,$from,$row);
+       }
+       $current = $_GET['pages'];
+
+       include_once"views/status/report-date.php";
+       break;
+
+
+     //Thống kê doanh thu theo sản phẩm
+       case 'report-product':
+       if(isset($_POST['submit_report_date'])){
+        $start=$_POST['start'];
+        $end=$_POST['end'];
+        $key_search=trim($_POST['key_search']);
+        $_SESSION['start_date_product']=$start;
+        $_SESSION['end_date_product']=$end;
+        $_SESSION['report_product_name']='%'.$key_search.'%';        
+    }
+    if(isset($_SESSION['start_date_product']) && isset($_SESSION['end_date_product']) && isset( $_SESSION['report_product_name'])){
+        $rs_all=$this->ad->orderdone_revenue_product_all($_SESSION['start_date_product'],$_SESSION['end_date_product'],$_SESSION['report_product_name']);
+        $rs_detail=$this->ad->orderdone_revenue_product_detail($_SESSION['start_date_product'],$_SESSION['end_date_product'],$_SESSION['report_product_name']);
+        $row=3;
+        $number=count($rs_detail);
+        $pagination=ceil($number/$row);
+        if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
+           $pages=(int)$_GET['pages'];
+       }else{
+           $pages=1;
+           $_GET['pages']=1;
+       }
+       $from=($pages-1)*$row;
+       $rs_detail_limit=$this->ad->orderdone_revenue_product_detail_limit($_SESSION['start_date_product'],$_SESSION['end_date_product'],$_SESSION['report_product_name'],$from,$row);
+   }else{
+    $rs_all=$this->ad->orderdone_revenue_product_all(false,false,false);
+    $rs_detail=$this->ad->orderdone_revenue_product_detail(false,false,false);
+    $row=3;
+    $number=count($rs_detail);
+    $pagination=ceil($number/$row);
+    if(isset($_GET['pages']) && $_GET['pages']<=$pagination && $_GET['pages']>=1){
+       $pages=(int)$_GET['pages'];
+   }else{
+       $pages=1;
+       $_GET['pages']=1;
+   }
+   $from=($pages-1)*$row;
+   $rs_detail_limit=$this->ad->orderdone_revenue_product_detail_limit(false,false,false,$from,$row);
+         // echo "<pre>";
+         // print_r($rs_detail_limit);
+         // echo "</pre>";
+}
+$current = $_GET['pages'];
+include_once "views/status/report-product.php";
+break;
+
+default:
+header("Location:index.php");
+break;
+}
+break;
+
+
+
+
+			case 'product' : // Danh sách sản phẩm
              $del_noti=$this->ad->del_history_noti('tbl_noti_product');//Xóa bớt noti đã cũ
              if(isset($_POST['search_product'])){
                 $_SESSION['key_product']='%'.$_POST['key_product'].'%';
@@ -187,7 +327,6 @@ class Admin_c extends Admin_m
                    $pages=1;
                    $_GET['pages']=1;
                }
-               $current = $_GET['pages'];
                $form=($pages-1)*$row;
                $rs=$this->ad->get_Product_limit($form,$row,false);
                $rs=$this->ad->add_discount($rs);
@@ -207,11 +346,12 @@ class Admin_c extends Admin_m
            $rs=$this->ad->get_Product_limit($form,$row,$_SESSION['key_product']);
            $rs=$this->ad->add_discount($rs);
        }
-
-       $rs_noti=$this->ad->get_noti_product();
-        echo '<pre>';
-            print_r($rs_noti);
-            echo '</pre>';
+       $current = $_GET['pages'];
+       $rs_noti=$this->ad->get_noti_product(0);
+       $rs_noti_next=$this->ad->get_noti_product(5);
+        // echo '<pre>';
+        //     print_r($rs_noti);
+        //     echo '</pre>';
 
 
 
@@ -252,25 +392,25 @@ class Admin_c extends Admin_m
     				}
 
                      //Add thêm thông báo vào bảng noti_product
-                               $content_noti="Quản trị viên ".$_SESSION['name_admin']."(".$_SESSION['email_admin'].") đã thêm mới sản phẩm có ID là: ".$id_last." vào lúc ".date('Y/m/d-H:i:s',time());
-                               $add_noti=$this->ad->add_noti_product($id_last,$content_noti,1);
-                         
-
-    				$_SESSION['noti_addPro']=1;
-    				
-    			}else{
-    				$_SESSION['noti_addPro']=2;
-    			}
+                   $content_noti="Quản trị viên ".$_SESSION['name_admin']."(".$_SESSION['email_admin'].") đã thêm mới sản phẩm có ID là: ".$id_last." vào lúc ".date('Y/m/d-H:i:s',time());
+                   $add_noti=$this->ad->add_noti_product($id_last,$content_noti,1);
 
 
-    			
-    		}
+                   $_SESSION['noti_addPro']=1;
+
+               }else{
+                $_SESSION['noti_addPro']=2;
+            }
 
 
 
+        }
 
-    		include_once "views/product.php";
-    		break;
+
+
+
+        include_once "views/product/product.php";
+        break;
 
     		case 'edit-product':// Sửa sản phẩm
     		$id_max=$this->ad->getMaxId_Product();
@@ -295,40 +435,40 @@ class Admin_c extends Admin_m
             $get_info_noti_product=$this->ad->get_noti_product_ID($id);
 
 
-    		if(isset($_POST['edit_product'])){
-    			$img=$_FILES['imgR'];
-    			$list_img=$_FILES['list_imgR'];
-    			$name_product=$_POST['name_productR'];
-    			$id_brand=$_POST['brand'];
-    			$id_type=$_POST['type'];
-    			$price=$_POST['priceR'];
-    			$discount=$_POST['discountR'];
-    			$quantity=$_POST['quantityR'];
-    			$description=$_POST['descriptionR'];
+            if(isset($_POST['edit_product'])){
+               $img=$_FILES['imgR'];
+               $list_img=$_FILES['list_imgR'];
+               $name_product=$_POST['name_productR'];
+               $id_brand=$_POST['brand'];
+               $id_type=$_POST['type'];
+               $price=$_POST['priceR'];
+               $discount=$_POST['discountR'];
+               $quantity=$_POST['quantityR'];
+               $description=$_POST['descriptionR'];
 
-    			$files=array();
-    			$files=$this->ad->ChangeArrayFile($list_img,$files);
+               $files=array();
+               $files=$this->ad->ChangeArrayFile($list_img,$files);
 
-    			$update=$this->ad->Update_Product($id,$name_product,$id_brand,$id_type,$price,$discount,$quantity,$description);
-    			if($update){
+               $update=$this->ad->Update_Product($id,$name_product,$id_brand,$id_type,$price,$discount,$quantity,$description);
+               if($update){
 
-    				if(!empty($img['name']) && !empty($img['type']) && !empty($img['size']) && !empty($img['tmp_name'])){
-    					$create_path="images/product/".$id."/".time().'_avatar_'.$img['name'];
-    					move_uploaded_file($img['tmp_name'],"../".$create_path);
-    					if(file_exists($_SESSION['memory_avt'])){
-    						unlink($_SESSION['memory_avt']);
-    					}
-    					
-    					$update_img=$this->ad->addImg_Product($create_path,$id);
-    					
-    				}
-    				if(!empty($files[0]['name']) && !empty($files[0]['type']) && !empty($files[0]['size'])){
-    					foreach ($files as $key => $value) {
-    						$create_path="images/product/".$id."/".time().'_'.$value['name'];
-    						move_uploaded_file($value['tmp_name'],"../".$create_path);
-    						$add_list=$this->ad->add_List_img($id,$create_path);
-    					}
-    				}
+                if(!empty($img['name']) && !empty($img['type']) && !empty($img['size']) && !empty($img['tmp_name'])){
+                 $create_path="images/product/".$id."/".time().'_avatar_'.$img['name'];
+                 move_uploaded_file($img['tmp_name'],"../".$create_path);
+                 if(file_exists($_SESSION['memory_avt'])){
+                  unlink($_SESSION['memory_avt']);
+              }
+
+              $update_img=$this->ad->addImg_Product($create_path,$id);
+
+          }
+          if(!empty($files[0]['name']) && !empty($files[0]['type']) && !empty($files[0]['size'])){
+             foreach ($files as $key => $value) {
+              $create_path="images/product/".$id."/".time().'_'.$value['name'];
+              move_uploaded_file($value['tmp_name'],"../".$create_path);
+              $add_list=$this->ad->add_List_img($id,$create_path);
+          }
+      }
 
                       foreach ($rs as $key => $value) {//Add thêm thông báo vào bảng noti_product
                        $content_noti="Quản trị viên ".$_SESSION['name_admin']."(".$_SESSION['email_admin'].") đã cập nhật lại thông tin sản phẩm có ID là: ".$value['id_product']." vào lúc ".date('Y/m/d-H:i:s',time());
@@ -343,7 +483,7 @@ class Admin_c extends Admin_m
             }	
         }
 
-        include_once "views/edit-product.php";
+        include_once "views/product/edit-product.php";
         break;
     		case 'order': //Danh sách đơn hàng
             $del_noti=$this->ad->del_history_noti('tbl_noti_order');//Xóa bớt noti đã cũ
@@ -362,7 +502,6 @@ class Admin_c extends Admin_m
                 $pages=1;
                 $_GET['pages']=1;
             }
-            $current = $_GET['pages'];
             $form=($pages-1)*$row;
             $rs=$this->ad->get_Order_limit($form,$row,false);
         }
@@ -377,16 +516,17 @@ class Admin_c extends Admin_m
             $pages=1;
             $_GET['pages']=1;
         }
-        $current = $_GET['pages'];
         $form=($pages-1)*$row;
         $rs=$this->ad->get_Order_limit($form,$row,$_SESSION['key_order']);
     }
+    $current = $_GET['pages'];
     $rs_stt=$this->ad->getSttOrder();
-    $rs_noti=$this->ad->get_noti_order();
+    $rs_noti=$this->ad->get_noti_order(0);
+    $rs_noti_next=$this->ad->get_noti_order(5);
             // echo "<pre>";
-            // print_r($rs_noti);
+            // print_r($rs_stt);
             // echo "</pre><hr>";
-    include_once "views/order.php";
+    include_once "views/order/order.php";
     break;
 
     		case 'edit-order';//Sửa đơn hàng
@@ -426,12 +566,12 @@ class Admin_c extends Admin_m
                    echo "<script>alert('Sửa thành công');
                    window.location.href='index.php?page=home&views=edit-order&id=".$id."';</script>";
 
-                   
+
                }else{
                 echo "<script>alert('Thất bại! Có lỗi trong quá trình sửa !');</script>";
             }
         }		
-        include_once "views/edit-order.php";
+        include_once "views/order/edit-order.php";
         break;
 
 
@@ -469,6 +609,7 @@ class Admin_c extends Admin_m
             $form=($pages-1)*$row;
             $rs=$this->ad->get_User_limit($form,$row,$_SESSION['key_user']);
         }
+        $current = $_GET['pages'];
 
 			// Thêm mới khách hàng
         if(isset($_POST['add_user'])){
@@ -496,10 +637,11 @@ class Admin_c extends Admin_m
            }
        }
    }
-   $get_noti_user = $this->ad->get_noti_user();
+   $get_noti_user = $this->ad->get_noti_user(0);
+   $get_noti_user_next = $this->ad->get_noti_user(5);
             // echo '<pre>';
             // print_r($get_noti_user);
-   include_once"views/customer.php";
+   include_once"views/customer/customer.php";
    break;
 
     		case 'edit-customer'://Sửa thông tin khách hàng
@@ -521,20 +663,20 @@ class Admin_c extends Admin_m
     			$phone=$_POST['phone'];
     			if(isset($_SESSION['id_admin']) && $_SESSION['stt_admin']==1){//Nếu là admin toàn quyền thì đc phép sửa email
     				$email=$_POST['email'];
-    			}
-    			$address=$_POST['address'];
-    			$check_email=count($this->ad->getInfo_user_as_email($email));
-    			$check_phone=count($this->ad->getInfo_user_as_phone($phone));
+                    $check_email=count($this->ad->getInfo_user_as_email($email));
+                }
+                $address=$_POST['address'];
+                $check_phone=count($this->ad->getInfo_user_as_phone($phone));
 
 
-    			if(isset($_SESSION['stt_admin']) && $_SESSION['stt_admin']==1){
-    				if($check_email!=0 && $email!=$_SESSION['mail_user']){
-    					echo "<script>alert('Email đã tồn tại, không sửa được !');</script>";
-    				}else if($check_phone!=0 && $phone!=$_SESSION['phone_user']){
-    					echo "<script>alert('Số điện thoại đã tồn tại, không sửa được !');</script>";
-    				}else{
-    					$edit=$this->ad->edit_user($name_user,$email,$phone,$address,$id);
-    					if($edit){
+                if(isset($_SESSION['stt_admin']) && $_SESSION['stt_admin']==1){
+                    if($check_email!=0 && $email!=$_SESSION['mail_user']){
+                     echo "<script>alert('Email đã tồn tại, không sửa được !');</script>";
+                 }else if($check_phone!=0 && $phone!=$_SESSION['phone_user']){
+                     echo "<script>alert('Số điện thoại đã tồn tại, không sửa được !');</script>";
+                 }else{
+                     $edit=$this->ad->edit_user($name_user,$email,$phone,$address,$id);
+                     if($edit){
                               foreach ($rs as $key => $value) {//Add thêm thông báo vào bảng noti_user
                                $content_noti="Quản trị viên ".$_SESSION['name_admin']."(".$_SESSION['email_admin'].") đã cập nhật lại thông tin khách hàng có ID là: ".$value['id_user']." vào lúc ".date('Y/m/d-H:i:s',time());
                                $add_noti=$this->ad->add_noti_user($value['id_user'],$content_noti,2);
@@ -549,11 +691,13 @@ class Admin_c extends Admin_m
                   }
 
               }else{
-                if($check_phone!=0){
-                   echo "<script>alert('Số điện thoại đã tồn tại, không sửa được !');</script>";
-               }else{
-                   $edit=$this->ad->edit_user_2($name_user,$phone,$address,$id);
-                   if($edit){
+                if($check_email!=0 && $email!=$_SESSION['mail_user']){
+                   echo "<script>alert('Email đã tồn tại, không sửa được !');</script>";
+               }else if($check_phone!=0 && $phone!=$_SESSION['phone_user']){
+                 echo "<script>alert('Số điện thoại đã tồn tại, không sửa được !');</script>";
+             }else{
+               $edit=$this->ad->edit_user_2($name_user,$phone,$address,$id);
+               if($edit){
                               foreach ($rs as $key => $value) {//Add thêm thông báo vào bảng noti_user
                                $content_noti="Quản trị viên ".$_SESSION['name_admin']."(".$_SESSION['email_admin'].") đã cập nhật lại thông tin khách hàng có ID là: ".$value['id_user']." vào lúc ".date('Y/m/d-H:i:s',time());
                                $add_noti=$this->ad->add_noti_user($value['id_user'],$content_noti,2);
@@ -567,11 +711,8 @@ class Admin_c extends Admin_m
                   }
               }
 
-              foreach ($rs as $key => $value) {
 
-              }
-              $content_noti = 'Quản trị viên '.$_SESSION['name_admin']."(".$_SESSION['email_admin'].') đã sửa thành viên có id user là '.$value['id_user'].' vào lúc '.date('Y/m/d-H:i:s',time()).'. Chi tiết: '.$value['phone'].' thành '.$phone.' và email từ '.$value['email'].' thành '.$email;
-              $add_noti_user = $this->ad->add_noti_user($value['id_user'], $content_noti);
+
 
 
           }
@@ -582,7 +723,7 @@ class Admin_c extends Admin_m
         }
 
 
-        include_once "views/edit-customer.php";
+        include_once "views/customer/edit-customer.php";
         break;
 
         case 'print':
@@ -646,7 +787,7 @@ class Admin_c extends Admin_m
     			}
     		}
     	}
-    	include_once"views/voucher.php";
+    	include_once"views/voucher/voucher.php";
     	break;
 
     	case 'edit-voucher':
@@ -686,7 +827,7 @@ class Admin_c extends Admin_m
 
     }
 
-    include_once "views/edit-voucher.php";
+    include_once "views/voucher/edit-voucher.php";
     break;
 
         case 'admin-member': //Quản lý thành viên admin
@@ -724,7 +865,7 @@ class Admin_c extends Admin_m
     }
 
 
-    include_once "views/adminmember.php";
+    include_once "views/adminmember/adminmember.php";
     break;
 
     case 'edit-adminmember'://Sửa quản trị viên
@@ -777,7 +918,7 @@ class Admin_c extends Admin_m
     }
 
 }
-include_once "views/edit-adminmember.php";
+include_once "views/adminmember/edit-adminmember.php";
 break;
 case 'banner':
 if (isset($_POST['add_banner'])) {
@@ -803,7 +944,7 @@ if (isset($_POST['add_banner'])) {
     }
 }
 $get_banner = $this->ad->get_banner();
-include_once'views/add-banner.php';
+include_once'views//banner/add-banner.php';
 break;
 case 'news':
 if (isset($_POST['add_new'])) {
@@ -839,7 +980,7 @@ if (isset($_POST['edit_news'])) {
         $_SESSION['news'] = 4; 
     }
 }
-include_once 'views/news.php';
+include_once 'views/news/news.php';
 break;
 
     	case 'logout'://Đăng xuất
@@ -857,6 +998,7 @@ break;
 
 
 }
+
 
 
 ?>

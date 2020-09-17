@@ -38,6 +38,6 @@
 
 		</div>
 
-		<marquee>Khách hàng: Hoàng Lâm đã đặt đơn hàng 2 giờ trước <a href="">(Xem chi tiết)</a></marquee>
-
+		<!-- <marquee>Khách hàng: Hoàng Lâm đã đặt đơn hàng 2 giờ trước <a href="">(Xem chi tiết)</a></marquee>
+ -->
 	</div>

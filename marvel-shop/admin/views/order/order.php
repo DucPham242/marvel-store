@@ -13,7 +13,7 @@
 <!-- END Tìm kiếm -->
 
 <!-- MODAL History -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-backdrop="static" data-keyboard="false">
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >
 	Xem lịch sử hoạt động
 </button>
 
@@ -65,7 +65,7 @@
 		<?php 
 
 		if(count($rs)<1){
-			echo "<span style='color:red;'>Không có sản phầm nào !</span>";
+			echo "<span style='color:red;'>Không có đơn hàng nào !</span>";
 		}else{
 			?>
 			<table class="table table-hover" id="">
@@ -94,16 +94,27 @@
 							<td><?php echo $value['phone']; ?></td>
 							<td style="color: red;"><?php echo number_format($value['total'])." đ"; ?></td>
 							<td style="width: 80px;">
-								<select name="" id="<?php echo $value['id_order']; ?>"  onchange="updateSTT_Order(<?php echo $value['id_order']; ?>);">
+								<select name="" id="order<?php echo $value['id_order']; ?>"  onchange="updateSTT_Order(<?php echo $value['id_order']; ?>);">
 									<?php 
 									foreach ($rs_stt as $key => $stt) {
 										?>
-										<option value="<?php echo $stt['id_stt'] ?>" <?php if($stt['id_stt']==$value['stt']){echo "selected";} ?> ><?php echo $stt['name_stt']; ?></option>
+										<option value="<?php echo $stt['id_stt']; ?>" <?php if($stt['id_stt']==$value['stt']){echo "selected";} ?> ><?php echo $stt['name_stt']; ?></option>
 										<?php
 									}
 									?>
 								</select>
 							</td>
+						<!-- 	<td style="width: 80px;">
+								<select name="" id="<?php echo $value['id_order']; ?>"  onchange="updateSTT_Orders(<?php echo $value['id_order']; ?>);">
+									<?php 
+									foreach ($rs_stt as $key => $stt) {
+										?>
+										<option value="<?php echo $stt['id_stt']; ?>" <?php if($stt['id_stt']==$value['stt']){echo "selected";} ?> ><?php echo $stt['name_stt']; ?></option>
+										<?php
+									}
+									?>
+								</select>
+							</td> -->
 							<td><?php echo $value['date_order']; ?></td>
 							<td>
 								<a href="index.php?page=home&views=edit-order&id=<?php echo $value['id_order']; ?>"><button type="button" class="btn btn-primary">Sửa</button></a>
@@ -178,6 +189,35 @@
 
 </div>
 <!-- END Modal -->
+
+<!-- --Noti-- -->
+<div class="col-md-10 col-md-push-1" style="margin-top: 150px;">
+	<table class="table table-hover">
+		<legend style="color: red;">Lịch sử hoạt động:</legend>
+		<tbody id="body_noti">
+			<div from="0" class="div_from">
+				<?php
+				$stt=0;
+				foreach ( $rs_noti as $key => $noti) {
+					$stt+=1;
+					?>
+					<tr>
+						<td class="td_noti"><?php echo $stt.'. '.$noti['content_noti']; ?></td>
+					</tr>
+
+					<?php
+				}if(count($rs_noti_next)>=1){
+					?>
+					<td class="more_order"><a href="">Xem thêm</a></td>
+					<?php
+				}
+				?>
+			</div>
+		</tbody>
+
+	</table>	
+</div>
+<!-- END noti -->
 
 
 

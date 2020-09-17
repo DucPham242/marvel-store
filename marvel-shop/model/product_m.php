@@ -125,6 +125,7 @@
 			$string=str_replace(' ','-',$string);
 			$string=preg_replace('/(á|à|ả|ạ|ã|ă|ắ|ằ|ẳ|ặ|ẵ|â|ấ|ầ|ẩ|ậ|ẫ|Á|À|Ả|Ạ|Ã|Ă|Ắ|Ằ|Ẳ|Ặ|Ẵ|Â|Ấ|Ầ|Ẩ|Ậ|Ẫ)/','a',$string);
 			$string=preg_replace('/(é|è|ẻ|ẹ|ẽ|ê|ế|ề|ể|ệ|ễ|É|È|Ẻ|Ẹ|Ẽ|Ê|Ế|Ề|Ể|Ệ|Ễ)/','e',$string);
+			$string=preg_replace('/(đ|Đ)/','d',$string);
 			$string=preg_replace('/(í|ì|ỉ|ị|ĩ|Í|Ì|Ỉ|Ị|Ĩ)/','i',$string);
 			$string=preg_replace('/(ó|ò|ỏ|ọ|õ|ô|ố|ồ|ổ|ộ|ỗ|ơ|ớ|ờ|ở|ợ|ỡ|O|Ó|Ò|Ỏ|Ọ|Õ|Ô|Ố|Ồ|Ổ|Ộ|Ỗ|Ơ|Ớ|Ờ|Ở|Ợ|Ỡ)/','o',$string);
 			$string=preg_replace('/(ú|ù|ủ|ụ|ũ|ư|ứ|ừ|ử|ự|ữ|U|Ú|Ù|Ủ|Ụ|Ũ|Ư|Ứ|Ừ|Ử|Ự|Ữ)/','u',$string);
@@ -224,20 +225,20 @@
 		}
 		//lấy product hot tại trang detail
 		public function get_product_5star(){
-			$sql = "SELECT id_product,COUNT(star = 5) AS tongso5sao FROM tbl_review GROUP BY id_product ORDER BY tongso5sao DESC limit 0,30";
+			$sql = "SELECT id_product,COUNT(star) AS tongso5sao FROM tbl_review WHERE star=5 GROUP BY id_product ORDER BY tongso5sao DESC limit 0,30";
 			$pre = $this->pdo->prepare($sql);
 			$pre->execute();
 			return $pre->fetchAll(PDO::FETCH_ASSOC);
 		}
 		//xử lý pagination cho hot_pro
 		public function get_product_5star_limit($from, $row){
-			$sql = "SELECT id_product,COUNT(star = 5) AS tongso5sao FROM tbl_review GROUP BY id_product ORDER BY tongso5sao DESC limit $from,$row";
+			$sql = "SELECT id_product,COUNT(star) AS tongso5sao FROM tbl_review WHERE star=5 GROUP BY id_product ORDER BY tongso5sao DESC limit $from,$row";
 			$pre = $this->pdo->query($sql);
 			return $pre->fetchAll(PDO::FETCH_ASSOC);
 		}
 		//lấy product hot tại trang chủ
 		public function get_product_5star_home(){
-			$sql = "SELECT id_product,COUNT(star = 5) AS tongso5sao FROM tbl_review GROUP BY id_product ORDER BY tongso5sao DESC limit 0,8";
+			$sql = "SELECT id_product,COUNT(star) AS tongso5sao FROM tbl_review WHERE star=5 GROUP BY id_product ORDER BY tongso5sao DESC limit 0,8";
 			$pre = $this->pdo->prepare($sql);
 			$pre->execute();
 			return $pre->fetchAll(PDO::FETCH_ASSOC);
