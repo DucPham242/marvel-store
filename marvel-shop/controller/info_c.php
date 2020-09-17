@@ -82,8 +82,8 @@ class Info_c extends Info_m
 				}
 				else{
 					foreach ($rs as $key => $value) {
-						setcookie('id_user', $value['id_user'], time() + (90* 86400*100),'/PHP0320E2/marvel-store/marvel-shop');
-						setcookie('name_user', $value['name_user'], time() + (90* 86400*100),'/PHP0320E2/marvel-store/marvel-shop');
+						setcookie('id_user', $value['id_user'], time() + (90* 86400*100),'marvel/marvel-shop/');
+						setcookie('name_user', $value['name_user'], time() + (90* 86400*100),'marvel/marvel-shop/');
 					}
 					echo "ok";
 					header("Location:info-user");
@@ -135,7 +135,7 @@ class Info_c extends Info_m
 				if(!empty($facebook_user_info['id'])){
 					$_SESSION['user_idFB'] = $facebook_user_info['id'];
 					$_SESSION['user_imageFB'] = 'http://graph.facebook.com/'.$facebook_user_info['id'].'/picture';
-					setcookie('user_imageFB',$_SESSION['user_imageFB'] , time() + (90* 86400*100),'/PHP0320E2/marvel-store/marvel-shop');
+					setcookie('user_imageFB',$_SESSION['user_imageFB'] , time() + (90* 86400*100),'marvel/marvel-shop/');
 
 				}
 				if(!empty($facebook_user_info['name']))
@@ -150,8 +150,8 @@ class Info_c extends Info_m
 					$pass=md5(base64_encode($_SESSION['user_idFB']));
 					$add_user_FB=$this->info->add_User_FB($_SESSION['user_idFB'],$_SESSION['user_nameFB'],$pass);
 					$id_last=$this->info->lastInsertId();
-					setcookie('id_user',$id_last, time() + (90* 86400*100),'/PHP0320E2/marvel-store/marvel-shop');
-					setcookie('name_user',$_SESSION['user_nameFB'], time() + (90* 86400*100),'/PHP0320E2/marvel-store/marvel-shop');
+					setcookie('id_user',$id_last, time() + (90* 86400*100),'marvel/marvel-shop/');
+					setcookie('name_user',$_SESSION['user_nameFB'], time() + (90* 86400*100),'marvel/marvel-shop/');
 					header("Location:info/info-user");
 
 				}else{
@@ -159,8 +159,8 @@ class Info_c extends Info_m
 		// 				print_r($user_FB);
 		// 				echo "</pre>";
 					foreach ($user_FB as $key => $value) {
-						setcookie('id_user',$value['id_user'], time() + (90* 86400*100),'/PHP0320E2/marvel-store/marvel-shop');
-						setcookie('name_user',$value['name_user'], time() + (90* 86400*100),'/PHP0320E2/marvel-store/marvel-shop');
+						setcookie('id_user',$value['id_user'], time() + (90* 86400*100),'marvel/marvel-shop/');
+						setcookie('name_user',$value['name_user'], time() + (90* 86400*100),'marvel/marvel-shop/');
 						header("Location:info/info-user");
 					}
 				}
@@ -170,7 +170,7 @@ class Info_c extends Info_m
  // Get login url
     $facebook_permissions = ['email']; // Optional permissions
 
-    $facebook_login_url = $facebook_helper->getLoginUrl('http://localhost/PHP0320E2/marvel-store/marvel-shop/index.php?page=info&method=login', $facebook_permissions);
+    $facebook_login_url = $facebook_helper->getLoginUrl('marvel/marvel-shop/info/login', $facebook_permissions);
     
     // Render Facebook login button
     $facebook_login_url = '<div align="center"><a href="'.$facebook_login_url.'"><img src="images/login_FB.png" style="width:220px;" /></a></div>';
@@ -184,9 +184,9 @@ break;
 
 case 'logout':
 
-setcookie('id_user','',(time()-999999999999999999999999999999999999999),'/PHP0320E2/marvel-store/marvel-shop');
-setcookie('name_user','',(time()-999999999999999999999999999999999999999),'/PHP0320E2/marvel-store/marvel-shop');
-setcookie('user_imageFB','',(time()-999999999999999999999999999999999999999),'/PHP0320E2/marvel-store/marvel-shop');
+setcookie('id_user','',(time()-999999999999999999999999999999999999999),'marvel/marvel-shop/');
+setcookie('name_user','',(time()-999999999999999999999999999999999999999),'marvel/marvel-shop/');
+setcookie('user_imageFB','',(time()-999999999999999999999999999999999999999),'marvel/marvel-shop/');
 session_destroy();
 
 
@@ -197,9 +197,9 @@ break;
 				//logout từ trang checkout
 case 'logout1':
 
-setcookie('id_user','',(time()-999999999999999999999999999999999999999),'/PHP0320E2/marvel-store/marvel-shop');
-setcookie('name_user','',(time()-999999999999999999999999999999999999999),'/PHP0320E2/marvel-store/marvel-shop');
-setcookie('user_imageFB','',(time()-999999999999999999999999999999999999999),'/PHP0320E2/marvel-store/marvel-shop');
+setcookie('id_user','',(time()-999999999999999999999999999999999999999),'marvel/marvel-shop/');
+setcookie('name_user','',(time()-999999999999999999999999999999999999999),'marvel/marvel-shop/');
+setcookie('user_imageFB','',(time()-999999999999999999999999999999999999999),'marvel/marvel-shop/');
 
 session_destroy();
 header("Location:../cart");
@@ -695,7 +695,7 @@ if (isset($_COOKIE['id_user']) && isset($_COOKIE['name_user'])) {
 		}else{
 			//tạo ra 1 mã verification_code
 			$verification_code=base64_encode($email).time();
-
+echo $verification_code;
 			//Thêm hoặc sửa verification trong DB
 			$search_email=count($this->info->get_Verification_email($email));
 			if($search_email==0){
@@ -707,7 +707,7 @@ if (isset($_COOKIE['id_user']) && isset($_COOKIE['name_user'])) {
 			include_once 'PHPMailer/class.phpmailer.php';
 			include_once 'PHPMailer/class.smtp.php';
 
-			$resetpass_url='http://localhost/PHP0320E2/marvel-store/marvel-shop/index.php?page=info&method=reset-pass&email='.$email.'&code='.$verification_code;
+			$resetpass_url='http://localhost/marvel/marvel-shop/info/reset-pass&email='.$email.'&code='.$verification_code;
 
 			$data='<!DOCTYPE html>
 			<html lang="en">
@@ -786,14 +786,6 @@ if (isset($_COOKIE['id_user']) && isset($_COOKIE['name_user'])) {
 			}else{
 
 				header("Location:home");
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> cb35d09cbdac2b4a879cbc59e01d85563036cd23
-=======
-
->>>>>>> cb35d09cbdac2b4a879cbc59e01d85563036cd23
 			}
 			$check_url=$this->info->get_Verification_email_code($email,$verification_code);
 			if(count($check_url)!=1){

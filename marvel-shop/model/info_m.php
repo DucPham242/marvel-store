@@ -336,7 +336,6 @@
 			$pre->execute();
 			return $pre->fetchAll(PDO::FETCH_ASSOC);
 		}
-	
 
 }
  ?>

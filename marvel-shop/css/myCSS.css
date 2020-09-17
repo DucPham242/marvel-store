@@ -669,53 +669,53 @@ a:hover{
 		.res-nav{
 			display: block;
 		}
-	/*dropdown nav header*/
-	/*demo1*/
-	#demo4{
-		list-style: none;
-		background-color: #000;
-	}
-	#demo4 a li{
-		padding: 10px 20px;
-		color: red;
-	}
-	#demo4 a{
-		text-decoration: none;
-	}
-	/*end*/
-	/*demo2*/
-	#demo5{
-		list-style: none;
-		background-color: #000;
-	}
-	#demo5 a li{
-		padding: 10px 20px;
-		color: red;
-	}
-	#demo5 a{
-		text-decoration: none;
-	}
-	/*end*/
-	/*demo3*/
-	#demo6{
-		list-style: none;
-		background-color: #000;
-	}
-	#demo6 a li{
-		padding: 10px 20px;
-		color: red;
-	}
-	#demo6 a{
-		text-decoration: none;
-	}
-	/*end*/
-	.res-nav li a{
-		color: red;
-	}
-	.res-nav li a:hover{
-		color: red;
-		background: #000;
-	}
+		/*dropdown nav header*/
+		/*demo1*/
+		#demo4{
+			list-style: none;
+			background-color: #000;
+		}
+		#demo4 a li{
+			padding: 10px 20px;
+			color: #fff;
+		}
+		#demo4 a{
+			text-decoration: none;
+		}
+		/*end*/
+		/*demo2*/
+		#demo5{
+			list-style: none;
+			background-color: #000;
+		}
+		#demo5 a li{
+			padding: 10px 20px;
+			color: #fff;
+		}
+		#demo5 a{
+			text-decoration: none;
+		}
+		/*end*/
+		/*demo3*/
+		#demo6{
+			list-style: none;
+			background-color: #000;
+		}
+		#demo6 a li{
+			padding: 10px 20px;
+			color: #fff;
+		}
+		#demo6 a{
+			text-decoration: none;
+		}
+		/*end*/
+		.res-nav li a{
+			color: red;
+		}
+		.res-nav li a:hover{
+			color: red;
+			background: #000;
+		}
 
 		.cart-icon{
 			top:470px;
@@ -763,240 +763,244 @@ a:hover{
 			width: 10px;
 			background-color: red;
 			float: left;
-		}*/
+			}*/
 
-		/*cart*/
-		.table_cart{
-			/*background-color: red;*/
-			min-width: 100px;
-			min-height: 300px;
-			overflow: auto;
-		}
-		.shippingbox{
-			width: 250px;
-			height: 200px;
-		
-		}
-		.text-cart-rs{
-			color: red;
-			font-size: 25px;
-		}
-		.shippingbox h3{
-			font-size: 18px;
-			margin-bottom: 30px;
-		}
-		/*end*/
+			/*cart*/
+			.table_cart{
+				/*background-color: red;*/
+				min-width: 100px;
+				min-height: 300px;
+				overflow: auto;
+			}
+			.shippingbox{
+				width: 250px;
+				height: 200px;
 
-		/*pagination cho tất cả các trang*/
-		.pagination{
-			margin-left: 60px;
-		}
-		/*end*/
+			}
+			.text-cart-rs{
+				color: red;
+				font-size: 25px;
+			}
+			.shippingbox h3{
+				font-size: 18px;
+				margin-bottom: 30px;
+			}
+			/*end*/
 
-		/*user - info*/
-		#userbox_main{
-			width: 250px;
-			height: 100px;
-		}
-		/*end*/
-		#change_pass{
-			width: 250px;
-			min-height: 200px;
-			/*overflow: auto;*/
-		}
-		#table-info-user{
-			width: 300px;
-			min-height: 200px;
-			overflow: auto;
-		}
+			/*pagination cho tất cả các trang*/
+			.pagination{
+				margin-left: 60px;
+			}
+			/*end*/
 
-	}
-/*Responsive dành cho điện thoại nhỏ iphone X*/
-	@media only screen and (min-width:375px) and (max-width:812px){
-		#show-cart:hover .cart_hover-frame{
-			display: none;
-		}
-		.caption_price_left{
-			display: block;
-		}
-		.caption_price_right{
-			display: block;
-			margin-left:0px;
-		}
-		.product_box{
-			min-height: 435px;
-		}
-		.set:hover .shower{
-			display: none;
-		}
-		#iframe_page_fb{
-			margin-left: -20px;
-			width:300px;
-		}
-		.back-top{
-			bottom: 15px;
-			left: 10px;
-		}
-		.cart-icon{
-			top:500px;
-		}
-		.intro{
-			display: none
-		}
-		#input_search_top{
-			width: 150px;
-			margin-left: -20px;
+			/*user - info*/
+			#userbox_main{
+				width: 250px;
+				height: 100px;
+			}
+			/*end*/
+			#change_pass{
+				width: 250px;
+				min-height: 200px;
+				/*overflow: auto;*/
+			}
+			#table-info-user{
+				width: 300px;
+				min-height: 200px;
+				overflow: auto;
+			}
+			.contract{
+				width: 300px;
+				height: 500px;
+			}
 
 		}
-		.fb-customerchat{ /*Điện thoại thì ẩn chat FB*/
-			display: none; 
-		}
+		/*Responsive dành cho điện thoại nhỏ iphone X*/
+		@media only screen and (min-width:375px) and (max-width:812px){
+			#show-cart:hover .cart_hover-frame{
+				display: none;
+			}
+			.caption_price_left{
+				display: block;
+			}
+			.caption_price_right{
+				display: block;
+				margin-left:0px;
+			}
+			.product_box{
+				min-height: 435px;
+			}
+			.set:hover .shower{
+				display: none;
+			}
+			#iframe_page_fb{
+				margin-left: -20px;
+				width:300px;
+			}
+			.back-top{
+				bottom: 15px;
+				left: 10px;
+			}
+			.cart-icon{
+				top:500px;
+			}
+			.intro{
+				display: none
+			}
+			#input_search_top{
+				width: 150px;
+				margin-left: -20px;
 
-		.brand_img{
-			width: 130%;
-			margin-bottom: 5px;
-		}
+			}
+			.fb-customerchat{ /*Điện thoại thì ẩn chat FB*/
+				display: none; 
+			}
 
-		.box_listimg_detail{
-			margin-bottom: 30px;
-			margin-top: 30px;
-		}
-		#at_image{
-			display: none;
-		}
+			.brand_img{
+				width: 130%;
+				margin-bottom: 5px;
+			}
 
-
-
-		.bt-navtop-res{
-			margin-right: 45px;
-		}
-		.navbar-toggle {
-			float: left; 
-		}
-		/*ẩn input navhead*/
-		.input-navhea{
-			display: none;
-		}
-		.input-res{
-			margin-top: 10px;
-			display: block;
-		}
-		/*ẩn icon user và cart*/
-		#reload_cartbox{
-			display: none;
-		}
-		.icon-nav-res{
-			display: block;
-		}
-		#cart_nums{
-			padding: 0 1;
-			margin-left: -25px;
-		}
-		.res-nav{
-			display: block;
-		}
-		#menu_nav{
-			display: none;
-		}
-	/*dropdown nav header*/
-	/*demo1*/
-	#demo4{
-		list-style: none;
-		background-color: #000;
-	}
-	#demo4 a li{
-		padding: 10px 20px;
-		color: red;
-	}
-	#demo4 a{
-		text-decoration: none;
-	}
-	/*end*/
-	/*demo2*/
-	#demo5{
-		list-style: none;
-		background-color: #000;
-	}
-	#demo5 a li{
-		padding: 10px 20px;
-		color: red;
-	}
-	#demo5 a{
-		text-decoration: none;
-	}
-	/*end*/
-	/*demo3*/
-	#demo6{
-		list-style: none;
-		background-color: #000;
-	}
-	#demo6 a li{
-		padding: 10px 20px;
-		color: red;
-	}
-	#demo6 a{
-		text-decoration: none;
-	}
-	/*end*/
-	.res-nav li a{
-		color: red;
-	}
-	.res-nav li a:hover{
-		color: red;
-		background: #000;
-	}
+			.box_listimg_detail{
+				margin-bottom: 30px;
+				margin-top: 30px;
+			}
+			#at_image{
+				display: none;
+			}
 
 
-	/*cart*/
-		.table_cart{
-			/*background-color: red;*/
-			min-width: 100px;
-			min-height: 300px;
-			overflow: auto;
-		}
-		.shippingbox{
-			width: 280px;
-			height: 200px;
-		
-		}
-		.text-cart-rs{
-			color: red;
-			font-size: 25px;
-		}
-		.shippingbox h3{
-			font-size: 18px;
-			margin-bottom: 30px;
+
+			.bt-navtop-res{
+				margin-right: 45px;
+			}
+			.navbar-toggle {
+				float: left; 
+			}
+			/*ẩn input navhead*/
+			.input-navhea{
+				display: none;
+			}
+			.input-res{
+				margin-top: 10px;
+				display: block;
+			}
+			/*ẩn icon user và cart*/
+			#reload_cartbox{
+				display: none;
+			}
+			.icon-nav-res{
+				display: block;
+			}
+			#cart_nums{
+				padding: 0 1;
+				margin-left: -25px;
+			}
+			.res-nav{
+				display: block;
+			}
+			#menu_nav{
+				display: none;
+			}
+			/*dropdown nav header*/
+			/*demo1*/
+			#demo4{
+				list-style: none;
+				background-color: #000;
+			}
+			#demo4 a li{
+				padding: 10px 20px;
+				color: red;
+			}
+			#demo4 a{
+				text-decoration: none;
+			}
+			/*end*/
+			/*demo2*/
+			#demo5{
+				list-style: none;
+				background-color: #000;
+			}
+			#demo5 a li{
+				padding: 10px 20px;
+				color: red;
+			}
+			#demo5 a{
+				text-decoration: none;
+			}
+			/*end*/
+			/*demo3*/
+			#demo6{
+				list-style: none;
+				background-color: #000;
+			}
+			#demo6 a li{
+				padding: 10px 20px;
+				color: red;
+			}
+			#demo6 a{
+				text-decoration: none;
+			}
+			/*end*/
+			.res-nav li a{
+				color: red;
+			}
+			.res-nav li a:hover{
+				color: red;
+				background: #000;
+			}
+
+
+			/*cart*/
+			.table_cart{
+				/*background-color: red;*/
+				min-width: 100px;
+				min-height: 300px;
+				overflow: auto;
+			}
+			.shippingbox{
+				width: 280px;
+				height: 200px;
+
+			}
+			.text-cart-rs{
+				color: red;
+				font-size: 25px;
+			}
+			.shippingbox h3{
+				font-size: 18px;
+				margin-bottom: 30px;
+			}
+
+			/*pagination cho tất cả các trang*/
+			.pagination{
+				margin-left: 95px;
+			}
+			/*end*/
+
+
+			/*user - info*/
+			#userbox_main{
+				width: 250px;
+				height: 100px;
+			}
+			/*end*/
+			#change_pass{
+				width: 250px;
+				min-height: 200px;
+				/*overflow: auto;*/
+			}
+			#table-info-user{
+				width: 320px;
+				min-height: 200px;
+				overflow: auto;
+			}
+			/*end*/
+
 		}
 
-		/*pagination cho tất cả các trang*/
-		.pagination{
-			margin-left: 95px;
-		}
-		/*end*/
 
 
-		/*user - info*/
-		#userbox_main{
-			width: 250px;
-			height: 100px;
-		}
-		/*end*/
-		#change_pass{
-			width: 250px;
-			min-height: 200px;
-			/*overflow: auto;*/
-		}
-		#table-info-user{
-			width: 320px;
-			min-height: 200px;
-			overflow: auto;
-		}
-		/*end*/
 
-}
-	
-
-
-	
 
 

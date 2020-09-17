@@ -14,5 +14,5 @@ RewriteRule "^list-product/([a-zA-Z0-9-]+)/pages([0-9]+)$" "index.php?page=list-
 RewriteRule "^product-detail/([0-9]+)/([a-zA-Z0-9-()+#]+)$" "index.php?page=home&method=product-detail&id=$1$name=$2"
 
 
-ErrorDocument 404 http://localhost/PHP0320E2/marvel-store/marvel-shop/error
+ErrorDocument 404 http://localhost/marvel/marvel-shop/error
 

@@ -67,17 +67,19 @@
 						<div class="row">
 							<div class="col-md-12 col-md-push-4" style="margin-top: 10px;margin-bottom: 20px">
 								<button type="submit" name="submit_contact" class="btn btn-default">Gửi lời nhắn</button>
-								
+
 							</div>
 							<span id="check" style="color:red;">
-									<?php 
-										if(isset($_SESSION['noti_contact']) && $_SESSION['noti_contact']==1){
-											echo "<span style='color:green;'>Cảm ơn đóng góp ý kiến của bạn, MarvelStore sẽ phản hồi lại bạn nhanh nhất có thể</span>";
-										}else if(isset($_SESSION['noti_contact']) && $_SESSION['noti_contact']==2){
-											echo "<span style='color:red;'>Thất bại! Có lỗi trong quá trình gửi</span>";
-										}
-										unset($_SESSION['noti_contact']);
-									 ?>
+<?php
+if (isset($_SESSION['noti_contact']) && $_SESSION['noti_contact'] == 1) {
+	echo "<span style='color:green;'>Cảm ơn đóng góp ý kiến của bạn, MarvelStore sẽ phản hồi lại bạn nhanh nhất có thể</span>";
+
+} else if (isset($_SESSION['noti_contact']) && $_SESSION['noti_contact'] == 2) {
+	echo "<span style='color:red;'>Thất bại! Có lỗi trong quá trình gửi</span>";
+
+}
+unset($_SESSION['noti_contact']);
+?>
 								</span>
 						</div>
 					</form>
