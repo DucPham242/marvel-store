@@ -6,7 +6,7 @@
 		</ol>
 	</div>
 	<div class="row" >
-		<div class="col-md-8" >
+		<div class="col-md-8 col xs-8" >
 
 			<div class="panel panel-default">
 				<div class="panel-heading"><b>TIN TỨC</b></div>
@@ -60,7 +60,7 @@ foreach ($get_news as $key => $value) {
 					<div class="panel-heading"><b>NHỮNG SẢN PHẨM HOT NHẤT</b></div>
 					<div class="panel-body" style="">
 						<a href=""><div class="row" style="">
-							<div class="col-md-4" style="">
+							<div class="col-md-4 col-xs-4" style="">
 								<div class="row">
 									<img class="related_img" src="images/product/transformer/mo_hinh/Bumblebee Comicave kim loại/1.jpg" alt="">
 								</div>
@@ -78,7 +78,7 @@ foreach ($get_news as $key => $value) {
 						</div></a>
 						<br>
 						<a href=""><div class="row" style="">
-							<div class="col-md-4" style="">
+							<div class="col-md-4 col-xs-4" style="">
 								<div class="row">
 									<img class="related_img" src="images/product/transformer/mo_hinh/3AThreeZero Optimus Prime DLX Scale/1.jpg" alt="">
 								</div>
@@ -96,7 +96,7 @@ foreach ($get_news as $key => $value) {
 						</div></a>
 						<br>
 						<a href=""><div class="row" style="">
-							<div class="col-md-4" style="">
+							<div class="col-md-4 col-xs-4" style="">
 								<div class="row">
 									<img class="related_img" src="images/product/transformer/mo_hinh/COMBO LS-14 + LS-15/1.jpg" alt="">
 								</div>

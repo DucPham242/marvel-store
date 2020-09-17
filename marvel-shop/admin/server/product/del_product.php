@@ -41,6 +41,9 @@ if(isset($_GET['id']) && $_GET['id']>0){
 	if(is_dir("../../../images/product/").$id){
 		rmdir("../../../images/product/".$id);
 	}
+
+	$content_noti = 'Quản trị viên '.$_SESSION['name_admin']."(".$_SESSION['email_admin'].') đã xóa sản phẩm có id là '.$id.' vào lúc '.date('Y/m/d-H:i:s',time());
+		$add_noti_user = $admin->add_noti_product($id, $content_noti,3);
 		echo "Xoá thành công";
 		
 	}else{

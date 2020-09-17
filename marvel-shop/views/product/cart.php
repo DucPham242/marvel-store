@@ -72,7 +72,7 @@
 													<td>
 														<input type="number" value="<?php echo $cart['qty'] ?>" class="form-control" min="1" max="<?php echo $cart['quantity']; ?>" id="<?php echo $cart['id_product'] ?>" onchange="updatecart(<?php echo $cart['id_product']; ?>);" onkeypress="return onlyNum();" >
 													</td>
-													<td><input type="number" readonly="" class="form-control" value="<?php echo $cart['quantity']; ?>"></td>
+													<td><input type="number" readonly="" id="quantity<?php echo $cart['id_product']; ?>" class="form-control" value="<?php echo $cart['quantity']; ?>"></td>
 													<?php 
 													if ($cart['discount'] <= 0) {
 

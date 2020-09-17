@@ -87,18 +87,11 @@ class Product_c extends product_m
 			}else{
 				header("Location:home");
 			}
-			$rs=$this->pro->getProduct_Id($id);
-			$rs_seen=$this->pro->getProduct_Id_SS($id);			
-			$rs=$this->pro->add_discount($rs);
-
-			// echo '<pre>';
-			// print_r($rs);
-			$rs_listimg=$this->pro->get_Listimg($id);
-
-
 
 //Thiết lập sản phẩm đã xem qua
-			if (!isset($_SESSION['seen']) || empty($_SESSION['seen'])){
+			$rs_seen=$this->pro->getProduct_Id_SS($id);	
+
+				if (!isset($_SESSION['seen']) || empty($_SESSION['seen'])){
 				$_SESSION['seen'][$id]=$rs_seen;
 			}else{
 				if (!array_key_exists($id, $_SESSION['seen'])) {
@@ -111,12 +104,26 @@ class Product_c extends product_m
 			}
 			if (isset($_SESSION['seen'])) {
 				$count = count($_SESSION['seen']);
-				if ($count > 5) {
-					array_shift($_SESSION['seen']);
+				if ($count >5) {
+					foreach ($_SESSION['seen'] as $key => $value) {
+						unset($_SESSION['seen'][$key]);
+						break;
+					}
 				}
 			}
 
+			$rs=$this->pro->getProduct_Id($id);		
+			$rs=$this->pro->add_discount($rs);
+
+			// echo '<pre>';
+			// print_r($rs);
+			$rs_listimg=$this->pro->get_Listimg($id);
+
+
 			$_SESSION['seen']=$this->pro->add_Url_name($_SESSION['seen']);
+			// echo '<pre>';
+			// print_r($_SESSION['seen']);
+			// echo '</pre>';
 
 
 			

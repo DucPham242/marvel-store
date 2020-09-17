@@ -51,24 +51,24 @@ unset($_SESSION['noti_addAdmin']);
 				</button>
 			</div>
 			<div class="modal-body">
-				<form action="" method="POST" role="form">
+				<form action="" method="POST" role="form" onsubmit="return Validate_admin();">
 					<legend>Điền thông tin thành viên</legend>
 				
 					<div class="form-group">
-						<label for="">Họ tên</label><span class="spanerror"></span>
-						<input type="text" name="name" class="form-control" id="">
+						<label for="">Họ tên</label><span id="spanname" class="spanerror"></span>
+						<input type="text" name="name" class="form-control" id="name" value="<?php if(isset($name_admin)){echo $name_admin;} ?>" onblur="blur_name();">
 					</div>
 					<div class="form-group">
-						<label for="">SĐT</label><span class="spanerror"></span>
-						<input type="text" name="phone" class="form-control" id="">
+						<label for="">SĐT</label><span id="spanphone" class="spanerror"></span>
+						<input type="text" name="phone" class="form-control" id="phone" value="<?php if(isset($phone)){echo $phone;} ?>" onkeypress="return onlyNum();" onblur="blur_phone();">
 					</div>
 					<div class="form-group">
-						<label for="">Email</label><span class="spanerror"></span>
-						<input type="text" name="email" class="form-control" id="">
+						<label for="">Email</label><span id="spanemail" class="spanerror"></span>
+						<input type="text" name="email" class="form-control" id="email" value="<?php if(isset($email)){echo $email;} ?>" onblur="blur_email();" >
 					</div>
 					<div class="form-group">
 						<label for="">Quyền hạn</label><span class="spanerror"></span>
-						<select name="stt_admin" id="" class="form-control">
+						<select name="stt_admin" id="" class="form-control" value="<?php if(isset($stt_admin)){echo $stt_admin;} ?>">
 							<?php 
 							foreach ($rs_stt as $key => $stt) {
 								?>

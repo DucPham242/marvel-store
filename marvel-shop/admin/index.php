@@ -39,6 +39,8 @@
 							$create->create_page();
 							break;
 						
+						default:
+						header("Location:index.php");
 					}
 
 

@@ -24,6 +24,13 @@ if(isset($_GET['id']) && $_GET['id']>0 && isset($_GET['stt']) && isset($_GET['re
 	if($stt==5){
 		
 		$update=$admin->Update_STT_Order($id,$stt);
+		$info_order=$admin->getDetail_Order_Name($id);
+		// echo '<pre>';
+  //           print_r($info_order);
+  //           echo '</pre>';
+           foreach ($info_order as $key => $detail) {
+           		$edit_quantity=$admin->EditQuantity_Product($detail['id_product'],$detail['quantity']);
+           }
 		if($update){
 			foreach ($order as $key => $value) {//Add thêm thông báo vào bảng noti_order
                      $content_noti="Quản trị viên ".$_SESSION['name_admin']."(".$_SESSION['email_admin']."): đã cập nhật lại trạng thái đơn hàng có ID là: ".$value['id_order']." thành '".$name_stt. "' vào lúc ".date('Y/m/d-H:i:s',time())."\n LÝ DO: ".$reason;
@@ -43,7 +50,10 @@ if(isset($_GET['id']) && $_GET['id']>0 && isset($_GET['stt']) && isset($_GET['re
                      $content_noti="Quản trị viên ".$_SESSION['name_admin']."(".$_SESSION['email_admin']."): đã cập nhật lại trạng thái đơn hàng có ID là: ".$value['id_order']." thành '".$name_stt. "' vào lúc ".date('Y/m/d-H:i:s',time());
                       $add_noti=$admin->add_noti_order($id,$content_noti,2);
                     }
-
+             if($stt==4){
+             	$order_done=date("Y-m-d H:i:s",time());
+             	$update_order_done=$admin->update_Orderdone($id,$order_done);
+             }
 			echo "Cập nhật trạng thái thành công";
 		}else{
 			echo "Cập nhật thất bại";

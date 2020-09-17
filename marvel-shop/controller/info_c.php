@@ -777,7 +777,7 @@ echo $verification_code;
 			case 'reset-pass':
 			if (isset($_COOKIE['id_user']) || !empty($_COOKIE['id_user'])) {
 
-				header("Location:home");
+				header("Location:../home");
 			}
 
 			if(isset($_GET['email']) && isset($_GET['code'])){

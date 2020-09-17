@@ -1,10 +1,15 @@
 //Cập nhật lại số lượng sản phẩm trog giỏ hàng
 function updatecart(id){
 	var qty=$('#'+id).val();
-	$.get('server/product/update-cart.php',{id:id,qty:qty}, function(data) {
-		$('#table-box-cart').load(' #cart-table');
-		$("#cartbox").load(" #reload_cartbox");
-	});
+	var quantity=$('#quantity'+id).val();
+	if(qty>quantity){
+		alert('Số lượng sản phẩm chỉ còn '+quantity+' sản phẩm');
+	}
+		$.get('server/product/update-cart.php',{id:id,qty:qty}, function(data) {
+			$('#table-box-cart').load(' #cart-table');
+			$("#cartbox").load(" #reload_cartbox");
+		});
+
 }
 
 //Trường input chỉ cho nhập số
@@ -14,13 +19,13 @@ function onlyNum(){
 
 //Thiết lập sẵn SS price ship và voucherdefault
 function set_PriceShip_Voucher(){
-			$.post('server/info/changeSS-35k.php', function(data) {
-				
-			});
-			$.post('server/info/voucherDefault.php', function(data) {
-				
-			});
-			$("#price_table_box").load(" #content_price_table");
+	$.post('server/info/changeSS-35k.php', function(data) {
+
+	});
+	$.post('server/info/voucherDefault.php', function(data) {
+
+	});
+	$("#price_table_box").load(" #content_price_table");
 }
 set_PriceShip_Voucher();//Gọi hàm
 
@@ -344,44 +349,20 @@ $(document).on('change', '#sort_list_name', function(e) {
  	}
  }
 //validate cho form hoàn thiện thông tin cá nhân
-  function Validate_Update_inforUser(){
-  	if(blur_phone() && blur_addr() && blur_email()){
- 		
- 		return true;
- 	}
- 	else{
- 		alert('Dữ liệu nhập vào chưa đúng, yêu cầu kiểm tra lại !');
- 		return false;
+function Validate_Update_inforUser(){
+	if(blur_phone() && blur_addr() && blur_email()){
 
- 	}
-  }
+		return true;
+	}
+	else{
+		alert('Dữ liệu nhập vào chưa đúng, yêu cầu kiểm tra lại !');
+		return false;
+
+	}
+}
  //validate cho form Phuục hồi mật khẩu
  function Validate_forgetPass(){
-  	if(blur_email()){
- 		
- 		return true;
- 	}
- 	else{
- 		alert('Dữ liệu nhập vào chưa đúng, yêu cầu kiểm tra lại !');
- 		return false;
-
- 	}
-  }
- //validate cho form reset mật khẩu
- function Validate_ResetPass(){
-  	if(blur_pass() && blur_repass()){
- 		
- 		return true;
- 	}
- 	else{
- 		alert('Dữ liệu nhập vào chưa đúng, yêu cầu kiểm tra lại !');
- 		return false;
-
- 	}
-  }
-   //validate cho form gửi contact
- function Validate_contact(){
-  	if(blur_name() && blur_email() && blur_phone()){
+ 	if(blur_email()){
  		
  		return true;
  	}
@@ -391,3 +372,27 @@ $(document).on('change', '#sort_list_name', function(e) {
 
  	}
  }
+ //validate cho form reset mật khẩu
+ function Validate_ResetPass(){
+ 	if(blur_pass() && blur_repass()){
+ 		
+ 		return true;
+ 	}
+ 	else{
+ 		alert('Dữ liệu nhập vào chưa đúng, yêu cầu kiểm tra lại !');
+ 		return false;
+
+ 	}
+ }
+   //validate cho form gửi contact
+   function Validate_contact(){
+   	if(blur_name() && blur_email() && blur_phone()){
+
+   		return true;
+   	}
+   	else{
+   		alert('Dữ liệu nhập vào chưa đúng, yêu cầu kiểm tra lại !');
+   		return false;
+
+   	}
+   }
